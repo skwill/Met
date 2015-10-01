@@ -6,10 +6,15 @@
 	function HomeCtrl(metApi){
 		var vm = this;
 
-		var leagues = metApi.getLeagues();
-		vm.leagues = leagues;
+		metApi.getLeagues(function(data){
+			vm.leagues = data;
+			console.log(vm.leagues.items[0].forecaster);
+		});
 
-		console.log(vm.leagues.forecaster);
+		/*var leagues = metApi.getLeagues();
+		vm.leagues = leagues;*/
+
+		//console.log(vm.leagues.forecaster);
 		/*var leagueData = eliteApi. getLeagueData();
 
 		console.log(leagues, leagueData);*/
