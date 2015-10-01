@@ -1,7 +1,28 @@
 <ion-view>
 	<ion-content class="has-header container">
 		<h1>Bullettins</h1>
-  		<ion-slide-box on-slide-changed="slideHasChanged($index)" >
+  	
+        <button ui-sref="app.bullettins" class="button button-block button-positive">
+          General Information
+        </button>
+      
+        <button class="button button-block button-positive">
+          Severe Weather
+        </button>
+     
+        <button class="button button-block button-positive">
+          Floods
+        </button>
+     
+        <button class="button button-block button-positive">
+          Rough Seas
+        </button>
+    
+		<!-- <a class="button button-positive" href="#/app/teams/21">Go to team</a> -->
+	</ion-content>	
+</ion-view>
+
+<!-- <ion-slide-box on-slide-changed="slideHasChanged($index)" >
     <ion-slide>
       <div class="box blue" style="height: 400px; background-color: blue;"><h1>BLUE</h1></div>
     </ion-slide>
@@ -14,7 +35,4 @@
     <ion-slide>
       <div class="box pink" style="height: 400px; background-color: black;"><h1>BLACK</h1></div>
     </ion-slide>
-  </ion-slide-box>
-		<!-- <a class="button button-positive" href="#/app/teams/21">Go to team</a> -->
-	</ion-content>	
-</ion-view>
+  </ion-slide-box> -->
