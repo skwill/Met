@@ -11,11 +11,27 @@
 				});
 			//return leagues.items[0];
 		}
-		/*function getLeagueData(){
-			return leagueData;
-		}*/
+
+		function getBulletins(callback){
+			$http.get("http://190.58.130.230/api/bulletininfo")
+				.success(function(data){
+					callback(data);
+				});
+			//return leagues.items[0];
+		}
+
+		function getBulletinsev(callback){
+			$http.get("http://190.58.130.230/api/bulletinsev")
+				.success(function(data){
+					callback(data);
+				});
+			//return leagues.items[0];
+		}
+
 		return{
-			getLeagues: getLeagues
+			getLeagues: getLeagues,
+			getBulletins: getBulletins,
+			getBulletinsev: getBulletinsev
 			/*getLeagueData: getLeagueData*/
 		};
 	}
