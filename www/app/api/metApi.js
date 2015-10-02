@@ -5,7 +5,7 @@
 
 	function metApi($http){		
 		function getLeagues(callback){
-			$http.get("http://190.58.130.230/api/bulletinflood")
+			$http.get("http://190.58.130.230/api/forecast")
 				.success(function(data){
 					callback(data);
 				});
