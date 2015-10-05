@@ -6,11 +6,11 @@
 	  		<!-- <button menu-toggle="left" class="button button-icon icon ion-navicon"></button> -->
 	  		<ion-nav-back-button class="button-clear">
 	  			<i class="ion-arrow-left-c"></i>
-	  		</ion-nav-back-button> 	
+	  		</ion-nav-back-button>
 	  		<ion-nav-buttons side="primary">
 		      	<button menu-toggle="left" class="button button-icon icon ion-navicon" ></button>
 		    </ion-nav-buttons>
-	  	</ion-nav-bar> 	
+	  	</ion-nav-bar>
   		<ion-nav-view name="mainContent" animation="slide-left-right"></ion-nav-view>
   </ion-pane>
 
@@ -19,15 +19,19 @@
   	<!-- <header class="bar bar-header bar-balanced">
   		<h1 class="title">Menu</h1>
   	</header> -->
-  	<div class="bar bar-header bar-light">
+  	<!-- <div class="bar bar-header bar-light">
       <h1 class="title">Menu</h1>
-    </div>
-  	<ion-content class="has-header">
+    </div> -->
+  	<ion-content class="has-headerr">
   		<ion-list>
-  			<ion-item nav-clear menu-close ui-sref="app.home">Home</ion-item>
-  			<ion-item nav-clear menu-close ui-sref="app.bullettins">Bullettins</ion-item>
+  			<ion-item nav-clear menu-close ui-sref="app.home">
+                <span class=""></span>  Home
+            </ion-item>
+  			<ion-item nav-clear menu-close ui-sref="app.bullettins">
+                <span class=""></span>    Bullettins
+            </ion-item>
   			<ion-item nav-clear menu-close ui-sref="app.warnings">Warnings</ion-item>
-  			<ion-item nav-clear menu-close ui-sref="app.services">Servces</ion-item>  			
+  			<ion-item nav-clear menu-close ui-sref="app.services">Servces</ion-item>
   		</ion-list>
   	</ion-content>
   </ion-side-menu>

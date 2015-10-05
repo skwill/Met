@@ -1,49 +1,24 @@
-(function (){
-	'use strict';
+angular.module('metApp').controller('BulletinsCtrl', function(metApi) {
 
-	angular.module('metApp').controller('BulletinsCtrl', ['metApi', BulletinsCtrl]);
-
-	function BulletinsCtrl(metApi){
-		var vm = this;
-
+	var vm = this;
+	vm.getGIBulletins = function() {
 		metApi.getBulletins(function(data){
-			vm.bulletins = data;
-			console.log(vm.bulletins.items[0].forecaster);
+			vm.meta = data._meta;
+			vm.links = data._links;
+			vm.bulletins = data.items;
+			vm.pageTitle = vm.bulletins[0].bulletinpage;
 		});
+	}
 
-
-
-		/*var leagues = metApi.getLeagues();
-		vm.leagues = leagues;*/
-
-		//console.log(vm.leagues.forecaster);
-		/*var leagueData = eliteApi. getLeagueData();
-
-		console.log(leagues, leagueData);*/
-	};
-})();
-
-(function (){
-	'use strict';
-
-	angular.module('metApp').controller('BulletinsinfoCtrl', ['metApi', BulletinsinfoCtrl]);
-
-	function BulletinsinfoCtrl(metApi){
-		var vm = this;
-
+	vm.getSWBulletins = function() {
 		metApi.getBulletinsev(function(data){
-			vm.bulletins = data;
-			console.log(vm.bulletins.items[0].forecaster);
+			vm.bulletins = data.items;
+			vm.pageTitle = vm.bulletins[0].bulletinpage;
 		});
+	}
 
 
+	vm.getBulletin = function(id) {
 
-		/*var leagues = metApi.getLeagues();
-		vm.leagues = leagues;*/
-
-		//console.log(vm.leagues.forecaster);
-		/*var leagueData = eliteApi. getLeagueData();
-
-		console.log(leagues, leagueData);*/
-	};
-})();
+	}
+})

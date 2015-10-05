@@ -1,0 +1,88 @@
+.container {
+	padding: 20px;
+}
+
+.slider {
+ 	overflow: visible;
+ 	display: table; /* makes the slider have a height */
+}
+
+ion-slide {
+ 	padding-right: 20px;
+ 	padding-left: 0px;
+ 	&:first-child {
+ 		padding-left: 0;
+ 	}
+ 	&:last-child {
+ 		padding-right: 0;
+ 	}
+ 	&:nth-child(1) {
+	 	z-index: 4; /* posible fix for last slide positioning on top of next slide */
+	}
+	&:nth-child(2) {
+	 	z-index: 3; /* posible fix for last slide positioning on top of next slide */
+	}
+	&:nth-child(3) {
+	 	z-index: 2; /* posible fix for last slide positioning on top of next slide */
+	}
+	&:nth-child(4) {
+	 	z-index: 1; /* posible fix for last slide positioning on top of next slide */
+	}
+}
+
+.icon {
+	&-cloud{
+		&-night {
+			font-size: 60px;
+		}
+	}
+
+}
+
+.fixed {
+	&-bottom {
+		position: fixed;
+		bottom: 0;
+	}
+}
+
+// make menu open and close smoother
+.menu-animated {
+	-webkit-transition: all 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
+  	transition: all 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
+  	.view-container {
+  		.scroll-content {
+  			// padding: 10px 20px;
+  		}
+  	}
+}
+.bar {
+	&.bar-stable {
+		// border-color: transparent;
+	}
+}
+.menu {
+	background-color: #333;
+	.bar {
+		&.bar-stable {
+  			border-color: transparent;
+  			background-color: transparent;
+  			border: none;
+		}
+	}
+
+	.list {
+		.item {
+			color: #fff;
+			border-top: 0px;
+			background-color: #333;
+			a {
+				background-color: transparent;
+			}
+			&:last-of-type {
+				border-bottom: 0px;
+			}
+		}
+	}
+}
+

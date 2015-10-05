@@ -17,7 +17,6 @@ angular.module("metApp", ["ionic"])
 .config(function($stateProvider, $urlRouterProvider) {
   //this is the home route
   $stateProvider
-
     .state('app', {
       abstract: true,
       url: "/app",
@@ -46,6 +45,7 @@ angular.module("metApp", ["ionic"])
 
     .state('app.bulletininfo', {
       url: '/bulletininfo',
+      // controller: 'BulletinsCtrl as bc',
       views: {
         //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
         'mainContent': {
@@ -82,8 +82,8 @@ angular.module("metApp", ["ionic"])
           templateUrl: "app/services/services.html"
         }
       }
-    });   
-    
+    });
+
     // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/home');
 });

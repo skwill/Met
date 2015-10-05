@@ -2,36 +2,47 @@
 	'use strict';
 
 	angular.module('metApp').factory('metApi', ['$http', metApi]);
+	var url = 'http://190.58.130.230/api';
 
-	function metApi($http){		
+
+	function metApi($http){
+
+		function forecast(callback) {
+			$http.get('/forecast').success(function(resp) {
+				callback(resp);
+			});
+		}
+
 		function getLeagues(callback){
-			$http.get("http://190.58.130.230/api/forecast")
-				.success(function(data){
-					callback(data);
-				});
+			// $http.get("http://190.58.130.230/api/forecast")
+			// 	.success(function(data){
+			// 		callback(data);
+			// 	});
+
 			//return leagues.items[0];
 		}
 
 		function getBulletins(callback){
-			$http.get("http://190.58.130.230/api/bulletininfo")
+			$http.get("/bulletininfo")
 				.success(function(data){
 					callback(data);
 				});
-			//return leagues.items[0];
 		}
 
 		function getBulletinsev(callback){
-			$http.get("http://190.58.130.230/api/bulletinsev")
+			$http.get("/bulletinsev")
 				.success(function(data){
 					callback(data);
 				});
+
 			//return leagues.items[0];
 		}
 
 		return{
 			getLeagues: getLeagues,
 			getBulletins: getBulletins,
-			getBulletinsev: getBulletinsev
+			getBulletinsev: getBulletinsev,
+			forecast: forecast
 			/*getLeagueData: getLeagueData*/
 		};
 	}
