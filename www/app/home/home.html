@@ -1,9 +1,12 @@
-<ion-view>
+<ion-view view-title="MetApp">
     <ion-content class="container has-header" ng-controller="HomeCtrl as vm">
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
         <h4>Public Forecast</h4>
         <!-- <h2>{{vm.leagues}}</h2> -->
         <!--<a class="button button-positive" href="#/app/teams/21">Go to team</a>-->
         <span class="ion-ios-cloudy-night icon-cloud-night"></span>
+        <br>
+        <sup>Description of Forecast</sup>
     </ion-content>
 </ion-view>
 <!-- <ion-nav-bar class="bar-balanced">

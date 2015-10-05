@@ -35,6 +35,17 @@ angular.module("metApp", ["ionic"])
 
     .state('app.bullettins', {
       url: '/bullettins',
+      // abstract: true,
+      views: {
+        //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
+        'mainContent': {
+          templateUrl: "app/bullettins/bullettins.html"
+        }
+      }
+    })
+
+     .state('app.bullettins.info', {
+      url: '/bullettin',
       views: {
         //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
         'mainContent': {

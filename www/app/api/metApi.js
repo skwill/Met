@@ -10,17 +10,19 @@
 		function forecast(callback) {
 			$http.get('/forecast').success(function(resp) {
 				callback(resp);
+			}).finally(function() {
+
 			});
 		}
 
-		function getLeagues(callback){
-			// $http.get("http://190.58.130.230/api/forecast")
-			// 	.success(function(data){
-			// 		callback(data);
-			// 	});
+		// function getLeagues(callback){
+		// 	// $http.get("http://190.58.130.230/api/forecast")
+		// 	// 	.success(function(data){
+		// 	// 		callback(data);
+		// 	// 	});
 
-			//return leagues.items[0];
-		}
+		// 	//return leagues.items[0];
+		// }
 
 		function getBulletins(callback){
 			$http.get("/bulletininfo")
@@ -39,7 +41,7 @@
 		}
 
 		return{
-			getLeagues: getLeagues,
+			// getLeagues: getLeagues,
 			getBulletins: getBulletins,
 			getBulletinsev: getBulletinsev,
 			forecast: forecast
