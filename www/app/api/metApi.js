@@ -8,7 +8,7 @@
 	function metApi($http){
 
 		function forecast(callback) {
-			$http.get('/forecast').success(function(resp) {
+			$http.get(url+'/forecast').success(function(resp) {
 				callback(resp);
 			});
 		}
@@ -23,14 +23,14 @@
 		}
 
 		function getBulletins(callback){
-			$http.get("/bulletininfo")
+			$http.get(url+"/bulletininfo")
 				.success(function(data){
 					callback(data);
 				});
 		}
 
 		function getBulletinsev(callback){
-			$http.get("/bulletinsev")
+			$http.get(url+"/bulletinsev")
 				.success(function(data){
 					callback(data);
 				});
