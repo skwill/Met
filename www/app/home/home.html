@@ -1,10 +1,10 @@
-<ion-view>
-    <ion-content class="container has-header" ng-controller="HomeCtrl as vm" ng-init="vm.getForecast()">
-        <h4>Public Forecast</h4>
+<ion-view class="background" view-title="Met App">
+    <ion-content class="container has-header" ng-controller="HomeCtrl as vm" ng-init="vm.yForecast()">
+        <h4 style="text-align: center;">Public Forecast</h4>
         <!-- <h2>{{vm.leagues}}</h2> -->
         <!--<a class="button button-positive" href="#/app/teams/21">Go to team</a>-->
-        <span class="ion-ios-cloudy-night icon-cloud-night"></span>
-        <h4>{{vm.bulletins.IssuedAt}}</h4>
+        <div style="margin-bottom: 20px;"><span class="ion-ios-cloudy-night icon-cloud-night">{{vm.condition.temp}}</span> {{vm.condition.date}}</div>
+        <!-- <p>{{vm.condition.date}}</p> -->
     </ion-content>
 </ion-view>
 <!-- <ion-nav-bar class="bar-balanced">

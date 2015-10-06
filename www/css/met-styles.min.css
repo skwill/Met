@@ -1,1 +1,17 @@
 .container{padding:20px}.slider{overflow:visible;display:table}ion-slide{padding-right:20px;padding-left:0}ion-slide:first-child{padding-left:0}ion-slide:last-child{padding-right:0}ion-slide:nth-child(1){z-index:4}ion-slide:nth-child(2){z-index:3}ion-slide:nth-child(3){z-index:2}ion-slide:nth-child(4){z-index:1}.icon-cloud-night{font-size:60px}.fixed-bottom{position:fixed;bottom:0}.menu-animated{-webkit-transition:all .4s cubic-bezier(0.1,.7,.1,1);transition:all .4s cubic-bezier(0.1,.7,.1,1)}.menu{background-color:#333}.menu .bar.bar-stable{border-color:transparent;background-color:transparent;border:none}.menu .list .item{color:#fff;border-top:0;background-color:#333}.menu .list .item a{background-color:transparent}.menu .list .item:last-of-type{border-bottom:0}
+
+.background {
+    background: url(http://www.journeywoman.com/travelphotoessays/white-nights-russia/1-deep-blue-sky-journeywoman.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    margin: auto;
+    /*background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 80%;
+    height: 246px;
+    margin: auto;
+    /*z-index: 2;*/
+    /*position: relative;*/
+}

@@ -10,6 +10,18 @@ angular.module('metApp').controller('HomeCtrl', function(metApi) {
 			//vm.pageTitle = vm.bulletins[0].bulletinpage;
 		});
 	}
+
+	vm.yForecast = function() {
+		metApi.yahooForecast(function(data){
+			vm.condition = data.query.results.channel.item.condition;
+			console.log(data);
+			/*vm.meta = data._meta;
+			vm.links = data._links;*/
+			//vm.bulletins = data.items[0];
+			//console.log(vm.bulletins.IssuedAt);
+			//vm.pageTitle = vm.bulletins[0].bulletinpage;
+		});
+	}
 /*
 	vm.getSWBulletins = function() {
 		metApi.getBulletinsev(function(data){

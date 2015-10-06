@@ -13,6 +13,13 @@
 			});
 		}
 
+		function yahooForecast(callback) {
+			$http.get("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22port%20of%20spain%22%20)and%20u%3D'c'&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys").success(function(resp) {
+				callback(resp);
+			});
+		}
+		
+
 		function getLeagues(callback){
 			// $http.get("http://190.58.130.230/api/forecast")
 			// 	.success(function(data){
@@ -42,7 +49,8 @@
 			getLeagues: getLeagues,
 			getBulletins: getBulletins,
 			getBulletinsev: getBulletinsev,
-			forecast: forecast
+			forecast: forecast,
+			yahooForecast: yahooForecast
 			/*getLeagueData: getLeagueData*/
 		};
 	}
