@@ -1,10 +1,46 @@
 <ion-view class="background" view-title="Met App">
     <ion-content class="container has-header" ng-controller="HomeCtrl as vm" ng-init="vm.yForecast()">
-        <h4 style="text-align: center;">Public Forecast</h4>
+        <h4 class="center">Trinidad and Tobago</h4>
         <!-- <h2>{{vm.leagues}}</h2> -->
         <!--<a class="button button-positive" href="#/app/teams/21">Go to team</a>-->
-        <div style="margin-bottom: 20px;"><span class="ion-ios-cloudy-night icon-cloud-night">{{vm.condition.temp}}</span> {{vm.condition.date}}</div>
+        <div style="margin-bottom: 20px;" class="center">
+            <span class="ion-ios-cloudy-night icon-cloud-night">{{vm.condition.temp}}</span>{{vm.threeDay[0].date}}
+            <h5>{{vm.threeDay[0].text}}</h5>
+        </div>
+        <div class="row" class="threeDay">
+            <div class="col center">
+                <p >{{vm.threeDay[1].day}}</p>
+                <p><i class="ion-arrow-up-a"></i>{{vm.threeDay[1].high}}</p>
+                <p><i class="ion-arrow-down-a"></i>{{vm.threeDay[1].low}}</p>
+                <p>{{vm.threeDay[1].text}}</p>
+            </div>
+            <div class="col center">
+                <p>{{vm.threeDay[2].day}}</p>
+                <p><i class="ion-arrow-up-a"></i>{{vm.threeDay[2].high}}</p>
+                <p><i class="ion-arrow-down-a"></i>{{vm.threeDay[2].low}}</p>
+                <p>{{vm.threeDay[2].text}}</p>
+            </div>
+            <div class="col center">
+                <p>{{vm.threeDay[3].day}}</p>
+                <p><i class="ion-arrow-up-a"></i>{{vm.threeDay[2].high}}</p>
+                <p><i class="ion-arrow-down-a"></i>{{vm.threeDay[2].low}}</p>
+                <p>{{vm.threeDay[2].text}}</p>
+            </div>          
+        </div>
+
         <!-- <p>{{vm.condition.date}}</p> -->
+        <!-- <ul class="list-group">
+            <li class="list-group-item" ng-repeat="item in vm.threeDay">
+                <h4>{{item[1].date}}</h4>
+                <sup>{{item.currdate}}, {{item.issuedAt}}</sup>
+                <sup>{{item.forecaster}}</sup>
+                <p>{{item.textArea1}}</p>
+                <p>{{item.textArea2}}</p>
+                <p>{{item.textArea3}}</p>
+                <p>{{item.textArea4}}</p>
+                <a href="#" ><span class="pull-right glyphicon glyphicon-trash" style="margin-top: -25px; "></span></a>
+            </li>
+        </ul> -->
     </ion-content>
 </ion-view>
 <!-- <ion-nav-bar class="bar-balanced">

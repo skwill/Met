@@ -14,7 +14,8 @@ angular.module('metApp').controller('HomeCtrl', function(metApi) {
 	vm.yForecast = function() {
 		metApi.yahooForecast(function(data){
 			vm.condition = data.query.results.channel.item.condition;
-			console.log(data);
+			vm.threeDay = data.query.results.channel.item.forecast;
+			console.log(vm.threeDay);
 			/*vm.meta = data._meta;
 			vm.links = data._links;*/
 			//vm.bulletins = data.items[0];
