@@ -29,3 +29,15 @@ ion-slide:nth-child(3) {
 ion-slide:nth-child(4) {
  z-index: 1; // posible fix for last slide positioning on top of next slide
 }
+*/
+.background {
+    background: url(https://s-media-cache-ak0.pinimg.com/736x/8e/7d/e6/8e7de6bd7fa1b6df45a0bb8434e7f376.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 80%;
+    height: 246px;
+    margin: auto;
+    z-index: 2;
+    position: relative;
+}

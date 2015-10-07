@@ -1,40 +1,64 @@
-
-<ion-view view-title="MetApp">
-    <ion-content class="container has-header" ng-controller="HomeCtrl as vm">
+<ion-view class="background" view-title="Forecasts" ng-class="myclass">
+    <div class="background-vignette"></div>
+    <div class="background-darken"></div>
+    <ion-content class="container has-headerr home" ng-controller="HomeCtrl as vm" ng-init="vm.yForecast()">
         <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
-
-        <h4>Public Forecast</h4>
-        <!-- <h2>{{vm.leagues}}</h2> -->
-        <!--<a class="button button-positive" href="#/app/teams/21">Go to team</a>-->
-        <span class="ion-ios-cloudy-night icon-cloud-night"></span>
+        <h4 class="text-left country">Trinidad and Tobago</h4>
+        <p class="text-left city">{{vm.location}}</p>
+        <p class="text-left today">{{vm.threeDay[0].date}}</p>
 
         <br>
-        <sup>Description of Forecast</sup>
+        <div style="margin-bottom: 20px;" class="text-center">
+            <h5 class="text-center">{{vm.threeDay[0].text}}</h5>
+            <span class="ion-ios-cloudy-night icon-cloud-night">{{vm.condition.temp}}<sup>&deg;</sup></span>
+            <div class="row">
+            <div class="col"><p class="time-up"><span class="ion-ios-partlysunny-outline tti"></span><span class="tt">{{vm.sunrise}}</span></p></div>
+                <div class="col"><p class="time-down"><span class="ion-ios-moon-outline tti"></span><span class="tt">{{vm.sunset}}</span></p></div>
+            </div>
+        </div>
 
-        <!-- <h4>{{vm.bulletins.IssuedAt}}</h4> -->
-    </ion-content>
-</ion-view>
-<!-- <ion-nav-bar class="bar-balanced">
-    <ion-nav-title><h1 class="title">Elite Schedule</h1></ion-nav-title>
-</ion-nav-bar>
+        <div class="d3 threeDay">
+            <div class="row">
+                <div class="col">
+                    <h6 class="forecast-block-title">Forecast</h6>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col">
+                    <!-- <p>{{vm.threeDay[1].text}}</p> -->
+                    <p class="lead" >{{vm.threeDay[1].day}}</p>
+                </div>
+                <div class="col">
+                    <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{vm.threeDay[1].high}}<sup>&deg;</sup></p>
+                </div>
+                <div class="col">
+                    <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{vm.threeDay[1].low}}<sup>&deg;</sup></p>
+                </div>
+            </div>
+            <!-- <div class="separator"></div> -->
+            <div class="row" >
+                <div class="col">
+                    <p class="lead" >{{vm.threeDay[2].day}}</p>
+                </div>
+                <div class="col">
+                    <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{vm.threeDay[2].high}}<sup>&deg;</sup></p>
+                </div>
+                <div class="col">
+                    <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{vm.threeDay[2].low}}<sup>&deg;</sup></p>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col">
+                    <p class="lead" >{{vm.threeDay[3].day}}</p>
+                </div>
+                <div class="col">
+                    <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{vm.threeDay[3].high}}<sup>&deg;</sup></p>
+                </div>
+                <div class="col">
+                    <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{vm.threeDay[3].low}}<sup>&deg;</sup></p>
+                </div>
+            </div>
 
-<ion-tabs class="tabs-energized tabs-icon-top">
-    <ion-tab title="Leagues" icon="ion-home" href="#/home/leagues">
-        <ion-nav-view name="tab-leagues"></ion-nav-view>
-    </ion-tab>
-
-    <ion-tab title="My Teams" icon="ion-star" ui-sref="home.myteams">
-        <ion-nav-view name="tab-myteams"></ion-nav-view>
-    </ion-tab>
-</ion-tabs>
-<ion-view>
-    <ion-content class="has-header" ng-controller="HomeCtrl as vm">
-       <h1>Leagues</h1>
-        <div class="list">
-            <a class="item" >
-                {{vm.leagues[].name}}
-            </a>
         </div>
     </ion-content>
 </ion-view>
- -->
