@@ -9,6 +9,10 @@ angular.module('metApp').controller('HomeCtrl', function(metApi, $scope) {
 			//vm.pageTitle = vm.bulletins[0].bulletinpage;
 		});
 	}
+
+	$scope.doRefresh = function() {
+		$scope.$broadcast('scroll.refreshComplete');
+	}
 /*
 	vm.getSWBulletins = function() {
 		metApi.getBulletinsev(function(data){
