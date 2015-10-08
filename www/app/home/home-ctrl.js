@@ -1,15 +1,10 @@
-angular.module('metApp').run(function($rootScope) {
-		// $rootScope.myclass =  "bar-royal"
+angular.module('metApp').run(function($rootScope) {		
 	}).controller('HomeCtrl', function(metApi, $scope) {
 	var vm = this;
 
 	vm.getForecast = function() {
-		metApi.forecast(function(data){
-			/*vm.meta = data._meta;
-			vm.links = data._links;*/
-			vm.bulletins = data.items[0];
-			//console.log(vm.bulletins.IssuedAt);
-			//vm.pageTitle = vm.bulletins[0].bulletinpage;
+		metApi.forecast(function(data){			
+			vm.bulletins = data.items[0];			
 		});
 	}
 
@@ -20,53 +15,58 @@ angular.module('metApp').run(function($rootScope) {
 
 	vm.yForecast = function() {
 		metApi.yahooForecast(function(data){
+			var demo = document.getElementById("demo");
+			demo.style.background = timeOfDay();
+
 			vm.condition = data.query.results.channel.item.condition;
 			vm.threeDay = data.query.results.channel.item.forecast;
-			vm.location = data.query.results.channel.location.city; //item.pubDate //item.title
+			vm.location = data.query.results.channel.location.city; 
 			vm.pubDate = data.query.results.channel.item.pubDate;
 			vm.title = data.query.results.channel.item.title;
 			vm.sunrise = data.query.results.channel.astronomy.sunrise;
-			vm.sunset = data.query.results.channel.astronomy.sunset;
+			vm.sunset = data.query.results.channel.astronomy.sunset;		
 
-			var d = new Date();
-    		var n = d.getHours();
-
-    		var demo = document.getElementById("demo");
-
-    		if (n >= 6 && n < 12) {
-    			demo.style.background =  "url('https://hereandthereblogger.files.wordpress.com/2011/12/iphone-4-background-28.jpg') no-repeat center center";
-    		}else if (n >= 12 && n < 13) {
-    			demo.style.background =  "url('http://www.ilikewallpaper.net/iphone-5-wallpapers/download/11473/Miniature-City-2-iphone-5-wallpaper-ilikewallpaper_com.jpg') no-repeat center center"; 	
-    		}else if (n >= 15 && n < 18) {  
-    			demo.style.background =  "url('http://www.ilikewallpaper.net/iphone-4s-wallpapers/download/8047/Apple-Black-Background-iphone-4s-wallpaper-ilikewallpaper_com.jpg') no-repeat center center"; 		
-    		}else{
-    			demo.style.background =  "url('http://icetothebrim.com/wp-content/uploads/2012/01/iphone_space_ampersand_blur.png')  no-repeat center center";
-    			
-    		};
-
-    		console.log(data);
-
-    		
-
-    		
-			//console.log(n);
-			/*vm.meta = data._meta;
-			vm.links = data._links;*/
-			//vm.bulletins = data.items[0];
-			//console.log(vm.bulletins.IssuedAt);
-			//vm.pageTitle = vm.bulletins[0].bulletinpage;
-		});
-	}
-/*
-	vm.getSWBulletins = function() {
-		metApi.getBulletinsev(function(data){
-			vm.bulletins = data.items;
-			vm.pageTitle = vm.bulletins[0].bulletinpage;
+			vm.wicons = getWeatherIcons(vm.threeDay);
+    		console.log(vm.wicons);
+    		console.log(vm.threeDay);
 		});
 	}
 
+	function timeOfDay(){
+		var date = new Date();
+		var time = date.getHours();
 
-	vm.getBulletin = function(id) {
+		var url = "";
 
-	}*/
+		if (time >= 6 && time < 12) {
+			url = "url('../../img/home-images/sunrise.jpg')no-repeat center center";
+			return url;
+		}else if (time >= 12 && time < 18) {
+			url = "url('../../img/home-images/mid-day.jpg')no-repeat center center";
+			return url;
+		}else if (time >= 18 && time < 6) {
+			url = "url('../../img/home-images/night.jpg')no-repeat center center";
+			return url;
+		};
+	}
+
+	function getWeatherIcons(threeDay){
+		var conditions = ['Tropical Storm','Hurricane','Severe Thunderstorms','Thunderstorms','Drizzle','Windy','Showers','Cloudy','Sunny','Isolated Thunderstorms','Scattered Thunderstorms','Partly Cloudy','Thundershowers','Isolated Thundershowers','Not Available'];
+
+		var icons = ['ion-ios-thunderstorm-outline','ion-ios-thunderstorm-outline','ion-ios-thunderstorm-outline','ion-umbrella','ion-shuffle','ion-ios-rainy','ion-ios-cloud','ion-ios-sunny-outline','ion-ios-thunderstorm-outline','ion-ios-thunderstorm-outline','ion-ios-partlysunny','ion-ios-thunderstorm-outline','ion-ios-thunderstorm-outline','ion-ios-help-empty'];
+
+		var pass = ['', '', ''];
+		var passCount = 0;
+
+		for (i = 1; i < 4; i++) { 
+			for (t = 0; t < conditions.length; t++) {
+				if (threeDay[i].text == conditions[t]){					
+					pass[passCount] = icons[conditions.indexOf(conditions[t])-1];
+					passCount++;					
+					break;
+				};				
+			};		    
+		}
+		return pass;
+	}
 })

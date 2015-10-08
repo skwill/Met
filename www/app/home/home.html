@@ -10,7 +10,7 @@
 
         <br>
         <div style="margin-bottom: 20px;" class="text-center">
-            <h5 class="text-center">{{vm.threeDay[0].text}}</h5>
+            <h5 class="text-center">{{vm.condition.text}}</h5>
             <span class="ion-ios-cloudy-night icon-cloud-night">{{vm.condition.temp}}<sup>&deg;</sup></span>
             <div class="row">
             <div class="col"><p class="time-up"><span class="ion-ios-partlysunny-outline tti"></span><span class="tt">{{vm.sunrise}}</span></p></div>
@@ -29,7 +29,7 @@
                     <p class="lead" >{{vm.threeDay[1].day}}</p>
                 </div>
                 <div class="col">
-                    <p class="text-right icon-size"><i class="ion-ios-thunderstorm-outline"></i></p>
+                    <p class="text-right icon-size"><i class="{{vm.wicons[0]}}"></i></p>
                 </div>
                 <div class="col">
                     <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{vm.threeDay[1].high}}<sup>&deg;</sup></p>
@@ -44,7 +44,7 @@
                     <p class="lead" >{{vm.threeDay[2].day}}</p>
                 </div>
                 <div class="col">
-                    <p class="text-right icon-size"><i class="ion-ios-thunderstorm-outline"></i></p>
+                    <p class="text-right icon-size"><i class="{{vm.wicons[1]}}"></i></p>
                 </div>
                 <div class="col">
                     <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{vm.threeDay[2].high}}<sup>&deg;</sup></p>
@@ -58,7 +58,7 @@
                     <p class="lead" >{{vm.threeDay[3].day}}</p>
                 </div>
                 <div class="col">
-                    <p class="text-right icon-size"><i class="ion-ios-thunderstorm-outline"></i></p>
+                    <p class="text-right icon-size"><i class="{{vm.wicons[2]}}"></i></p>
                 </div>
                 <div class="col">
                     <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{vm.threeDay[3].high}}<sup>&deg;</sup></p>
