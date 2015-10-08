@@ -27,8 +27,8 @@ angular.module('metApp').run(function($rootScope) {
 			vm.sunset = data.query.results.channel.astronomy.sunset;		
 
 			vm.wicons = getWeatherIcons(vm.threeDay);
-    		console.log(vm.wicons);
-    		console.log(vm.threeDay);
+    		/*console.log(vm.wicons);
+    		console.log(vm.threeDay);*/
 		});
 	}
 
@@ -39,13 +39,13 @@ angular.module('metApp').run(function($rootScope) {
 		var url = "";
 
 		if (time >= 6 && time < 12) {
-			url = "url('../../img/home-images/sunrise.jpg')no-repeat center center";
+			url = "url('http://intelappsdca.com/met/images/sunrise.jpg')no-repeat center center";
 			return url;
 		}else if (time >= 12 && time < 18) {
-			url = "url('../../img/home-images/mid-day.jpg')no-repeat center center";
+			url = "url('http://intelappsdca.com/met/images/mid-day.jpg')no-repeat center center";
 			return url;
 		}else if (time >= 18 && time < 6) {
-			url = "url('../../img/home-images/night.jpg')no-repeat center center";
+			url = "url('http://intelappsdca.com/met/images/night.jpg')no-repeat center center";
 			return url;
 		};
 	}
