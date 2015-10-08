@@ -1,8 +1,9 @@
-<ion-view class="background" view-title="Forecasts" ng-class="myclass">
+<ion-view class="background" view-title="Forecast" id="demo" ng-class="myclass">
     <div class="background-vignette"></div>
     <div class="background-darken"></div>
+
     <ion-content class="container has-headerr home" ng-controller="HomeCtrl as vm" ng-init="vm.yForecast()">
-        <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()" style="margin-top: -20px;"></ion-refresher>
         <h4 class="text-left country">Trinidad and Tobago</h4>
         <p class="text-left city">{{vm.location}}</p>
         <p class="text-left today">{{vm.threeDay[0].date}}</p>
@@ -20,13 +21,15 @@
         <div class="d3 threeDay">
             <div class="row">
                 <div class="col">
-                    <h6 class="forecast-block-title">Forecast</h6>
+                    <h6 class="forecast-block-title text-center">Forecast</h6>
                 </div>
             </div>
             <div class="row" >
                 <div class="col">
-                    <!-- <p>{{vm.threeDay[1].text}}</p> -->
                     <p class="lead" >{{vm.threeDay[1].day}}</p>
+                </div>
+                <div class="col">
+                    <p class="text-right icon-size"><i class="ion-ios-thunderstorm-outline"></i></p>
                 </div>
                 <div class="col">
                     <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{vm.threeDay[1].high}}<sup>&deg;</sup></p>
@@ -41,6 +44,9 @@
                     <p class="lead" >{{vm.threeDay[2].day}}</p>
                 </div>
                 <div class="col">
+                    <p class="text-right icon-size"><i class="ion-ios-thunderstorm-outline"></i></p>
+                </div>
+                <div class="col">
                     <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{vm.threeDay[2].high}}<sup>&deg;</sup></p>
                 </div>
                 <div class="col">
@@ -50,6 +56,9 @@
             <div class="row" >
                 <div class="col">
                     <p class="lead" >{{vm.threeDay[3].day}}</p>
+                </div>
+                <div class="col">
+                    <p class="text-right icon-size"><i class="ion-ios-thunderstorm-outline"></i></p>
                 </div>
                 <div class="col">
                     <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{vm.threeDay[3].high}}<sup>&deg;</sup></p>
