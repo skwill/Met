@@ -1,5 +1,5 @@
 angular.module('metApp').run(function($rootScope) {		
-	}).controller('HomeCtrl', function(metApi, $scope) {
+	}).controller('HomeCtrl', function(metApi, $scope, $ionicLoading, $timeout) {
 	var vm = this;
 
 	vm.getForecast = function() {
@@ -13,8 +13,20 @@ angular.module('metApp').run(function($rootScope) {
 		$scope.$broadcast('scroll.refreshComplete');
 	}
 
+	$scope.show = function() {
+    $ionicLoading.show({
+      template: '<p>Loading...</p><ion-spinner></ion-spinner>'
+    });
+  };
+
+  $scope.hide = function(){
+        $ionicLoading.hide();
+  };
+
 	vm.yForecast = function() {
+			$scope.show($ionicLoading);
 		metApi.yahooForecast(function(data){
+			
 			var demo = document.getElementById("demo");
 			demo.style.background = timeOfDay();
 
@@ -27,6 +39,7 @@ angular.module('metApp').run(function($rootScope) {
 			vm.sunset = data.query.results.channel.astronomy.sunset;		
 
 			vm.wicons = getWeatherIcons(vm.threeDay);
+			$scope.hide($ionicLoading);
     		/*console.log(vm.wicons);
     		console.log(vm.threeDay);*/
 		});
@@ -44,7 +57,7 @@ angular.module('metApp').run(function($rootScope) {
 		}else if (time >= 12 && time < 18) {
 			url = "url('http://intelappsdca.com/met/images/mid-day.jpg')no-repeat center center";
 			return url;
-		}else if (time >= 18 && time < 6) {
+		}else if (time >= 18) {
 			url = "url('http://intelappsdca.com/met/images/night.jpg')no-repeat center center";
 			return url;
 		};
