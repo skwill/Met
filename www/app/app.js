@@ -1,5 +1,12 @@
-angular.module("metApp", ["ionic"])
-
+angular.module("ionic.metApp", ['ionic', 'ionic.metApp.services', 'ionic.metApp.filters', 'ionic.metApp.directives'])
+.constant('WUNDERGROUND_API_KEY', '1cc2d3de40fa5af0')
+  .constant('FORECASTIO_KEY', '4cd3c5673825a361eb5ce108103ee84a')
+  .constant('FLICKR_API_KEY', '504fd7414f6275eb5b657ddbfba80a2c')
+  .filter('int', function() {
+   return function(v) {
+     return parseInt(v) || '';
+   };
+  })
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -35,6 +42,17 @@ angular.module("metApp", ["ionic"])
 
     .state('app.bullettins', {
       url: '/bullettins',
+      // abstract: true,
+      views: {
+        //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
+        'mainContent': {
+          templateUrl: "app/bullettins/bullettins.html"
+        }
+      }
+    })
+
+     .state('app.bullettins.info', {
+      url: '/bullettin',
       views: {
         //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
         'mainContent': {

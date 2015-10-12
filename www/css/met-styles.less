@@ -1,52 +1,313 @@
+
 .container {
 	padding: 20px;
 }
-
-.slider {
- 	overflow: visible;
- 	display: table; /* makes the slider have a height */
+.bar {
+	// &.bar-header.disable-user-behavior {
+	// 	background: transparent;
+	// }
 }
 
-ion-slide {
- 	padding-right: 20px;
- 	padding-left: 0px;
- 	&:first-child {
- 		padding-left: 0;
- 	}
- 	&:last-child {
- 		padding-right: 0;
- 	}
- 	&:nth-child(1) {
-	 	z-index: 4; /* posible fix for last slide positioning on top of next slide */
-	}
-	&:nth-child(2) {
-	 	z-index: 3; /* posible fix for last slide positioning on top of next slide */
-	}
-	&:nth-child(3) {
-	 	z-index: 2; /* posible fix for last slide positioning on top of next slide */
-	}
-	&:nth-child(4) {
-	 	z-index: 1; /* posible fix for last slide positioning on top of next slide */
-	}
+body {
+  // text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
+  // background-color: black;
+}
+#wrapper {
+  background-color: black;
+}
+#scroller {
+}
+.bg-image {
+  position: fixed;
+  width: 120%;
+  height: 120%;
+  background-size: cover;
 }
 
-.icon {
-	&-cloud{
-		&-night {
-			font-size: 60px;
+.bg-fade {
+	&> {
+		&.ng-enter {
+			opacity: 0;
+            -webkit-transition: opacity 2s ease-in-out;
+		}
+		&.ng-enter-active {
+			opacity: 1;
+		}
+		&.ng-leave {
+			opacity: 1;
+            -webkit-transition: opacity 2s ease-in-out;
+		}
+		&.ng-leave-active {
+			opacity: 0;
 		}
 	}
-
 }
 
-.fixed {
-	&-bottom {
-		position: fixed;
-		bottom: 0;
+// .bg-fade > .ng-enter {
+//   opacity: 0;
+//   -webkit-transition: opacity 2s ease-in-out;
+// }
+// .bg-fade > .ng-enter-active {
+//   opacity: 1;
+// }
+// .bg-fade > .ng-leave {
+//   opacity: 1;
+//   -webkit-transition: opacity 2s ease-in-out;
+// }
+// .bg-fade > .ng-leave-active {
+//   opacity: 0;
+// }
+
+h1,h2,h3,h4,h5 {
+  // color: #fff;
+  font-weight: 300;
+}
+
+#main-content {
+  color: #fff;
+  padding: 10px;
+}
+
+.ion-ios7-sunny-outline {
+  color: yellow;
+}
+
+.ionic-refresher-content {
+
+  // text-shadow: none;
+}
+
+/**
+ * Header
+ */
+#header {
+	button {
+		color: #fff;
 	}
+  	background-color: transparent !important;
+  	height: 44px;
+  	& > * {
+  		margin-top: 0px;
+  	}
+  	.title {
+  		color: #fff;
+  		font-size: 12px;
+	  	// line-height: 20px;
+	  	margin-top: -2px;
+	  	.city {
+
+	  		font-size: 16px;
+  			font-weight: 100;
+	  	}
+  	}
 }
 
-// make menu open and close smoother
+
+#city-nav-icon {
+  font-size: 11px;
+  margin-right: 2px;
+}
+
+.scroll-refresher {
+  overflow: visible;
+}
+.ionic-refresher-content {
+  background-color: rgba(0,0,0,0.4);
+  color: rgb(255,255,255) !important;
+  min-height: 400px;
+  // height: auto;
+  bottom: 0;
+}
+.ionic-refresher-content {
+  padding-top: 320px;
+}
+/**
+ * Current weather
+ */
+
+#current-weather {
+  height: 180px;
+  box-sizing: content-box;
+  text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
+  #cw-summary, #cw-range, .current-temp {
+  	margin-bottom: 0px;
+  	margin-top: 0px;
+  }
+  #cw-summary {
+  	margin-bottom: -10px;
+  }
+}
+#current-weather > * {
+  color: #fff;
+}
+#current-weather .current-temp {
+  font-size: 100px;
+  font-weight: 100;
+  margin: 0;
+  padding: 0;
+  line-height: 80px;
+}
+
+
+#current-icon {
+  font-size: 42px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+#temp-hi, #temp-lo { display: inline-block; }
+#temp-lo {
+  margin-left: 10px;
+}
+
+/**
+ * Forecast and details
+ */
+.weather-box {
+  background-color: rgba(0,0,0,0.2);
+  padding: 9px;
+  margin: 10px 0px;
+  color: rgba(255,255,255,0.9);
+}
+
+.weather-box .title {
+  color: rgba(255,255,255,0.9);
+  font-weight: normal;
+  margin: 0;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #fff;
+}
+
+
+.weather-box .row {
+  border-bottom: 1px dotted rgba(255,255,255,0.3);
+  margin: 0;
+  padding: 0;
+}
+.weather-box .col {
+  text-align: center;
+}
+.weather-box .col:first-child {
+  text-align: left;
+}
+.weather-box .col:last-child {
+  text-align: right;
+}
+
+.weather-box span {
+  vertical-align: middle;
+}
+
+.weather-box .icon {
+  font-size: 42px;
+  line-height: 24px;
+  vertical-align: middle;
+}
+
+.temp-high {
+  display: inline-block;
+  width: 30px;
+  text-align: right;
+}
+.temp-low {
+  display: inline-block;
+  width: 30px;
+  text-align: right;
+  color: #4a87ee;
+}
+
+
+.no-header {
+  top: 0 !important;
+}
+
+#forecast-scroll {
+  margin: 10px 0px;
+}
+#hourly-forecast {
+  width: 2250px;
+  height: 80px;
+}
+.hourly-hour {
+  display: inline-block;
+  margin-right: 10px;
+  text-align: center;
+}
+
+#forecast .credit {
+  float: right;
+  margin-top: 4px;
+  margin-right: 4px;
+}
+#forecast .credit a {
+  color: #fff;
+}
+
+/**
+ * Settings modal
+ */
+
+#settings-modal {
+  background-color: rgba(0,0,0,0.8);
+}
+
+#settings-modal .item {
+  background-color: rgba(0,0,0,0.9);
+  border: none;
+  color: #fff;
+}
+#settings-modal .input-label {
+  color: #fff;
+}
+
+
+
+// .slider {
+//  	overflow: visible;
+//  	display: table; /* makes the slider have a height */
+// }
+
+// ion-slide {
+//  	padding-right: 20px;
+//  	padding-left: 0px;
+//  	&:first-child {
+//  		padding-left: 0;
+//  	}
+//  	&:last-child {
+//  		padding-right: 0;
+//  	}
+//  	&:nth-child(1) {
+// 	 	z-index: 4; /* posible fix for last slide positioning on top of next slide */
+// 	}
+// 	&:nth-child(2) {
+// 	 	z-index: 3; /* posible fix for last slide positioning on top of next slide */
+// 	}
+// 	&:nth-child(3) {
+// 	 	z-index: 2; /* posible fix for last slide positioning on top of next slide */
+// 	}
+// 	&:nth-child(4) {
+// 	 	z-index: 1; /* posible fix for last slide positioning on top of next slide */
+// 	}
+// }
+
+// .icon {
+// 	&-cloud{
+// 		&-night {
+// 			font-weight: 100;
+// 			font-size: 80px;
+// 		}
+// 	}
+
+// }
+
+// .fixed {
+// 	&-bottom {
+// 		position: fixed;
+// 		bottom: 0;
+// 	}
+// }
+
+// // make menu open and close smoother
 .menu-animated {
 	-webkit-transition: all 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
   	transition: all 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
@@ -56,33 +317,274 @@ ion-slide {
   		}
   	}
 }
-.bar {
-	&.bar-stable {
-		// border-color: transparent;
+// .bar {
+// 	background-image: none !important;
+// 	&.bar-stable {
+// 		// border-color: transparent;
+// 	}
+// }
+// .menu {
+// 	background-color: #333;
+// 	.bar {
+// 		&.bar-stable {
+//   			border-color: transparent;
+//   			background-color: transparent;
+//   			border: none;
+// 		}
+// 	}
+
+// 	.list {
+// 		.item {
+// 			color: #fff;
+// 			border-top: 0px;
+// 			background-color: #333;
+// 			a {
+// 				background-color: transparent;
+// 			}
+// 			&:last-of-type {
+// 				border-bottom: 0px;
+// 			}
+// 		}
+// 	}
+// }
+
+// .box {
+// 	background: #fff;
+// 	&.blue {
+
+// 	}
+// 	// background-color: blue;
+// 	min-width: 200px;
+// 	width: 100%;
+// 	min-height: 400px;
+// }
+
+// .card {
+// 	.item {
+// 		margin-bottom: -1px;
+// 	}
+// }
+// .item {
+// 	&.tabs {
+// 		margin-top: 1px;
+// 	}
+// }
+
+// .ionic .item h2 {
+//     margin: 0 0 2px 0;
+//     font-size: 16px;
+//     font-weight: normal;
+// }
+
+// .ionic .item p {
+//     color: #666;
+//     font-size: 14px;
+//     margin-bottom: 2px;
+// }
+// .ionic p {
+//     margin: 0 0 10px;
+// }
+
+// .bar {
+// 	background-color: transparent;
+// }
+
+.background-vignette {
+	height: 100%;
+	background-image: 8121991;
+    background-image: -webkit-radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
+    background-image: -moz-radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
+    background-image: -o-radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
+    background-image: radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
+    background-color: rgba(156, 0, 254, 0.08);
+     &:before {
+		content: "";
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		opacity: 0.4;
+		filter: alpha(opacity=90);
+		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=$opacity-ie)";
+		@accent_col1: #6cceec; // blue
+		@accent_col2: rgba(0, 0, 0, 0.45); // black
+		@accent_col3: #f37074; // pink
+		background-color: @accent_col2;
+		background-image: -webkit-linear-gradient(@accent_col2 12%,#f37074);
+		background-image: -webkit-linear-gradient(@accent_col2 12%, #f37074);
+		ackground-image: linear-gradient(@accent_col2 12%,#f37074);
 	}
 }
-.menu {
-	background-color: #333;
-	.bar {
-		&.bar-stable {
-  			border-color: transparent;
-  			background-color: transparent;
-  			border: none;
-		}
-	}
 
-	.list {
-		.item {
-			color: #fff;
-			border-top: 0px;
-			background-color: #333;
-			a {
-				background-color: transparent;
-			}
-			&:last-of-type {
-				border-bottom: 0px;
-			}
-		}
-	}
+.background-darken {
+    // background-color: rgba(0, 0, 0, 0.55);
+    // height: 100%;
+    // width: 100%;
+    // position: absolute;
+    // top: 0;
+    // left: 0;
 }
 
+// .d3 {
+// 	// background-color: rgba(0, 0, 0, 0.45);
+// 	border-radius: 2px;
+// 	margin-top: 20px;
+// 	p.lead {
+// 		font-weight: 400;
+// 	}
+// 	.forecast-block-title {
+// 		// font-weight: 100;
+// 		letter-spacing: 1.5px;
+// 		padding-bottom: 5px;
+// 		border-bottom: 1px solid #fff;
+// 	}
+// 	.fc-low, .fc-high {
+// 		i {
+// 			margin-right: 5px;
+// 		}
+// 	}
+// }
+
+
+
+// .home {
+// 	.title {
+// 		// color: #fff!important;
+// 		font-weight: 100!important;
+// 	}
+// 	.time-up, .time-down {
+// 		margin-left: -30px;
+// 		.tt {
+
+// 			font-size: 12px;
+// 			margin-top: 12px;
+// 			position: absolute;
+// 		}
+// 		span.tti {
+// 			margin-top: 10px;
+// 			margin-right: 10px;
+// 			font-size: 45px;
+// 		}
+// 	}
+// 	.title {
+// 		// color: #fff!important;
+// 	}
+// 	sup {
+// 		// font-weight: 100;
+// 	}
+// 	.country {
+// 		margin-top: 0px;
+// 		margin-bottom: 0px;
+// 		font-weight: 300!important;
+// 	}
+// 	.city {
+// 		margin-bottom: 0px;
+// 	}
+// 	.today {
+// 		margin-bottom: 0;
+// 	    font-size: 14px;
+// 	    font-weight: 200;
+// 	}
+// 	h4, p, div {
+// 		color : #fff;
+// 	}
+// 	font-weight: 400;
+// 	color : #fff!important;
+// 	h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+// 	    color: #fff!important;
+// 	}
+// 	.separator {
+// 		width: 100%;
+// 		border-bottom: 1px dashed #fff;
+// 	}
+// }
+
+// .background {
+//     background: url(http://www.ilikewallpaper.net/iphone-5-wallpapers/download/11473/Miniature-City-2-iphone-5-wallpaper-ilikewallpaper_com.jpg)no-repeat center center;
+//     -webkit-background-size: cover;
+//     -moz-background-size: cover;
+//     -o-background-size: cover;
+//     background-size: cover;
+//     width: 100%;
+//     margin: auto;
+//     background-attachment: scroll;
+//     /*background-repeat: no-repeat;
+//     background-size: contain;
+//     background-position: center;
+//     width: 80%;
+//     height: 246px;
+//     margin: auto;
+//     /*z-index: 2;*/
+//     /*position: relative;*/
+//     &:before {
+// 		content: "";
+// 		position: absolute;
+// 		top: 0;
+// 		right: 0;
+// 		bottom: 0;
+// 		left: 0;
+// 		opacity: 0.4;
+// 		filter: alpha(opacity=90);
+// 		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=$opacity-ie)";
+// 		@accent_col1: #6cceec; // blue
+// 		@accent_col2: rgba(0, 0, 0, 0.45); // black
+// 		@accent_col3: #f37074; // pink
+// 		background-color: @accent_col2;
+// 		background-image: -webkit-linear-gradient(@accent_col2 12%,#f37074);
+// 		background-image: -webkit-linear-gradient(@accent_col2 12%, #f37074);
+// 		ackground-image: linear-gradient(@accent_col2 12%,#f37074);
+// 	}
+// }
+
+// .background2 {
+//     background: url(https://s-media-cache-ak0.pinimg.com/736x/ba/60/f5/ba60f50ae26042721aa801e74a7a5551.jpg)no-repeat center center;
+//     -webkit-background-size: cover;
+//     -moz-background-size: cover;
+//     -o-background-size: cover;
+//     background-size: cover;
+//     width: 100%;
+//     margin: auto;
+//     background-attachment: scroll;
+//     /*background-repeat: no-repeat;
+//     background-size: contain;
+//     background-position: center;
+//     width: 80%;
+//     height: 246px;
+//     margin: auto;
+//     /*z-index: 2;*/
+//     /*position: relative;*/
+//     &:before {
+// 		content: "";
+// 		position: absolute;
+// 		top: 0;
+// 		right: 0;
+// 		bottom: 0;
+// 		left: 0;
+// 		opacity: 0.4;
+// 		filter: alpha(opacity=90);
+// 		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=$opacity-ie)";
+// 		@accent_col1: #6cceec; // blue
+// 		@accent_col2: rgba(0, 0, 0, 0.45); // black
+// 		@accent_col3: #f37074; // pink
+// 		background-color: @accent_col2;
+// 		background-image: -webkit-linear-gradient(@accent_col2 12%,#f37074);
+// 		background-image: -webkit-linear-gradient(@accent_col2 12%, #f37074);
+// 		ackground-image: linear-gradient(@accent_col2 12%,#f37074);
+// 	}
+// }
+
+
+// .text-center{
+//     text-align: center;
+// }
+// .text-right {
+// 	text-align: right;
+// }
+// .text-left {
+// 	text-align: left;
+// }
+
+// .home {
+// 	// display: none;
+// }
