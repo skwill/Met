@@ -21,7 +21,7 @@ angular.module('ionic.metApp.directives', [])
     },
     template: '<i class="icon" ng-class="weatherIcon"></i>',
     link: function($scope) {
-
+      // console.log($scope)
       $scope.$watch('icon', function(v) {
         if(!v) { return; }
 
@@ -31,6 +31,30 @@ angular.module('ionic.metApp.directives', [])
           $scope.weatherIcon = WEATHER_ICONS[icon];
         } else {
           $scope.weatherIcon = WEATHER_ICONS['cloudy'];
+        }
+         // console.log(icon)
+      });
+    }
+  }
+})
+
+.directive('currentIcon', function(WEATHER_ICONS) {
+
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      icon: '='
+    },
+    template: '<i class="icon" ng-class="currentIcon"></i>',
+    link: function($scope) {
+      $scope.$watch('icon', function(v) {
+        if(!v) { return; }
+        var icon = v;
+        if(icon in WEATHER_ICONS) {
+          $scope.currentIcon = WEATHER_ICONS[icon];
+        } else {
+          $scope.currentIcon = WEATHER_ICONS['cloudy'];
         }
       });
     }
@@ -109,7 +133,7 @@ angular.module('ionic.metApp.directives', [])
         var windowHeight = window.innerHeight;
         var thisHeight = $element[0].offsetHeight;
         var headerHeight = document.querySelector('#header').offsetHeight;
-        $element[0].style.paddingTop = (windowHeight - (thisHeight) + 20) + 'px';
+        $element[0].style.paddingTop = (windowHeight - (thisHeight) + 10) + 'px';
         angular.element(document.querySelector('.content')).css('-webkit-overflow-scrolling', 'auto');
         $timeout(function() {
           angular.element(document.querySelector('.content')).css('-webkit-overflow-scrolling', 'touch');

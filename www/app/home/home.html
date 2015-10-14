@@ -1,12 +1,12 @@
 <!-- <ion-view view-title="Forecast" ng-class="myclass" ng-controller="HomeCtrl as vm"> -->
-<ion-pane class="containerr has-header"  ng-controller="HomeCtrl">
+<ion-pane class="containerr"  ng-controller="HomeCtrl">
     <!---->
 
     <background-cycler class="bg-fade">
       <div class="background-vignette"></div>
     </background-cycler>
 
-    <ion-header-bar id="header" class="bar bar-header bar-clear">
+    <ion-header-bar id="header" class="bar bar-header bar-cdlear">
       <!-- <ion-nav-title align-title="center">Met App</ion-nav-title> -->
         <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
         <h1 class="title">
@@ -16,7 +16,7 @@
             </span>
             <current-time localtz="current.local_tz_short"></current-time>
         </h1>
-        <button ng-click="showSettings()" class="button button-icon"><i class="icon ion-gear-a"></i></button>
+        <button ng-click="showSettings()" class="button button-icon"><i class="settings-icon ion-gear-a"></i></button>
     </ion-header-bar>
 
     <ion-content scroll-event-interval="20" scroll-effects scrollbar-y="false" class="no-header">

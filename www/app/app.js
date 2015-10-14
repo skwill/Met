@@ -1,3 +1,5 @@
+// weather app based on driftyco ionic-weather
+// https://github.com/driftyco/ionic-weather
 angular.module("ionic.metApp", ['ionic', 'ionic.metApp.services', 'ionic.metApp.filters', 'ionic.metApp.directives'])
 .constant('WUNDERGROUND_API_KEY', '1cc2d3de40fa5af0')
   .constant('FORECASTIO_KEY', '4cd3c5673825a361eb5ce108103ee84a')

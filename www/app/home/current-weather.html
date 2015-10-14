@@ -4,5 +4,8 @@
     <span id="temp-hi"><i class="icon ion-arrow-up-c"></i> <span ng-bind="highTemp"></span>&deg;</span>
     <span id="temp-lo"><i class="icon ion-arrow-down-c"></i> <span ng-bind="lowTemp"></span>&deg;</span>
   </h5>
-  <h1 class="current-temp"><span ng-bind="currentTemp"></span>&deg;</h1>
+  <h1 class="current-temp">
+    <current-icon icon="current.currently.icon"></current-icon>
+  	<span ng-bind="currentTemp"></span>&deg;
+  </h1>
 </div>

@@ -1,3 +1,5 @@
+// weather app based on driftyco ionic-weather
+// https://github.com/driftyco/ionic-weather
 angular.module('ionic.metApp'/*, */)
 
 	.controller('HomeCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform) {
@@ -35,8 +37,12 @@ angular.module('ionic.metApp'/*, */)
 				console.log('Got Current', $scope.current);
 				$rootScope.$broadcast('scroll.refreshComplete');
 				var s = timeOfDay();
+				// var t = new Date($scope.current.currently.time);
+				var f = convertTimestamp($scope.current.currently.time); //t.toISOString();
+				$scope.time = f;
+				console.log(f)
 				// console.log("Date: "+s)
-				_this.getBackgroundImage(lat, lng, $scope.current.currently.summary+", "+$scope.current.daily.icon+", hd, "+s);
+				_this.getBackgroundImage(lat, lng, $scope.current.currently.summary+", "+$scope.current.daily.icon+", hq, trinidad, "+s);
 				// console.log($scope.current.currently.summary)
 		}, function(error) {
 				alert('Unable to get current conditinos');
@@ -150,6 +156,19 @@ angular.module('ionic.metApp'/*, */)
 
 		return s;
 	}
+
+	function convertTimestamp(UNIX_timestamp) {
+  var a = new Date(UNIX_timestamp * 1000);
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var year = a.getFullYear();
+  var month = months[a.getMonth()];
+  var date = a.getDate();
+  var hour = a.getHours();
+  var min = a.getMinutes();
+  var sec = a.getSeconds();
+  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+  return time;
+}
 
 	// function getWeatherIcons(threeDay){
 	// 	var conditions = ['Tropical Storm','Hurricane','Severe Thunderstorms','Thunderstorms','Drizzle','Windy','Showers','Cloudy','Sunny','Isolated Thunderstorms','Scattered Thunderstorms','Partly Cloudy','Thundershowers','Isolated Thundershowers','Not Available'];
