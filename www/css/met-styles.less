@@ -325,6 +325,25 @@ h1,h2,h3,h4,h5 {
 	&.bar-stable {
 		// border-color: transparent;
 	}
+	&.bar-subheader {
+		border-bottom: 1px solid #ddd;
+		height: 30px;
+		margin-top: -10px;
+		margin-bottom: 10px;
+		.title {
+			z-index: 1;
+			font-size: 14px;
+			font-weight: 400;
+			line-height: 20px;
+		}
+	}
+	.title {
+		&.no-left {
+			left: 0px!important;
+			font-size: 14px!important;
+			font-weight: 400;
+		}
+	}
 }
 // .menu {
 // 	background-color: #333;
@@ -351,16 +370,31 @@ h1,h2,h3,h4,h5 {
 // 	}
 // }
 
-// .box {
-// 	background: #fff;
-// 	&.blue {
+.box {
+	background: #fff;
+	&.blue {
 
-// 	}
-// 	// background-color: blue;
-// 	min-width: 200px;
-// 	width: 100%;
-// 	min-height: 400px;
-// }
+	}
+	// background-color: blue;
+	min-width: 200px;
+	width: 100%;
+	min-height: 400px;
+}
+.slider-pager {
+	display: none;
+}
+
+.list {
+	.item {
+		.title {
+			color: #000;
+		}
+		.follow {
+			font-size: 12px;
+    		color: rgba(0,0,0,0.54);
+		}
+	}
+}
 
 // .card {
 // 	.item {
@@ -399,7 +433,7 @@ h1,h2,h3,h4,h5 {
     background-image: -moz-radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
     background-image: -o-radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
     background-image: radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
-    background-color: rgba(156, 0, 254, 0.08);
+    // background-color: rgba(156, 0, 254, 0.08);
      &:before {
 		// content: "";
 		// position: absolute;
@@ -591,3 +625,24 @@ h1,h2,h3,h4,h5 {
 // .home {
 // 	// display: none;
 // }
+
+//Scale-In Animation
+.scale-in {
+  transform: scale(0.9);
+  opacity: 0;
+}
+.scale-in.ng-enter,
+.scale-in > .ng-enter {
+  transition: all cubic-bezier(.1, .7, .1, 1) 400ms;
+}
+
+.scale-in.ng-enter-active,
+.scale-in > .ng-enter-active {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.scale-in.ng-leave,
+.scale-in > .ng-leave {
+  transition: all ease-in-out 250ms;
+}

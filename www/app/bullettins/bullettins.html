@@ -1,48 +1,53 @@
-<ion-view view-title="Bullettins" ng-class="myclass" class="background2">
+<ion-view view-title="Bullettins" ng-class="" class="" ng-controller="BulletinsCtrl as vm">
     <ion-nav-bar>
-            <!-- <ion-nav-title align-title="center">Met App</ion-nav-title> -->
-            <!-- <button menu-toggle="left" class="button button-icon icon ion-navicon"></button> -->
-            <ion-nav-back-button class="button-clear">
-                <i class="ion-arrow-left-c"></i>
-            </ion-nav-back-button>
+        <ion-nav-back-button class="button-clear">
+            <i class="ion-arrow-left-c"></i>
+        </ion-nav-back-button>
+        <ion-nav-buttons side="left">
+            <button menu-toggle="left" class="button button-icon icon ion-navicon" ></button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <div class="bar bar-subheader">
+        <p class="title">{{sub_title}}</p>
+    </div>
 
-            <ion-nav-buttons side="left">
-                <button menu-toggle="left" class="button button-icon icon ion-navicon" ></button>
-            </ion-nav-buttons>
-
-        </ion-nav-bar>
-	<ion-content class="has-header">
-		<!-- <h4>Bullettins</h4> -->
-
-        <div class="list card">
-            <div class="item" ui-sref="app.bulletininfo">
-                <h2>General Information</h2>
-            </div>
-            <div class="item" ui-sref="app.bulletinsev">
-                <h2>Severe Weather</h2>
-            </div>
-            <div class="item">
-                <h2>Floods</h2>
-            </div>
-            <div class="item">
-                <h2>Rough Seas</h2>
-            </div>
-        </div>
-
-	</ion-content>
+    <ion-content class="has-header container">
+        <!-- <sup>Description of warnings</sup> -->
+        <ion-slide-box on-slide-changed="slideHasChanged($index)" ng-init="vm.update_slide(0)">
+            <ion-slide ng-init="vm.getGIBulletins()">
+                <div class="box">
+                    <div class="list">
+                        <div ng-repeat="item in vm.b_info" ng-click="gi_info_open({{item.bulletinNum}})" data-id="item.bulletinNum">
+                            <div class="item">
+                                <p class="title">{{item.bulletinType}}</p>
+                                <h6 class="follow">{{item.currdate}}, {{item.issuedAt}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ion-slide>
+            <ion-slide ng-init="vm.getSWBulletins()">
+                <div class="box">
+                    <div class="list" ng-if="vm.bulletins">
+                        <div ng-repeat="item in vm.bulletins">
+                            <div class="item">
+                                <p class="title">{{item.bulletinType}}</p>
+                                <h6 class="follow">{{item.currdate}}, {{item.issuedAt}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ion-slide>
+            <ion-slide ng-init="vm.get_flood_b()">
+                <div class="box">
+                    <p>Floods</p>
+                </div>
+            </ion-slide>
+            <ion-slide>
+                <div class="box">
+                    <p>Rough Seas</p>
+                </div>
+            </ion-slide>
+        </ion-slide-box>
+    </ion-content>
 </ion-view>
-
-<!-- <ion-slide-box on-slide-changed="slideHasChanged($index)" >
-    <ion-slide>
-      <div class="box blue" style="height: 400px; background-color: blue;"><h1>BLUE</h1></div>
-    </ion-slide>
-    <ion-slide>
-      <div class="box yellow" style="height: 400px; background-color: yellow;"><h1>YELLOW</h1></div>
-    </ion-slide>
-    <ion-slide>
-      <div class="box pink" style="height: 400px; background-color: pink;"><h1>PINK</h1></div>
-    </ion-slide>
-    <ion-slide>
-      <div class="box pink" style="height: 400px; background-color: black;"><h1>BLACK</h1></div>
-    </ion-slide>
-  </ion-slide-box> -->

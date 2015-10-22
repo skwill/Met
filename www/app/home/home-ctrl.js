@@ -22,7 +22,7 @@ angular.module('ionic.metApp'/*, */)
 					$scope.settingsModal.show();
 				}, {
 					// animation we want for modal entrance
-					animation: 'slide-in-up'
+					animation: 'scale-in'
 				})
 			}
 			else {
@@ -103,11 +103,14 @@ angular.module('ionic.metApp'/*, */)
 		// }
 
 
-		// _this.getForecast = function() {
-		// 	metApi.forecast(function(data){
-		// 		_this.bulletins = data.items[0];
-		// 	});
-		// }
+		_this.getForecast = function() {
+			metApi.get_forecast(function(data){
+				console.log(data)
+				// _this.bulletins = data.items[0];
+			});
+		}
+
+		_this.getForecast();
 
 		// $scope.doRefresh = function() {
 		// 	_this.yForecast();

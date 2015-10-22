@@ -7,7 +7,7 @@
 
 	function metApi($http){
 
-		function forecast(callback) {
+		function get_forecast(callback) {
 			$http.get(url+'/forecast').success(function(resp) {
 				callback(resp);
 			}).finally(function() {
@@ -15,39 +15,116 @@
 			});
 		}
 
-		function yahooForecast(callback) {
-			$http.get("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22port%20of%20spain%22%20)and%20u%3D'c'&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys").success(function(resp) {
-				callback(resp);
-			});
-		}
-
-		function getBulletins(callback){
-			$http.get(url+"/bulletininfo")
+		function get_b_info(callback, id){
+			var link = " ";
+			if(id =! 'undefined') {
+				link = '/'+id;
+			}
+			$http.get(url+"/bulletininfo"+link)
 				.success(function(data){
 					callback(data);
 				});
 		}
 
-		function getBulletinsev(callback){
+		function get_b_serv(callback){
 			$http.get(url+"/bulletinsev")
 				.success(function(data){
 					callback(data);
 				});
+		}
 
-			//return leagues.items[0];
+		function get_b_flood(callback) {
+			$http.get(url+'/bulletinflood')
+				.success(function(data) {
+					callback(data)
+				})
+		}
+
+		function get_b_sea(callback) {
+			$http.get(url+'/bulletinsea')
+				.success(function(data) {
+					callback(data)
+				})
+		}
+
+		function get_o_air(callback) {
+			$http.get(url+'/outlookair')
+				.success(function(data) {
+					callback(data)
+				})
+		}
+
+		function get_o_aviation(callback) {
+			$http.get(url+'/outlookaviation')
+				.success(function(data) {
+					callback(data)
+				})
+		}
+
+		function get_o_period(callback) {
+			$http.get(url+'/outlookperiod')
+				.success(function(data) {
+					callback(data)
+				})
+		}
+
+		function get_o_tv(callback) {
+			$http.get(url+'/outlooktv')
+				.success(function(data) {
+					callback(data)
+				})
+		}
+
+		function get_sigmet(callback) {
+			$http.get(url+'/sigmet')
+				.success(function(data) {
+					callback(data)
+				})
+		}
+
+		function get_ttcp(callback) {
+			$http.get(url+'/ttcp')
+				.success(function(data) {
+					callback(data)
+				})
+		}
+
+		function get_ttpp(callback) {
+			$http.get(url+'/ttpp')
+				.success(function(data) {
+					callback(data)
+				})
+		}
+
+		function get_warn(callback) {
+			$http.get(url+'/warn')
+				.success(function(data) {
+					callback(data)
+				})
+		}
+
+		function get_watch(callback) {
+			$http.get(url+'/watch')
+				.success(function(data) {
+					callback(data)
+				})
 		}
 
 		return{
-			// getLeagues: getLeagues,
-			getBulletins: getBulletins,
-			getBulletinsev: getBulletinsev,
-			forecast: forecast,
-			yahooForecast: yahooForecast
-			/*getLeagueData: getLeagueData*/
+			get_forecast: get_forecast,
+			get_b_info: get_b_info,
+			get_b_serv: get_b_serv,
+			get_b_flood: get_b_flood,
+			get_b_sea: get_b_sea,
+			get_o_air: get_o_air,
+			get_o_aviation: get_o_aviation,
+			get_o_period: get_o_period,
+			get_o_tv: get_o_tv,
+			get_sigmet: get_sigmet,
+			get_ttcp: get_ttcp,
+			get_ttpp: get_ttpp,
+			get_warn: get_warn,
+			get_watch: get_watch,
 		};
 	}
 })();
-
-/*var leagues = JSON.parse('[{"id":1005,"name":"5th Grade Saturday 2013-14 League","isDirty":false,"isArchived":false},{"id":1004,"name":"6th Grade Friday 2013-14 League","isDirty":false,"isArchived":false},{"id":2008,"name":"7th Grade HYBA Spring 2014","isDirty":false,"isArchived":false},{"id":1,"name":"7th Grade MS JV Friday 2013-14 League","isDirty":false,"isArchived":false},{"id":2,"name":"7th Grade MS JV Saturday 2013-14 League","isDirty":false,"isArchived":false},{"id":3,"name":"8th Grade MS Varsity Friday 2013-14 League","isDirty":false,"isArchived":false},{"id":1003,"name":"8th Grade MS Varsity Saturday 2013-14 League","isDirty":false,"isArchived":false},{"id":2007,"name":"Friday Spring 6th Grade","isDirty":false,"isArchived":false},{"id":2005,"name":"March Madness Tournament 2014","isDirty":false,"isArchived":false},{"id":2010,"name":"Metro Classic 2014","isDirty":false,"isArchived":false},{"id":2009,"name":"Spring Fling Tournament 2014","isDirty":false,"isArchived":false},{"id":2011,"name":"Summer Showdown 2014","isDirty":false,"isArchived":false}]');*/
-
-	/*	var leagues = {"items":[{"bulletinflooddatatblID":1,"flag":"0","bulletinpage":"Flood","forecaster":"Marlon Noel","bulletinType":"FLOOD BULLETIN","bulletinNum":"232","textArea1":"sdfaf","textArea2":"dsfsd","textArea3":"","textArea4":"","textArea5":"","insertionDate":"2015-09-03","issuedAt":"01:17 PM","currdate":"Thursday 03rd of September 2015 ","jsonObject":"{\"flag\":\"1\",\"bulletinpage\":\"Flood\",\"forecaster\":\"Marlon Noel\",\"bulletinType\":\"FLOOD BULLETIN\",\"bulletinNum\":\"232\",\"textArea1\":\"sdfaf\",\"textArea2\":\"dsfsd\",\"textArea3\":\"\",\"textArea4\":\"\",\"textArea5\":\"\",\"issuedAt\":\"01:17 PM\",\"currdate\":\"Thursday 03rd of September 2015 \",\"insertionDate\":\"2015-09-03\"}"}],"_links":{"self":{"href":"http://190.58.130.230/api/bulletinfloods?page=1"}},"_meta":{"totalCount":1,"pageCount":1,"currentPage":1,"perPage":20}};*/

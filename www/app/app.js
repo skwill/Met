@@ -102,7 +102,17 @@ angular.module("ionic.metApp", ['ionic', 'ionic.metApp.services', 'ionic.metApp.
           templateUrl: "app/services/services.html"
         }
       }
-    });
+    })
+
+
+    .state('app.about', {
+      url: '/about',
+      views: {
+        'mainContent': {
+          templateUrl: 'app/about/about.html'
+        }
+      }
+    })
 
     // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/home');

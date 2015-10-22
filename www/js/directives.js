@@ -186,7 +186,9 @@ angular.module('ionic.metApp.directives', [])
         }
         amt = Math.min(0.6, st / 1000);
 
+
         ionic.requestAnimationFrame(function() {
+          // console.log(amt)
           header.style.opacty = 1 - amt;
           if(bg) {
             bg.style.opacity = 1 - amt;
