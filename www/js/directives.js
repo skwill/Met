@@ -174,6 +174,7 @@ angular.module('ionic.metApp.directives', [])
     link: function($scope, $element, $attr) {
       var amt, st, header;
       var bg = document.querySelector('.bg-image');
+      var ff = document.getElementById('ff');
       $element.bind('scroll', function(e) {
         if(!header) {
           header = document.getElementById('header');
@@ -185,13 +186,17 @@ angular.module('ionic.metApp.directives', [])
           header.style.webkitTransform = 'translate3d(0, ' + -st + 'px, 0)';
         }
         amt = Math.min(0.6, st / 1000);
-
+        var blur ='';
+        // ff.setAttribute("style", "-webkit-filter: blur("+amt*10+"px); -moz-filter: blur("+amt*10+"px); -o-filter: blur("+amt*10+"px); -ms-filter: blur("+amt*10+"px); filter: url('data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='60'%20/></filter></svg>#blur'); filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='"+amt*10+"'); clip: rect(520px 573px 516px 351px); /*transition: all 0.1s ease-in-out;*/");
+        // header.setAttribute("style", "-webkit-filter: blur("+amt*10+"px); -moz-filter: blur("+amt*10+"px); -o-filter: blur("+amt*10+"px); -ms-filter: blur("+amt*10+"px); filter: url('data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='60'%20/></filter></svg>#blur'); filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='"+amt*10+"'); clip: rect(520px 573px 516px 351px); /*transition: all 0.1s ease-in-out;*/");
+         // console.log(ff)
 
         ionic.requestAnimationFrame(function() {
           // console.log(amt)
           header.style.opacty = 1 - amt;
           if(bg) {
             bg.style.opacity = 1 - amt;
+            // bg.setAttribute("style", "-webkit-filter: blur("+amt*2+"px)")
           }
         });
       });
