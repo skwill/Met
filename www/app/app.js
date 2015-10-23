@@ -53,12 +53,12 @@ angular.module("ionic.metApp", ['ionic', 'ionic.metApp.services', 'ionic.metApp.
       }
     })
 
-     .state('app.bullettins.info', {
-      url: '/bullettin',
+    .state('app.singlebulletin', {
+      url: '/singlebullettin',
       views: {
         //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
         'mainContent': {
-          templateUrl: "app/bullettins/bullettins.html"
+          templateUrl: "app/bullettins/singlebulletin.html"
         }
       }
     })

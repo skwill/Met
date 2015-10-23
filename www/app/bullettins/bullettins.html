@@ -1,22 +1,143 @@
-<ion-view view-title="Bullettins" ng-class="myclass" class="background2">
+<ion-view view-title="Bullettins"  class="background2">
     <ion-nav-bar>
-            <!-- <ion-nav-title align-title="center">Met App</ion-nav-title> -->
-            <!-- <button menu-toggle="left" class="button button-icon icon ion-navicon"></button> -->
-            <ion-nav-back-button class="button-clear">
-                <i class="ion-arrow-left-c"></i>
-            </ion-nav-back-button>
+        <!-- <ion-nav-title align-title="center">Met App</ion-nav-title> -->
+        <!-- <button menu-toggle="left" class="button button-icon icon ion-navicon"></button> -->
+        <ion-nav-back-button class="button-clear">
+            <i class="ion-arrow-left-c"></i>
+        </ion-nav-back-button>
 
-            <ion-nav-buttons side="left">
-                <button menu-toggle="left" class="button button-icon icon ion-navicon" ></button>
-            </ion-nav-buttons>
+        <ion-nav-buttons side="left">
+            <button menu-toggle="left" class="button button-icon icon ion-navicon" ></button>
+        </ion-nav-buttons>
 
-        </ion-nav-bar>
-	<ion-content class="has-header">
+    </ion-nav-bar>
+    
+<!-- 	<ion-content class="has-header"> -->
 		<!-- <h4>Bullettins</h4> -->
 
-        <div class="list card">
-            <div class="item" ui-sref="app.bulletininfo">
-                <h2>General Information</h2>
+    <ion-content class="has-header container" ng-controller="BulletinsCtrl as vm">
+        <!-- <sup>Description of warnings</sup> -->
+        <ion-slide-box on-slide-changed="slideHasChanged($index)">
+            <ion-slide style="height: 400px;" ng-init="vm.getGIBulletins()">
+                <div class="box">
+                    <h1 class="text-center">Information</h1>
+                    
+                    <div ng-repeat="item in vm.bulletins">
+                        <div class="item" ng-click="openModal({{($index)}})">
+                            <h1></h1>
+                            <h2>{{item.bulletinType}}</h2>
+                            <p>{{item.currdate}}, {{item.issuedAt}}</p>
+                        </div>
+                        <!-- <div class="item tabs tabs-secondary tabs-icon-left">
+                            <a class="tab-item" href="#">
+                              <i class="icon ion-thumbsup"></i>
+                              Like
+                            </a>
+                            <a class="tab-item" href="#">
+                              <i class="icon ion-chatbox"></i>
+                              Comment
+                            </a>
+                            <a class="tab-item" href="#">
+                              <i class="icon ion-share"></i>
+                              Share
+                            </a>
+                        </div> -->
+                    </div>
+                    <!-- <p>Box 1</p>
+                    <p>{{vm.bulletins[0].bulletinType}}</p> -->
+                </div>
+            </ion-slide >
+            <ion-slide style="height: 400px;" ng-init="vm.getSevere()">
+                <div class="box">
+                    <h1 class="text-center">Severe Weather</h1>
+                    <div ng-repeat="item in vm.severe" ui-sref="app.singlebulletin">
+                        <div class="item">
+                            <h2>{{item.bulletinType}}</h2>
+                            <p>{{item.currdate}}, {{item.issuedAt}}</p>
+                            <p>{{item.forecaster}}</p>
+                        </div>
+                        <!-- <div class="item">
+                            <sup>{{item.currdate}}, {{item.issuedAt}}</sup>
+                        </div> -->
+                        <div class="item tabs tabs-secondary tabs-icon-left">
+                            <a class="tab-item" href="#">
+                              <i class="icon ion-thumbsup"></i>
+                              Like
+                            </a>
+                            <a class="tab-item" href="#">
+                              <i class="icon ion-chatbox"></i>
+                              Comment
+                            </a>
+                            <a class="tab-item" href="#">
+                              <i class="icon ion-share"></i>
+                              Share
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </ion-slide>
+            <ion-slide style="height: 400px;" ng-init="vm.getFlood()">
+                <div class="box">
+                    <h1 class="text-center">Floods</h1>
+                    <div ng-repeat="item in vm.flood" ui-sref="app.singlebulletin">
+                        <div class="item">
+                            <h2>{{item.bulletinType}}</h2>
+                            <p>{{item.currdate}}, {{item.issuedAt}}</p>
+                        </div>
+                        <!-- <div class="item">
+                            <sup>{{item.currdate}}, {{item.issuedAt}}</sup>
+                        </div> -->
+                        <div class="item tabs tabs-secondary tabs-icon-left">
+                            <a class="tab-item" href="#">
+                              <i class="icon ion-thumbsup"></i>
+                              Like
+                            </a>
+                            <a class="tab-item" href="#">
+                              <i class="icon ion-chatbox"></i>
+                              Comment
+                            </a>
+                            <a class="tab-item" href="#">
+                              <i class="icon ion-share"></i>
+                              Share
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </ion-slide>
+            <ion-slide style="height: 400px;">
+                <div class="box">
+                    <h1 class="text-center">Rough Seas</h1>
+                    <div ng-repeat="item in vm.sea" ui-sref="app.singlebulletin">
+                        <div class="item">
+                            <h2>{{item.bulletinType}}</h2>
+                            <p>{{item.currdate}}, {{item.issuedAt}}</p>
+                        </div>
+                        <!-- <div class="item">
+                            <sup>{{item.currdate}}, {{item.issuedAt}}</sup>
+                        </div> -->
+                        <div class="item tabs tabs-secondary tabs-icon-left">
+                            <a class="tab-item" href="#">
+                              <i class="icon ion-thumbsup"></i>
+                              Like
+                            </a>
+                            <a class="tab-item" href="#">
+                              <i class="icon ion-chatbox"></i>
+                              Comment
+                            </a>
+                            <a class="tab-item" href="#">
+                              <i class="icon ion-share"></i>
+                              Share
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </ion-slide>
+        </ion-slide-box>
+    </ion-content>
+
+        <!-- <div class="list card">
+            <div class="item" >
+                <h2 ui-sref="app.bulletininfo">General Information</h2>
             </div>
             <div class="item" ui-sref="app.bulletinsev">
                 <h2>Severe Weather</h2>
@@ -27,9 +148,9 @@
             <div class="item">
                 <h2>Rough Seas</h2>
             </div>
-        </div>
+        </div> -->
 
-	</ion-content>
+	<!-- </ion-content> -->
 </ion-view>
 
 <!-- <ion-slide-box on-slide-changed="slideHasChanged($index)" >

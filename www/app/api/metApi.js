@@ -37,10 +37,30 @@
 			//return leagues.items[0];
 		}
 
+		function getBulletinFlood(callback){
+			$http.get(url+"/bulletinflood")
+				.success(function(data){
+					callback(data);
+				});
+
+			//return leagues.items[0];
+		}
+
+		function getBulletinSea(callback){
+			$http.get(url+"/bulletinflood")
+				.success(function(data){
+					callback(data);
+				});
+
+			//return leagues.items[0];
+		}
+
 		return{
 			// getLeagues: getLeagues,
 			getBulletins: getBulletins,
 			getBulletinsev: getBulletinsev,
+			getBulletinFlood: getBulletinFlood,
+			getBulletinSea: getBulletinSea,
 			forecast: forecast,
 			yahooForecast: yahooForecast
 			/*getLeagueData: getLeagueData*/
