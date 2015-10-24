@@ -1,4 +1,4 @@
-<ion-view view-title="Warnings" ng-controller="warningsCtrl as vm">
+<ion-view view-title="Warnings" ng-controller="warningsCtrl as wc">
     <ion-nav-bar>
         <ion-nav-back-button class="button-clear">
             <i class="ion-arrow-left-c"></i>
@@ -12,25 +12,53 @@
     </div>
 
 	<ion-content class="has-header container">
-  		<ion-slide-box on-slide-changed="slideHasChanged($index)" ng-init="vm.update_slide(0)">
-            <ion-slide>
+  		<ion-slide-box on-slide-changed="slideHasChanged($index)" ng-init="wc.update_slide(0)">
+            <ion-slide ng-init="wc.get_watch()">
                 <div class="box">
-                    <!-- <p>Watches</p> -->
+                    <div class="list">
+                        <div ng-repeat="item in wc.wt_items" ng-click="w_info_open({{item.watchdatatblID}}, 'wt')" data-id="item.watchdatatblID">
+                            <div class="item">
+                                <p class="title">{{item.warnType}}</p>
+                                <h6 class="follow">{{item.currdate}}, {{item.issuedAt}}</h6>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </ion-slide>
-            <ion-slide>
+            <ion-slide ng-init="wc.get_warn()">
                 <div class="box">
-                    <!-- <p>Warnings</p> -->
+                    <div class="list" ng-if="wc.w_items">
+                        <div ng-repeat="item in wc.w_items" ng-click="w_info_open({{item.warndatatblID}}, 'w')" data-id="item.warndatatblID">
+                            <div class="item">
+                                <p class="title">{{item.warnType}}</p>
+                                <h6 class="follow">{{item.currdate}}, {{item.issuedAt}}</h6>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </ion-slide>
-            <ion-slide>
+            <ion-slide ng-init="wc.get_sigmet()">
                 <div class="box">
-                    <!-- <p>Sigmet</p> -->
+                    <div class="list">
+                        <div ng-repeat="item in wc.s_items" ng-click="w_info_open({{item.sigmetdatatblID}}, 's')" data-id="item.sigmetdatatblID">
+                            <div class="item">
+                                <p class="title">{{item.warnType}}</p>
+                                <h6 class="follow">{{item.currdate}}, {{item.issuedAt}}</h6>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </ion-slide>
-            <ion-slide>
+            <ion-slide ng-init="wc.get_o_air()">
                 <div class="box">
-                    <!-- <p>Airmet</p> -->
+                    <div class="list" ng-if="wc.o_items">
+                        <div ng-repeat="item in wc.o_items" ng-click="w_info_open({{item.outlookairguarddatatblID?item.outlookairguarddatatblID:0}}, 'o')" data-id="item.outlookairguarddatatblID">
+                            <div class="item">
+                                <p class="title">{{item.forecaster}}</p>
+                                <h6 class="follow">{{item.currdate}}, {{item.issuedAt}}</h6>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </ion-slide>
         </ion-slide-box>

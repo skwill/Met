@@ -1,8 +1,28 @@
 // weather app based on driftyco ionic-weather
 // https://github.com/driftyco/ionic-weather
 angular.module('ionic.metApp' /*, */ )
-	.controller('HomeCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup) {
+	.directive('interval_tracker', ['$interval', 'dateFilter',
+		function($interval, dateFilter) {
+			return function(scope, element, attrs) {
+				var format, stopTime;
+				// used to update ui
+				function updateTime() {
+					console.log(dateFilter(new Date(), format));
+				}
+
+				scope.$watch(attrs.interval_tracker, function(value) {
+					format = value
+					updateTime();
+				})
+				stopTime = $interval(updateTime, 1000);
+			}
+		}
+	])
+	.controller('HomeCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval) {
 		var _this = this;
+		$interval(function timee() {
+			// console.log("hey")
+		}, 1000)
 
 		// $ionicPlatform.ready(function() {
 		// 	// hide status bar
@@ -12,8 +32,9 @@ angular.module('ionic.metApp' /*, */ )
 		// 	}
 		// });
 		$scope.activeBgImageIndex = 0;
-		$scope.lc = "";
-		var cc = "";
+		$scope.has_images = false;
+		// $scope.lc = "";
+		// var cc = "";
 
 
 		this.getCurrent = function(lat, lng) {
@@ -101,23 +122,60 @@ angular.module('ionic.metApp' /*, */ )
 		this.cycleBgImages = function() {
 			$timeout(function cycle() {
 				if ($scope.bgImages) {
+					console.log("in function that uses the image")
+					console.log($scope.bgImages)
 					$scope.activeBgImage = $scope.bgImages[$scope.activeBgImageIndex++ % $scope.bgImages.length];
 				}
 			})
 		}
 
 		this.getBackgroundImage = function(lat, lng, locString) {
-			Flickr.search(locString, lat, lng).then(function(resp) {
-				var photos = resp.photos;
-				// console.log("Photos");
-				// console.log(resp);
-				if (photos.photo.length) {
-					$scope.bgImages = photos.photo;
-					_this.cycleBgImages();
-				}
-			}, function(error) {
-				console.log('Unable to get Flickr images', error);
-			})
+
+			var photo_store = $scope.bgImages; //window.localStorage.getItem('photo_store');
+			console.log("Has images: " + $scope.has_images);
+			if ($scope.has_images) {
+				console.log('we have loaded images');
+				// $scope.bgImages = window.localStorage.getItem('photo_store');
+				// console.log($scope.bgImages);
+				_this.cycleBgImages();
+
+			} else {
+				Flickr.search(locString, lat, lng).then(function(resp) {
+					var photos = resp.photos;
+					var images = [];
+					// console.log("Photos");
+					// console.log(resp);
+					if (photos.photo.length) {
+						$scope.bgImages = photos.photo;
+						// console.log($scope.bgImages);
+						// var photo_store = window.localStorage.getItem('photo_store');
+						// if (photo_store) {
+
+						// } else {
+
+						for (i = 0; i < 20; i++) {
+							images.push({
+								i: $scope.bgImages[i]
+							});
+						}
+						// images = {
+						// 	'0': 1
+						// }
+						// images = angular.extend({}, images, images);
+						// }
+
+						console.log('photo store empty');
+						// window.localStorage['photo_store'] = images; //JSON.stringify(images);
+						// }
+						// console.log(images);
+						_this.cycleBgImages();
+						$scope.has_images = true;
+					}
+				}, function(error) {
+					console.log('Unable to get Flickr images', error);
+				})
+			}
+
 		}
 
 		$scope.refreshData();
@@ -252,5 +310,11 @@ angular.module('ionic.metApp' /*, */ )
 
 	$scope.closeSettings = function() {
 		$scope.modal.hide();
+		Settings.save();
+	}
+
+	$scope.changeCurrentTemp = function(type) {
+		Settings.set('tempUnits', type);
+		Settings.save(type)
 	}
 })

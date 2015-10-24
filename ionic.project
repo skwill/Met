@@ -1,4 +1,18 @@
 {
   "name": "metApp",
-  "app_id": "db5f1dea"
+  "app_id": "db5f1dea",
+  "proxies": [
+    {
+      "path": "/forecast",
+      "proxyUrl": "http://190.58.130.230/api/forecast"
+    },
+    {
+      "path": "/bulletininfo",
+      "proxyUrl": "http://190.58.130.230/api/bulletininfo"
+    },
+    {
+      "path": "/bulletinsev",
+      "proxyUrl": "http://190.58.130.230/api/bulletinsev"
+    }
+  ]
 }

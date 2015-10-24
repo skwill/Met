@@ -12,7 +12,6 @@ var forecastioWeather = ['$q', '$resource', '$http', 'FORECASTIO_KEY',
 
     return {
       getAtLocation: function(lat, lng) {
-        console.log("get location")
         return $http.jsonp(url + lat + ',' + lng + '?callback=JSON_CALLBACK');
       },
       getForecast: function(locationString) {},
@@ -25,7 +24,7 @@ var forecastioWeather = ['$q', '$resource', '$http', 'FORECASTIO_KEY',
 angular.module('ionic.metApp.services', ['ngResource'])
 
 .constant('DEFAULT_SETTINGS', {
-  'tempUnits': 'f'
+  'tempUnits': 'c'
 })
 
 .factory('Settings', function($rootScope, DEFAULT_SETTINGS) {
@@ -56,6 +55,8 @@ angular.module('ionic.metApp.services', ['ngResource'])
     },
     // Set a settings val
     set: function(k, v) {
+      // console.log(k + ': ' + v);
+      // console.log(v);
       _settings[k] = v;
       this.save();
     },
@@ -113,41 +114,14 @@ angular.module('ionic.metApp.services', ['ngResource'])
     },
     getLocation: function() {
       var q = $q.defer();
-      // var i = [];
-      // // alert("outside");
-      // var geo = false;
-      // if (navigator.geolocation) {
-      //   geo = navigator.geolocation;
-      // }
-      // if (navigator.geolocation.getCurrentPosition(function(position) {
-      //   console.log(position)
-      // })) {
-      //   alert("good");
-      //   // alert(geo);
-      //   //   return geo.getCurrentPosition(function(position) {
-      //   //     return position.coords;
-      //   //     // i.push(position.coords);
-      //   //     // i = position.coords;
-      //   //     // console.log(position.coords);
-      //   //   });
-      // } else {
-      //   alert("error");
-      //   //   alert("Error: Location Services are turned off");
-      // }
-      // // console.log(i)
-      var options = {
-        enableHighAccuracy: true
-      };
+
       navigator.geolocation.getCurrentPosition(function(position) {
         // console.log(position)
-        // alert("inside"); // works on web browser
         q.resolve(position);
       }, function(error) {
-        // alert(error)
         q.reject(error);
-      }, null, options);
+      });
 
-      // return null; //
       return q.promise;
     }
   };

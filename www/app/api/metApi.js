@@ -1,116 +1,139 @@
-(function () {
+(function() {
 	'use strict';
 
 	angular.module('ionic.metApp').factory('metApi', ['$http', metApi]);
 	var url = 'http://190.58.130.230/api';
 
 
-	function metApi($http){
+	function metApi($http) {
 
 		function get_forecast(callback) {
-			$http.get(url+'/forecast').success(function(resp) {
+			$http.get(url + '/forecast').success(function(resp) {
 				callback(resp);
 			}).finally(function() {
 
 			});
 		}
-
-		function get_b_info(callback, id){
-			var link = " ";
-			if(id =! 'undefined') {
-				link = '/'+id;
-			}
-			$http.get(url+"/bulletininfo"+link)
-				.success(function(data){
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		// all these function will collapse into 1 generic function called met_data
+		// met_data will take the following params
+		/*
+			default: callback - for data:array
+			id: id of record to fetch (can be null or undeined):int
+			api_key: url of segment to fetch (if there is an id it will be appended to api_key string):string
+		*/
+		function get_b_info(callback, id) {
+			var link = (id = !'undefined') ? '/' + id : '';
+			$http.get(url + "/bulletininfo" + link)
+				.success(function(data) {
 					callback(data);
 				});
 		}
 
-		function get_b_serv(callback){
-			$http.get(url+"/bulletinsev")
-				.success(function(data){
+		function get_b_serv(callback, id) {
+			var link = (id = !'undefined') ? '/' + id : '';
+			$http.get(url + "/bulletinsev" + link)
+				.success(function(data) {
 					callback(data);
 				});
 		}
 
-		function get_b_flood(callback) {
-			$http.get(url+'/bulletinflood')
+		function get_b_flood(callback, id) {
+			var link = (id = !'undefined') ? '/' + id : '';
+			$http.get(url + '/bulletinflood' + link).success(function(data) {
+				callback(data)
+			})
+		}
+
+		function get_b_sea(callback, id) {
+			var link = (id = !'undefined') ? '/' + id : '';
+			$http.get(url + '/bulletinsea' + link).success(function(data) {
+				callback(data)
+			})
+		}
+
+		function get_o_air(callback, id) {
+			var link = (id = !'undefined') ? '/' + id : '';
+
+			$http.get(url + '/outlookair' + link)
 				.success(function(data) {
 					callback(data)
 				})
 		}
 
-		function get_b_sea(callback) {
-			$http.get(url+'/bulletinsea')
+		function get_o_aviation(callback, id) {
+			var link = (id = !'undefined') ? '/' + id : '';
+
+			$http.get(url + '/outlookaviation' + link)
 				.success(function(data) {
 					callback(data)
 				})
 		}
 
-		function get_o_air(callback) {
-			$http.get(url+'/outlookair')
+		function get_o_period(callback, id) {
+			var link = (id = !'undefined') ? '/' + id : '';
+
+			$http.get(url + '/outlookperiod' + link)
 				.success(function(data) {
 					callback(data)
 				})
 		}
 
-		function get_o_aviation(callback) {
-			$http.get(url+'/outlookaviation')
+		function get_o_tv(callback, id) {
+			var link = (id = !'undefined') ? '/' + id : '';
+
+			$http.get(url + '/outlooktv' + link)
 				.success(function(data) {
 					callback(data)
 				})
 		}
 
-		function get_o_period(callback) {
-			$http.get(url+'/outlookperiod')
+		function get_sigmet(callback, id) {
+			var link = (id = !'undefined') ? '/' + id : '';
+
+			$http.get(url + '/sigmet' + link)
 				.success(function(data) {
 					callback(data)
 				})
 		}
 
-		function get_o_tv(callback) {
-			$http.get(url+'/outlooktv')
+		function get_ttcp(callback, id) {
+			var link = (id = !'undefined') ? '/' + id : '';
+
+			$http.get(url + '/ttcp' + link)
 				.success(function(data) {
 					callback(data)
 				})
 		}
 
-		function get_sigmet(callback) {
-			$http.get(url+'/sigmet')
+		function get_ttpp(callback, id) {
+			var link = (id = !'undefined') ? '/' + id : '';
+
+			$http.get(url + '/ttpp' + link)
 				.success(function(data) {
 					callback(data)
 				})
 		}
 
-		function get_ttcp(callback) {
-			$http.get(url+'/ttcp')
+		function get_warn(callback, id) {
+			var link = (id = !'undefined') ? '/' + id : '';
+
+			$http.get(url + '/warn' + link)
 				.success(function(data) {
 					callback(data)
 				})
 		}
 
-		function get_ttpp(callback) {
-			$http.get(url+'/ttpp')
+		function get_watch(callback, id) {
+			var link = (id = !'undefined') ? '/' + id : '';
+
+			$http.get(url + '/watch' + link)
 				.success(function(data) {
 					callback(data)
 				})
 		}
-
-		function get_warn(callback) {
-			$http.get(url+'/warn')
-				.success(function(data) {
-					callback(data)
-				})
-		}
-
-		function get_watch(callback) {
-			$http.get(url+'/watch')
-				.success(function(data) {
-					callback(data)
-				})
-		}
-
-		return{
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		return {
 			get_forecast: get_forecast,
 			get_b_info: get_b_info,
 			get_b_serv: get_b_serv,

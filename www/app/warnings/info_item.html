@@ -1,0 +1,14 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title no-left">{{wc.warning.warnType}}</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="w_info_close()">
+      	<span class="ion-ios-close-outline" style="font-size: 38px; margin-top: -2px;"></span>
+      	<!-- Close -->
+      </button>
+    </div>
+  </ion-header-bar>
+  <ion-content class="container">
+    <p>{{vm.warning.textArea1}}</p>
+  </ion-content>
+</ion-modal-view>

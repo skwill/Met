@@ -1,73 +1,152 @@
-angular.module('ionic.metApp').controller('BulletinsCtrl', function(metApi, $scope, $ionicLoading, $timeout, $ionicModal) {
+angular.module('ionic.metApp')
+	.run(function($http, $cordovaPush) {
+		var androidConfig = {
+			"senderID": "123456",
+		};
 
-	var vm = this;
-	// slide had changed listener event
-	$scope.slideHasChanged = function(index) {
-		vm.update_slide(index);
-	}
+		document.addEventListener("deviceready", function() {
+			$cordovaPush.register(androidConfig).then(function(result) {
+				// Success
+				alert("start of push");
+			}, function(err) {
+				// Error
+			})
 
-	// update slide with index
-	vm.update_slide = function(index) {
-		titles = ['General Information', 'Severe Weather', 'Floods', 'Rough Seas'];
-		$scope.sub_title = titles[index];
-	}
+			// $scope.$on('$cordovaPush:notificationReceived', function(event, notification) {
+			$scope.$on('pushNotificationReceived', function(event, notification) {
+				switch (notification.event) {
+					case 'registered':
+						if (notification.regid.length > 0) {
+							alert('registration ID = ' + notification.regid);
+						}
+						break;
 
-	// get general info bulletins
-	vm.getGIBulletins = function() {
-		metApi.get_b_info(function(data) {
-			vm.b_info = data.items;
-			// vm.pageTitle = vm.bulletins[0].bulletinpage;
-			// alert(data.items[0].bulletinType);
-		});
-	}
+					case 'message':
+						// this is the actual push notification. its format depends on the data model from the push server
+						alert('message = ' + notification.message + ' msgCount = ' + notification.msgcnt);
+						break;
 
-	// get severe weather bulletins
-	vm.getSWBulletins = function() {
-		metApi.get_b_serv(function(data) {
-			vm.bulletins = data.items;
-			vm.pageTitle = vm.bulletins[0].bulletinpage;
-		});
-	}
+					case 'error':
+						alert('GCM error = ' + notification.msg);
+						break;
 
-	// get blood bulletins
-	vm.get_flood_b = function() {
-		metApi.get_b_flood(function(data) {
-			// console.log(data)
+					default:
+						alert('An unknown GCM event has occurred');
+						break;
+				}
+			});
+
+
+			// WARNING: dangerous to unregister (results in loss of tokenID)
+			$cordovaPush.unregister(options).then(function(result) {
+				// Success!
+			}, function(err) {
+				// Error
+			})
+
+		}, false);
+	})
+	.controller('BulletinsCtrl', function(metApi, $scope, $ionicLoading, $timeout, $ionicModal, $cordovaDevice, $ionicPlatform, $cordovaPush) {
+
+		var vm = this;
+
+		$ionicPlatform.ready(function() {
+			if (window.cordova) {
+				var device = $cordovaDevice.getDevice();
+				// alert(device.model);
+				// alert(device.cordova);
+				// alert(device.platform);
+				// alert(device.uuid);
+				// alert(device.version);
+			}
+
 		})
-	}
+		// var m = "";
+		// slide had changed listener event
+		$scope.slideHasChanged = function(index) {
+			vm.update_slide(index);
+		}
 
-	// Create modals
-	$ionicModal.fromTemplateUrl('app/bullettins/gi_info_item.html', {
-		scope: $scope,
-		animation: 'scale-in'
-	}).then(function(gi_details_modal) {
-		$scope.gi_details_modal = gi_details_modal;
-	});
+		// update slide with index
+		vm.update_slide = function(index) {
+			titles = ['General Information', 'Severe Weather', 'Floods', 'Rough Seas'];
+			$scope.sub_title = titles[index];
+			// m = index;
+			// console.log($scope.m)
+		}
 
-	// close
-	$scope.gi_info_close = function() {
-		$scope.gi_details_modal.hide();
-	};
+		// get general info bulletins
+		vm.getGIBulletins = function() {
+			metApi.get_b_info(function(data) {
+				vm.b_info = data.items;
+				// alert(data.item[0].flag)
+			});
+		}
 
-	// Open the login modal
-	$scope.gi_info_open = function(id) {
-		$scope.gi_details_modal.show();
-		// console.log(id)
+		// get severe weather bulletins
+		vm.get_serv_b = function() {
+			metApi.get_b_serv(function(data) {
+				vm.s_items = data.items;
+			})
+		}
+		// get blood bulletins
+		vm.get_flood_b = function() {
+			metApi.get_b_flood(function(data) {
+				vm.f_items = data.items;
+			})
+		}
 
-		// vm.gi_info_title = "hello";
-		metApi.get_b_info(function(data) {
-			// vm.meta = data._meta;
-			// vm.links = data._links;
-			vm.bulletin = data.items[0];
-			// vm.pageTitle = vm.bulletins[0].bulletinpage;
-			console.log(vm.bulletin)
-			// $scope.hide($ionicLoading);
-		}, id);
-	};
+		// get rouch seas
+		vm.get_sea_b = function() {
+			metApi.get_b_sea(function(data) {
+				vm.r_items = data.items;
+				// console.log(data)
+			})
+		}
 
 
-	vm.getBulletin = function(id) {
+		// Create modals
+		$ionicModal.fromTemplateUrl('app/bullettins/info_item.html', {
+			scope: $scope,
+			animation: 'scale-in' //modal animation
+		}).then(function(b_details_modal) {
+			$scope.b_details_modal = b_details_modal;
+		});
+		// close modal
+		$scope.b_info_close = function() {
+			$scope.b_details_modal.hide();
+		};
 
-	}
-	// vm.getGIBulletins();
-})
+		// Open the login modal
+		$scope.b_info_open = function(id, type) {
+			$scope.b_details_modal.show();
+			// switch function that gets called based on what key is submitted from clicked item
+			switch (type) {
+				case 'b': // bulletin
+					metApi.get_b_info(function(data) {
+						vm.bulletin = data.items[0];
+						console.log(vm.bulletin)
+					}, id);
+					break;
+				case 's':
+					metApi.get_b_serv(function(data) {
+						vm.bulletin = data.items[0];
+						console.log(vm.bulletin)
+					}, id);
+					break;
+				case 'f':
+					metApi.get_b_flood(function(data) {
+						vm.bulletin = data.items[0];
+						console.log(vm.bulletin)
+					}, id)
+					break;
+				case 'r':
+					metApi.get_b_sea(function(data) {
+						vm.bulletin = data.items[0];
+						console.log(vm.bulletin)
+					}, id)
+					break;
+			}
+		};
+
+	})

@@ -1,58 +1,84 @@
-angular.module('ionic.metApp').controller('warningsCtrl', function(metApi, $scope, $ionicLoading, $timeout) {
+angular.module('ionic.metApp').controller('warningsCtrl', function(metApi, $scope, $ionicLoading, $timeout, $ionicModal, $cordovaDevice, $ionicPlatform, $cordovaPush) {
 
 	var vm = this;
 	$scope.slideHasChanged = function(index) {
-	 	vm.update_slide(index);
+		vm.update_slide(index);
 	}
 
 	vm.update_slide = function(index) {
 		titles = ['Watches', 'Warnings', 'Sigmet', 'Airmet'];
 		$scope.sub_title = titles[index];
-		console.log('slide: '+index);
-		// switch (index) {
-		// 	case 0:
-		// 		$scope.sub_title = titles[0];
-		// 	break;
-		// 	case 1:
-		// 		$scope.sub_title = titles[1];
-		// 	break;
-		// 	case 2:
-		// 		$scope.sub_title = titles[2];
-		// 	break;
-		// 	case 3:
-		// 		$scope.sub_title = titles[3];
-		// 	break;
-		// }
 	}
 
-	vm.getGIBulletins = function() {
-		// $scope.show($ionicLoading);
-		metApi.getBulletins(function(data){
-			vm.meta = data._meta;
-			vm.links = data._links;
-			vm.bulletins = data.items;
-			vm.pageTitle = vm.bulletins[0].bulletinpage;
-			// console.log(data)
-			// $scope.hide($ionicLoading);
-		});
+	vm.get_o_air = function() {
+		metApi.get_o_air(function(data) {
+			vm.o_items = data.items;
+			console.log(vm.o_items);
+		})
 	}
-
-	vm.getSWBulletins = function() {
-		metApi.getBulletinsev(function(data){
-			vm.bulletins = data.items;
-			vm.pageTitle = vm.bulletins[0].bulletinpage;
-		});
+	vm.get_sigmet = function() {
+		metApi.get_sigmet(function(data) {
+			vm.s_items = data.items;
+			console.log(vm.s_items);
+		})
 	}
+	vm.get_warn = function() {
+		metApi.get_warn(function(data) {
+			vm.w_items = data.items;
+			console.log(vm.w_items);
 
-	vm.get_flood_b = function() {
-		metApi.bflood(function(data) {
-			console.log(data)
+		})
+	}
+	vm.get_watch = function() {
+		metApi.get_watch(function(data) {
+			vm.wt_items = data.items;
+			console.log(vm.wt_items);
 		})
 	}
 
 
-	vm.getBulletin = function(id) {
+	// Create modals
+	$ionicModal.fromTemplateUrl('app/warnings/info_item.html', {
+		scope: $scope,
+		animation: 'scale-in' //modal animation
+	}).then(function(w_details_modal) {
+		$scope.w_details_modal = w_details_modal;
+	});
+	// close modal
+	$scope.w_info_close = function() {
+		$scope.w_details_modal.hide();
+	};
 
-	}
-	// vm.getGIBulletins();
+	// Open the login modal
+	$scope.w_info_open = function(id, type) {
+		$scope.w_details_modal.show();
+		// switch function that gets called based on what key is submitted from clicked item
+		switch (type) {
+			case 'o': // bulletin
+				metApi.get_o_air(function(data) {
+					vm.warning = data.items[0];
+					vm.warning.warnType = vm.warning.forecaster;
+					// console.log(vm.warning)
+				}, id);
+				break;
+			case 's':
+				metApi.get_sigmet(function(data) {
+					vm.warning = data.items[0];
+					// console.log(vm.warning)
+				}, id);
+				break;
+			case 'w':
+				metApi.get_warn(function(data) {
+					vm.warning = data.items[0];
+					// console.log(vm.warning)
+				}, id)
+				break;
+			case 'wt':
+				metApi.get_watch(function(data) {
+					vm.warning = data.items[0];
+					// console.log(vm.warning)
+				}, id)
+				break;
+		}
+	};
 })

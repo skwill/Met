@@ -17,7 +17,7 @@
             <ion-slide ng-init="vm.getGIBulletins()">
                 <div class="box">
                     <div class="list">
-                        <div ng-repeat="item in vm.b_info" ng-click="gi_info_open({{item.bulletinNum}})" data-id="item.bulletinNum">
+                        <div ng-repeat="item in vm.b_info" ng-click="b_info_open({{item.bulletinNum}}, 'b')" data-id="item.bulletinNum">
                             <div class="item">
                                 <p class="title">{{item.bulletinType}}</p>
                                 <h6 class="follow">{{item.currdate}}, {{item.issuedAt}}</h6>
@@ -26,10 +26,10 @@
                     </div>
                 </div>
             </ion-slide>
-            <ion-slide ng-init="vm.getSWBulletins()">
+            <ion-slide ng-init="vm.get_serv_b()">
                 <div class="box">
-                    <div class="list" ng-if="vm.bulletins">
-                        <div ng-repeat="item in vm.bulletins">
+                    <div class="list" ng-if="vm.s_items">
+                        <div ng-repeat="item in vm.s_items" ng-click="b_info_open({{item.bulletinNum}}, 's')" data-id="item.bulletinNum">
                             <div class="item">
                                 <p class="title">{{item.bulletinType}}</p>
                                 <h6 class="follow">{{item.currdate}}, {{item.issuedAt}}</h6>
@@ -40,12 +40,26 @@
             </ion-slide>
             <ion-slide ng-init="vm.get_flood_b()">
                 <div class="box">
-                    <p>Floods</p>
+                    <div class="list">
+                        <div ng-repeat="item in vm.f_items" ng-click="b_info_open({{item.bulletinNum}}, 'f')" data-id="item.bulletinNum">
+                            <div class="item">
+                                <p class="title">{{item.bulletinType}}</p>
+                                <h6 class="follow">{{item.currdate}}, {{item.issuedAt}}</h6>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </ion-slide>
-            <ion-slide>
+            <ion-slide ng-init="vm.get_sea_b()">
                 <div class="box">
-                    <p>Rough Seas</p>
+                    <div class="list" ng-if="vm.r_items">
+                        <div ng-repeat="item in vm.r_items" ng-click="b_info_open({{item.bulletinNum?item.bulletinNum:0}}, 'r')" data-id="item.bulletinNum">
+                            <div class="item">
+                                <p class="title">{{item.bulletinType}}</p>
+                                <h6 class="follow">{{item.currdate}}, {{item.issuedAt}}</h6>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </ion-slide>
         </ion-slide-box>

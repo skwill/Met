@@ -1,6 +1,6 @@
 // weather app based on driftyco ionic-weather
 // https://github.com/driftyco/ionic-weather
-angular.module("ionic.metApp", ['ionic', 'ionic.metApp.services', 'ionic.metApp.filters', 'ionic.metApp.directives'])
+angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.services', 'ionic.metApp.filters', 'ionic.metApp.directives', 'ngCordova', 'ngResource'])
 
 .constant('WUNDERGROUND_API_KEY', '1cc2d3de40fa5af0')
   .constant('FORECASTIO_KEY', '4cd3c5673825a361eb5ce108103ee84a')
@@ -50,27 +50,6 @@ angular.module("ionic.metApp", ['ionic', 'ionic.metApp.services', 'ionic.metApp.
       //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
       'mainContent': {
         templateUrl: "app/bullettins/bullettins.html"
-      }
-    }
-  })
-
-  .state('app.bullettins.info', {
-    url: '/bullettin',
-    views: {
-      //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
-      'mainContent': {
-        templateUrl: "app/bullettins/bullettins.html"
-      }
-    }
-  })
-
-  .state('app.bulletininfo', {
-    url: '/bulletininfo',
-    // controller: 'BulletinsCtrl as bc',
-    views: {
-      //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
-      'mainContent': {
-        templateUrl: "app/bullettins/info.html"
       }
     }
   })
