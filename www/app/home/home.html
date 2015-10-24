@@ -20,12 +20,19 @@
     </ion-header-bar>
 
     <ion-content scroll-event-interval="20" scroll-effects scrollbar-y="false" class="no-header">
-        <ion-refresher pulling-text="Pull to refresh..." on-refresh="refreshData()" style="margin-top: -20px;"></ion-refresher>
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="refreshData()" style="margin-top: -20px;">
+          {{last_refresh}}
+        </ion-refresher>
         <div id="main-content">
-            <current-weather></current-weather>
+            <current-weather>
+              <!-- <p>Hello</p> -->
+              <!-- <p>{{currentLocationString}}</p> -->
+            </current-weather>
             <forecast></forecast>
         </div>
     </ion-content>
+
+
 </ion-pane>
 
 <script id="settings.html" type="text/ng-template">

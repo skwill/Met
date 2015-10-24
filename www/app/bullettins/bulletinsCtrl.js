@@ -3,7 +3,7 @@ angular.module('ionic.metApp').controller('BulletinsCtrl', function(metApi, $sco
 	var vm = this;
 	// slide had changed listener event
 	$scope.slideHasChanged = function(index) {
-	 	vm.update_slide(index);
+		vm.update_slide(index);
 	}
 
 	// update slide with index
@@ -14,16 +14,16 @@ angular.module('ionic.metApp').controller('BulletinsCtrl', function(metApi, $sco
 
 	// get general info bulletins
 	vm.getGIBulletins = function() {
-		metApi.get_b_info(function(data){
+		metApi.get_b_info(function(data) {
 			vm.b_info = data.items;
 			// vm.pageTitle = vm.bulletins[0].bulletinpage;
-			// console.log(data);
+			// alert(data.items[0].bulletinType);
 		});
 	}
 
 	// get severe weather bulletins
 	vm.getSWBulletins = function() {
-		metApi.get_b_serv(function(data){
+		metApi.get_b_serv(function(data) {
 			vm.bulletins = data.items;
 			vm.pageTitle = vm.bulletins[0].bulletinpage;
 		});
@@ -38,24 +38,24 @@ angular.module('ionic.metApp').controller('BulletinsCtrl', function(metApi, $sco
 
 	// Create modals
 	$ionicModal.fromTemplateUrl('app/bullettins/gi_info_item.html', {
-	    scope: $scope,
-	    animation: 'scale-in'
-	  }).then(function(gi_details_modal) {
-	    $scope.gi_details_modal = gi_details_modal;
-	  });
+		scope: $scope,
+		animation: 'scale-in'
+	}).then(function(gi_details_modal) {
+		$scope.gi_details_modal = gi_details_modal;
+	});
 
-	  // close
-	  $scope.gi_info_close = function() {
-	    $scope.gi_details_modal.hide();
-	  };
+	// close
+	$scope.gi_info_close = function() {
+		$scope.gi_details_modal.hide();
+	};
 
-	  // Open the login modal
-	  $scope.gi_info_open = function(id) {
-	    $scope.gi_details_modal.show();
-	    // console.log(id)
+	// Open the login modal
+	$scope.gi_info_open = function(id) {
+		$scope.gi_details_modal.show();
+		// console.log(id)
 
-	    // vm.gi_info_title = "hello";
-	    metApi.get_b_info(function(data){
+		// vm.gi_info_title = "hello";
+		metApi.get_b_info(function(data) {
 			// vm.meta = data._meta;
 			// vm.links = data._links;
 			vm.bulletin = data.items[0];
@@ -63,7 +63,7 @@ angular.module('ionic.metApp').controller('BulletinsCtrl', function(metApi, $sco
 			console.log(vm.bulletin)
 			// $scope.hide($ionicLoading);
 		}, id);
-	  };
+	};
 
 
 	vm.getBulletin = function(id) {

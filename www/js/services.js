@@ -1,24 +1,25 @@
-var forecastioWeather = ['$q', '$resource', '$http', 'FORECASTIO_KEY', function($q, $resource, $http, FORECASTIO_KEY) {
-  var url = 'https://api.forecast.io/forecast/' + FORECASTIO_KEY + '/';
+var forecastioWeather = ['$q', '$resource', '$http', 'FORECASTIO_KEY',
+  function($q, $resource, $http, FORECASTIO_KEY) {
+    var url = 'https://api.forecast.io/forecast/' + FORECASTIO_KEY + '/';
 
-  var weatherResource = $resource(url, {
-    callback: 'JSON_CALLBACK',
-  }, {
-    get: {
-      method: 'JSONP'
-    }
-  });
+    var weatherResource = $resource(url, {
+      callback: 'JSON_CALLBACK',
+    }, {
+      get: {
+        method: 'JSONP'
+      }
+    });
 
-  return {
-    getAtLocation: function(lat, lng) {
-      return $http.jsonp(url + lat + ',' + lng + '?callback=JSON_CALLBACK');
-    },
-    getForecast: function(locationString) {
-    },
-    getHourly: function(locationString) {
+    return {
+      getAtLocation: function(lat, lng) {
+        console.log("get location")
+        return $http.jsonp(url + lat + ',' + lng + '?callback=JSON_CALLBACK');
+      },
+      getForecast: function(locationString) {},
+      getHourly: function(locationString) {}
     }
   }
-}];
+];
 
 
 angular.module('ionic.metApp.services', ['ngResource'])
@@ -31,13 +32,12 @@ angular.module('ionic.metApp.services', ['ngResource'])
   var _settings = {};
   try {
     _settings = JSON.parse(window.localStorage['settings']);
-  } catch(e) {
-  }
+  } catch (e) {}
 
   // Just in case we have new settings that need to be saved
   _settings = angular.extend({}, DEFAULT_SETTINGS, _settings);
 
-  if(!_settings) {
+  if (!_settings) {
     window.localStorage['settings'] = JSON.stringify(_settings);
   }
 
@@ -81,20 +81,20 @@ angular.module('ionic.metApp.services', ['ngResource'])
       }, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
           // console.log('Reverse', results);
-          if(results.length > 1) {
+          if (results.length > 1) {
             var r = results[1];
             var a, types;
             var parts = [];
             var foundLocality = false;
             var foundState = false;
-            for(var i = 0; i < r.address_components.length; i++) {
+            for (var i = 0; i < r.address_components.length; i++) {
               a = r.address_components[i];
               types = a.types;
-              for(var j = 0; j < types.length; j++) {
-                if(!foundLocality && types[j] == 'locality') {
+              for (var j = 0; j < types.length; j++) {
+                if (!foundLocality && types[j] == 'locality') {
                   foundLocality = true;
                   parts.push(a.long_name);
-                } else if(!foundState && types[j] == 'administrative_area_level_1') {
+                } else if (!foundState && types[j] == 'administrative_area_level_1') {
                   foundState = true;
                   parts.push(a.short_name);
                 }
@@ -113,14 +113,41 @@ angular.module('ionic.metApp.services', ['ngResource'])
     },
     getLocation: function() {
       var q = $q.defer();
-
+      // var i = [];
+      // // alert("outside");
+      // var geo = false;
+      // if (navigator.geolocation) {
+      //   geo = navigator.geolocation;
+      // }
+      // if (navigator.geolocation.getCurrentPosition(function(position) {
+      //   console.log(position)
+      // })) {
+      //   alert("good");
+      //   // alert(geo);
+      //   //   return geo.getCurrentPosition(function(position) {
+      //   //     return position.coords;
+      //   //     // i.push(position.coords);
+      //   //     // i = position.coords;
+      //   //     // console.log(position.coords);
+      //   //   });
+      // } else {
+      //   alert("error");
+      //   //   alert("Error: Location Services are turned off");
+      // }
+      // // console.log(i)
+      var options = {
+        enableHighAccuracy: true
+      };
       navigator.geolocation.getCurrentPosition(function(position) {
         // console.log(position)
+        // alert("inside"); // works on web browser
         q.resolve(position);
       }, function(error) {
+        // alert(error)
         q.reject(error);
-      });
+      }, null, options);
 
+      // return null; //
       return q.promise;
     }
   };
