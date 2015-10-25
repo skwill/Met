@@ -1,142 +1,152 @@
-angular.module('ionic.metApp').controller('BulletinsCtrl', function(metApi, $scope, $ionicModal) {
+angular.module('ionic.metApp')
+	.run(function($http, $cordovaPush) {
+		var androidConfig = {
+			"senderID": "123456",
+		};
 
-	// $scope.show = function() {
-	//     $ionicLoading.show({
-	//       template: '<p>Loading...</p><ion-spinner></ion-spinner>'
-	//     });
- //  	};
+		document.addEventListener("deviceready", function() {
+			$cordovaPush.register(androidConfig).then(function(result) {
+				// Success
+				alert("start of push");
+			}, function(err) {
+				// Error
+			})
 
- //  $scope.hide = function(){
- //       $ionicLoading.hide();
- //  };
+			// $scope.$on('$cordovaPush:notificationReceived', function(event, notification) {
+			$scope.$on('pushNotificationReceived', function(event, notification) {
+				switch (notification.event) {
+					case 'registered':
+						if (notification.regid.length > 0) {
+							alert('registration ID = ' + notification.regid);
+						}
+						break;
 
-	var vm = this;
-	vm.getGIBulletins = function() {
-		// $scope.show($ionicLoading);
-		metApi.getBulletins(function(data){
-			vm.meta = data._meta;
-			vm.links = data._links;
-			vm.bulletins = data.items;
-			vm.pageTitle = vm.bulletins[0].bulletinpage;
-			//console.log(data)
-			// $scope.hide($ionicLoading);
-		});
-	}
+					case 'message':
+						// this is the actual push notification. its format depends on the data model from the push server
+						alert('message = ' + notification.message + ' msgCount = ' + notification.msgcnt);
+						break;
 
-	/*vm.getSWBulletins = function() {
-		metApi.getBulletinsev(function(data){
-			vm.bulletins = data.items;
-			vm.pageTitle = vm.bulletins[0].bulletinpage;
-		});
-	}*/
+					case 'error':
+						alert('GCM error = ' + notification.msg);
+						break;
 
-	vm.getBack = function(){
-		$scope.myGoBack = function() {
-	    $ionicHistory.goBack();
-	  };
-	}
+					default:
+						alert('An unknown GCM event has occurred');
+						break;
+				}
+			});
 
-	vm.getSevere = function(){
-		metApi.getBulletinsev(function(data){
-			vm.severe = data.items;
-			//console.log(data);
+
+			// WARNING: dangerous to unregister (results in loss of tokenID)
+			$cordovaPush.unregister(options).then(function(result) {
+				// Success!
+			}, function(err) {
+				// Error
+			})
+
+		}, false);
+	})
+	.controller('BulletinsCtrl', function(metApi, $scope, $ionicLoading, $timeout, $ionicModal, $cordovaDevice, $ionicPlatform, $cordovaPush) {
+
+		var vm = this;
+
+		$ionicPlatform.ready(function() {
+			if (window.cordova) {
+				var device = $cordovaDevice.getDevice();
+				// alert(device.model);
+				// alert(device.cordova);
+				// alert(device.platform);
+				// alert(device.uuid);
+				// alert(device.version);
+			}
+
 		})
-	}
+		// var m = "";
+		// slide had changed listener event
+		$scope.slideHasChanged = function(index) {
+			vm.update_slide(index);
+		}
 
-	vm.getFlood = function(){
-		metApi.getBulletinFlood(function(data){
-			vm.flood = data.items;
-			//console.log(data);
-		})
-	}
+		// update slide with index
+		vm.update_slide = function(index) {
+			titles = ['General Information', 'Severe Weather', 'Floods', 'Rough Seas'];
+			$scope.sub_title = titles[index];
+			// m = index;
+			// console.log($scope.m)
+		}
 
-	vm.getSea = function(){
-		metApi.getBulletinSea(function(data){
-			vm.sea = data.items;
-			console.log(data.items);
-		})
-	}
+		// get general info bulletins
+		vm.getGIBulletins = function() {
+			metApi.get_b_info(function(data) {
+				vm.b_info = data.items;
+				// alert(data.item[0].flag)
+			});
+		}
 
-	
+		// get severe weather bulletins
+		vm.get_serv_b = function() {
+			metApi.get_b_serv(function(data) {
+				vm.s_items = data.items;
+			})
+		}
+		// get blood bulletins
+		vm.get_flood_b = function() {
+			metApi.get_b_flood(function(data) {
+				vm.f_items = data.items;
+			})
+		}
 
-	/*function back($scope, $ionicHistory) {
-	  $scope.myGoBack = function() {
-	    $ionicHistory.goBack();
-	  };
-	}*/
-	// vm.getBulletin = function(id){
-	// 	//console.log('id ='+id)
-		
-
-	// 	vm.go = true;
-	// 	vm.indexId = null;
-	// 	//vm.pass = "crap";
-	// 	vm.gid = id;
-
-	// 	metApi.getBulletins(function(data){
-	// 		angular.forEach(data.items, function(data2, index){
-	// 			//console.log(data2);
-	// 			//console.log('index id ='+index);
-	// 			//console.log(go);
-
-	// 		   	if (vm.go == true) {
-	// 		   		if (index == vm.gid) {
-	// 		   			//console.log('index id ='+index);
-	// 		   			vm.go = false;
-	// 		   			vm.pass = data2;
-			   			
-	// 		   			//vm.indexId = index;
-	// 		   			//console.log(indexId);
-	// 		   			//console.log(data2);
-			   			
-	// 		   			//return vm.pass;
-	// 		   		};
-
-	// 		   	};
-
-			   				   			   
-	// 		});
-
-	// 		//console.log(vm.pass);
-	// 		return vm.pass;
-	// 	});	
-
-		//console.log(vm.pass);
-		
-	//}
-	
-
-	$scope.openModalFunction = function(){
-		$ionicModal.fromTemplateUrl('app/bullettins/infomodal.html', {
-		    scope: $scope,
-		    animation: 'slide-in-up'
-		}).then(function(modal){			
-		    $scope.modal = modal;
-		    $scope.modal.show();
+		// get rouch seas
+		vm.get_sea_b = function() {
+			metApi.get_b_sea(function(data) {
+				vm.r_items = data.items;
+				// console.log(data)
+			})
+		}
 
 
-		    //console.log(index);
+		// Create modals
+		$ionicModal.fromTemplateUrl('app/bullettins/info_item.html', {
+			scope: $scope,
+			animation: 'scale-in' //modal animation
+		}).then(function(b_details_modal) {
+			$scope.b_details_modal = b_details_modal;
 		});
+		// close modal
+		$scope.b_info_close = function() {
+			$scope.b_details_modal.hide();
+		};
 
-		/*$scope.openModal = function() {
-	        $scope.modal.show();
-	    };*/
+		// Open the login modal
+		$scope.b_info_open = function(id, type) {
+			$scope.b_details_modal.show();
+			// switch function that gets called based on what key is submitted from clicked item
+			switch (type) {
+				case 'b': // bulletin
+					metApi.get_b_info(function(data) {
+						vm.bulletin = data.items[0];
+						console.log(vm.bulletin)
+					}, id);
+					break;
+				case 's':
+					metApi.get_b_serv(function(data) {
+						vm.bulletin = data.items[0];
+						console.log(vm.bulletin)
+					}, id);
+					break;
+				case 'f':
+					metApi.get_b_flood(function(data) {
+						vm.bulletin = data.items[0];
+						console.log(vm.bulletin)
+					}, id)
+					break;
+				case 'r':
+					metApi.get_b_sea(function(data) {
+						vm.bulletin = data.items[0];
+						console.log(vm.bulletin)
+					}, id)
+					break;
+			}
+		};
 
-	    $scope.closeModal = function() {
-	        $scope.modal.hide();
-	    };
-
-
-	    $scope.$on('$destroy', function() {
-	        $scope.modal.remove();
-	    });
-
-	    $scope.$on('modal.hidden', function() {
-	        // Execute action
-	    });
-
-	    $scope.$on('modal.removed', function() {
-	        // Execute action
-	    });
-	}
-})
+	})

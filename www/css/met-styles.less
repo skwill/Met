@@ -325,6 +325,25 @@ h1,h2,h3,h4,h5 {
 	&.bar-stable {
 		// border-color: transparent;
 	}
+	&.bar-subheader {
+		border-bottom: 1px solid #ddd;
+		height: 30px;
+		margin-top: -10px;
+		margin-bottom: 10px;
+		.title {
+			z-index: 1;
+			font-size: 14px;
+			font-weight: 400;
+			line-height: 20px;
+		}
+	}
+	.title {
+		&.no-left {
+			left: 0px!important;
+			font-size: 14px!important;
+			font-weight: 400;
+		}
+	}
 }
 // .menu {
 // 	background-color: #333;
@@ -351,16 +370,31 @@ h1,h2,h3,h4,h5 {
 // 	}
 // }
 
-// .box {
-// 	background: #fff;
-// 	&.blue {
+.box {
+	background: #fff;
+	&.blue {
 
-// 	}
-// 	// background-color: blue;
-// 	min-width: 200px;
-// 	width: 100%;
-// 	min-height: 400px;
-// }
+	}
+	// background-color: blue;
+	min-width: 200px;
+	width: 100%;
+	min-height: 400px;
+}
+.slider-pager {
+	display: none;
+}
+
+.list {
+	.item {
+		.title {
+			color: #000;
+		}
+		.follow {
+			font-size: 12px;
+    		color: rgba(0,0,0,0.54);
+		}
+	}
+}
 
 // .card {
 // 	.item {
@@ -399,7 +433,7 @@ h1,h2,h3,h4,h5 {
     background-image: -moz-radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
     background-image: -o-radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
     background-image: radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
-    background-color: rgba(156, 0, 254, 0.08);
+    // background-color: rgba(156, 0, 254, 0.08);
      &:before {
 		// content: "";
 		// position: absolute;
@@ -591,3 +625,48 @@ h1,h2,h3,h4,h5 {
 // .home {
 // 	// display: none;
 // }
+
+//Scale-In Animation
+.scale-in {
+  transform: scale(0.9);
+  opacity: 0;
+}
+.scale-in.ng-enter,
+.scale-in > .ng-enter {
+  transition: all cubic-bezier(.1, .7, .1, 1) 400ms;
+}
+
+.scale-in.ng-enter-active,
+.scale-in > .ng-enter-active {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.scale-in.ng-leave,
+.scale-in > .ng-leave {
+  transition: all ease-in-out 250ms;
+}
+
+// -webkit-filter: blur(60px); //contrast(0.4) brightness(1.4);
+// 	-moz-filter: blur(60px); //contrast(0.4) brightness(1.4);
+// 	-o-filter: blur(60px); //contrast(0.4) brightness(1.4);
+// 	-ms-filter: blur(60px); // contrast(0.4) brightness(1.4);
+// 	filter: url("data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='60'%20/></filter></svg>#blur");
+// 	filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='60');
+// 	clip: rect(520px 573px 516px 351px);
+// 	transition: all 0.5s ease-in-out;
+
+
+@charset "UTF-8";/*!
+ * Copyright 2013 Drifty Co.
+ * http://drifty.com/
+
+ * Ionic - a powerful HTML5 mobile app framework.
+ * http://ionicframework.com/
+ *
+ *
+ * By @maxlynch, @helloimben, @adamdbradley <3
+ *
+ * Licensed under the MIT license. Please see LICENSE for more information.
+ *
+ */.content-slide-out.ng-enter,.content-slide-out>.ng-enter{z-index:1;-webkit-transition:.5s ease-in-out all;-webkit-transform:translate3d(-100%,0,0);box-shadow:-1px 0 10px rgba(0,0,0,.6)}.content-slide-out.ng-enter-active,.content-slide-out>.ng-enter-active{-webkit-transform:translate3d(0,0,0)}.content-slide-out.ng-leave,.content-slide-out>.ng-leave{z-index:0;-webkit-transition:.5s ease-in-out all;-webkit-transform:translate3d(0%,0,0)}.content-slide-out.ng-leave-active,.content-slide-out>.ng-leave-active{-webkit-transform:translate3d(10%,0,0);opacity:.8}.bar-title-in-add{-webkit-transition:-webkit-transform .5s ease-in-out,opacity .5s ease-in-out;-webkit-transform:translate3d(100%,0,0);opacity:0}.bar-title-in-add-active{-webkit-transform:translate3d(0px,0,0);opacity:1}.bar-title-out-add{-webkit-transition:-webkit-transform .5s ease-in-out,opacity .5s ease-in-out}.bar-title-out-add-active{-webkit-transform:translate3d(-100%,0,0);opacity:0}.bar-button-in{opacity:0}.bar-button-in-add{-webkit-transition:-webkit-transform .5s ease-in-out,opacity .5s ease-in-out;-webkit-transform:translate3d(50%,0,0);opacity:0}.bar-button-in-active{-webkit-transform:translate3d(0px,0,0);opacity:1}.fade-in-out.ng-enter,.fade-in-out>.ng-enter{opacity:0;-webkit-transition:opacity .3s ease-in-out}.fade-in-out.ng-enter-active,.fade-in-out>.ng-enter-active{opacity:1}.fade-in-out.ng-leave,.fade-in-out>.ng-leave{opacity:1;-webkit-transition:opacity .3s ease-in-out}.fade-in-out.ng-leave-active,.fade-in-out>.ng-leave-active{opacity:0}.toggle{display:inline-block}.toggle input{display:none}.toggle .track{position:relative;display:inline-block;box-sizing:border-box;width:54px;height:32px;border:solid 2px #ddd;border-radius:20px;background-color:#fff;cursor:pointer;transition:.4s ease}.toggle .handle{position:absolute;display:block;width:auto;height:auto;box-shadow:0 0 2px rgba(0,0,0,.5),0 4px 5px rgba(0,0,0,.25);border-radius:20px;background-color:#fff;left:0;top:0;bottom:0;right:20px;transition:.2s ease;transition-property:left,right;transition-delay:0s,.05s}.toggle :checked+.track{border-color:#4bd863;background-color:#ccc;box-shadow:inset 0 0 0 20px #4bd863;transition:.2s ease}.toggle :checked+.track .handle{background-color:#fff;right:0;left:20px;-webkit-transform:none;transition-delay:.05s,0s}

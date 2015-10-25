@@ -1,43 +1,42 @@
-var forecastioWeather = ['$q', '$resource', '$http', 'FORECASTIO_KEY', function($q, $resource, $http, FORECASTIO_KEY) {
-  var url = 'https://api.forecast.io/forecast/' + FORECASTIO_KEY + '/';
+var forecastioWeather = ['$q', '$resource', '$http', 'FORECASTIO_KEY',
+  function($q, $resource, $http, FORECASTIO_KEY) {
+    var url = 'https://api.forecast.io/forecast/' + FORECASTIO_KEY + '/';
 
-  var weatherResource = $resource(url, {
-    callback: 'JSON_CALLBACK',
-  }, {
-    get: {
-      method: 'JSONP'
-    }
-  });
+    var weatherResource = $resource(url, {
+      callback: 'JSON_CALLBACK',
+    }, {
+      get: {
+        method: 'JSONP'
+      }
+    });
 
-  return {
-    getAtLocation: function(lat, lng) {
-      return $http.jsonp(url + lat + ',' + lng + '?callback=JSON_CALLBACK');
-    },
-    getForecast: function(locationString) {
-    },
-    getHourly: function(locationString) {
+    return {
+      getAtLocation: function(lat, lng) {
+        return $http.jsonp(url + lat + ',' + lng + '?callback=JSON_CALLBACK');
+      },
+      getForecast: function(locationString) {},
+      getHourly: function(locationString) {}
     }
   }
-}];
+];
 
 
 angular.module('ionic.metApp.services', ['ngResource'])
 
 .constant('DEFAULT_SETTINGS', {
-  'tempUnits': 'f'
+  'tempUnits': 'c'
 })
 
 .factory('Settings', function($rootScope, DEFAULT_SETTINGS) {
   var _settings = {};
   try {
     _settings = JSON.parse(window.localStorage['settings']);
-  } catch(e) {
-  }
+  } catch (e) {}
 
   // Just in case we have new settings that need to be saved
   _settings = angular.extend({}, DEFAULT_SETTINGS, _settings);
 
-  if(!_settings) {
+  if (!_settings) {
     window.localStorage['settings'] = JSON.stringify(_settings);
   }
 
@@ -56,6 +55,8 @@ angular.module('ionic.metApp.services', ['ngResource'])
     },
     // Set a settings val
     set: function(k, v) {
+      // console.log(k + ': ' + v);
+      // console.log(v);
       _settings[k] = v;
       this.save();
     },
@@ -81,20 +82,20 @@ angular.module('ionic.metApp.services', ['ngResource'])
       }, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
           // console.log('Reverse', results);
-          if(results.length > 1) {
+          if (results.length > 1) {
             var r = results[1];
             var a, types;
             var parts = [];
             var foundLocality = false;
             var foundState = false;
-            for(var i = 0; i < r.address_components.length; i++) {
+            for (var i = 0; i < r.address_components.length; i++) {
               a = r.address_components[i];
               types = a.types;
-              for(var j = 0; j < types.length; j++) {
-                if(!foundLocality && types[j] == 'locality') {
+              for (var j = 0; j < types.length; j++) {
+                if (!foundLocality && types[j] == 'locality') {
                   foundLocality = true;
                   parts.push(a.long_name);
-                } else if(!foundState && types[j] == 'administrative_area_level_1') {
+                } else if (!foundState && types[j] == 'administrative_area_level_1') {
                   foundState = true;
                   parts.push(a.short_name);
                 }

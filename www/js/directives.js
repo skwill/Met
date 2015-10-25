@@ -23,16 +23,18 @@ angular.module('ionic.metApp.directives', [])
     link: function($scope) {
       // console.log($scope)
       $scope.$watch('icon', function(v) {
-        if(!v) { return; }
+        if (!v) {
+          return;
+        }
 
         var icon = v;
 
-        if(icon in WEATHER_ICONS) {
+        if (icon in WEATHER_ICONS) {
           $scope.weatherIcon = WEATHER_ICONS[icon];
         } else {
           $scope.weatherIcon = WEATHER_ICONS['cloudy'];
         }
-         // console.log(icon)
+        // console.log(icon)
       });
     }
   }
@@ -49,9 +51,11 @@ angular.module('ionic.metApp.directives', [])
     template: '<i class="icon" ng-class="currentIcon"></i>',
     link: function($scope) {
       $scope.$watch('icon', function(v) {
-        if(!v) { return; }
+        if (!v) {
+          return;
+        }
         var icon = v;
-        if(icon in WEATHER_ICONS) {
+        if (icon in WEATHER_ICONS) {
           $scope.currentIcon = WEATHER_ICONS[icon];
         } else {
           $scope.currentIcon = WEATHER_ICONS['cloudy'];
@@ -71,14 +75,14 @@ angular.module('ionic.metApp.directives', [])
     },
     link: function($scope, $element, $attr) {
       $timeout(function checkTime() {
-        if($scope.localtz) {
+        if ($scope.localtz) {
           $scope.currentTime = $filter('date')(+(new Date), 'h:mm') + $scope.localtz;
         }
         $timeout(checkTime, 500);
       });
     }
   }
- })
+})
 
 .directive('currentWeather', function($timeout, $rootScope, Settings) {
   return {
@@ -91,20 +95,23 @@ angular.module('ionic.metApp.directives', [])
 
         $rootScope.$on('settings.changed', function(settings) {
           var units = Settings.get('tempUnits');
+          // alert();
+          // console.log($scope)
+          if ($scope.current) {
+            // console.log($scope.current.currently)
+            var forecast = $scope.current.daily.data[0];
+            var current = $scope.current.currently;
 
-          if($scope.forecast) {
-
-            var forecast = $scope.forecast;
-            var current = $scope.current;
-
-            if(units == 'f') {
-              $scope.highTemp = forecast.forecastday[0].high.fahrenheit;
-              $scope.lowTemp = forecast.forecastday[0].low.fahrenheit;
-              $scope.currentTemp = Math.floor(current.temp_f);
+            if (units == 'f') {
+              // console.log('f')
+              $scope.highTemp = forecast.temperatureMax;
+              $scope.lowTemp = forecast.temperatureMin;
+              $scope.currentTemp = Math.floor(current.temperature);
             } else {
-              $scope.highTemp = forecast.forecastday[0].high.celsius;
-              $scope.lowTemp = forecast.forecastday[0].low.celsius;
-              $scope.currentTemp = Math.floor(current.temp_c);
+              // console.log('c')
+              $scope.highTemp = forecast.temperatureMax;
+              $scope.lowTemp = forecast.temperatureMin;
+              $scope.currentTemp = Math.floor((current.temperature - 32) * .5556);
             }
           }
         });
@@ -112,13 +119,14 @@ angular.module('ionic.metApp.directives', [])
         $scope.$watch('current', function(current) {
           var units = Settings.get('tempUnits');
 
-          if(current) {
-            if(units == 'f') {
+          if (current) {
+            // console.log(current)
+            if (units == 'f') {
               $scope.currentTemp = Math.floor(current.currently.temperature);
             } else {
-              $scope.currentTemp = Math.floor(current.currently.temperature);
+              $scope.currentTemp = Math.floor((current.currently.temperature - 32) * .5556);
             }
-            if(units == 'f') {
+            if (units == 'f') {
               $scope.highTemp = Math.floor(current.daily.data[0].temperatureMax);
               $scope.lowTemp = Math.floor(current.daily.data[0].temperatureMin);
             } else {
@@ -128,17 +136,17 @@ angular.module('ionic.metApp.directives', [])
           }
         });
 
-      // Delay so we are in the DOM and can calculate sizes
-      $timeout(function() {
-        var windowHeight = window.innerHeight;
-        var thisHeight = $element[0].offsetHeight;
-        var headerHeight = document.querySelector('#header').offsetHeight;
-        $element[0].style.paddingTop = (windowHeight - (thisHeight) + 10) + 'px';
-        angular.element(document.querySelector('.content')).css('-webkit-overflow-scrolling', 'auto');
+        // Delay so we are in the DOM and can calculate sizes
         $timeout(function() {
-          angular.element(document.querySelector('.content')).css('-webkit-overflow-scrolling', 'touch');
-        }, 50);
-      });
+          var windowHeight = window.innerHeight;
+          var thisHeight = $element[0].offsetHeight;
+          var headerHeight = document.querySelector('#header').offsetHeight;
+          $element[0].style.paddingTop = (windowHeight - (thisHeight) + 10) + 'px';
+          angular.element(document.querySelector('.content')).css('-webkit-overflow-scrolling', 'auto');
+          $timeout(function() {
+            angular.element(document.querySelector('.content')).css('-webkit-overflow-scrolling', 'touch');
+          }, 50);
+        });
       }
     }
   }
@@ -149,8 +157,7 @@ angular.module('ionic.metApp.directives', [])
     restrict: 'E',
     replace: true,
     templateUrl: 'app/home/forecast.html',
-    link: function($scope, $element, $attr) {
-    }
+    link: function($scope, $element, $attr) {}
   }
 })
 
@@ -163,8 +170,7 @@ angular.module('ionic.metApp.directives', [])
       title: '@'
     },
     template: '<div class="weather-box"><h4 class="title">{{title}}</h4><div ng-transclude></div></div>',
-    link: function($scope, $element, $attr) {
-    }
+    link: function($scope, $element, $attr) {}
   }
 })
 
@@ -174,22 +180,36 @@ angular.module('ionic.metApp.directives', [])
     link: function($scope, $element, $attr) {
       var amt, st, header;
       var bg = document.querySelector('.bg-image');
+      var ff = document.getElementById('ff');
       $element.bind('scroll', function(e) {
-        if(!header) {
+        if (!header) {
           header = document.getElementById('header');
         }
         st = e.detail.scrollTop;
-        if(st >= 0) {
+        if (st >= 0) {
           header.style.webkitTransform = 'translate3d(0, 0, 0)';
-        } else if(st < 0) {
+        } else if (st < 0) {
           header.style.webkitTransform = 'translate3d(0, ' + -st + 'px, 0)';
         }
         amt = Math.min(0.6, st / 1000);
+        var b_amount = 60;
+        var blur = "-webkit-filter: blur(" + amt * b_amount + "px);" +
+          "-moz-filter: blur(" + amt * b_amount + "px);" +
+          "-o-filter: blur(" + amt * b_amount + "px);" +
+          "-ms-filter: blur(" + amt * b_amount + "px);" +
+          "filter: url('data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='60'%20/></filter></svg>#blur');" +
+          "filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='" + amt * b_amount + "');" +
+          "clip: rect(520px 573px 516px 351px);" // /*transition: all 0.1s ease-in-out;*/';
+        ff.setAttribute("style", blur);
+        // header.setAttribute("style", "-webkit-filter: blur("+amt*10+"px); -moz-filter: blur("+amt*10+"px); -o-filter: blur("+amt*10+"px); -ms-filter: blur("+amt*10+"px); filter: url('data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='60'%20/></filter></svg>#blur'); filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='"+amt*10+"'); clip: rect(520px 573px 516px 351px); /*transition: all 0.1s ease-in-out;*/");
+        // console.log(ff)
 
         ionic.requestAnimationFrame(function() {
+          // console.log(amt)
           header.style.opacty = 1 - amt;
-          if(bg) {
+          if (bg) {
             bg.style.opacity = 1 - amt;
+            // bg.setAttribute("style", "-webkit-filter: blur("+amt*2+"px)")
           }
         });
       });
@@ -208,7 +228,7 @@ angular.module('ionic.metApp.directives', [])
     $animate.enter(img, $element, null, function() {
       console.log('Inserted');
     });
-    if(child) {
+    if (child) {
       $animate.leave(angular.element(child), function() {
         console.log('Removed');
       });
@@ -219,10 +239,12 @@ angular.module('ionic.metApp.directives', [])
     restrict: 'E',
     link: function($scope, $element, $attr) {
       $scope.$watch('activeBgImage', function(v) {
-        if(!v) { return; }
+        if (!v) {
+          return;
+        }
         console.log('Active bg image changed', v);
         var item = v;
-        var url = "http://farm"+ item.farm +".static.flickr.com/"+ item.server +"/"+ item.id +"_"+ item.secret + "_z.jpg";
+        var url = "http://farm" + item.farm + ".static.flickr.com/" + item.server + "/" + item.id + "_" + item.secret + "_z.jpg";
         animate($scope, $element, url);
       });
     }
@@ -236,7 +258,7 @@ angular.module('ionic.metApp.directives', [])
     replace: true,
     scope: true,
     link: function($scope, $element, $attr) {
-      if($scope.url) {
+      if ($scope.url) {
         $element[0].style.backgroundImage = 'url(' + $scope.url + ')';
       }
     }
