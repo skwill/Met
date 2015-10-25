@@ -55,12 +55,32 @@
 			//return leagues.items[0];
 		}
 
+		function getWarnings(callback){
+			$http.get(url+"/warn")
+				.success(function(data){
+					callback(data);
+				});
+
+			//return leagues.items[0];
+		}
+
+		function getWatches(callback){
+			$http.get(url+"/watch")
+				.success(function(data){
+					callback(data);
+				});
+
+			//return leagues.items[0];
+		}
+
 		return{
 			// getLeagues: getLeagues,
 			getBulletins: getBulletins,
 			getBulletinsev: getBulletinsev,
 			getBulletinFlood: getBulletinFlood,
 			getBulletinSea: getBulletinSea,
+			getWatches: getWatches,
+			getWarnings: getWarnings,
 			forecast: forecast,
 			yahooForecast: yahooForecast
 			/*getLeagueData: getLeagueData*/
