@@ -194,14 +194,14 @@ angular.module('ionic.metApp' /*, */ )
 		// }
 
 
-		_this.getForecast = function() {
-			metApi.get_forecast(function(data) {
-				// console.log(data)
-				// _this.bulletins = data.items[0];
-			});
-		}
+	// _this.getForecast = function() {
+	// 	metApi.get_forecast(function(data) {
+	// 		// console.log(data)
+	// 		// _this.bulletins = data.items[0];
+	// 	});
+	// }
 
-		_this.getForecast();
+	// _this.getForecast();
 
 		// $scope.doRefresh = function() {
 		// 	_this.yForecast();
@@ -210,29 +210,29 @@ angular.module('ionic.metApp' /*, */ )
 
 
 
-		$scope.yForecast = function() {
-			// $scope.show($ionicLoading);
-			// alert();
-			metApi.yahooForecast(function(data) {
-				console.log(data);
+	// $scope.yForecast = function() {
+	// 	// $scope.show($ionicLoading);
+	// 	// alert();
+	// 	metApi.yahooForecast(function(data) {
+	// 		console.log(data);
 
-				// var demo = document.getElementById("demo");
-				// demo.style.background = timeOfDay();
+	// 		// var demo = document.getElementById("demo");
+	// 		// demo.style.background = timeOfDay();
 
-				_this.condition = data.query.results.channel.item.condition;
-				_this.threeDay = data.query.results.channel.item.forecast;
-				_this.location = data.query.results.channel.location.city;
-				_this.pubDate = data.query.results.channel.item.pubDate;
-				_this.title = data.query.results.channel.item.title;
-				_this.sunrise = data.query.results.channel.astronomy.sunrise;
-				_this.sunset = data.query.results.channel.astronomy.sunset;
+	// 		_this.condition = data.query.results.channel.item.condition;
+	// 		_this.threeDay = data.query.results.channel.item.forecast;
+	// 		_this.location = data.query.results.channel.location.city;
+	// 		_this.pubDate = data.query.results.channel.item.pubDate;
+	// 		_this.title = data.query.results.channel.item.title;
+	// 		_this.sunrise = data.query.results.channel.astronomy.sunrise;
+	// 		_this.sunset = data.query.results.channel.astronomy.sunset;
 
-				// _this.wicons = getWeatherIcons(_this.threeDay);
-				// $scope.hide($ionicLoading);
-				/*console.log(_this.wicons);
-	    		// console.log(_this.threeDay);*/
-			});
-		}
+	// 		// _this.wicons = getWeatherIcons(_this.threeDay);
+	// 		// $scope.hide($ionicLoading);
+	// 		/*console.log(_this.wicons);
+	//    		// console.log(_this.threeDay);*/
+	// 	});
+	// }
 		// $scope.yForecast();
 
 		function timeOfDay() {

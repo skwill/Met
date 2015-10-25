@@ -1,19 +1,67 @@
 angular.module('ionic.metApp')
-	.run(function($http, $cordovaPush) {
+	.run(function($http, $cordovaPush, $ionicPlatform, $rootScope) {
+		$ionicPlatform.ready(function() { // works on web browser
+			// alert("ready")
+			// var push = new Ionic.Push({
+			// 	"debug": true
+			// });
+
+			// push.register(function(token) {
+			// 	console.log('Device token:', token.token);
+			// 	alert("hello");
+			// })
+			// Ionic.io();
+
+			// var user = Ionic.User.current();
+			// if (!user.id) {
+			// 	user.id = Ionic.User.anonymousId();
+			// }
+
+			// user.save();
+		})
+
+
+
+
 		var androidConfig = {
-			"senderID": "123456",
+			"senderID": "158386410361",
+			// "ecb": "window.onNotification"
 		};
 
+		// window.onNotification = function(e) {
+		// 	alert("nitification")
+		// }
+
 		document.addEventListener("deviceready", function() {
+			Ionic.io();
+
+			var user = Ionic.User.current();
+			if (!user.id) {
+			user.id = Ionic.User.anonymousId();
+			user.name = "Test User",
+			user.message = "Emulator"
+			}
+			user.save();
+			var push = new Ionic.Push({
+				"debug": true
+			});
+
+			push.register(function(token) {
+				console.log('Device token:', token.token);
+				alert(token.token);
+			})
+
 			$cordovaPush.register(androidConfig).then(function(result) {
 				// Success
-				alert("start of push");
+				// alert("start of push");
+				// console.log(result)
 			}, function(err) {
 				// Error
 			})
 
-			// $scope.$on('$cordovaPush:notificationReceived', function(event, notification) {
-			$scope.$on('pushNotificationReceived', function(event, notification) {
+			$rootScope.$on('$cordovaPush:notificationReceived', function(event, notification) {
+				// $scope.$on('pushNotificationReceived', function(event, notification) {
+				// alert("end");
 				switch (notification.event) {
 					case 'registered':
 						if (notification.regid.length > 0) {
@@ -37,12 +85,12 @@ angular.module('ionic.metApp')
 			});
 
 
-			// WARNING: dangerous to unregister (results in loss of tokenID)
-			$cordovaPush.unregister(options).then(function(result) {
-				// Success!
-			}, function(err) {
-				// Error
-			})
+			// WARNING: dangerous to unregister(results in loss of tokenID)
+			// $cordovaPush.unregister(options).then(function(result) {
+			// 	// Success!
+			// }, function(err) {
+			// 	// Error
+			// })
 
 		}, false);
 	})
