@@ -96,6 +96,16 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
     }
   })
 
+  .state('app.services', {
+      url: '/services',
+      views: {
+        //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
+        'mainContent': {
+          templateUrl: "app/services/services.html"
+        }
+      }
+    })
+
   //$stateProvider
   /*.state('app.services', {
       abstract: true,
@@ -115,6 +125,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
       
     })
 
+
     .state('app.services.aviation', {
       //abstract: true,      
       url: "/aviation",
@@ -125,22 +136,37 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
       } 
     })
 
-    .state('services.climate', {
+    .state('app.services.climate', {
       //abstract: true,
       url: "/services",
-      templateUrl: "app/services/services.html"
+       views: {
+        'servicesContent': {
+             templateUrl: "app/services/climate.html"
+        }     
+      } 
+     
     })
 
-    .state('services.marine', {
+    .state('app.services.marine', {
       //abstract: true,
       url: "/services",
-      templateUrl: "app/services/services.html"
+       views: {
+        'servicesContent': {
+            templateUrl: "app/services/marine.html"
+        }     
+      } 
+      
     })
 
-    .state('services.agriculture', {
+    .state('app.services.agriculture', {
       //abstract: true,
       url: "/services",
-      templateUrl: "app/services/services.html"
+       views: {
+        'servicesContent': {
+              templateUrl: "app/services/agriculture.html"
+        }     
+      } 
+     
     });
     // if none of the above states are matched, use this as the fallback
 
