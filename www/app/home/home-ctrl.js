@@ -172,6 +172,7 @@ angular.module('ionic.metApp' /*, */ )
 						$scope.has_images = true;
 					}
 				}, function(error) {
+					// if connection to flickr fails fail safe back to device for images
 					console.log('Unable to get Flickr images', error);
 				})
 			}
@@ -196,7 +197,7 @@ angular.module('ionic.metApp' /*, */ )
 
 		_this.getForecast = function() {
 			metApi.get_forecast(function(data) {
-				// console.log(data)
+				 console.log(data)
 				// _this.bulletins = data.items[0];
 			});
 		}

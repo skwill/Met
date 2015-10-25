@@ -79,6 +79,7 @@ angular.module('ionic.metApp')
 		vm.getGIBulletins = function() {
 			metApi.get_b_info(function(data) {
 				vm.b_info = data.items;
+				console.log(data)
 				// alert(data.item[0].flag)
 			});
 		}
