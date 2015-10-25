@@ -52,52 +52,63 @@ angular.module('ionic.metApp').controller('BulletinsCtrl', function(metApi, $sco
 	}
 
 
-	vm.getBulletin = function(id){
-		//console.log('id ='+id)
-		var go = true;
-		var indexId = null;
-		var pass = null;
-		var gid = id;
-		metApi.getBulletins(function(data){
-			angular.forEach(data.items, function(data2, index){
-				//console.log(data2);
-				//console.log('index id ='+index);
-				//console.log(go);
+	// vm.getBulletin = function(id){
+	// 	//console.log('id ='+id)
+		
 
-			   	if (go == true) {
-			   		if (index == gid) {
-			   			//console.log('index id ='+index);
-			   			go = false;
+	// 	vm.go = true;
+	// 	vm.indexId = null;
+	// 	//vm.pass = "crap";
+	// 	vm.gid = id;
 
-			   			indexId = index;
-			   			console.log(indexId);
-			   			console.log(data2);
-			   			/*pass = data[indexId];
-			   			console.log(pass);*/
-			   		};
-			   	};			   			   
-			});
-		});
+	// 	metApi.getBulletins(function(data){
+	// 		angular.forEach(data.items, function(data2, index){
+	// 			//console.log(data2);
+	// 			//console.log('index id ='+index);
+	// 			//console.log(go);
 
-		//return id;
-	}
+	// 		   	if (vm.go == true) {
+	// 		   		if (index == vm.gid) {
+	// 		   			//console.log('index id ='+index);
+	// 		   			vm.go = false;
+	// 		   			vm.pass = data2;
+			   			
+	// 		   			//vm.indexId = index;
+	// 		   			//console.log(indexId);
+	// 		   			//console.log(data2);
+			   			
+	// 		   			//return vm.pass;
+	// 		   		};
 
-	$scope.openModal = function(index){
-		var result = vm.getBulletin(index);
+	// 		   	};
 
-		//console.log(result);
-		$ionicModal.fromTemplateUrl('app/bullettins/modal.html', {
+			   				   			   
+	// 		});
+
+	// 		//console.log(vm.pass);
+	// 		return vm.pass;
+	// 	});	
+
+		//console.log(vm.pass);
+		
+	//}
+	
+
+	$scope.openModalFunction = function(){
+		$ionicModal.fromTemplateUrl('app/bullettins/infomodal.html', {
 		    scope: $scope,
 		    animation: 'slide-in-up'
 		}).then(function(modal){			
 		    $scope.modal = modal;
 		    $scope.modal.show();
+
+
 		    //console.log(index);
 		});
 
-		$scope.openModal = function() {
+		/*$scope.openModal = function() {
 	        $scope.modal.show();
-	    };
+	    };*/
 
 	    $scope.closeModal = function() {
 	        $scope.modal.hide();

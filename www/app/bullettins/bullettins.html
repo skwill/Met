@@ -23,12 +23,12 @@
                     <h1 class="text-center">Information</h1>
                     
                     <div ng-repeat="item in vm.bulletins">
-                        <div class="item" ng-click="openModal({{($index)}})">
+                        <div class="item" ng-click="openModalFunction()">
                             <h1></h1>
                             <h2>{{item.bulletinType}}</h2>
                             <p>{{item.currdate}}, {{item.issuedAt}}</p>
                         </div>
-                        <!-- <div class="item tabs tabs-secondary tabs-icon-left">
+                        <div class="item tabs tabs-secondary tabs-icon-left">
                             <a class="tab-item" href="#">
                               <i class="icon ion-thumbsup"></i>
                               Like
@@ -41,7 +41,7 @@
                               <i class="icon ion-share"></i>
                               Share
                             </a>
-                        </div> -->
+                        </div>
                     </div>
                     <!-- <p>Box 1</p>
                     <p>{{vm.bulletins[0].bulletinType}}</p> -->
@@ -50,11 +50,10 @@
             <ion-slide style="height: 400px;" ng-init="vm.getSevere()">
                 <div class="box">
                     <h1 class="text-center">Severe Weather</h1>
-                    <div ng-repeat="item in vm.severe" ui-sref="app.singlebulletin">
-                        <div class="item">
+                    <div ng-repeat="item in vm.severe">
+                        <div class="item" ng-click="openModalFunction()">
                             <h2>{{item.bulletinType}}</h2>
-                            <p>{{item.currdate}}, {{item.issuedAt}}</p>
-                            <p>{{item.forecaster}}</p>
+                            <p>{{item.currdate}}, {{item.issuedAt}}</p>                            
                         </div>
                         <!-- <div class="item">
                             <sup>{{item.currdate}}, {{item.issuedAt}}</sup>
@@ -79,8 +78,8 @@
             <ion-slide style="height: 400px;" ng-init="vm.getFlood()">
                 <div class="box">
                     <h1 class="text-center">Floods</h1>
-                    <div ng-repeat="item in vm.flood" ui-sref="app.singlebulletin">
-                        <div class="item">
+                    <div ng-repeat="item in vm.flood" >
+                        <div class="item" ng-click="openModalFunction()">
                             <h2>{{item.bulletinType}}</h2>
                             <p>{{item.currdate}}, {{item.issuedAt}}</p>
                         </div>
@@ -107,8 +106,8 @@
             <ion-slide style="height: 400px;">
                 <div class="box">
                     <h1 class="text-center">Rough Seas</h1>
-                    <div ng-repeat="item in vm.sea" ui-sref="app.singlebulletin">
-                        <div class="item">
+                    <div ng-repeat="item in vm.sea" >
+                        <div class="item" ng-click="openModalFunction()">
                             <h2>{{item.bulletinType}}</h2>
                             <p>{{item.currdate}}, {{item.issuedAt}}</p>
                         </div>
