@@ -93,8 +93,8 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
       'mainContent': {
         templateUrl: 'app/about/about.html'
       }
-
-    })
+    }
+  })
 
   //$stateProvider
   /*.state('app.services', {
@@ -144,8 +144,8 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
     });
     // if none of the above states are matched, use this as the fallback
 
-    }
-  })
+    
+
 
   // if none of the above states are matched, use this as the fallback
 
