@@ -114,7 +114,13 @@ angular.module("ionic.metApp", ['ionic', 'ionic.metApp.services', 'ionic.metApp.
     .state('app.services.home', {
       //abstract: true,
       url: "/services/home",
-      templateUrl: "app/services/services.html"
+      views: {
+        //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
+        'servicesContent': {
+          templateUrl: "app/services/test.html"
+        }
+      }
+      
     })
 
     .state('app.services.aviation', {
