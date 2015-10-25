@@ -102,8 +102,50 @@ angular.module("ionic.metApp", ['ionic', 'ionic.metApp.services', 'ionic.metApp.
           templateUrl: "app/services/services.html"
         }
       }
-    });
+    })
 
+  //$stateProvider
+  /*.state('app.services', {
+      abstract: true,
+      url: "/services",
+      templateUrl: "app/layout/menu-layout.html"
+    })*/
+
+    .state('app.services.home', {
+      //abstract: true,
+      url: "/services/home",
+      templateUrl: "app/services/services.html"
+    })
+
+    .state('app.services.aviation', {
+      //abstract: true,      
+      url: "/aviation",
+      views: {
+        'servicesContent': {
+            templateUrl: "app/services/aviation.html"
+        }     
+      } 
+    })
+
+    .state('services.climate', {
+      //abstract: true,
+      url: "/services",
+      templateUrl: "app/services/services.html"
+    })
+
+    .state('services.marine', {
+      //abstract: true,
+      url: "/services",
+      templateUrl: "app/services/services.html"
+    })
+
+    .state('services.agriculture', {
+      //abstract: true,
+      url: "/services",
+      templateUrl: "app/services/services.html"
+    });
     // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/home');
 });
+
+

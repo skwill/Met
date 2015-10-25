@@ -30,6 +30,12 @@ angular.module('ionic.metApp').controller('BulletinsCtrl', function(metApi, $sco
 		});
 	}*/
 
+	vm.getBack = function(){
+		$scope.myGoBack = function() {
+	    $ionicHistory.goBack();
+	  };
+	}
+
 	vm.getSevere = function(){
 		metApi.getBulletinsev(function(data){
 			vm.severe = data.items;
@@ -51,7 +57,13 @@ angular.module('ionic.metApp').controller('BulletinsCtrl', function(metApi, $sco
 		})
 	}
 
+	
 
+	/*function back($scope, $ionicHistory) {
+	  $scope.myGoBack = function() {
+	    $ionicHistory.goBack();
+	  };
+	}*/
 	// vm.getBulletin = function(id){
 	// 	//console.log('id ='+id)
 		
