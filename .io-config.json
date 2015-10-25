@@ -1,5 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 {"app_id":"55bb3209","api_key":"8cb18e27b6c66c9a1db07ff92683207e53b08f35144a9242"}
 =======
 {"app_id":"db5f1dea","api_key":"5a5ec9c817ccee4f8d59368497e509fbf7173ba2e0571357","dev_push":true}
 >>>>>>> 1bec352f081f5f1f093271f38a6c0f07526bfed1
+=======
+{"app_id":"db5f1dea","api_key":"5a5ec9c817ccee4f8d59368497e509fbf7173ba2e0571357","dev_push":true,"gcm_key":"158386410361"}
+>>>>>>> 4a5e436045b75fbe9f3551b5454a4afc7b18e0a0

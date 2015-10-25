@@ -40,12 +40,14 @@ angular.module('ionic.metApp').controller('warningsCtrl', function(metApi, $scop
 	// Create modals
 	$ionicModal.fromTemplateUrl('app/warnings/info_item.html', {
 		scope: $scope,
-		animation: 'scale-in' //modal animation
+		animation: 'slide-in-up' //modal animation
 	}).then(function(w_details_modal) {
 		$scope.w_details_modal = w_details_modal;
 	});
 	// close modal
 	$scope.w_info_close = function() {
+		var m = document.querySelector('.modal');
+		m.setAttribute("style", "");
 		$scope.w_details_modal.hide();
 	};
 
@@ -81,4 +83,30 @@ angular.module('ionic.metApp').controller('warningsCtrl', function(metApi, $scop
 				break;
 		}
 	};
+
+	$scope.drag_close_modal = function(event) {
+		var windowHeight = window.innerHeight;
+		// var thisHeight = $element[0].offsetHeight;
+		var pos = event.gesture.center.pageY;
+		console.log(event)
+		var m = document.querySelector('.modal');
+		var trans = "; transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 400ms;"
+		m.setAttribute("style", "margin-top:" + pos + "px" + trans);
+		if (pos > windowHeight / 2) {
+			$scope.w_info_close();
+		}
+		if (pos < 0) {
+			m.setAttribute("style", "margin-top:" + 0 + "px" + trans);
+		}
+
+		if (pos > windowHeight) {
+			$scope.w_info_close();
+		}
+	}
+
+	$scope.drag_release = function() {
+		var m = document.querySelector('.modal');
+		var trans = "; transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 400ms;"
+		m.setAttribute("style", "margin-top:" + 0 + "px" + trans);
+	}
 })
