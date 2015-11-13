@@ -1,4 +1,4 @@
-<ion-view view-title="Bullettins" ng-class="" class="" ng-controller="BulletinsCtrl as vm">
+<ion-view view-title="Bullettins" ng-controller="BulletinsCtrl as vm">
     <ion-nav-bar>
         <ion-nav-back-button class="button-clear">
             <i class="ion-arrow-left-c"></i>
@@ -17,10 +17,68 @@
             <ion-slide ng-init="vm.getGIBulletins()">
                 <div class="box">
                     <div class="list">
-                        <div ng-repeat="item in vm.b_info" ng-click="b_info_open({{item.bulletinNum}}, 'b')" data-id="item.bulletinNum">
+                        <!-- KEEP AS REFERENCE -->
+                        <!-- <div ng-repeat="item in vm.b_info" ng-click="b_info_open({{item.bulletinNum}}, 'b')" data-id="item.bulletinNum">
                             <div class="item">
+                                <p class="title">{{item.bulletinNum}}{{item.bulletinType}}</p>
+                                <h6 class="follow">{{item.currdate}}, {{item.issuedAt}}</h6>
+                            </div>
+                        </div> -->
+                        <div ng-repeat="item in vm.b_info">
+                            <div class="list card">
+                              <div class="item">                                
                                 <p class="title">{{item.bulletinType}}</p>
                                 <h6 class="follow">{{item.currdate}}, {{item.issuedAt}}</h6>
+                              </div>
+
+                              <div class="item item-body">                                
+                                <p>
+                                 {{item.textArea1}}
+                                </p>                                
+                              </div>
+
+                              <div class="item tabs tabs-secondary tabs-icon-left">
+                                <a class="tab-item" href="#">
+                                  <i class="icon ion-thumbsup"></i>
+                                  Like
+                                </a>
+                                <a class="tab-item" href="#">
+                                  <i class="icon ion-chatbox"></i>
+                                  Comment
+                                </a>
+                                <a class="tab-item" href="#">
+                                  <i class="icon ion-share"></i>
+                                  Share
+                                </a>
+                              </div>
+                            </div>
+
+                            <div class="list card">
+                              <div class="item ">                                
+                                <p class="title">{{item.bulletinType}}</p>
+                                <h6 class="follow">{{item.currdate}}, {{item.issuedAt}}</h6>
+                              </div>
+
+                              <div class="item item-body">                                
+                                <p>
+                                 {{item.textArea1}}
+                                </p>                                
+                              </div>
+
+                              <div class="item tabs tabs-secondary tabs-icon-left">
+                                <a class="tab-item" href="#">
+                                  <i class="icon ion-thumbsup"></i>
+                                  Like
+                                </a>
+                                <a class="tab-item" href="#">
+                                  <i class="icon ion-chatbox"></i>
+                                  Comment
+                                </a>
+                                <a class="tab-item" href="#">
+                                  <i class="icon ion-share"></i>
+                                  Share
+                                </a>
+                              </div>
                             </div>
                         </div>
                     </div>
@@ -29,10 +87,38 @@
             <ion-slide ng-init="vm.get_serv_b()">
                 <div class="box">
                     <div class="list" ng-if="vm.s_items">
-                        <div ng-repeat="item in vm.s_items" ng-click="b_info_open({{item.bulletinNum}}, 's')" data-id="item.bulletinNum">
-                            <div class="item">
+                        <div ng-repeat="item in vm.s_items">
+                            <!-- <div class="item">
                                 <p class="title">{{item.bulletinType}}</p>
                                 <h6 class="follow">{{item.currdate}}, {{item.issuedAt}}</h6>
+                            </div> -->
+
+                            <div class="list card">
+                              <div class="item">                                
+                                <p class="title">{{item.bulletinType}}</p>
+                                <h6 class="follow">{{item.currdate}}, {{item.issuedAt}}</h6>
+                              </div>
+
+                              <div class="item item-body">                                
+                                <p>
+                                 {{item.textArea1}}
+                                </p>                                
+                              </div>
+
+                              <div class="item tabs tabs-secondary tabs-icon-left">
+                                <a class="tab-item" href="#">
+                                  <i class="icon ion-thumbsup"></i>
+                                  Like
+                                </a>
+                                <a class="tab-item" href="#">
+                                  <i class="icon ion-chatbox"></i>
+                                  Comment
+                                </a>
+                                <a class="tab-item" href="#">
+                                  <i class="icon ion-share"></i>
+                                  Share
+                                </a>
+                              </div>
                             </div>
                         </div>
                     </div>
@@ -42,12 +128,34 @@
             <ion-slide ng-init="vm.get_flood_b()">
                 <div class="box">
                     <div class="list">
-                        <div ng-repeat="item in vm.f_items" ng-click="b_info_open({{item.bulletinNum}}, 'f')" data-id="item.bulletinNum">
-                            <div class="item">
+                        <div ng-repeat="item in vm.f_items">
+                            <div class="list card">
+                              <div class="item">                                
                                 <p class="title">{{item.bulletinType}}</p>
                                 <h6 class="follow">{{item.currdate}}, {{item.issuedAt}}</h6>
-                            </div>
+                              </div>
 
+                              <div class="item item-body">                                
+                                <p>
+                                 {{item.textArea1}}
+                                </p>                                
+                              </div>
+
+                              <div class="item tabs tabs-secondary tabs-icon-left">
+                                <a class="tab-item" href="#">
+                                  <i class="icon ion-thumbsup"></i>
+                                  Like
+                                </a>
+                                <a class="tab-item" href="#">
+                                  <i class="icon ion-chatbox"></i>
+                                  Comment
+                                </a>
+                                <a class="tab-item" href="#">
+                                  <i class="icon ion-share"></i>
+                                  Share
+                                </a>
+                              </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -56,10 +164,35 @@
             <ion-slide ng-init="vm.get_sea_b()">
                 <div class="box">
                     <div class="list" ng-if="vm.r_items">
-                        <div ng-repeat="item in vm.r_items" ng-click="b_info_open({{item.bulletinNum?item.bulletinNum:0}}, 'r')" data-id="item.bulletinNum">
+                        <div ng-repeat="item in vm.r_items">
                             <div class="item">
-                                <p class="title">{{item.bulletinType}}</p>
-                                <h6 class="follow">{{item.currdate}}, {{item.issuedAt}}</h6>
+                                <div class="list card">
+                                  <div class="item">                                
+                                    <p class="title">{{item.bulletinType}}</p>
+                                    <h6 class="follow">{{item.currdate}}, {{item.issuedAt}}</h6>
+                                  </div>
+
+                                  <div class="item item-body">                                
+                                    <p>
+                                     {{item.textArea1}}
+                                    </p>                                
+                                  </div>
+
+                                  <div class="item tabs tabs-secondary tabs-icon-left">
+                                    <a class="tab-item" href="#">
+                                      <i class="icon ion-thumbsup"></i>
+                                      Like
+                                    </a>
+                                    <a class="tab-item" href="#">
+                                      <i class="icon ion-chatbox"></i>
+                                      Comment
+                                    </a>
+                                    <a class="tab-item" href="#">
+                                      <i class="icon ion-share"></i>
+                                      Share
+                                    </a>
+                                  </div>
+                                </div>
                             </div>
                         </div>
                     </div>

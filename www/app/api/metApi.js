@@ -133,6 +133,13 @@
 					callback(data)
 				})
 		}
+
+		function get_radar(callback) {
+			$http.get(url + '/radars/1')
+				.success(function(data) {
+					callback(data)
+				})
+		}
 		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		return {
 			get_forecast: get_forecast,
@@ -149,6 +156,7 @@
 			get_ttpp: get_ttpp,
 			get_warn: get_warn,
 			get_watch: get_watch,
+			get_radar: get_radar,
 
 		};
 	}

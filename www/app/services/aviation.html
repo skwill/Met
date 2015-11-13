@@ -1,4 +1,4 @@
-<ion-view view-title="Aviation" >
+<ion-view view-title="Aviation" ng-controller="ServicesCtrl as sc">
     <ion-nav-bar>
         <!-- <ion-nav-title align-title="center">Met App</ion-nav-title> -->
         <!-- <button menu-toggle="left" class="button button-icon icon ion-navicon"></button> -->
@@ -18,10 +18,18 @@
     <ion-content class="has-header container">
         <!-- <sup>Description of warnings</sup> -->
         <ion-slide-box on-slide-changed="slideHasChanged($index)">
-            <ion-slide style="height: 400px;">
+            <ion-slide ng-init="sc.get_o_aviation()">
                 <div class="box">
-                    <h1 class="text-center">Information</h1>
-                    
+                    <h1 class="text-center">Radar</h1>
+                    <div class="list">
+                        <div ng-repeat="item in sc.aviation_items" data-id="item.watchdatatblID">
+                            <div class="item">
+                                <p class="title">Issued on {{item.insertionDate}} at {{item.issuedAt}}</p>
+                                <h6 class="follow"></h6>
+                                <div ng-init="sc.get_aviation_radar()"></div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- <div ng-repeat="item in vm.bulletins">
                         <div class="item" ng-click="openModalFunction()">
                             <h1></h1>
@@ -49,7 +57,7 @@
             </ion-slide >
             <ion-slide style="height: 400px;">
                 <div class="box">
-                    <h1 class="text-center">Severe Weather</h1>
+                    <h1 class="text-center">Satellite</h1>
                     <!-- <div ng-repeat="item in vm.severe">
                         <div class="item" ng-click="openModalFunction()">
                             <h2>{{item.bulletinType}}</h2>
@@ -77,7 +85,7 @@
             </ion-slide>
             <ion-slide style="height: 400px;">
                 <div class="box">
-                    <h1 class="text-center">Floods</h1>
+                    <h1 class="text-center">Weather Reports</h1>
                     <!-- <div ng-repeat="item in vm.flood" >
                         <div class="item" ng-click="openModalFunction()">
                             <h2>{{item.bulletinType}}</h2>
@@ -105,7 +113,7 @@
             </ion-slide>
             <ion-slide style="height: 400px;">
                 <div class="box">
-                    <h1 class="text-center">Rough Seas</h1>
+                    <h1 class="text-center">Forecast</h1>
                     <!-- <div ng-repeat="item in vm.sea" >
                         <div class="item" ng-click="openModalFunction()">
                             <h2>{{item.bulletinType}}</h2>
