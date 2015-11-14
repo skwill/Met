@@ -54,12 +54,14 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
     }
   })
 
+
   .state('app.bulletinsev', {
     url: '/bulletinsev',
     views: {
       //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
       'mainContent': {
         templateUrl: "app/bullettins/severe.html"
+
       }
     }
   })
@@ -74,7 +76,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
     }
   })
 
-  .state('app.services', {
+  /*.state('app.services', {
     url: '/services',
     views: {
       //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
@@ -82,7 +84,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
         templateUrl: "app/services/services.html"
       }
     }
-  })
+  })*/
 
 
   .state('app.about', {
@@ -94,6 +96,86 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
     }
   })
 
+  .state('app.services', {
+      url: '/services',
+      views: {
+        //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
+        'mainContent': {
+          templateUrl: "app/services/services.html"
+        }
+      }
+    })
+
+  //$stateProvider
+  /*.state('app.services', {
+      abstract: true,
+      url: "/services",
+      templateUrl: "app/layout/menu-layout.html"
+    })*/
+
+    .state('app.services.home', {
+      //abstract: true,
+      url: "/services/home",
+      views: {
+        //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
+        'servicesContent': {
+          templateUrl: "app/services/test.html"
+        }
+      }
+      
+    })
+
+
+    .state('app.services.aviation', {
+      //abstract: true,      
+      url: "/aviation",
+      views: {
+        'servicesContent': {
+            templateUrl: "app/services/aviation.html"
+        }     
+      } 
+    })
+
+    .state('app.services.climate', {
+      //abstract: true,
+      url: "/services",
+       views: {
+        'servicesContent': {
+             templateUrl: "app/services/climate.html"
+        }     
+      } 
+     
+    })
+
+    .state('app.services.marine', {
+      //abstract: true,
+      url: "/services",
+       views: {
+        'servicesContent': {
+            templateUrl: "app/services/marine.html"
+        }     
+      } 
+      
+    })
+
+    .state('app.services.agriculture', {
+      //abstract: true,
+      url: "/services",
+       views: {
+        'servicesContent': {
+              templateUrl: "app/services/agriculture.html"
+        }     
+      } 
+     
+    });
+    // if none of the above states are matched, use this as the fallback
+
+    
+
+
   // if none of the above states are matched, use this as the fallback
+
   $urlRouterProvider.otherwise('/app/home');
 });
+
+

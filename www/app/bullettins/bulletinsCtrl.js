@@ -123,6 +123,8 @@ angular.module('ionic.metApp')
 			metApi.get_b_info(function(data) {
 				vm.b_info = data.items;
 
+				console.log(data)
+
 				// alert(data.item[0].flag)
 			});
 		}

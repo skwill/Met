@@ -124,6 +124,7 @@
 				})
 		}
 
+
 		function get_watch(callback, id) {
 			var link = (id = !'undefined') ? '/' + id : '';
 
@@ -133,8 +134,15 @@
 				})
 		}
 
+
 		function get_uv_index(callback) {
 			$http.get(url + '/uv').success(function(data) {
+				callback(data)
+			})
+		}
+
+		function get_radar(callback) {
+			$http.get(url + '/radars/1').success(function(data) {
 				callback(data)
 			})
 		}
@@ -155,6 +163,7 @@
 			get_warn: get_warn,
 			get_watch: get_watch,
 			get_uv_index: get_uv_index,
+			get_radar: get_radar,
 		};
 	}
 })();
