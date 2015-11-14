@@ -1,23 +1,18 @@
 angular.module('ionic.metApp')
 	.run(function($http, $cordovaPush, $ionicPlatform, $rootScope) {
 		$ionicPlatform.ready(function() { // works on web browser
-			// alert("ready")
-			// var push = new Ionic.Push({
-			// 	"debug": true
-			// });
-
-			// push.register(function(token) {
-			// 	console.log('Device token:', token.token);
-			// 	alert("hello");
-			// })
 			// Ionic.io();
 
 			// var user = Ionic.User.current();
 			// if (!user.id) {
 			// 	user.id = Ionic.User.anonymousId();
+			// 	user.name = "Test User",
+			// 	user.message = "Emulator"
 			// }
-
 			// user.save();
+			// var push = new Ionic.Push({
+			// 	"debug": true
+			// });
 		})
 
 
@@ -33,22 +28,22 @@ angular.module('ionic.metApp')
 		// }
 
 		document.addEventListener("deviceready", function() {
-			Ionic.io();
+			// Ionic.io();
 
-			var user = Ionic.User.current();
-			if (!user.id) {
-			user.id = Ionic.User.anonymousId();
-			user.name = "Test User",
-			user.message = "Emulator"
-			}
-			user.save();
+			// var user = Ionic.User.current();
+			// if (!user.id) {
+			// user.id = Ionic.User.anonymousId();
+			// user.name = "Test User",
+			// user.message = "Emulator"
+			// }
+			// user.save();
 			var push = new Ionic.Push({
 				"debug": true
 			});
 
 			push.register(function(token) {
 				console.log('Device token:', token.token);
-				alert(token.token);
+				// alert(token.token);
 			})
 
 			$cordovaPush.register(androidConfig).then(function(result) {
@@ -65,21 +60,21 @@ angular.module('ionic.metApp')
 				switch (notification.event) {
 					case 'registered':
 						if (notification.regid.length > 0) {
-							alert('registration ID = ' + notification.regid);
+							// alert('registration ID = ' + notification.regid);
 						}
 						break;
 
 					case 'message':
 						// this is the actual push notification. its format depends on the data model from the push server
-						alert('message = ' + notification.message + ' msgCount = ' + notification.msgcnt);
+						// alert('message = ' + notification.message + ' msgCount = ' + notification.msgcnt);
 						break;
 
 					case 'error':
-						alert('GCM error = ' + notification.msg);
+						// alert('GCM error = ' + notification.msg);
 						break;
 
 					default:
-						alert('An unknown GCM event has occurred');
+						// alert('An unknown GCM event has occurred');
 						break;
 				}
 			});
@@ -127,6 +122,7 @@ angular.module('ionic.metApp')
 		vm.getGIBulletins = function() {
 			metApi.get_b_info(function(data) {
 				vm.b_info = data.items;
+
 				// alert(data.item[0].flag)
 			});
 		}
@@ -135,12 +131,14 @@ angular.module('ionic.metApp')
 		vm.get_serv_b = function() {
 			metApi.get_b_serv(function(data) {
 				vm.s_items = data.items;
+
 			})
 		}
 		// get blood bulletins
 		vm.get_flood_b = function() {
 			metApi.get_b_flood(function(data) {
 				vm.f_items = data.items;
+
 			})
 		}
 
@@ -148,6 +146,7 @@ angular.module('ionic.metApp')
 		vm.get_sea_b = function() {
 			metApi.get_b_sea(function(data) {
 				vm.r_items = data.items;
+				console.log(data)
 				// console.log(data)
 			})
 		}

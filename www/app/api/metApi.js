@@ -132,6 +132,12 @@
 					callback(data)
 				})
 		}
+
+		function get_uv_index(callback) {
+			$http.get(url + '/uv').success(function(data) {
+				callback(data)
+			})
+		}
 		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		return {
 			get_forecast: get_forecast,
@@ -148,6 +154,7 @@
 			get_ttpp: get_ttpp,
 			get_warn: get_warn,
 			get_watch: get_watch,
+			get_uv_index: get_uv_index,
 		};
 	}
 })();
