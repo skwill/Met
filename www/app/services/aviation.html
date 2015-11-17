@@ -11,7 +11,7 @@
         </ion-nav-buttons> -->
 
     </ion-nav-bar>
-    
+
 <!-- 	<ion-content class="has-header"> -->
 		<!-- <h4>Bullettins</h4> -->
 
@@ -26,7 +26,13 @@
                             <div class="item">
                                 <p class="title">Issued on {{item.insertionDate}} at {{item.issuedAt}}</p>
                                 <h6 class="follow"></h6>
-                                <div ng-init="sc.get_aviation_radar()"></div>
+                                <div ng-init="sc.get_aviation_radar()">
+                                  <p>{{sc.radar.id}}</p>
+                                  <p>{{sc.radar.category}}</p>
+                                  <div id="img_holder"></div>
+                                  <!-- <img src="{{Base64.decode(sc.radar.image_src)}}" alt=""> -->
+                                  <!-- <p>{{sc.radar.id}}</p> -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -61,7 +67,7 @@
                     <!-- <div ng-repeat="item in vm.severe">
                         <div class="item" ng-click="openModalFunction()">
                             <h2>{{item.bulletinType}}</h2>
-                            <p>{{item.currdate}}, {{item.issuedAt}}</p>                            
+                            <p>{{item.currdate}}, {{item.issuedAt}}</p>
                         </div> -->
                         <!-- <div class="item">
                             <sup>{{item.currdate}}, {{item.issuedAt}}</sup>

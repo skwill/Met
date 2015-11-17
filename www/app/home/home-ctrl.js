@@ -19,11 +19,27 @@ angular.module('ionic.metApp' /*, */ )
 // 	}
 // ])
 .controller('HomeCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval) {
+	// alert();
+	// $scope.$on("g_event", function(e) {
+	// 	alert();
+	// })
 	var _this = this;
 	var interval = 10 * 60000;
 	$interval(function time() {
+		$scope.refreshData();
 		console.log("fetch info and location")
 	}, interval);
+
+	$rootScope.$on("call_test", function() {
+		$scope.test();
+		// $scope.$emit("pingBack", $scope.test());
+	})
+
+	$scope.test = function() {
+		alert("LOL");
+		return "LOL";
+		// alert("Test Function");
+	}
 
 	// $ionicPlatform.ready(function() {
 	// 	// hide status bar
@@ -131,6 +147,7 @@ angular.module('ionic.metApp' /*, */ )
 			$scope.currentLocationString = "Unable to get current location:" + error;
 			$rootScope.$broadcast('scroll.refreshComplete');
 		});
+		console.log("data refreshed");
 	};
 
 	$scope.showAlert = function(title, message) {

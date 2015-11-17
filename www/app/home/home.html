@@ -1,5 +1,5 @@
 <!-- <ion-view view-title="Forecast" ng-class="myclass" ng-controller="HomeCtrl as vm"> -->
-<ion-pane class="containerr"  ng-controller="HomeCtrl" >
+<ion-pane class="containerr" id="home"  ng-controller="HomeCtrl as hc" ng-init="ac.init(hc.refreshData)" >
     <!---->
 
     <background-cycler class="bg-fade" id="ff">
@@ -16,7 +16,7 @@
             </span>
             <current-time localtz="current.local_tz_short"></current-time>
         </h1>
-        <!-- <button ng-click="showSettings()" class="button button-icon"><i class="settings-icon ion-gear-a"></i></button> -->
+        <button ng-click="showSettings()" class="button button-icon"><i class="settings-icon ion-gear-a"></i></button>
     </ion-header-bar>
 
     <ion-content scroll-event-interval="20" scroll-effects scrollbar-y="false" class="no-header">
@@ -34,7 +34,7 @@
 
 
 </ion-pane>
-<!--
+
 <script id="settings.html" type="text/ng-template">
     <div id="settings-modal" class="modal" ng-controller="SettingsCtrl">
         <ion-header-bar class="bar bar-header bar-dark">
@@ -51,5 +51,5 @@
           </div>
         </ion-content>
     </div>
-</script>-->
+</script>
 <!-- </ion-view> -->

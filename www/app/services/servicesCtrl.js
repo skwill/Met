@@ -19,16 +19,17 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(metApi, $scop
 
 	vm.get_aviation_radar = function() {
 		metApi.get_radar(function(data) {
-			//xmlDoc=loadXMLDoc(data);
-			/*var base64_string = "/9j/4AAQSkZJRgABAgAAAQABAAD//...";
-var img = document.createElement("img");
-// added `width` , `height` properties to `img` attributes
-img.width = "250px";
-img.height = "250px";
-img.src = "data:image/png;base64," + base64_string;*/
+			console.log("here")
 
 			//vm.aviation_items = data.items;
-			console.log(data);
+
+			vm.radar = data;
+			var image = new Image();
+			image.src = data.image_src;
+
+			var img_div = $('#img_holder');
+			img_div.html(image);
+			// console.log(i);
 		});
 	}
 
