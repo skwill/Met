@@ -63,7 +63,7 @@ angular.module('ionic.metApp' /*, */ )
 			// console.log(data)
 		})
 	}
-	_this.get_uv_index();
+	// _this.get_uv_index();
 
 	// vm.get_serv_b = function() {
 	// 	metApi.get_b_serv(function(data) {
@@ -81,16 +81,18 @@ angular.module('ionic.metApp' /*, */ )
 		Weather.getAtLocation(lat, lng).then(function(resp) {
 			// alert();
 			$scope.current = resp.data;
-			console.log('Got Current', $scope.current);
+			// console.log('Got Current', $scope.current);
 			$rootScope.$broadcast('scroll.refreshComplete');
 			var s = timeOfDay();
+			var d = my_date();
+			console.log(d)
 			// var t = new Date($scope.current.currently.time);
 			var f = convertTimestamp($scope.current.currently.time); //t.toISOString();
 			$scope.time = f;
-			console.log(f)
-			window.localStorage['last_resfrsh'] = f; //JSON.stringify(_settings);
+			// console.log(f)
+			// window.localStorage['last_resfrsh'] = f; //JSON.stringify(_settings);
 			// window.localStorage['last_location'] = lc;
-			$scope.last_refresh = window.localStorage.getItem('last_refresh');
+			// $scope.last_refresh = window.localStorage.getItem('last_refresh');
 			// console.log(window.localStorage.getItem('last_resfrsh'));
 			// alert(f);
 			// console.log("Date: "+s)
@@ -105,7 +107,7 @@ angular.module('ionic.metApp' /*, */ )
 					break;
 			}
 			$scope.showAlert('Unable to get current conditions', errorTxt);
-			console.log(error);
+			// console.log(error);
 			$rootScope.$broadcast('scroll.refreshComplete');
 		});
 	};
@@ -147,7 +149,7 @@ angular.module('ionic.metApp' /*, */ )
 			$scope.currentLocationString = "Unable to get current location:" + error;
 			$rootScope.$broadcast('scroll.refreshComplete');
 		});
-		console.log("data refreshed");
+		// console.log("data refreshed");
 	};
 
 	$scope.showAlert = function(title, message) {
@@ -163,8 +165,8 @@ angular.module('ionic.metApp' /*, */ )
 	this.cycleBgImages = function() {
 		$timeout(function cycle() {
 			if ($scope.bgImages) {
-				console.log("in function that uses the image")
-				console.log($scope.bgImages)
+				// console.log("in function that uses the image")
+				// console.log($scope.bgImages)
 				$scope.activeBgImage = $scope.bgImages[$scope.activeBgImageIndex++ % $scope.bgImages.length];
 			}
 		})
@@ -173,9 +175,9 @@ angular.module('ionic.metApp' /*, */ )
 	this.getBackgroundImage = function(lat, lng, locString) {
 
 		var photo_store = $scope.bgImages; //window.localStorage.getItem('photo_store');
-		console.log("Has images: " + $scope.has_images);
+		// console.log("Has images: " + $scope.has_images);
 		if ($scope.has_images) {
-			console.log('we have loaded images');
+			// console.log('we have loaded images');
 			// $scope.bgImages = window.localStorage.getItem('photo_store');
 			// console.log($scope.bgImages);
 			_this.cycleBgImages();
@@ -205,7 +207,7 @@ angular.module('ionic.metApp' /*, */ )
 					// images = angular.extend({}, images, images);
 					// }
 
-					console.log('photo store empty');
+					// console.log('photo store empty');
 					// window.localStorage['photo_store'] = images; //JSON.stringify(images);
 					// }
 					// console.log(images);
@@ -296,6 +298,13 @@ angular.module('ionic.metApp' /*, */ )
 		return s;
 	}
 
+	function my_date() {
+		var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+		var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+		var today = new Date();
+		return [days[today.getDay()], today.getDate(), months[today.getMonth()], today.getFullYear()];
+	}
+
 	function convertTimestamp(UNIX_timestamp) {
 		var a = new Date(UNIX_timestamp * 1000);
 		var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -337,7 +346,8 @@ angular.module('ionic.metApp' /*, */ )
 				$scope.settingsModal.show();
 			}, {
 				// animation we want for modal entrance
-				animation: 'scale-in'
+				// animation: 'scale-in'
+				animation: 'slide-in-up'
 			})
 		} else {
 			$scope.settingsModal.show();

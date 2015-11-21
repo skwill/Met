@@ -115,10 +115,10 @@ angular.module('ionic.metApp.services', ['ngResource'])
     },
     getLocation: function() {
       var q = $q.defer();
-      console.log("here")
+      // console.log("here")
       navigator.geolocation.getCurrentPosition(function(position) {
 
-        console.log(position)
+        // console.log(position)
         q.resolve(position);
       }, function(error) {
         q.reject(error);

@@ -25,18 +25,34 @@
         </ion-refresher>
         <div id="main-content">
             <current-weather>
-              <!-- <p>Hello</p> -->
-              <!-- <p>{{currentLocationString}}</p> -->
             </current-weather>
-            <forecast></forecast>
+            <!-- <forecast></forecast> -->
         </div>
     </ion-content>
 
-
+    <div id="ms">
+      <div class="row" id="of3">
+        <div class="col" id="today">
+        <span>today</span>
+        </div>
+        <div class="col" id="tomorror">
+        <span>tomorrow</span>
+        </div>
+        <div class="col" id="next_day">
+          <span>next day</span>
+        </div>
+      </div>
+      <div class="row text-center" id="of1">
+        <div class="col">
+          <div id="met-icon"></div>
+          <span>met services</span>
+        </div>
+      </div>
+    </div>
 </ion-pane>
 
 <script id="settings.html" type="text/ng-template">
-    <div id="settings-modal" class="modal" ng-controller="SettingsCtrl">
+    <div id="settings-modal" class="modal partial" ng-controller="SettingsCtrl">
         <ion-header-bar class="bar bar-header bar-dark">
           <h1 class="title">Settings</h1>
           <button class="button button-clear" ng-click="closeSettings()">Close</button>
