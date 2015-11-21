@@ -195,7 +195,7 @@ angular.module('ionic.metApp.directives', [])
         }
         amt = Math.min(0.6, st / 1000);
         var b_amount = 60;
-        var blur = "-webkit-filter: blur(" + amt * b_amount + "px);" +
+        var blur = "-webkit-filter: blur(" + Math.abs(amt * b_amount) + "px);" +
           "-moz-filter: blur(" + amt * b_amount + "px);" +
           "-o-filter: blur(" + amt * b_amount + "px);" +
           "-ms-filter: blur(" + amt * b_amount + "px);" +

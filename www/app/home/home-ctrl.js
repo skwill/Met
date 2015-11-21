@@ -24,6 +24,7 @@ angular.module('ionic.metApp' /*, */ )
 	// 	alert();
 	// })
 	var _this = this;
+
 	var interval = 10 * 60000;
 	$interval(function time() {
 		$scope.refreshData();
@@ -54,16 +55,30 @@ angular.module('ionic.metApp' /*, */ )
 	// var cc = "";
 
 	_this.get_uv_index = function() {
+		var today_index = [];
 		metApi.get_uv_index(function(data) {
 			console.log("UV Index: ");
-			console.log(data.items)
+			// console.log(data.items)
+			var today = new Date();
+			var d = today.getDate() + '.' + (today.getMonth() + 1) + '.' + today.getFullYear()
+				// console.log(today.getHours())
+			$scope.hour_of_day = hour_of_day();
+			// console.log(today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear());
 			for (var i = 0; i < data.items.length; i++) {
-				// console.log(i)
+				var uv_date_clean = data.items[i].uv_date; //.replace(new RegExp('[.]', 'g'), '/');
+				// console.log(data.items[i].uv_date);
+
+				if (d == uv_date_clean) {
+					today_index.push(data.items[i])
+				}
+				// console.log(data.items[i].uv_date.replace(new RegExp('[.]', 'g'), '/'))
 			}
-			// console.log(data)
+			$scope.uv_index = today_index[today_index.length - 1];
+			console.log(today_index);
 		})
 	}
-	// _this.get_uv_index();
+	_this.get_uv_index();
+
 
 	// vm.get_serv_b = function() {
 	// 	metApi.get_b_serv(function(data) {
@@ -86,6 +101,7 @@ angular.module('ionic.metApp' /*, */ )
 			var s = timeOfDay();
 			var d = my_date();
 			console.log(d)
+			$scope.today = d;
 			// var t = new Date($scope.current.currently.time);
 			var f = convertTimestamp($scope.current.currently.time); //t.toISOString();
 			$scope.time = f;
@@ -96,7 +112,7 @@ angular.module('ionic.metApp' /*, */ )
 			// console.log(window.localStorage.getItem('last_resfrsh'));
 			// alert(f);
 			// console.log("Date: "+s)
-			_this.getBackgroundImage(lat, lng, $scope.current.currently.summary + ", " + $scope.current.daily.icon + ", hq, trinidad, " + s);
+			_this.getBackgroundImage(lat, lng, $scope.current.currently.summary + ", " + $scope.current.daily.icon + ", trinidad, " + s);
 			// console.log($scope.current.currently.summary)
 		}, function(error) {
 			// alert('Unable to get current conditinos');
@@ -112,6 +128,7 @@ angular.module('ionic.metApp' /*, */ )
 		});
 	};
 	$scope.refreshData = function() {
+
 		// alert();
 		// var c = Geo.getLocation();
 		// console.log(Geo.getLocation());
@@ -298,6 +315,19 @@ angular.module('ionic.metApp' /*, */ )
 		return s;
 	}
 
+	function hour_of_day() {
+		var d = new Date();
+		var t = d.getHours();
+		if (t >= 0 && t < 12) {
+			t = (t == 0 ? '12' : t) + 'am';
+		}
+		if (t >= 12 && t >= 18) {
+			t = t + 'pm';
+		}
+
+		return t;
+	}
+
 	function my_date() {
 		var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 		var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -352,6 +382,47 @@ angular.module('ionic.metApp' /*, */ )
 		} else {
 			$scope.settingsModal.show();
 		}
+	}
+
+	$scope.showHomeMenu = function() {
+		if (!$scope.home_menu_modal) {
+			// load modal from given template URL
+			$ionicModal.fromTemplateUrl('home_menu.html', function(hm_modal) {
+				$scope.home_menu_modal = hm_modal;
+				$scope.home_menu_modal.show();
+			}, {
+				// animation we want for modal entrance
+				// animation: 'scale-in'
+				animation: 'slide-in-up'
+			})
+		} else {
+			$scope.home_menu_modal.show();
+		}
+	}
+
+	$scope.closeModal = function(a) {
+		$scope.modal.hide();
+		if (a == "show_home") {
+			$scope.showHomeMenu();
+		}
+	}
+
+	$scope.uv_modalOpen = function() {
+		$scope.modal.hide();
+		if (!$scope.uv_modal) {
+			// load modal from given template URL
+			$ionicModal.fromTemplateUrl('app/home/uv_modal.html', function(uv_modal) {
+				$scope.uv_modal = uv_modal;
+				$scope.uv_modal.show();
+			}, {
+				// animation we want for modal entrance
+				// animation: 'scale-in'
+				animation: 'slide-in-up'
+			})
+		} else {
+			$scope.uv_modal.show();
+		}
+		console.log($scope.modal)
 	}
 })
 

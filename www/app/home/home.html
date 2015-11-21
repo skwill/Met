@@ -42,7 +42,7 @@
           <span>next day</span>
         </div>
       </div>
-      <div class="row text-center" id="of1">
+      <div class="row text-center" id="of1" ng-click="showHomeMenu()">
         <div class="col">
           <div id="met-icon"></div>
           <span>met services</span>
@@ -65,6 +65,32 @@
                   <button class="button button-clear" ng-click="changeCurrentTemp('c')">C&deg;</button>
             </div>
           </div>
+        </ion-content>
+    </div>
+</script>
+<script id="home_menu.html" type="text/ng-template">
+    <div id="home_menu-modal" class="modal partial" ng-controller="HomeCtrl">
+
+        <ion-content has-header="false">
+        <div class="row text-center" id="of1" ng-click="closeModal()">
+            <div class="col">
+              <div id="met-icon"></div>
+              <span>met services</span>
+            </div>
+          </div>
+          <div class="content">
+           <div class="row">
+            <div class="col col-50"><a>Avialtion</a></div>
+            <div class="col col-50"><a>tourism</a></div>
+          </div>
+           <div class="row">
+            <div class="col col-50"><a>Agriculture</a></div>
+            <div class="col col-50"><a>Climate</a></div>
+          </div>
+           <div class="row">
+            <div class="col col-50"><a>Marine</a></div>
+            <div class="col col-50" ng-click="uv_modalOpen()"><a  >UV Status</a></div>
+          </div></div>
         </ion-content>
     </div>
 </script>
