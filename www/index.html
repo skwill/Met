@@ -3,13 +3,16 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src *;" > -->
     <!-- Enable all requests, inline styles, and eval() -->
     <title>Met_App</title>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/met-styles.min.css" rel="stylesheet">
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:"> -->
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src *;"> -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src *; "> -->
 
 
 
@@ -21,6 +24,7 @@
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="lib/ionic-platform-web-client/dist/ionic.io.bundle.min.js"></script>
     <script src="lib/ionic/js/angular/angular-resource.js"></script>
+    <script src="js/ionic.swipecards.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="lib/ionic/js/ng-cordova.js"></script>
@@ -28,18 +32,25 @@
 <!-- <script src="cordova.js"></script> -->
 
     <!-- your app's js -->
+
+    <script src="js/jquery.1.11.js"></script>
     <script src="app/app.js"></script>
     <script src="js/controllers.js"></script>
     <script src="app/api/metApi.js"></script>
     <script src="app/home/home-ctrl.js"></script>
     <script src="app/bullettins/bulletinsCtrl.js"></script>
+    <script src="app/services/servicesCtrl.js"></script>
+
     <script src="app/warnings/warningsCtrl.js"></script>
+
     <script src="js/services.js"></script>
     <script src="js/filters.js"></script>
+    <script src="js/angular-route.min.js"></script>
     <script src="js/directives.js"></script>
   </head>
 
   <body>
+    <!-- this is {{ac.test()}} -->
     <ion-nav-view></ion-nav-view>
   </body>
 </html>

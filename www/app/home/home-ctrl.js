@@ -1,304 +1,443 @@
 // weather app based on driftyco ionic-weather
 // https://github.com/driftyco/ionic-weather
 angular.module('ionic.metApp' /*, */ )
-	.directive('interval_tracker', ['$interval', 'dateFilter',
-		function($interval, dateFilter) {
-			return function(scope, element, attrs) {
-				var format, stopTime;
-				// used to update ui
-				function updateTime() {
-					console.log(dateFilter(new Date(), format));
-				}
+// .directive('interval_tracker', ['$interval', 'dateFilter',
+// 	function($interval, dateFilter) {
+// 		return function(scope, element, attrs) {
+// 			var format, stopTime;
+// 			// used to update ui
+// 			function updateTime() {
+// 				console.log(dateFilter(new Date(), format));
+// 			}
 
-				scope.$watch(attrs.interval_tracker, function(value) {
-					format = value
-					updateTime();
-				})
-				stopTime = $interval(updateTime, 1000);
-			}
-		}
-	])
-	.controller('HomeCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval) {
-		var _this = this;
-		$interval(function timee() {
-			// console.log("hey")
-		}, 1000)
+// 			scope.$watch(attrs.interval_tracker, function(value) {
+// 				format = value
+// 				updateTime();
+// 			})
+// 			stopTime = $interval(updateTime, 1000);
+// 		}
+// 	}
+// ])
+.controller('HomeCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval) {
+	// alert();
+	// $scope.$on("g_event", function(e) {
+	// 	alert();
+	// })
+	var _this = this;
 
-		// $ionicPlatform.ready(function() {
-		// 	// hide status bar
-		// 	if (window.StatusBar) {
-		// 		// StatusBar.hide();
-		// 		// alert();
-		// 	}
-		// });
-		$scope.activeBgImageIndex = 0;
-		$scope.has_images = false;
-		// $scope.lc = "";
-		// var cc = "";
-
-
-		this.getCurrent = function(lat, lng) {
-			// var lc = locString;
-			// alert();
-			// console.log($scope.lc);
-			// console.log(lcc);
-			Weather.getAtLocation(lat, lng).then(function(resp) {
-				$scope.current = resp.data;
-				console.log('Got Current', $scope.current);
-				$rootScope.$broadcast('scroll.refreshComplete');
-				var s = timeOfDay();
-				// var t = new Date($scope.current.currently.time);
-				var f = convertTimestamp($scope.current.currently.time); //t.toISOString();
-				$scope.time = f;
-				console.log(f)
-				window.localStorage['last_resfrsh'] = f; //JSON.stringify(_settings);
-				// window.localStorage['last_location'] = lc;
-				$scope.last_refresh = window.localStorage.getItem('last_refresh');
-				// console.log(window.localStorage.getItem('last_resfrsh'));
-				// alert(f);
-				// console.log("Date: "+s)
-				_this.getBackgroundImage(lat, lng, $scope.current.currently.summary + ", " + $scope.current.daily.icon + ", hq, trinidad, " + s);
-				// console.log($scope.current.currently.summary)
-			}, function(error) {
-				// alert('Unable to get current conditinos');
-				var errorTxt = "";
-				switch (error.status) {
-					case 404:
-						errorTxt = "No network connection";
-						break;
-				}
-				$scope.showAlert('Unable to get current conditions', errorTxt);
-				console.log(error);
-				$rootScope.$broadcast('scroll.refreshComplete');
-			});
-		};
-		$scope.refreshData = function() {
-			// var c = Geo.getLocation();
-			// console.log(Geo.getLocation());
-			// if (c) {
-			// 	var lat = c.coords.latitude;
-			// 	var lng = c.coords.longitude;
-
-			// 	Geo.reverseGeocode(lat, lng).then(function(locString) {
-			// 		$scope.currentLocationString = locString;
-			// 		// alert($scope.currentLocationString);
-			// 	});
-			// 	_this.getCurrent(lat, lng);
-			// } else {
-			// 	$scope.currentLocationString = "Unable to get current location:"; // + error;
-			// }
-			// console.log(i)
-			Geo.getLocation().then(function(position) {
-				// alert("here");
-				var lc = "";
-				// console.log(position.coords);
-				var lat = position.coords.latitude;
-				var lng = position.coords.longitude;
-
-				Geo.reverseGeocode(lat, lng).then(function(locString) {
-					$scope.currentLocationString = locString;
-
-				});
-				_this.getCurrent(lat, lng);
-			}, function(error) {
-
-				$scope.showAlert('Unable to get current location', error.message);
-				// console.log(error)
-				$scope.currentLocationString = "Unable to get current location:" + error;
-				$rootScope.$broadcast('scroll.refreshComplete');
-			});
-		};
-
-		$scope.showAlert = function(title, message) {
-			var alertPopup = $ionicPopup.alert({
-				title: title,
-				template: message
-			})
-		}
-
-
-
-
-		this.cycleBgImages = function() {
-			$timeout(function cycle() {
-				if ($scope.bgImages) {
-					console.log("in function that uses the image")
-					console.log($scope.bgImages)
-					$scope.activeBgImage = $scope.bgImages[$scope.activeBgImageIndex++ % $scope.bgImages.length];
-				}
-			})
-		}
-
-		this.getBackgroundImage = function(lat, lng, locString) {
-
-			var photo_store = $scope.bgImages; //window.localStorage.getItem('photo_store');
-			console.log("Has images: " + $scope.has_images);
-			if ($scope.has_images) {
-				console.log('we have loaded images');
-				// $scope.bgImages = window.localStorage.getItem('photo_store');
-				// console.log($scope.bgImages);
-				_this.cycleBgImages();
-
-			} else {
-				Flickr.search(locString, lat, lng).then(function(resp) {
-					var photos = resp.photos;
-					var images = [];
-					// console.log("Photos");
-					// console.log(resp);
-					if (photos.photo.length) {
-						$scope.bgImages = photos.photo;
-						// console.log($scope.bgImages);
-						// var photo_store = window.localStorage.getItem('photo_store');
-						// if (photo_store) {
-
-						// } else {
-
-						for (i = 0; i < 20; i++) {
-							images.push({
-								i: $scope.bgImages[i]
-							});
-						}
-						// images = {
-						// 	'0': 1
-						// }
-						// images = angular.extend({}, images, images);
-						// }
-
-						console.log('photo store empty');
-						// window.localStorage['photo_store'] = images; //JSON.stringify(images);
-						// }
-						// console.log(images);
-						_this.cycleBgImages();
-						$scope.has_images = true;
-					}
-				}, function(error) {
-					console.log('Unable to get Flickr images', error);
-				})
-			}
-
-		}
-
+	var interval = 10 * 60000;
+	$interval(function time() {
 		$scope.refreshData();
-		// $scope.showSettings();
+		console.log("fetch info and location")
+	}, interval);
 
-		// alert("hello dre");
-		// document.addEventListener("deviceready", function() {
-		// alert();
-		// var device = device.platform;
-		// alert(device)
-		// })
-		// document.addEventListener("deviceready", onDeviceReady, false);
-		// function onDeviceReady() {
-		//     alert(device.platform);
-		//     // console.log(device.cordova);
-		// }
-
-
-		_this.getForecast = function() {
-			metApi.get_forecast(function(data) {
-				// console.log(data)
-				// _this.bulletins = data.items[0];
-			});
-		}
-
-		_this.getForecast();
-
-		// $scope.doRefresh = function() {
-		// 	_this.yForecast();
-		// 	$scope.$broadcast('scroll.refreshComplete');
-		// }
-
-
-
-		$scope.yForecast = function() {
-			// $scope.show($ionicLoading);
-			// alert();
-			metApi.yahooForecast(function(data) {
-				console.log(data);
-
-				// var demo = document.getElementById("demo");
-				// demo.style.background = timeOfDay();
-
-				_this.condition = data.query.results.channel.item.condition;
-				_this.threeDay = data.query.results.channel.item.forecast;
-				_this.location = data.query.results.channel.location.city;
-				_this.pubDate = data.query.results.channel.item.pubDate;
-				_this.title = data.query.results.channel.item.title;
-				_this.sunrise = data.query.results.channel.astronomy.sunrise;
-				_this.sunset = data.query.results.channel.astronomy.sunset;
-
-				// _this.wicons = getWeatherIcons(_this.threeDay);
-				// $scope.hide($ionicLoading);
-				/*console.log(_this.wicons);
-	    		// console.log(_this.threeDay);*/
-			});
-		}
-		// $scope.yForecast();
-
-		function timeOfDay() {
-			var date = new Date();
-			var time = date.getHours();
-			var s = "";
-
-			if (time >= 6 && time < 12) {
-				s = "morning";
-			} else if (time >= 12 && time < 18) {
-				s = "mid day";
-			} else if (time >= 18) {
-				s = "night";
-			};
-
-			return s;
-		}
-
-		function convertTimestamp(UNIX_timestamp) {
-			var a = new Date(UNIX_timestamp * 1000);
-			var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-			var year = a.getFullYear();
-			var month = months[a.getMonth()];
-			var date = a.getDate();
-			var hour = a.getHours();
-			var min = a.getMinutes();
-			var sec = a.getSeconds();
-			var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
-			return time;
-		}
-
-		// function getWeatherIcons(threeDay){
-		// 	var conditions = ['Tropical Storm','Hurricane','Severe Thunderstorms','Thunderstorms','Drizzle','Windy','Showers','Cloudy','Sunny','Isolated Thunderstorms','Scattered Thunderstorms','Partly Cloudy','Thundershowers','Isolated Thundershowers','Not Available'];
-
-		// 	var icons = ['ion-ios-thunderstorm-outline','ion-ios-thunderstorm-outline','ion-ios-thunderstorm-outline','ion-umbrella','ion-shuffle','ion-ios-rainy','ion-ios-cloud','ion-ios-sunny-outline','ion-ios-thunderstorm-outline','ion-ios-thunderstorm-outline','ion-ios-partlysunny','ion-ios-thunderstorm-outline','ion-ios-thunderstorm-outline','ion-ios-help-empty'];
-
-		// 	var pass = ['', '', ''];
-		// 	var passCount = 0;
-
-		// 	for (i = 1; i < 4; i++) {
-		// 		for (t = 0; t < conditions.length; t++) {
-		// 			if (threeDay[i].text == conditions[t]){
-		// 				pass[passCount] = icons[conditions.indexOf(conditions[t])-1];
-		// 				passCount++;
-		// 				break;
-		// 			};
-		// 		};
-		// 	}
-		// 	return pass;
-		// }
-		$scope.showSettings = function() {
-			// alert();
-			if (!$scope.settingsModal) {
-				// load modal from given template URL
-				$ionicModal.fromTemplateUrl('settings.html', function(modal) {
-					$scope.settingsModal = modal;
-					$scope.settingsModal.show();
-				}, {
-					// animation we want for modal entrance
-					animation: 'scale-in'
-				})
-			} else {
-				$scope.settingsModal.show();
-			}
-		}
+	$rootScope.$on("call_test", function() {
+		$scope.test();
+		// $scope.$emit("pingBack", $scope.test());
 	})
+
+	$scope.test = function() {
+		alert("LOL");
+		return "LOL";
+		// alert("Test Function");
+	}
+
+	$scope.w_today = function() {
+		// alert("weather today")
+	}
+
+	// $ionicPlatform.ready(function() {
+	// 	// hide status bar
+	// 	if (window.StatusBar) {
+	// 		// StatusBar.hide();
+	// 		// alert();
+	// 	}
+	// });
+	$scope.activeBgImageIndex = 0;
+	$scope.has_images = false;
+	// $scope.lc = "";
+	// var cc = "";
+
+	_this.get_uv_index = function() {
+		var today_index = [];
+		metApi.get_uv_index(function(data) {
+			console.log("UV Index: ");
+			// console.log(data.items)
+			var today = new Date();
+			var d = today.getDate() + '.' + (today.getMonth() + 1) + '.' + today.getFullYear()
+				// console.log(today.getHours())
+			$scope.hour_of_day = hour_of_day();
+			console.log($scope.hour_of_day)
+			// console.log(today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear());
+			for (var i = 0; i < data.items.length; i++) {
+				var uv_date_clean = data.items[i].uv_date; //.replace(new RegExp('[.]', 'g'), '/');
+				console.log(data.items[i].uv_date);
+
+				if (d == uv_date_clean) {
+					today_index.push(data.items[i])
+				}
+				// console.log(data.items[i].uv_date.replace(new RegExp('[.]', 'g'), '/'))
+			}
+			$scope.uv_index = today_index[today_index.length - 1];
+			console.log(today_index);
+		})
+	}
+	_this.get_uv_index();
+
+
+	// vm.get_serv_b = function() {
+	// 	metApi.get_b_serv(function(data) {
+	// 		vm.s_items = data.items;
+
+	// 	})
+	// }
+
+
+	this.getCurrent = function(lat, lng) {
+		// var lc = locString;
+		// alert();
+		// console.log($scope.lc);
+		// console.log(lcc);
+		Weather.getAtLocation(lat, lng).then(function(resp) {
+			// alert();
+			$scope.current = resp.data;
+			// console.log('Got Current', $scope.current);
+			$rootScope.$broadcast('scroll.refreshComplete');
+			var s = timeOfDay();
+			var d = my_date();
+			console.log(d)
+			$scope.today = d;
+			// var t = new Date($scope.current.currently.time);
+			var f = convertTimestamp($scope.current.currently.time); //t.toISOString();
+			$scope.time = f;
+			// console.log(f)
+			// window.localStorage['last_resfrsh'] = f; //JSON.stringify(_settings);
+			// window.localStorage['last_location'] = lc;
+			// $scope.last_refresh = window.localStorage.getItem('last_refresh');
+			// console.log(window.localStorage.getItem('last_resfrsh'));
+			// alert(f);
+			// console.log("Date: "+s)
+			_this.getBackgroundImage(lat, lng, $scope.current.currently.summary + ", " + $scope.current.daily.icon + ", trinidad, " + s);
+			// console.log($scope.current.currently.summary)
+		}, function(error) {
+			// alert('Unable to get current conditinos');
+			var errorTxt = "";
+			switch (error.status) {
+				case 404:
+					errorTxt = "No network connection";
+					break;
+				case 'The last location provider was disabled': // attempt to catch error of location services being disabled
+					errorTxt = error.status + "<br> Try enabling Location services in Settings";
+					break;
+			}
+			// alert(error.status);
+			$scope.showAlert('Unable to get current conditions', errorTxt);
+			// console.log(error);
+			$rootScope.$broadcast('scroll.refreshComplete');
+		});
+	};
+	$scope.refreshData = function() {
+
+		// alert();
+		// var c = Geo.getLocation();
+		// console.log(Geo.getLocation());
+		// if (c) {
+		// 	var lat = c.coords.latitude;
+		// 	var lng = c.coords.longitude;
+
+		// 	Geo.reverseGeocode(lat, lng).then(function(locString) {
+		// 		$scope.currentLocationString = locString;
+		// 		// alert($scope.currentLocationString);
+		// 	});
+		// 	_this.getCurrent(lat, lng);
+		// } else {
+		// 	$scope.currentLocationString = "Unable to get current location:"; // + error;
+		// }
+		// console.log(i)
+		// alert("outside")
+		Geo.getLocation().then(function(position) {
+			// alert("inside");
+			// alert("here");
+			var lc = "";
+			// console.log(position.coords);
+			var lat = position.coords.latitude;
+			var lng = position.coords.longitude;
+
+			Geo.reverseGeocode(lat, lng).then(function(locString) {
+				$scope.currentLocationString = locString;
+
+			});
+			_this.getCurrent(lat, lng);
+		}, function(error) {
+
+			if (error.message == 'The last location provider was disabled') {
+				error.message = error.message + "<br> Try enabling Location services in Settings";
+			}
+
+			$scope.showAlert('Unable to get current location', 'Try enabling Location services in Settings');
+			// console.log(error)
+			$scope.currentLocationString = "Unable to get current location:" + error;
+			$rootScope.$broadcast('scroll.refreshComplete');
+		});
+		// console.log("data refreshed");
+	};
+
+	$scope.showAlert = function(title, message) {
+		var alertPopup = $ionicPopup.alert({
+			title: title,
+			template: message
+		})
+	}
+
+
+
+
+	this.cycleBgImages = function() {
+		$timeout(function cycle() {
+			if ($scope.bgImages) {
+				// console.log("in function that uses the image")
+				// console.log($scope.bgImages)
+				$scope.activeBgImage = $scope.bgImages[$scope.activeBgImageIndex++ % $scope.bgImages.length];
+			}
+		})
+	}
+
+	this.getBackgroundImage = function(lat, lng, locString) {
+
+		var photo_store = $scope.bgImages; //window.localStorage.getItem('photo_store');
+		// console.log("Has images: " + $scope.has_images);
+		if ($scope.has_images) {
+			// console.log('we have loaded images');
+			// $scope.bgImages = window.localStorage.getItem('photo_store');
+			// console.log($scope.bgImages);
+			_this.cycleBgImages();
+
+		} else {
+			Flickr.search(locString, lat, lng).then(function(resp) {
+				var photos = resp.photos;
+				var images = [];
+				// console.log("Photos");
+				// console.log(resp);
+				if (photos.photo.length) {
+					$scope.bgImages = photos.photo;
+					// console.log($scope.bgImages);
+					// var photo_store = window.localStorage.getItem('photo_store');
+					// if (photo_store) {
+
+					// } else {
+
+					for (i = 0; i < 20; i++) {
+						images.push({
+							i: $scope.bgImages[i]
+						});
+					}
+					// images = {
+					// 	'0': 1
+					// }
+					// images = angular.extend({}, images, images);
+					// }
+
+					// console.log('photo store empty');
+					// window.localStorage['photo_store'] = images; //JSON.stringify(images);
+					// }
+					// console.log(images);
+					_this.cycleBgImages();
+					$scope.has_images = true;
+				}
+			}, function(error) {
+				console.log('Unable to get Flickr images', error);
+			})
+		}
+
+	}
+
+	$scope.refreshData();
+	document.addEventListener("deviceready", function() {});
+
+
+
+	// $scope.showSettings();
+
+	// alert("hello dre");
+	// document.addEventListener("deviceready", function() {
+	// alert();
+	// var device = device.platform;
+	// alert(device)
+	// })
+	// document.addEventListener("deviceready", onDeviceReady, false);
+	// function onDeviceReady() {
+	//     alert(device.platform);
+	//     // console.log(device.cordova);
+	// }
+
+
+	// _this.getForecast = function() {
+	// 	metApi.get_forecast(function(data) {
+	// 		// console.log(data)
+	// 		// _this.bulletins = data.items[0];
+	// 	});
+	// }
+
+	// _this.getForecast();
+
+	// $scope.doRefresh = function() {
+	// 	_this.yForecast();
+	// 	$scope.$broadcast('scroll.refreshComplete');
+	// }
+
+
+
+	// $scope.yForecast = function() {
+	// 	// $scope.show($ionicLoading);
+	// 	// alert();
+	// 	metApi.yahooForecast(function(data) {
+	// 		console.log(data);
+
+	// 		// var demo = document.getElementById("demo");
+	// 		// demo.style.background = timeOfDay();
+
+	// 		_this.condition = data.query.results.channel.item.condition;
+	// 		_this.threeDay = data.query.results.channel.item.forecast;
+	// 		_this.location = data.query.results.channel.location.city;
+	// 		_this.pubDate = data.query.results.channel.item.pubDate;
+	// 		_this.title = data.query.results.channel.item.title;
+	// 		_this.sunrise = data.query.results.channel.astronomy.sunrise;
+	// 		_this.sunset = data.query.results.channel.astronomy.sunset;
+
+	// 		// _this.wicons = getWeatherIcons(_this.threeDay);
+	// 		// $scope.hide($ionicLoading);
+	// 		/*console.log(_this.wicons);
+	//    		// console.log(_this.threeDay);*/
+	// 	});
+	// }
+	// $scope.yForecast();
+
+	function timeOfDay() {
+		var date = new Date();
+		var time = date.getHours();
+		var s = "";
+
+		if (time >= 6 && time < 12) {
+			s = "morning";
+		} else if (time >= 12 && time < 18) {
+			s = "mid day";
+		} else if (time >= 18) {
+			s = "night";
+		};
+
+		return s;
+	}
+
+	function hour_of_day() {
+		var d = new Date();
+		var t = d.getHours();
+		if (t >= 0 && t < 12) {
+			t = (t == 0 ? '12' : t) + 'am';
+		}
+		if (t > 12) {
+			t = (t - 12) + 'pm';
+		}
+
+		return t;
+	}
+
+	function my_date() {
+		var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+		var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+		var today = new Date();
+		return [days[today.getDay()], today.getDate(), months[today.getMonth()], today.getFullYear()];
+	}
+
+	function convertTimestamp(UNIX_timestamp) {
+		var a = new Date(UNIX_timestamp * 1000);
+		var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+		var year = a.getFullYear();
+		var month = months[a.getMonth()];
+		var date = a.getDate();
+		var hour = a.getHours();
+		var min = a.getMinutes();
+		var sec = a.getSeconds();
+		var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
+		return time;
+	}
+
+	// function getWeatherIcons(threeDay){
+	// 	var conditions = ['Tropical Storm','Hurricane','Severe Thunderstorms','Thunderstorms','Drizzle','Windy','Showers','Cloudy','Sunny','Isolated Thunderstorms','Scattered Thunderstorms','Partly Cloudy','Thundershowers','Isolated Thundershowers','Not Available'];
+
+	// 	var icons = ['ion-ios-thunderstorm-outline','ion-ios-thunderstorm-outline','ion-ios-thunderstorm-outline','ion-umbrella','ion-shuffle','ion-ios-rainy','ion-ios-cloud','ion-ios-sunny-outline','ion-ios-thunderstorm-outline','ion-ios-thunderstorm-outline','ion-ios-partlysunny','ion-ios-thunderstorm-outline','ion-ios-thunderstorm-outline','ion-ios-help-empty'];
+
+	// 	var pass = ['', '', ''];
+	// 	var passCount = 0;
+
+	// 	for (i = 1; i < 4; i++) {
+	// 		for (t = 0; t < conditions.length; t++) {
+	// 			if (threeDay[i].text == conditions[t]){
+	// 				pass[passCount] = icons[conditions.indexOf(conditions[t])-1];
+	// 				passCount++;
+	// 				break;
+	// 			};
+	// 		};
+	// 	}
+	// 	return pass;
+	// }
+	$scope.showSettings = function() {
+		// alert();
+		if (!$scope.settingsModal) {
+			// load modal from given template URL
+			$ionicModal.fromTemplateUrl('settings.html', function(modal) {
+				$scope.settingsModal = modal;
+				$scope.settingsModal.show();
+			}, {
+				// animation we want for modal entrance
+				// animation: 'scale-in'
+				animation: 'slide-in-up'
+			})
+		} else {
+			$scope.settingsModal.show();
+		}
+	}
+
+	$scope.showHomeMenu = function() {
+		if (!$scope.home_menu_modal) {
+			// load modal from given template URL
+			$ionicModal.fromTemplateUrl('home_menu.html', function(hm_modal) {
+				$scope.home_menu_modal = hm_modal;
+				$scope.home_menu_modal.show();
+			}, {
+				// animation we want for modal entrance
+				// animation: 'scale-in'
+				animation: 'slide-in-up'
+			})
+		} else {
+			$scope.home_menu_modal.show();
+		}
+	}
+
+	$scope.closeModal = function(a) {
+		$scope.modal.hide();
+		if (a == "show_home") {
+			$scope.showHomeMenu();
+		}
+	}
+
+	$scope.uv_modalOpen = function() {
+		$scope.modal.hide();
+		if (!$scope.uv_modal) {
+			// load modal from given template URL
+			$ionicModal.fromTemplateUrl('app/home/uv_modal.html', function(uv_modal) {
+				$scope.uv_modal = uv_modal;
+				$scope.uv_modal.show();
+			}, {
+				// animation we want for modal entrance
+				// animation: 'scale-in'
+				animation: 'slide-in-up'
+			})
+		} else {
+			$scope.uv_modal.show();
+		}
+		console.log($scope.modal)
+	}
+})
 
 .controller('SettingsCtrl', function($scope, Settings) {
 	$scope.setings = Settings.getSettings();

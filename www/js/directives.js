@@ -141,7 +141,9 @@ angular.module('ionic.metApp.directives', [])
           var windowHeight = window.innerHeight;
           var thisHeight = $element[0].offsetHeight;
           var headerHeight = document.querySelector('#header').offsetHeight;
-          $element[0].style.paddingTop = (windowHeight - (thisHeight) + 10) + 'px';
+          // $element[0].style.paddingTop = (windowHeight - (thisHeight) + 10) + 'px';
+          $element[0].style.paddingTop = (windowHeight - thisHeight) / 4 + 'px';
+          // console.log((windowHeight - thisHeight) / 2)
           angular.element(document.querySelector('.content')).css('-webkit-overflow-scrolling', 'auto');
           $timeout(function() {
             angular.element(document.querySelector('.content')).css('-webkit-overflow-scrolling', 'touch');
@@ -192,17 +194,17 @@ angular.module('ionic.metApp.directives', [])
           header.style.webkitTransform = 'translate3d(0, ' + -st + 'px, 0)';
         }
         amt = Math.min(0.6, st / 1000);
-        var b_amount = 60;
-        var blur = "-webkit-filter: blur(" + amt * b_amount + "px);" +
+        var b_amount = 20;
+        var blur = "-webkit-filter: blur(" + Math.abs(amt * b_amount) + "px);" +
           "-moz-filter: blur(" + amt * b_amount + "px);" +
           "-o-filter: blur(" + amt * b_amount + "px);" +
           "-ms-filter: blur(" + amt * b_amount + "px);" +
           "filter: url('data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='60'%20/></filter></svg>#blur');" +
           "filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='" + amt * b_amount + "');" +
           "clip: rect(520px 573px 516px 351px);" // /*transition: all 0.1s ease-in-out;*/';
-        ff.setAttribute("style", blur);
-        // header.setAttribute("style", "-webkit-filter: blur("+amt*10+"px); -moz-filter: blur("+amt*10+"px); -o-filter: blur("+amt*10+"px); -ms-filter: blur("+amt*10+"px); filter: url('data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='60'%20/></filter></svg>#blur'); filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='"+amt*10+"'); clip: rect(520px 573px 516px 351px); /*transition: all 0.1s ease-in-out;*/");
-        // console.log(ff)
+          // ff.setAttribute("style", blur);
+          // header.setAttribute("style", "-webkit-filter: blur("+amt*10+"px); -moz-filter: blur("+amt*10+"px); -o-filter: blur("+amt*10+"px); -ms-filter: blur("+amt*10+"px); filter: url('data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='60'%20/></filter></svg>#blur'); filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='"+amt*10+"'); clip: rect(520px 573px 516px 351px); /*transition: all 0.1s ease-in-out;*/");
+          // console.log(ff)
 
         ionic.requestAnimationFrame(function() {
           // console.log(amt)
