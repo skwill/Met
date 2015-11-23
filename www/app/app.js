@@ -20,11 +20,14 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
       if (window.StatusBar) {
         // org.apache.cordova.statusbar required
         StatusBar.styleDefault();
+        // StatusBar.hide();
+        // StatusBar.styleBlackTranslucent();
       }
     });
   })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+  $ionicConfigProvider.tabs.position('bottom');
   //this is the home route
   $stateProvider
     .state('app', {
@@ -54,12 +57,14 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
     }
   })
 
+
   .state('app.bulletinsev', {
     url: '/bulletinsev',
     views: {
       //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
       'mainContent': {
         templateUrl: "app/bullettins/severe.html"
+
       }
     }
   })
@@ -74,7 +79,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
     }
   })
 
-  .state('app.services', {
+  /*.state('app.services', {
     url: '/services',
     views: {
       //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
@@ -82,7 +87,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
         templateUrl: "app/services/services.html"
       }
     }
-  })
+  })*/
 
 
   .state('app.about', {
@@ -94,6 +99,139 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
     }
   })
 
+  .state('app.services', {
+    url: '/services',
+    views: {
+      //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
+      'mainContent': {
+        templateUrl: "app/services/services.html"
+      }
+    }
+  })
+
+  //$stateProvider
+  /*.state('app.services', {
+      abstract: true,
+      url: "/services",
+      templateUrl: "app/layout/menu-layout.html"
+    })*/
+
+  .state('app.services.home', {
+    //abstract: true,
+    url: "/services/home",
+    views: {
+      //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
+      'servicesContent': {
+        templateUrl: "app/services/test.html"
+      }
+    }
+
+  })
+
+
+  .state('app.services.aviation', {
+    //abstract: true,
+    url: "/aviation",
+    views: {
+      'servicesContent': {
+        templateUrl: "app/services/aviation.html"
+      }
+    }
+  })
+
+  .state('app.services.climate', {
+    //abstract: true,
+    url: "/services",
+    views: {
+      'servicesContent': {
+        templateUrl: "app/services/climate.html"
+      }
+    }
+
+  })
+
+  .state('app.services.marine', {
+    //abstract: true,
+    url: "/services",
+    views: {
+      'servicesContent': {
+        templateUrl: "app/services/marine.html"
+      }
+    }
+
+  })
+
+  .state('app.services.agriculture', {
+    //abstract: true,
+    url: "/services",
+    views: {
+      'servicesContent': {
+        templateUrl: "app/services/agriculture.html"
+      }
+    }
+
+  })
+
+  .state('app.contact', {
+    //abstract: true,
+    url: "/contact",
+    views: {
+      'mainContent': {
+        templateUrl: "app/contact.html"
+      }
+    }
+
+  })
+  // .state('app.s', {
+  //   url: '/s',
+  //   views: {
+  //     'tab-s': {
+  //       templateUrl: 'app/home/s.html'
+  //     }
+  //   }
+  // })
+  // .state('app.t', {
+  //   url: '/tab',
+  //   abstract: true,
+  //   // templateUrl: 'templates/tabs.html'
+  // })
+  .state('app.t', {
+    url: '/t',
+    views: {
+      'tab-t': {
+        templateUrl: 'app/home/t.html'
+      }
+    }
+  });
   // if none of the above states are matched, use this as the fallback
+
+
+
+
+  // if none of the above states are matched, use this as the fallback
+
   $urlRouterProvider.otherwise('/app/home');
+}).controller('appCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval) {
+
+  $scope.msg = "";
+  var app = this;
+  $scope.test = function() {
+    // alert();
+    $scope.$broadcast("call_test");
+    console.log("test")
+    // console.log($scope)
+    return $scope.msg;
+  }
+
+  // $scope.test();
+  $scope.$on('pingBack', function(e, data) {
+    // alert();
+    $scope.msg = data;
+    console.log(data)
+    // console.log($scope.data);
+  })
+
+  // test();
+
+
 });
