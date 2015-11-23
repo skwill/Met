@@ -19,10 +19,7 @@ angular.module('ionic.metApp' /*, */ )
 // 	}
 // ])
 .controller('HomeCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval) {
-	// alert();
-	// $scope.$on("g_event", function(e) {
-	// 	alert();
-	// })
+
 	var _this = this;
 
 	var interval = 10 * 60000;
@@ -39,44 +36,30 @@ angular.module('ionic.metApp' /*, */ )
 	$scope.test = function() {
 		alert("LOL");
 		return "LOL";
-		// alert("Test Function");
 	}
 
 	$scope.w_today = function() {
+		// console.log($scope.currentTemp)
+		// $scope.currentTemp = 0;
 		// alert("weather today")
 	}
 
-	// $ionicPlatform.ready(function() {
-	// 	// hide status bar
-	// 	if (window.StatusBar) {
-	// 		// StatusBar.hide();
-	// 		// alert();
-	// 	}
-	// });
 	$scope.activeBgImageIndex = 0;
 	$scope.has_images = false;
-	// $scope.lc = "";
-	// var cc = "";
 
 	_this.get_uv_index = function() {
 		var today_index = [];
 		metApi.get_uv_index(function(data) {
 			console.log("UV Index: ");
-			// console.log(data.items)
 			var today = new Date();
-			var d = today.getDate() + '.' + (today.getMonth() + 1) + '.' + today.getFullYear()
-				// console.log(today.getHours())
+			var d = today.getDate() + '.' + (today.getMonth() + 1) + '.' + today.getFullYear();
 			$scope.hour_of_day = hour_of_day();
-			console.log($scope.hour_of_day)
-			// console.log(today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear());
 			for (var i = 0; i < data.items.length; i++) {
-				var uv_date_clean = data.items[i].uv_date; //.replace(new RegExp('[.]', 'g'), '/');
+				var uv_date_clean = data.items[i].uv_date;
 				console.log(data.items[i].uv_date);
-
 				if (d == uv_date_clean) {
 					today_index.push(data.items[i])
 				}
-				// console.log(data.items[i].uv_date.replace(new RegExp('[.]', 'g'), '/'))
 			}
 			$scope.uv_index = today_index[today_index.length - 1];
 			console.log(today_index);
@@ -85,12 +68,6 @@ angular.module('ionic.metApp' /*, */ )
 	_this.get_uv_index();
 
 
-	// vm.get_serv_b = function() {
-	// 	metApi.get_b_serv(function(data) {
-	// 		vm.s_items = data.items;
-
-	// 	})
-	// }
 
 
 	this.getCurrent = function(lat, lng) {
@@ -258,7 +235,6 @@ angular.module('ionic.metApp' /*, */ )
 
 	// $scope.showSettings();
 
-	// alert("hello dre");
 	// document.addEventListener("deviceready", function() {
 	// alert();
 	// var device = device.platform;
@@ -286,31 +262,6 @@ angular.module('ionic.metApp' /*, */ )
 	// }
 
 
-
-	// $scope.yForecast = function() {
-	// 	// $scope.show($ionicLoading);
-	// 	// alert();
-	// 	metApi.yahooForecast(function(data) {
-	// 		console.log(data);
-
-	// 		// var demo = document.getElementById("demo");
-	// 		// demo.style.background = timeOfDay();
-
-	// 		_this.condition = data.query.results.channel.item.condition;
-	// 		_this.threeDay = data.query.results.channel.item.forecast;
-	// 		_this.location = data.query.results.channel.location.city;
-	// 		_this.pubDate = data.query.results.channel.item.pubDate;
-	// 		_this.title = data.query.results.channel.item.title;
-	// 		_this.sunrise = data.query.results.channel.astronomy.sunrise;
-	// 		_this.sunset = data.query.results.channel.astronomy.sunset;
-
-	// 		// _this.wicons = getWeatherIcons(_this.threeDay);
-	// 		// $scope.hide($ionicLoading);
-	// 		/*console.log(_this.wicons);
-	//    		// console.log(_this.threeDay);*/
-	// 	});
-	// }
-	// $scope.yForecast();
 
 	function timeOfDay() {
 		var date = new Date();

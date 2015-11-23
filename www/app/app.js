@@ -78,26 +78,14 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
       }
     }
   })
-
-  /*.state('app.services', {
-    url: '/services',
-    views: {
-      //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
-      'mainContent': {
-        templateUrl: "app/services/services.html"
+    .state('app.about', {
+      url: '/about',
+      views: {
+        'mainContent': {
+          templateUrl: 'app/about/about.html'
+        }
       }
-    }
-  })*/
-
-
-  .state('app.about', {
-    url: '/about',
-    views: {
-      'mainContent': {
-        templateUrl: 'app/about/about.html'
-      }
-    }
-  })
+    })
 
   .state('app.services', {
     url: '/services',
@@ -108,25 +96,17 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
       }
     }
   })
-
-  //$stateProvider
-  /*.state('app.services', {
-      abstract: true,
-      url: "/services",
-      templateUrl: "app/layout/menu-layout.html"
-    })*/
-
-  .state('app.services.home', {
-    //abstract: true,
-    url: "/services/home",
-    views: {
-      //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
-      'servicesContent': {
-        templateUrl: "app/services/test.html"
+    .state('app.services.home', {
+      //abstract: true,
+      url: "/services/home",
+      views: {
+        //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
+        'servicesContent': {
+          templateUrl: "app/services/test.html"
+        }
       }
-    }
 
-  })
+    })
 
 
   .state('app.services.aviation', {
@@ -182,56 +162,49 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
     }
 
   })
-  // .state('app.s', {
-  //   url: '/s',
-  //   views: {
-  //     'tab-s': {
-  //       templateUrl: 'app/home/s.html'
-  //     }
-  //   }
-  // })
-  // .state('app.t', {
-  //   url: '/tab',
-  //   abstract: true,
-  //   // templateUrl: 'templates/tabs.html'
-  // })
-  .state('app.t', {
-    url: '/t',
-    views: {
-      'tab-t': {
-        templateUrl: 'app/home/t.html'
+    .state('app.settings', {
+      //abstract: true,
+      url: "/settings",
+      views: {
+        'mainContent': {
+          templateUrl: "app/settings.html"
+        }
       }
-    }
-  });
+
+    })
+    .state('app.t', {
+      url: '/t',
+      views: {
+        'tab-t': {
+          templateUrl: 'app/home/t.html'
+        }
+      }
+    });
+
   // if none of the above states are matched, use this as the fallback
-
-
-
-
-  // if none of the above states are matched, use this as the fallback
-
   $urlRouterProvider.otherwise('/app/home');
-}).controller('appCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval) {
-
-  $scope.msg = "";
-  var app = this;
-  $scope.test = function() {
-    // alert();
-    $scope.$broadcast("call_test");
-    console.log("test")
-    // console.log($scope)
-    return $scope.msg;
-  }
-
-  // $scope.test();
-  $scope.$on('pingBack', function(e, data) {
-    // alert();
-    $scope.msg = data;
-    console.log(data)
-    // console.log($scope.data);
-  })
-
-  // test();
-
-
 });
+// .controller('appCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval) {
+
+//   $scope.msg = "";
+//   var app = this;
+//   $scope.test = function() {
+//     // alert();
+//     $scope.$broadcast("call_test");
+//     console.log("test")
+//     // console.log($scope)
+//     return $scope.msg;
+//   }
+
+//   // $scope.test();
+//   $scope.$on('pingBack', function(e, data) {
+//     // alert();
+//     $scope.msg = data;
+//     console.log(data)
+//     // console.log($scope.data);
+//   })
+
+//   // test();
+
+
+// });

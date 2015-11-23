@@ -1,12 +1,12 @@
 <!-- <ion-view view-title="Forecast" ng-class="myclass" ng-controller="HomeCtrl as vm"> -->
-<ion-pane class="containerr" id="home"  ng-controller="HomeCtrl as hc" ng-init="ac.init(hc.refreshData)" >
+<ion-pane class="containerr" id="home"  ng-controller="HomeCtrl as hc" >
     <!---->
 
     <background-cycler class="bg-fade" id="ff">
       <div class="background-vignette"></div>
     </background-cycler>
 
-    <ion-header-bar id="header" class="bar bar-header bar-cdlear no-border">
+    <ion-header-bar frosted-bar type="bar-frosted" id="header" class="bar bar-header bar-cdlear no-border">
       <!-- <ion-nav-title align-title="center">Met App</ion-nav-title> -->
         <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
         <h1 class="title">
@@ -16,8 +16,11 @@
             </span>
             <current-time localtz="current.local_tz_short"></current-time>
         </h1>
-        <button ng-click="showSettings()" class="button button-icon"><i class="settings-icon ion-gear-a"></i></button>
+        <button ng-click="refreshData()" class="button button-icon"><i class="settings-icon ion-ios-location-outline"></i></button>
     </ion-header-bar>
+
+<!--
+    <header-bar frosted-bar title="'Title'" type="bar-frosted"></header-bar> -->
 
     <ion-content scroll-event-interval="20" scroll-effects scrollbar-y="false" class="no-header">
         <ion-refresher pulling-text="Pull to refresh..." on-refresh="refreshData()" style="margin-top: -20px;">
@@ -76,27 +79,10 @@
     </div>
 </ion-pane>
 
-<script id="settings.html" type="text/ng-template">
-    <div id="settings-modal" class="modal partial" ng-controller="SettingsCtrl">
-        <ion-header-bar class="bar bar-header bar-dark">
-          <h1 class="title">Settings</h1>
-          <button class="button button-clear" ng-click="closeSettings()">Close</button>
-        </ion-header-bar>
-        <ion-content has-header="true">
-          <div class="padding">
-            <div class="list">
-                <span class="input-label">Units</span>
-                  <button class="button button-clear" ng-click="changeCurrentTemp('f')">F&deg;</button>
-                  <button class="button button-clear" ng-click="changeCurrentTemp('c')">C&deg;</button>
-            </div>
-          </div>
-        </ion-content>
-    </div>
-</script>
 <script id="home_menu.html" type="text/ng-template">
     <div id="home_menu-modal" class="modal partial" ng-controller="HomeCtrl">
 
-        <ion-content has-header="false">
+        <ion-content has-header="false" scroll="false" id="ms_m">
         <div class="row text-center" id="of1" ng-click="closeModal()">
             <div class="col">
               <div id="met-icon"></div>
@@ -105,16 +91,16 @@
           </div>
           <div class="content">
            <div class="row">
-            <div class="col col-50"><a>Avialtion</a></div>
-            <div class="col col-50"><a>tourism</a></div>
+            <div class="col col-50 mia"><a>Aviation</a></div>
+            <div class="col col-50 mia"><a>tourism</a></div>
           </div>
            <div class="row">
-            <div class="col col-50"><a>Agriculture</a></div>
-            <div class="col col-50"><a>Climate</a></div>
+            <div class="col col-50 mia"><a>Agriculture</a></div>
+            <div class="col col-50 mia"><a>Climate</a></div>
           </div>
            <div class="row">
-            <div class="col col-50"><a>Marine</a></div>
-            <div class="col col-50" ng-click="uv_modalOpen()"><a  >UV Status</a></div>
+            <div class="col col-50 mia"><a>Marine</a></div>
+            <div class="col col-50 mia" ng-click="uv_modalOpen()"><a  >UV Status</a></div>
           </div></div>
         </ion-content>
     </div>

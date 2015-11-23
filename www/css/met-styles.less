@@ -401,6 +401,7 @@ h1,h2,h3,h4,h5 {
 // home menu modal
 #home_menu-modal {
 	background: transparent;
+	text-transform: uppercase;
 	#of1 {
 		background: rgba(108,206,236,.8);
 	}
@@ -410,7 +411,23 @@ h1,h2,h3,h4,h5 {
 	.content {
 		height: 100%;
 		background: #fff;
+		.row {
+			padding: 0px;
+		}
 	}
+	.mia {
+    	&:nth-of-type(odd) {
+    		background: red;
+    		text-decoration: underline;
+    	}
+    	a {
+    		padding-bottom: 5px;
+    	}
+    	color: #fff;
+
+    	padding: 18% 0px;
+    	text-align: center;
+    }
 }
 
 
@@ -633,6 +650,11 @@ h1,h2,h3,h4,h5 {
 
 
 }
+
+// #ms_m {
+
+// }
+
 
  #of1 {
 	padding: 0px;

@@ -89,6 +89,7 @@ angular.module('ionic.metApp.directives', [])
     restrict: 'E',
     replace: true,
     templateUrl: 'app/home/current-weather.html',
+    controller: 'HomeCtrl',
     scope: true,
     compile: function(element, attr) {
       return function($scope, $element, $attr) {
@@ -135,7 +136,7 @@ angular.module('ionic.metApp.directives', [])
             }
           }
         });
-
+        // console.log($scope);
         // Delay so we are in the DOM and can calculate sizes
         $timeout(function() {
           var windowHeight = window.innerHeight;
