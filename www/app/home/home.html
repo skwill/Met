@@ -1,13 +1,9 @@
-<!-- <ion-view view-title="Forecast" ng-class="myclass" ng-controller="HomeCtrl as vm"> -->
 <ion-pane class="containerr" id="home"  ng-controller="HomeCtrl as hc" >
-    <!---->
-
     <background-cycler class="bg-fade" id="ff">
       <div class="background-vignette"></div>
     </background-cycler>
 
     <ion-header-bar frosted-bar type="bar-frosted" id="header" class="bar bar-header bar-cdlear no-border">
-      <!-- <ion-nav-title align-title="center">Met App</ion-nav-title> -->
         <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
         <h1 class="title">
             <span class="city">
@@ -19,8 +15,6 @@
         <button ng-click="refreshData()" class="button button-icon"><i class="settings-icon ion-ios-location-outline"></i></button>
     </ion-header-bar>
 
-<!--
-    <header-bar frosted-bar title="'Title'" type="bar-frosted"></header-bar> -->
 
     <ion-content scroll-event-interval="20" scroll-effects scrollbar-y="false" class="no-header">
         <ion-refresher pulling-text="Pull to refresh..." on-refresh="refreshData()" style="margin-top: -20px;">
@@ -34,42 +28,15 @@
     </ion-content>
 
     <ion-tabs class="tabs-icon-top tabs-color-active-positive ms">
-      <ion-tab title="TODAY" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="w_today()"></ion-tab>
+      <ion-tab title="TODAY" on-select="w_today()"></ion-tab>
+      <ion-tab title="TOMORROW"></ion-tab>
+      <ion-tab title="NEXT DAY"></ion-tab>
+      <!-- <ion-tab title="TODAY" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="w_today()"></ion-tab>
       <ion-tab title="TOMORROW" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes"></ion-tab>
-      <ion-tab title="NEXT DAY" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/app/account"></ion-tab>
+      <ion-tab title="NEXT DAY" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/app/account"></ion-tab> -->
     </ion-tabs>
-  <!-- <div class="tabs-striped tabs-color-assertive">
-    <div class="tabs ms">
-      <a class="tab-item active" href="#/app/s">
-        <i class="icon ion-home"></i>
-        Test
-      </a>
-      <ion-nav-view name="tab-s"></ion-nav-view>
-      <a class="tab-item" href="#/app/t">
-        <i class="icon ion-star"></i>
-        Favorites
-      </a>
-      <ion-nav-view name="tab-t"></ion-nav-view>
-      <a class="tab-item" href="#">
-        <i class="icon ion-gear-a"></i>
-        Settings
-      </a>
-    </div>
-  </div> -->
 
-  <!-- <ion-nav-view name="home-tab"></ion-nav-view> -->
     <div id="ms">
-     <!--  <div class="row" id="of3">
-        <div class="col" id="today">
-        <span>today</span>
-        </div>
-        <div class="col" id="tomorror">
-        <span>tomorrow</span>
-        </div>
-        <div class="col" id="next_day">
-          <span>next day</span>
-        </div>
-      </div> -->
       <div class="row text-center of1-main" id="of1" ng-click="showHomeMenu()">
         <div class="col">
           <div id="met-icon"></div>
@@ -78,31 +45,3 @@
       </div>
     </div>
 </ion-pane>
-
-<script id="home_menu.html" type="text/ng-template">
-    <div id="home_menu-modal" class="modal partial" ng-controller="HomeCtrl">
-
-        <ion-content has-header="false" scroll="false" id="ms_m">
-        <div class="row text-center" id="of1" ng-click="closeModal()">
-            <div class="col">
-              <div id="met-icon"></div>
-              <span>met services</span>
-            </div>
-          </div>
-          <div class="content">
-           <div class="row">
-            <div class="col col-50 mia"><a>Aviation</a></div>
-            <div class="col col-50 mia"><a>tourism</a></div>
-          </div>
-           <div class="row">
-            <div class="col col-50 mia"><a>Agriculture</a></div>
-            <div class="col col-50 mia"><a>Climate</a></div>
-          </div>
-           <div class="row">
-            <div class="col col-50 mia"><a>Marine</a></div>
-            <div class="col col-50 mia" ng-click="uv_modalOpen()"><a  >UV Status</a></div>
-          </div></div>
-        </ion-content>
-    </div>
-</script>
-<!-- </ion-view> -->
