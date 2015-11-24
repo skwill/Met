@@ -24,6 +24,9 @@
 		*/
 		function get_b_info(callback, id) {
 			var link = (id = !'undefined') ? '/' + id : '';
+			// $ionicLoading.show({
+			// 	template: ' <ion-spinner></ion-spinner>'
+			// });
 			$http.get(url + "/bulletininfo" + link)
 				.success(function(data) {
 					callback(data);

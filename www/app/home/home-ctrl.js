@@ -91,7 +91,7 @@ angular.module('ionic.metApp' /*, */ )
 			}
 			$scope.uv_index = today_index[today_index.length - 1];
 			var ii = Number($scope.uv_index.uv_value);
-			var i = ii.toFixed(1);
+			var i = ii.toFixed(0);
 			$scope.uv_index.uv_value = i;
 			console.log($scope.uv_index);
 			// uv range color values array will come here
