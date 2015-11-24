@@ -17,12 +17,15 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
       if (window.cordova && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       }
+
+      // ionicPlatform.fullscreen();
       if (window.StatusBar) {
         // org.apache.cordova.statusbar required
-        StatusBar.styleDefault();
-        // StatusBar.hide();
+        // StatusBar.styleDefault();
+        StatusBar.hide();
         // StatusBar.styleBlackTranslucent();
       }
+
     });
   })
 

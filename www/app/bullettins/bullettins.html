@@ -9,14 +9,13 @@
         <ion-nav-buttons side="right">
             <button ng-click="vm.refresh_all_b()" class="button button-icon"><i class="settings-icon ion-ios-reload"></i></button>
         </ion-nav-buttons>
-        <!-- <button ng-click="refreshData()" class="button button-icon"><i class="settings-icon ion-ios-location-outline"></i></button> -->
     </ion-nav-bar>
+
     <div class="bar bar-subheader">
         <p class="title">{{sub_title}}</p>
     </div>
 
-    <ion-content scroll="true" class="has-header containedr">
-        <!-- <sup>Description of warnings</sup> -->
+    <ion-content scroll="true" class="has-header">
         <ion-slide-box on-slide-changed="slideHasChanged($index)" ng-init="vm.update_slide(0)">
             <ion-slide ng-init="vm.getGIBulletins()">
                 <div class="box">
