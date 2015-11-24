@@ -56,6 +56,17 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
       }
     }
   })
+  // .state('app.bullettin-detail', {
+  //   url: '/bullettins/:bullettinId',
+  //   // abstract: true,
+  //   views: {
+  //     //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
+  //     'mainContent': {
+  //       templateUrl: "app/bullettins/info_item.html",
+  //       controller: 'BulletinsDCtrl'
+  //     }
+  //   }
+  // })
 
 
   .state('app.bulletinsev', {
