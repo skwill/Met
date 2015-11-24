@@ -54,6 +54,31 @@ angular.module('ionic.metApp')
 		}
 		_this.get_uv_index();
 
+		$scope.w_today = function() {
+			var day = "PRESENT";
+			var newDay = angular.element(document.querySelector('#day'));
+			var real = angular.element(document.querySelector('#temptemp'));
+			var result = angular.element(document.querySelector('#today-temp'));
+			result.text(real.text());
+			newDay.text(day);
+		}
+
+		$scope.w_tomorrow = function() {
+			var day = "TOMORROW";
+			var newDay = angular.element(document.querySelector('#day'));
+			var result = angular.element(document.querySelector('#today-temp'));
+			result.text(30);
+			newDay.text(day);
+		}
+
+		$scope.w_nextDay = function() {
+			var day = "NEXT DAY";
+			var newDay = angular.element(document.querySelector('#day'));
+			var result = angular.element(document.querySelector('#today-temp'));
+			result.text(31);
+			newDay.text(day);
+		}
+
 		// get current location based on device latitude and longitude, this feeds off google map api
 		_this.getCurrent = function(lat, lng) {
 			Weather.getAtLocation(lat, lng).then(function(resp) {

@@ -28,12 +28,11 @@
     </ion-content>
 
     <ion-tabs class="tabs-icon-top tabs-color-active-positive ms">
-      <ion-tab title="TODAY" on-select="w_today()"></ion-tab>
-      <ion-tab title="TOMORROW"></ion-tab>
-      <ion-tab title="NEXT DAY"></ion-tab>
-      <!-- <ion-tab title="TODAY" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="w_today()"></ion-tab>
-      <ion-tab title="TOMORROW" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes"></ion-tab>
-      <ion-tab title="NEXT DAY" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/app/account"></ion-tab> -->
+
+      <ion-tab title="TODAY" id="today" on-select="w_today()"></ion-tab>
+      <ion-tab title="TOMORROW" id="tomorrow" on-select="w_tomorrow()"></ion-tab>
+      <ion-tab title="NEXT DAY" id="next-day"  on-select="w_nextDay()"></ion-tab>
+
     </ion-tabs>
 
     <div id="ms">

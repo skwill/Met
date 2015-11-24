@@ -184,16 +184,8 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
           templateUrl: "app/settings.html"
         }
       }
-
     })
-    .state('app.t', {
-      url: '/t',
-      views: {
-        'tab-t': {
-          templateUrl: 'app/home/t.html'
-        }
-      }
-    });
+
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/home');

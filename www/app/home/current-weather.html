@@ -1,7 +1,7 @@
 <div id="current-weather">
 	<div class="row">
-		<div class="col col-30" id="uv-index">
-			<div>
+		<div class="col col-50" id="uv-index">
+			<div class="col">
 				<span>{{hour_of_day}}</span>
 				<span id="uv-value" class="">{{uv_index.uv_value}}</span><br>
 				<div class="clear clearfix"></div>
@@ -19,10 +19,10 @@
 	<div class="row">
 		<div class="col" id="present-cond">
 			<div>
-				<span class="block-support-text">PRESENT</span>
+				<span class="block-support-text" id="day">PRESENT</span>
 				<div>
 					<h1 class="current-temp">
-				  		<span>{{currentTemp}}</span>&deg;
+				  		<span id="today-temp">{{currentTemp}}</span>&deg;
 				  		<span class="block-support-text">/ <span>79%</span></span>
 				    	<current-icon icon="current.currently.icon">Loading...</current-icon>
 				  	</h1>
@@ -35,6 +35,7 @@
     <span id="temp-hi"><i class="icon ion-arrow-up-c"></i> <span ng-bind="highTemp"></span>&deg;</span>
     <span id="temp-lo"><i class="icon ion-arrow-down-c"></i> <span ng-bind="lowTemp"></span>&deg;</span>
   </h5>
+  <p id="temptemp" style="height: 0px; color: transparent;">{{currentTemp}}</p>
   <!-- <p>{{currentLocationString}}</p> -->
 
 </div>
