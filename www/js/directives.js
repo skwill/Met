@@ -195,7 +195,7 @@ angular.module('ionic.metApp.directives', [])
           header.style.webkitTransform = 'translate3d(0, ' + -st + 'px, 0)';
         }
         amt = Math.min(0.6, st / 1000);
-        var b_amount = 20;
+        var b_amount = 10;
         var blur = "-webkit-filter: blur(" + Math.abs(amt * b_amount) + "px);" +
           "-moz-filter: blur(" + amt * b_amount + "px);" +
           "-o-filter: blur(" + amt * b_amount + "px);" +

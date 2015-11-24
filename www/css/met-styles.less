@@ -194,7 +194,7 @@ h1,h2,h3,h4,h5 {
 #current-weather .current-temp {
 	// margin-top: -24px;
 	font-size: 70px;
-	font-weight: 600;
+	font-weight: 400;
 	color: #fff;
 	margin: 0;
 	padding: 0;
@@ -235,7 +235,7 @@ h1,h2,h3,h4,h5 {
 	}
 	#uv-value {
 		font-size: 1.9em;
-		margin-bottom: 8px;
+		margin-bottom: 0px;
 		.pull-right;
 	}
 }
@@ -244,6 +244,8 @@ h1,h2,h3,h4,h5 {
 }
 #today-block {
 	font-size: 1.3em;
+	margin-left: -5px;
+	margin-top: -3px;
 	.text-uppercase;
 	p {
 		letter-spacing: 2px;
@@ -502,6 +504,23 @@ h1,h2,h3,h4,h5 {
   	}
 }
 
+.menu {
+	&.menu-left {
+		.scroll {
+			height: 100%;
+			.list {
+				height: 100%;
+				.item-complex {
+					.item-content {
+						padding: 12% 10% 12% 15%;
+					}
+					// padding: 6%;
+				}
+			}
+		}
+	}
+}
+
 .platform-ios.platform-ready:not(.fullscreen) {
 	.ms .tabs {
 		padding-top: 0px;
@@ -551,7 +570,7 @@ h1,h2,h3,h4,h5 {
 		border-bottom: 1px solid #ddd;
 		height: 30px;
 		margin-top: -10px;
-		margin-bottom: 10px;
+		margin-bottom: 20px;
 		.title {
 			z-index: 1;
 			font-size: 14px;
@@ -568,11 +587,24 @@ h1,h2,h3,h4,h5 {
 	}
 }
 
+.spinner svg {
+  width: 28px;
+  height: 28px;
+  stroke: #fff;
+  fill: #fff;
+}
 
 .box {
+	margin-top: 19px;
 	background: #fff;
-	&.blue {
 
+	.item {
+		h2 {
+			font-size: 14px
+		}
+		p {
+			font-size: 12px
+		}
 	}
 	// background-color: blue;
 	min-width: 200px;

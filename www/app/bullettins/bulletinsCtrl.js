@@ -1,5 +1,28 @@
 angular.module('ionic.metApp')
-	.run(function($http, $cordovaPush, $ionicPlatform, $rootScope) {
+	.config(function($httpProvider) {
+		$httpProvider.interceptors.push(function($rootScope) {
+			return {
+				request: function(config) {
+					$rootScope.$broadcast('loading:show')
+					return config;
+				},
+				response: function(response) {
+					$rootScope.$broadcast('loading:hide')
+					return response
+				}
+			}
+		})
+	})
+	.run(function($http, $cordovaPush, $ionicPlatform, $rootScope, $ionicLoading) {
+		$rootScope.$on('loading:show', function() {
+			$ionicLoading.show({
+				template: ' <ion-spinner></ion-spinner>'
+			});
+		})
+		$rootScope.$on('loading:hide', function() {
+			$ionicLoading.hide();
+		})
+
 		$ionicPlatform.ready(function() { // works on web browser
 			// Ionic.io();
 
@@ -89,7 +112,7 @@ angular.module('ionic.metApp')
 
 		}, false);
 	})
-	.controller('BulletinsCtrl', function(metApi, $scope, $ionicLoading, $timeout, $ionicModal, $cordovaDevice, $ionicPlatform, $cordovaPush) {
+	.controller('BulletinsCtrl', function(metApi, $scope, $ionicLoading, $timeout, $ionicModal, $cordovaDevice, $ionicPlatform, $cordovaPush, $ionicSlideBoxDelegate) {
 
 		var vm = this;
 
@@ -118,13 +141,19 @@ angular.module('ionic.metApp')
 			// console.log($scope.m)
 		}
 
+		vm.refresh_all_b = function() {
+			vm.getGIBulletins();
+			vm.get_serv_b();
+			vm.get_flood_b();
+			vm.get_sea_b();
+		}
+
 		// get general info bulletins
 		vm.getGIBulletins = function() {
 			metApi.get_b_info(function(data) {
 				vm.b_info = data.items;
 				console.log("general info")
-				console.log(data)
-
+				console.log(data.items)
 				// alert(data.item[0].flag)
 			});
 		}
@@ -133,7 +162,7 @@ angular.module('ionic.metApp')
 		vm.get_serv_b = function() {
 			metApi.get_b_serv(function(data) {
 				console.log("severe info")
-				console.log(data)
+				console.log(data.items)
 				vm.s_items = data.items;
 
 			})
@@ -142,7 +171,7 @@ angular.module('ionic.metApp')
 		vm.get_flood_b = function() {
 			metApi.get_b_flood(function(data) {
 				console.log("flood info")
-				console.log(data)
+				console.log(data.items)
 				vm.f_items = data.items;
 
 			})
@@ -153,7 +182,7 @@ angular.module('ionic.metApp')
 			metApi.get_b_sea(function(data) {
 				vm.r_items = data.items;
 				console.log("rough info")
-				console.log(data);
+				console.log(data.items);
 				// console.log(data)
 			})
 		}
@@ -202,5 +231,11 @@ angular.module('ionic.metApp')
 					break;
 			}
 		};
+
+		$scope.slide = function(to) {
+			// $scope.current = to;
+			$ionicSlideBoxDelegate.slide(to);
+			// vm.refresh_all_b();
+		}
 
 	})
