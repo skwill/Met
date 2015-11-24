@@ -37,11 +37,38 @@ angular.module('ionic.metApp' /*, */ )
 		alert("LOL");
 		return "LOL";
 	}
+	
 
 	$scope.w_today = function() {
-		// console.log($scope.currentTemp)
-		// $scope.currentTemp = 0;
-		// alert("weather today")
+		var day = "PRESENT";
+		var newDay = angular.element(document.querySelector('#day'));
+		var real = angular.element(document.querySelector('#temptemp'));
+		var result = angular.element(document.querySelector('#today-temp'));
+		result.text(real.text());
+		newDay.text(day);
+		//console.log(real.text());
+		//$scope.temp = $scope.currentTemp;$scope.temp = angular.element(document.querySelector('#today-temp'));
+		/*ar result = angular.element(document.querySelector('#today-temp'));
+		result.text($scope.temp.text());
+		console.log(result.text());*/
+	}
+
+	$scope.w_tomorrow = function() {
+		var day = "TOMORROW";
+		var newDay = angular.element(document.querySelector('#day'));
+		var result = angular.element(document.querySelector('#today-temp'));
+		result.text(30);
+		newDay.text(day);
+		//console.log(result.text());
+	}
+
+	$scope.w_nextDay = function() {
+		var day = "NEXT DAY";
+		var newDay = angular.element(document.querySelector('#day'));
+		var result = angular.element(document.querySelector('#today-temp'));
+		result.text(31);
+		newDay.text(day);
+		//console.log(result.text());
 	}
 
 	$scope.activeBgImageIndex = 0;
