@@ -77,6 +77,7 @@ angular.module('ionic.metApp' /*, */ )
 	_this.get_uv_index = function() {
 		var today_index = [];
 		metApi.get_uv_index(function(data) {
+			// console.log(data);
 			console.log("UV Index: ");
 			var today = new Date();
 			var d = today.getDate() + '.' + (today.getMonth() + 1) + '.' + today.getFullYear();
@@ -89,7 +90,11 @@ angular.module('ionic.metApp' /*, */ )
 				}
 			}
 			$scope.uv_index = today_index[today_index.length - 1];
-			console.log(today_index);
+			var ii = Number($scope.uv_index.uv_value);
+			var i = ii.toFixed(1);
+			$scope.uv_index.uv_value = i;
+			console.log($scope.uv_index);
+			// uv range color values array will come here
 		})
 	}
 	_this.get_uv_index();
@@ -378,7 +383,7 @@ angular.module('ionic.metApp' /*, */ )
 	$scope.showHomeMenu = function() {
 		if (!$scope.home_menu_modal) {
 			// load modal from given template URL
-			$ionicModal.fromTemplateUrl('home_menu.html', function(hm_modal) {
+			$ionicModal.fromTemplateUrl('app/home/home_menu.html', function(hm_modal) {
 				$scope.home_menu_modal = hm_modal;
 				$scope.home_menu_modal.show();
 			}, {
