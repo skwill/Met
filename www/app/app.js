@@ -135,7 +135,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
 
   .state('app.services.climate', {
     //abstract: true,
-    url: "/services",
+    url: "/climate",
     views: {
       'servicesContent': {
         templateUrl: "app/services/climate.html"
@@ -146,7 +146,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
 
   .state('app.services.marine', {
     //abstract: true,
-    url: "/services",
+    url: "/marine",
     views: {
       'servicesContent': {
         templateUrl: "app/services/marine.html"
@@ -156,7 +156,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
   })
     .state('app.services.tourism', {
       //abstract: true,
-      url: "/services",
+      url: "/tourism",
       views: {
         'servicesContent': {
           templateUrl: "app/services/tourism.html"
@@ -167,7 +167,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
 
   .state('app.services.agriculture', {
     //abstract: true,
-    url: "/services",
+    url: "/agriculture",
     views: {
       'servicesContent': {
         templateUrl: "app/services/agriculture.html"
