@@ -116,7 +116,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
       views: {
         //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
         'servicesContent': {
-          templateUrl: "app/services/test.html"
+          templateUrl: "app/services/service_main.html"
         }
       }
 
@@ -154,6 +154,16 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
     }
 
   })
+    .state('app.services.tourism', {
+      //abstract: true,
+      url: "/services",
+      views: {
+        'servicesContent': {
+          templateUrl: "app/services/tourism.html"
+        }
+      }
+
+    })
 
   .state('app.services.agriculture', {
     //abstract: true,

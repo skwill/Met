@@ -7,8 +7,9 @@
 
 	function metApi($http) {
 
-		function get_forecast(callback) {
-			$http.get(url + '/forecast').success(function(resp) {
+		function get_forecast(callback, id) {
+			var link = (id = !'undefined') ? '/' + id : '';
+			$http.get(url + '/forecast' + link).success(function(resp) {
 				callback(resp);
 			}).finally(function() {
 
@@ -144,8 +145,77 @@
 			})
 		}
 
-		function get_radar(callback) {
-			$http.get(url + '/radars/1').success(function(data) {
+		// new set of keys
+		// was there before just modified to take an id
+		function get_radar(callback, id) {
+			var link = (id = !'undefined') ? '/' + id : '';
+			$http.get(url + '/radars' + link).success(function(data) {
+				callback(data)
+			})
+		}
+
+		function get_tourism(callback) {
+			$http.get(url + '/tourism').success(function(data) {
+				callback(data)
+			})
+		}
+
+		function get_tides(callback) {
+			$http.get(url + '/tidal').success(function(data) {
+				callback(data)
+			})
+		}
+
+		function get_drywet(callback) {
+			$http.get(url + '/drywet').success(function(data) {
+				callback(data)
+			})
+		}
+
+		function get_issue(callback) {
+			$http.get(url + '/issue').success(function(data) {
+				callback(data)
+			})
+		}
+
+		function get_agrotrini(callback) {
+			$http.get(url + '/agrotrini').success(function(data) {
+				callback(data)
+			})
+		}
+
+		function get_agrotbg(callback) {
+			$http.get(url + '/agrotbg').success(function(data) {
+				callback(data)
+			})
+		}
+
+		function get_trend(callback) {
+			$http.get(url + '/trend').success(function(data) {
+				callback(data)
+			})
+		}
+
+		function get_elnino(callback) {
+			$http.get(url + '/elnino').success(function(data) {
+				callback(data)
+			})
+		}
+
+		function get_rainandtemp(callback) {
+			$http.get(url + '/rainandtemp').success(function(data) {
+				callback(data)
+			})
+		}
+
+		function get_project(callback) {
+			$http.get(url + '/project').success(function(data) {
+				callback(data)
+			})
+		}
+
+		function get_metar(callback) {
+			$http.get(url + '/metar').success(function(data) {
 				callback(data)
 			})
 		}
@@ -167,6 +237,17 @@
 			get_watch: get_watch,
 			get_uv_index: get_uv_index,
 			get_radar: get_radar,
+			get_tourism: get_tourism,
+			get_tides: get_tides,
+			get_drywet: get_drywet,
+			get_issue: get_issue,
+			get_agrotrini: get_agrotrini,
+			get_agrotbg: get_agrotbg,
+			get_trend: get_trend,
+			get_elnino: get_elnino,
+			get_rainandtemp: get_rainandtemp,
+			get_project: get_project,
+			get_metar: get_metar,
 		};
 	}
 })();

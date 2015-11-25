@@ -1,6 +1,10 @@
-angular.module('ionic.metApp').controller('ServicesCtrl', function(metApi, $scope, $ionicLoading, $timeout, $ionicModal, $cordovaDevice, $ionicPlatform, $cordovaPush) {
+angular.module('ionic.metApp').controller('ServicesCtrl', function(metApi, $scope, $ionicLoading, $timeout, $ionicModal, $cordovaDevice, $ionicPlatform, $cordovaPush, $ionicSlideBoxDelegate) {
 
 	var vm = this;
+
+	vm.refresh_all_a = function() {
+
+	}
 	/*$scope.slideHasChanged = function(index) {
 		vm.update_slide(index);
 	}
@@ -18,40 +22,38 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(metApi, $scop
 	}
 
 	vm.get_aviation_radar = function() {
-		metApi.get_radar(function(data) {
-			console.log("here")
+		// metApi.get_radar(function(data) {
+		// 	console.log("here")
 
-			//vm.aviation_items = data.items;
+		// 	//vm.aviation_items = data.items;
 
-			vm.radar = data;
-			var image = new Image();
-			image.src = data.image_src;
+		// 	vm.radar = data;
+		// 	var image = new Image();
+		// 	image.src = data.image_src;
 
-			var img_div = $('#img_holder');
-			img_div.html(image);
-			// console.log(i);
-		});
+		// 	var img_div = $('#img_holder');
+		// 	img_div.html(image);
+		// 	// console.log(i);
+		// });
 	}
 
-	/*vm.get_sigmet = function() {
-		metApi.get_sigmet(function(data) {
-			vm.s_items = data.items;
-			console.log(vm.s_items);
-		})
+	$scope.slideHasChanged = function(index) {
+		vm.update_slide(index);
 	}
-	vm.get_warn = function() {
-		metApi.get_warn(function(data) {
-			vm.w_items = data.items;
-			console.log(vm.w_items);
 
-		})
+	vm.update_slide = function(index) {
+		titles = ['Satellite', 'Radar', 'Weather Report', 'Forecast'];
+		$scope.sub_title = titles[index];
+		console.log(index)
 	}
-	vm.get_watch = function() {
-		metApi.get_watch(function(data) {
-			vm.wt_items = data.items;
-			console.log(vm.wt_items);
-		})
-	}*/
+
+	$scope.slide = function(to) {
+		// $scope.current = to;
+		$ionicSlideBoxDelegate.slide(to);
+		// vm.refresh_all_b();
+	}
+
+
 
 
 
