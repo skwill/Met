@@ -1,4 +1,4 @@
-<ion-view view-title="Climate" >
+<ion-view view-title="Climate" ng-controller="ServicesCtrl as sc">
     <ion-nav-bar class="bar no-border">
         <ion-nav-back-button class="button-clear">
             <i class="ion-arrow-left-c"></i>
@@ -15,123 +15,42 @@
         <p class="title">{{sub_title}}</p>
     </div>
 
-<!-- 	<ion-content class="has-header"> -->
-		<!-- <h4>Bullettins</h4> -->
-
-    <ion-content class="has-header container">
-        <!-- <sup>Description of warnings</sup> -->
-        <ion-slide-box on-slide-changed="slideHasChanged($index)">
-            <ion-slide style="height: 400px;">
+    <ion-content scroll="true" class="has-header">
+        <ion-slide-box on-slide-changed="slideHasChanged_c($index)" ng-init="sc.update_slide_c(0)">
+            <ion-slide ng-init="sc.get_elnino()">
                 <div class="box">
-                    <h1 class="text-center">Information</h1>
-
-                    <!-- <div ng-repeat="item in vm.bulletins">
-                        <div class="item" ng-click="openModalFunction()">
-                            <h1></h1>
-                            <h2>{{item.bulletinType}}</h2>
-                            <p>{{item.currdate}}, {{item.issuedAt}}</p>
-                        </div>
-                        <div class="item tabs tabs-secondary tabs-icon-left">
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-thumbsup"></i>
-                              Like
-                            </a>
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-chatbox"></i>
-                              Comment
-                            </a>
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-share"></i>
-                              Share
-                            </a>
-                        </div>
-                    </div> -->
-                    <!-- <p>Box 1</p>
-                    <p>{{vm.bulletins[0].bulletinType}}</p> -->
+                    <ion-list>
+                        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in sc.el_info" type="item-text-wrap" ng-click="cinfo_open({{item.elninoID}}, 'el')"  data-id="item.elninoID">
+                            <img ng-src="{{chat.face}}">
+                            <h2>{{item.head1}}</h2>
+                            <p>{{item.month}}, {{item.year}}</p>
+                            <i class="icon ion-chevron-right icon-accessory"></i>
+                        </ion-item>
+                    </ion-list>
                 </div>
             </ion-slide >
-            <ion-slide style="height: 400px;">
+            <ion-slide ng-init="sc.get_rainandtemp()">
                 <div class="box">
-                    <h1 class="text-center">Severe Weather</h1>
-                    <!-- <div ng-repeat="item in vm.severe">
-                        <div class="item" ng-click="openModalFunction()">
-                            <h2>{{item.bulletinType}}</h2>
-                            <p>{{item.currdate}}, {{item.issuedAt}}</p>
-                        </div> -->
-                        <!-- <div class="item">
-                            <sup>{{item.currdate}}, {{item.issuedAt}}</sup>
-                        </div> -->
-                        <!-- <div class="item tabs tabs-secondary tabs-icon-left">
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-thumbsup"></i>
-                              Like
-                            </a>
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-chatbox"></i>
-                              Comment
-                            </a>
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-share"></i>
-                              Share
-                            </a>
-                        </div>
-                    </div> -->
+                    <ion-list>
+                        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in sc.rt" type="item-text-wrap" ng-click="cinfo_open({{item.rainandtempID}}, 'rt')"  data-id="item.rainandtempID">
+                            <img ng-src="{{chat.face}}">
+                            <h2>{{item.head3}}</h2>
+                            <p>{{item.month}}, {{item.year}}</p>
+                            <i class="icon ion-chevron-right icon-accessory"></i>
+                        </ion-item>
+                    </ion-list>
                 </div>
             </ion-slide>
-            <ion-slide style="height: 400px;">
+            <ion-slide ng-init="sc.get_drywet()">
                 <div class="box">
-                    <h1 class="text-center">Floods</h1>
-                    <!-- <div ng-repeat="item in vm.flood" >
-                        <div class="item" ng-click="openModalFunction()">
-                            <h2>{{item.bulletinType}}</h2>
-                            <p>{{item.currdate}}, {{item.issuedAt}}</p>
-                        </div> -->
-                        <!-- <div class="item">
-                            <sup>{{item.currdate}}, {{item.issuedAt}}</sup>
-                        </div> -->
-                        <!-- <div class="item tabs tabs-secondary tabs-icon-left">
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-thumbsup"></i>
-                              Like
-                            </a>
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-chatbox"></i>
-                              Comment
-                            </a>
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-share"></i>
-                              Share
-                            </a>
-                        </div>
-                    </div> -->
-                </div>
-            </ion-slide>
-            <ion-slide style="height: 400px;">
-                <div class="box">
-                    <h1 class="text-center">Rough Seas</h1>
-                    <!-- <div ng-repeat="item in vm.sea" >
-                        <div class="item" ng-click="openModalFunction()">
-                            <h2>{{item.bulletinType}}</h2>
-                            <p>{{item.currdate}}, {{item.issuedAt}}</p>
-                        </div> -->
-                        <!-- <div class="item">
-                            <sup>{{item.currdate}}, {{item.issuedAt}}</sup>
-                        </div> -->
-                       <!--  <div class="item tabs tabs-secondary tabs-icon-left">
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-thumbsup"></i>
-                              Like
-                            </a>
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-chatbox"></i>
-                              Comment
-                            </a>
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-share"></i>
-                              Share
-                            </a>
-                        </div>
-                    </div> -->
+                    <ion-list>
+                        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in sc.dw" type="item-text-wrap" ng-click="cinfo_open({{item.dryandwetspellID}}, 'dw')"  data-id="item.dryandwetspellID">
+                            <img ng-src="{{chat.face}}">
+                            <h2>{{item.head1}}</h2>
+                            <p>{{item.month}}, {{item.year}}</p>
+                            <i class="icon ion-chevron-right icon-accessory"></i>
+                        </ion-item>
+                    </ion-list>
                 </div>
             </ion-slide>
         </ion-slide-box>
@@ -142,18 +61,3 @@
         <ion-tab title="Dry/Wet Outlook" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="slide(2)"></ion-tab>
     </ion-tabs>
 </ion-view>
-
-<!-- <ion-slide-box on-slide-changed="slideHasChanged($index)" >
-    <ion-slide>
-      <div class="box blue" style="height: 400px; background-color: blue;"><h1>BLUE</h1></div>
-    </ion-slide>
-    <ion-slide>
-      <div class="box yellow" style="height: 400px; background-color: yellow;"><h1>YELLOW</h1></div>
-    </ion-slide>
-    <ion-slide>
-      <div class="box pink" style="height: 400px; background-color: pink;"><h1>PINK</h1></div>
-    </ion-slide>
-    <ion-slide>
-      <div class="box pink" style="height: 400px; background-color: black;"><h1>BLACK</h1></div>
-    </ion-slide>
-  </ion-slide-box> -->
