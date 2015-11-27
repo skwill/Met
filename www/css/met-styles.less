@@ -166,6 +166,9 @@ h1,h2,h3,h4,h5 {
 // home
 #home {
 	// background-color: #000;
+	.scroll {
+		height: 100%;
+	}
 }
 
 /**
@@ -185,8 +188,21 @@ h1,h2,h3,h4,h5 {
   	margin-top: 0px;
   }
   #cw-summary {
-  	margin-bottom: -10px;
+	margin-top: 40px;
+	margin-left: -20px;
+	line-height: 14px;
+	text-align: center;
+	font-size: 12px;
+  	// margin-bottom: -10px;
   }
+  	.icon {
+  		font-size: 6em;
+		display: block;
+		.text-center;
+		margin-top: -10px;
+		margin-left: -23px;
+		// margin-bottom: -19px;
+	}
 }
 #current-weather > * {
   color: #fff;
@@ -270,7 +286,7 @@ h1,h2,h3,h4,h5 {
 		float: right;
 		> div {
 			margin-top: -10px;
-			padding: 0px 10px 10px 20px;
+			padding: 0px 10px 13px 20px;
 			.block-support-text {
 				font-size: 35px;
 				font-weight: 100;
@@ -278,22 +294,53 @@ h1,h2,h3,h4,h5 {
 				margin-left: -27px;
 				margin-top: 20px;
 				span {
+					margin-left: -6px;
 					font-size: 14px;
 					font-weight: 500;
 				}
 			}
-			.icon {
-				display: block;
-				.text-center;
-				margin-top: -24px;
-				margin-left: -40px;
-				margin-bottom: -19px;
-			}
+			// .icon {
+			// 	display: block;
+			// 	.text-center;
+			// 	margin-top: -24px;
+			// 	margin-left: -40px;
+			// 	margin-bottom: -19px;
+			// }
 		}
 	}
 
 	h1 span {
 		// font-size: 2em;
+	}
+}
+
+.d3 {
+	margin-top: 7px;
+	position: fixed;
+    width: 100%;
+    bottom: 55px;
+	color: #fff;
+	background-color: rgba(0, 0, 0, 0.45);
+	border-radius: 2px;
+	.row {
+		padding: 0px 10px;
+	}
+	// margin-top: 20px;
+	p.lead {
+		font-weight: 200;
+	}
+	.forecast-block-title {
+		// font-weight: 100;
+		// .text-left
+		color: #fff;
+		letter-spacing: 1.5px;
+		padding-bottom: 5px;
+		border-bottom: 1px solid #fff;
+	}
+	.fc-low, .fc-high {
+		i {
+			margin-right: 5px;
+		}
 	}
 }
 
@@ -400,6 +447,9 @@ h1,h2,h3,h4,h5 {
   color: #fff;
 }
 
+.modal-backdrop, .modal-backdrop-bg {
+    z-index: 23;
+}
 // home menu modal
 #home_menu-modal {
 	background: transparent;
@@ -417,11 +467,14 @@ h1,h2,h3,h4,h5 {
 		width: 100%;
 
 		.row {
-			padding: 19% 0px;
-    		height: 20%;
-    		&:nth-of-type(1) > div { margin-top: -62px; }
-    		&:nth-of-type(2) > div { margin-top: -98px; }
-    		&:nth-of-type(3) > div { margin-top: -138px; }
+			// padding: 19% 0px;
+   //  		height: 20%;
+   //  		&:nth-of-type(1) > div { margin-top: -62px; }
+   //  		&:nth-of-type(2) > div { margin-top: -98px; }
+   //  		&:nth-of-type(3) > div { margin-top: -138px; }
+		}
+		.card {
+			width: 100%;
 		}
 	}
 	.mia {
@@ -447,6 +500,44 @@ h1,h2,h3,h4,h5 {
     	}
     	&:nth-of-type(6) {
 
+    	}
+	}
+	#ms_m {
+		background: #fff;
+    	margin-top: 54px;
+    	margin-bottom: 40%;
+    	.item {
+    		.icon {
+    			font-size: 3em;
+    		}
+    		.txt {
+    			float: right;
+				margin-top: 22px;
+    			&#temp {
+    				font-size: 2em;
+    			}
+    			&#dew {
+    				font-size: 1em;
+    			}
+				&#pressure {
+					font-size: .9em;
+				}
+				&#winds {
+					font-size: .9em;
+    				width: 75%;
+    				margin-top: 6px;
+				}
+				&#clouds {
+					font-size: .8em;
+					margin-top: 11px;
+					width: 80%;
+				}
+				&#weather {
+					font-size: .9em;
+				    width: 68%;
+				    margin-top: 9px;
+				}
+    		}
     	}
 	}
 }
@@ -513,11 +604,15 @@ h1,h2,h3,h4,h5 {
 	&.menu-left {
 		.scroll {
 			height: 100%;
+			text-align: center;
 			.list {
 				height: 100%;
 				.item-complex {
+					border-color: transparent;
 					.item-content {
-						padding: 12% 10% 12% 15%;
+						// padding: 12% 10% 12% 15%;
+						// padding: 11.5% 11% 11% 11%;
+						padding: 12.5% 11% 8% 8%;
 					}
 					// padding: 6%;
 				}
@@ -717,5 +812,7 @@ h1,h2,h3,h4,h5 {
 .modal.partial {
 	margin-top: 40%
 }
+
+
 
 

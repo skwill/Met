@@ -1,34 +1,21 @@
-<div id="home_menu-modal" class="modal partial" ng-controller="HomeCtrl">
-    <ion-content has-header="false" scroll="false" id="ms_m">
+<div id="home_menu-modal" class="modal partial" ng-controller="HomeCtrl as hc">
     <div class="row text-center" id="of1" ng-click="closeModal()">
         <div class="col">
             <div id="met-icon"></div>
-            <span>met services</span>
+            <span>TTMS</span>
         </div>
     </div>
-    <div class="content met-services">
-        <div class="row ">
-            <div class="col col-50 mia" style="background-color: #3F94E3;">
-                <a ui-sref="app.services.aviation" ng-click="closeModal()">Aviation</a>
-            </div>
-            <div class="col col-50 mia" style="background-color: #1B6EBB;">
-                <a ng-click="closeModal()">Tourism</a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col col-50 mia" style="background-color: #9046F7;">
-                <a ui-sref="app.services.agriculture" ng-click="closeModal()">Agriculture</a>
-            </div>
-            <div class="col col-50 mia" style="background-color: #3B9F48;">
-                <a ui-sref="app.services.climate" ng-click="closeModal()">Climate</a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col col-50 mia" style="background-color: #1B6EBB;">
-                <a ui-sref="app.services.marine" ng-click="closeModal()">Marine</a>
-            </div>
-            <div class="col col-50 mia" ng-click="uv_modalOpen()" style="background-color: #3F94E3;">
-                <a>UV Status</a>
+    <ion-content has-header="false" scroll="true" id="ms_m">
+    <div class="content metars">
+        <div class="row " ng-repeat="item in hc.metars">
+            <div class="card">
+                <div class="item item-divider">
+                    {{item.label}}
+                </div>
+                <div class="item item-text-wrap">
+                    <i class="{{item.icon}}"></i>
+                    <span class="txt" id="{{item.el}}">{{item.value}}</span>
+                </div>
             </div>
         </div>
     </div>

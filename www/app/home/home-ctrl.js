@@ -1,7 +1,7 @@
 // weather app based on driftyco ionic-weather
 // https://github.com/driftyco/ionic-weather
 angular.module('ionic.metApp')
-	.controller('HomeCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval) {
+	.controller('HomeCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval, $ionicBackdrop) {
 		var _this = this;
 		$scope.activeBgImageIndex = 0;
 		$scope.has_images = false; // bool: tells us if we have images in cache or not
@@ -79,16 +79,107 @@ angular.module('ionic.metApp')
 			newDay.text(day);
 		}
 
+		_this.metars = function() {
+			metApi.get_metar(function(data) {
+				var m = data.items;
+				// gets the current temp, we only care about the exact number so pull that out from the string
+				$scope.current_temp = m[2].value.substring(0, 3);
+				// these are the ids of the metas we want for trinidad
+				var ids = [{
+					'id': 2, // temperature
+					'icon': 'icon ion-thermometer',
+					'el': 'temp'
+				}, {
+					'id': 3, // dewpoint
+					'icon': 'icon ion-waterdrop',
+					'el': 'dew'
+				}, {
+					'id': 4, // pressure
+					'icon': 'icon ion-ios-speedometer-outline',
+					'el': 'pressure'
+				}, {
+					'id': 5, // winds
+					'icon': 'icon ion-ios-analytics-outline',
+					'el': 'winds'
+				}, {
+					'id': 8, // clouds
+					'icon': 'icon ion-ios-cloudy-outline',
+					'el': 'clouds'
+				}, {
+					'id': 9, // weather
+					'icon': 'icon ion-umbrella',
+					'el': 'weather'
+				}]; //[2, 3, 4, 5, 8, 9];
+
+				_this.metars = [];
+				for (i = 0; i < ids.length; i++) {
+					_this.metars.push({
+						'id': m[ids[i].id].id,
+						'label': m[ids[i].id].label,
+						'station': m[ids[i].id].station,
+						'value': m[ids[i].id].value,
+						'icon': ids[i].icon,
+						'el': ids[i].el,
+					});
+				}
+				// _this.temp = m[2];
+				// _this.dew = m[3];
+				// _this.pressure = m[4];
+				// _this.wind = m[5];
+				// _this.wind = m[8];
+				// _this.weather = m[9];
+				console.log("metars temp")
+				console.log(_this.metars)
+
+				// other metar data for the slide up will come here
+				// console.log(data)
+			})
+		}
+
+		// 3 dat forecast data
+		_this.forecast = function(t) { // can be input of the country we load data for
+			metApi.get_o_tv(function(data) {
+				console.log("outlook tv")
+				var i = data.items[0];
+				$scope.summary_text = i.textArea1;
+				console.log(data)
+
+				// 3- day forecast
+				// days as text
+				$scope.t = day_string(0);
+				$scope.tm = day_string(1);
+				$scope.nd = day_string(2);
+				// will need to find a way to switch between trin and bago here
+				_this.th = i.maxTrin24look;
+				_this.tl = i.minTrin24look;
+				_this.tmh = i.maxTrin48look;
+				_this.tml = i.minTrin48look;
+				// console.log(_this.tml)
+				// vm.ndh = i.
+				// vm.ndl - i.
+				console.log($scope.nd)
+			})
+		}
+
 		// get current location based on device latitude and longitude, this feeds off google map api
 		_this.getCurrent = function(lat, lng) {
 			Weather.getAtLocation(lat, lng).then(function(resp) {
 				$scope.current = resp.data;
+
+
+				// get matars data
+				_this.metars();
+				// forecast
+				_this.forecast();
+
+				// console.log("current")
+				// console.log(resp.data)
 				$rootScope.$broadcast('scroll.refreshComplete');
 				var s = timeOfDay(); // time of day, eg: morning, night
 				$scope.today = my_date();; // today is
-				$scope.time = convertTimestamp($scope.current.currently.time); //t.toISOString();
+				// $scope.time = convertTimestamp($scope.current.currently.time); //t.toISOString();
 				// fetch a background image from flickr based on out location, time and current weather conditinos
-				_this.getBackgroundImage(lat, lng, $scope.current.currently.summary + ", " + $scope.current.daily.icon + ", carribbean, " + s);
+				_this.getBackgroundImage($scope.current.daily.icon);
 			}, function(error) {
 				var errorTxt = "";
 				switch (error.status) {
@@ -145,7 +236,7 @@ angular.module('ionic.metApp')
 		}
 
 		// gets images from flickr, consimes flicker api, with s failed attempt to cache images in local storage
-		this.getBackgroundImage = function(lat, lng, locString) {
+		this.getBackgroundImage = function(locString) {
 
 			var photo_store = $scope.bgImages;
 			// console.log("Has images: " + $scope.has_images);
@@ -156,7 +247,7 @@ angular.module('ionic.metApp')
 				_this.cycleBgImages();
 
 			} else {
-				Flickr.search(locString, lat, lng).then(function(resp) {
+				Flickr.search(locString).then(function(resp) {
 					var photos = resp.photos;
 					var images = [];
 					// console.log("Photos");
@@ -248,6 +339,14 @@ angular.module('ionic.metApp')
 			return [days[today.getDay()], today.getDate(), months[today.getMonth()], today.getFullYear()];
 		}
 
+		// return a string of any day from the current day
+		// @ add_days will be the number of days to add to today
+		function day_string(add_days) {
+			var today = new Date();
+			var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+			return days[today.getDay() + add_days];
+		}
+
 		// convert a unix timestamp to a full date
 		function convertTimestamp(UNIX_timestamp) {
 			var a = new Date(UNIX_timestamp * 1000);
@@ -264,6 +363,7 @@ angular.module('ionic.metApp')
 
 		// show out met services menu as a partial modal
 		$scope.showHomeMenu = function() {
+			$ionicBackdrop.retain();
 			if (!$scope.home_menu_modal) {
 				// load modal from given template URL
 				$ionicModal.fromTemplateUrl('app/home/home_menu.html', function(hm_modal) {
@@ -288,8 +388,13 @@ angular.module('ionic.metApp')
 			}
 		}
 
+		$scope.$on('modal.hidden', function() {
+			$ionicBackdrop.release();
+		})
+
 		// open uv modal from met services menu
 		$scope.uv_modalOpen = function() {
+			$ionicBackdrop.retain();
 			$scope.modal.hide();
 			if (!$scope.uv_modal) {
 				$ionicModal.fromTemplateUrl('app/home/uv_modal.html', function(uv_modal) {
@@ -302,6 +407,7 @@ angular.module('ionic.metApp')
 				})
 			} else {
 				$scope.uv_modal.show();
+				// $ionicBackdrop.retain()
 			}
 		}
 	})

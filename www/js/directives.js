@@ -77,6 +77,7 @@ angular.module('ionic.metApp.directives', [])
       $timeout(function checkTime() {
         if ($scope.localtz) {
           $scope.currentTime = $filter('date')(+(new Date), 'h:mm') + $scope.localtz;
+          console.log($scope.currentTime)
         }
         $timeout(checkTime, 500);
       });

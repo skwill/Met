@@ -23,23 +23,80 @@
         <div id="main-content">
             <current-weather>
             </current-weather>
+            <current-time>
+            </current-time>
             <!-- <forecast></forecast> -->
         </div>
+        <div class="clearfix"></div><br><br><br><br>
+
+
     </ion-content>
 
-    <ion-tabs class="tabs-icon-top tabs-color-active-positive ms">
+   <!--  <ion-tabs class="tabs-icon-top tabs-color-active-positive ms">
 
-      <ion-tab title="TODAY" id="today" on-select="w_today()"></ion-tab>
+      <ion-tab title="TODAY" id="today" on-select="w_today()">
+      <p>hello</p>
+      </ion-tab>
       <ion-tab title="TOMORROW" id="tomorrow" on-select="w_tomorrow()"></ion-tab>
       <ion-tab title="NEXT DAY" id="next-day"  on-select="w_nextDay()"></ion-tab>
 
-    </ion-tabs>
+    </ion-tabs> -->
+    <div class="d3 threeDay">
+           <!--  <div class="row">
+                <div class="col">
+                    <h6 class="forecast-block-title text-left">3-day Forecast</h6>
+                </div>
+            </div> -->
+            <div class="row" >
+                <div class="col">
+                    <p class="lead" >{{t}}</p>
+                </div>
+                <div class="col">
+                    <p class="text-right icon-size"><i class="{{vm.wicons[0]}}"></i></p>
+                </div>
+                <div class="col">
+                    <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{hc.th}}<sup>&deg;</sup></p>
+                </div>
+                <div class="col">
+                    <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{hc.tl}}<sup>&deg;</sup></p>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col">
+                    <p class="lead" >{{tm}}</p>
+                </div>
+                <div class="col">
+                    <p class="text-right icon-size"><i class="{{vm.wicons[1]}}"></i></p>
+                </div>
+                <div class="col">
+                    <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{hc.tmh}}<sup>&deg;</sup></p>
+                </div>
+                <div class="col">
+                    <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{hc.tml}}<sup>&deg;</sup></p>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col">
+                    <p class="lead" >{{nd}}</p>
+                </div>
+                <div class="col">
+                    <p class="text-right icon-size"><i class="{{vm.wicons[2]}}"></i></p>
+                </div>
+                <div class="col">
+                    <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{vm.threeDay[3].high}}<sup>&deg;</sup></p>
+                </div>
+                <div class="col">
+                    <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{vm.threeDay[3].low}}<sup>&deg;</sup></p>
+                </div>
+            </div>
+
+        </div>
 
     <div id="ms">
       <div class="row text-center of1-main" id="of1" ng-click="showHomeMenu()">
         <div class="col">
           <div id="met-icon"></div>
-          <span>met services</span>
+          <span>TTMS</span>
         </div>
       </div>
     </div>
