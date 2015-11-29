@@ -6,7 +6,7 @@
 
 
 	function metApi($http) {
-
+/*
 		function get_forecast(callback, id) {
 			var link = (id = !'undefined') ? '/' + id : '';
 			$http.get(url + '/forecast' + link).success(function(resp) {
@@ -14,7 +14,7 @@
 			}).finally(function() {
 
 			});
-		}
+		}*/
 		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		// all these function will collapse into 1 generic function called met_data
 		// met_data will take the following params
@@ -23,6 +23,14 @@
 			id: id of record to fetch (can be null or undeined):int
 			api_key: url of segment to fetch (if there is an id it will be appended to api_key string):string
 		*/
+
+		function get_forecast(callback) {
+			$http.get(url + '/forecast').success(function(data) {
+				callback(data)
+			})
+		}
+
+
 		function get_b_info(callback, id) {
 			var link = (id = !'undefined') ? '/' + id : '';
 			// $ionicLoading.show({
