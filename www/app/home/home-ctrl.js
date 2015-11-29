@@ -210,6 +210,10 @@ angular.module('ionic.metApp')
 			});
 		};
 
+		$scope.change_country = function() {
+
+		}
+
 		// our home controller freresh method, in charge of updating ion-* content on the forecast page, will trigger other function to update
 		$scope.refreshData = function() {
 			Geo.getLocation().then(function(position) {

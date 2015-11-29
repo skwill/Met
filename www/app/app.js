@@ -67,18 +67,18 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
     // })
 
 
-    .state('app.bulletinsev', {
-        url: '/bulletinsev',
-        views: {
-            //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
-            'mainContent': {
-                templateUrl: "app/bullettins/severe.html"
+    // .state('app.bulletinsev', {
+    //     url: '/bulletinsev',
+    //     views: {
+    //         //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
+    //         'mainContent': {
+    //             templateUrl: "app/bullettins/severe.html"
 
-            }
-        }
-    })
+    //         }
+    //     }
+    // })
 
-    .state('app.warnings', {
+        .state('app.warnings', {
         url: '/warnings',
         views: {
             //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
@@ -136,8 +136,76 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
                 templateUrl: "app/services/climate.html"
             }
         }
-
     })
+
+
+
+
+    // .state('app.bullettins', {
+    //     url: '/bullettins',
+    //     // abstract: true,
+    //     views: {
+    //         //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
+    //         'mainContent': {
+    //             templateUrl: "app/bullettins/bullettins.html"
+    //         }
+    //     }
+    // })
+
+    .state('app.forecast', {
+        url: '/forecast',
+        // abstract: true,
+        views: {
+            //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
+            'mainContent': {
+                templateUrl: "app/forecast/forecast.html"
+            }
+        }
+    })
+
+
+    // .state('app.bullettin-detail', {
+    //   url: '/bullettins/:bullettinId',
+    //   // abstract: true,
+    //   views: {
+    //     //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
+    //     'mainContent': {
+    //       templateUrl: "app/bullettins/info_item.html",
+    //       controller: 'BulletinsDCtrl'
+    //     }
+    //   }
+    // })
+
+
+    .state('app.bulletinsev', {
+        url: '/bulletinsev',
+        views: {
+            //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
+            'mainContent': {
+                templateUrl: "app/bullettins/severe.html"
+
+            }
+        }
+    })
+
+    // .state('app.warnings', {
+    //     url: '/warnings',
+    //     views: {
+    //         //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
+    //         'mainContent': {
+    //             templateUrl: "app/warnings/warnings.html"
+    //         }
+    //     }
+    // })
+    // .state('app.about', {
+    //     url: '/about',
+    //     views: {
+    //         'mainContent': {
+    //             templateUrl: 'app/about/about.html'
+    //         }
+    //     }
+
+    // })
 
     .state('app.services.marine', {
         //abstract: true,
@@ -222,15 +290,15 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
         });
 
         // ionic push notification set up
-    $ionicPlatform.ready(function() {
-        var push = new Ionic.Push({
-            "debug": true
-        });
+        $ionicPlatform.ready(function() {
+            var push = new Ionic.Push({
+                "debug": true
+            });
 
-        push.register(function(token) {
-            console.log("Device token: ", token.token)
+            push.register(function(token) {
+                console.log("Device token: ", token.token)
+            })
         })
-    })
     });
 // .controller('appCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval) {
 

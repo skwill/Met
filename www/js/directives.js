@@ -1,5 +1,7 @@
 angular.module('ionic.metApp.directives', [])
 
+
+
 .constant('WEATHER_ICONS', {
     'partlycloudy': 'ion-ios-partlysunny-outline',
     'mostlycloudy': 'ion-ios-partlysunny-outline',
@@ -164,6 +166,42 @@ angular.module('ionic.metApp.directives', [])
         link: function($scope, $element, $attr) {}
     }
 })
+
+.directive('fiveThirty', function($timeout) {
+    return {
+        restrict: 'E',
+        replace: true,
+        templateUrl: 'app/forecast/five-thirty.html',
+        link: function($scope, $element, $attr) {}
+    }
+})
+
+.directive('tenThree', function($timeout) {
+    return {
+        restrict: 'E',
+        replace: true,
+        templateUrl: 'app/forecast/ten-three.html',
+        link: function($scope, $element, $attr) {}
+    }
+})
+
+.directive('fiveThirtyp', function($timeout) {
+    return {
+        restrict: 'E',
+        replace: true,
+        templateUrl: 'app/forecast/five-thirtyp.html',
+        link: function($scope, $element, $attr) {}
+    }
+})
+/*
+.directive('fiveThirtyP', function($timeout) {
+  return {
+      restrict: 'E',
+      replace: true,
+      templateUrl: 'app/forecast/five-thirtyp.html',
+      link: function($scope, $element, $attr) {}
+    }
+})*/
 
 .directive('weatherBox', function($timeout) {
     return {
