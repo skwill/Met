@@ -29,6 +29,9 @@ angular.module('ionic.metApp')
 		// gets the uv_index form out met factory
 		_this.get_uv_index = function() {
 			var today_index = [];
+			// these indexes represent uv values. but instead of using the value directly we use a color in place of the index to represent the value
+			// the index will match to a color class to represent the uv_index value on the summary page
+			var uv_c = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9', 'c10', 'c11'];
 			metApi.get_uv_index(function(data) {
 				// console.log(data);
 				console.log("UV Index: ");
@@ -42,42 +45,57 @@ angular.module('ionic.metApp')
 						today_index.push(data.items[i]);
 					}
 				}
+				console.log('uv values for today', today_index);
 				if (today_index.length) {
 					$scope.uv_index = today_index[today_index.length - 1];
 					var ii = Number($scope.uv_index.uv_value);
 					var i = ii.toFixed(0);
 					$scope.uv_index.uv_value = i; // our scope uv variable
 					console.log($scope.uv_index);
+
+					// find uv index color
+					// uv range color values array will come here
+					// ii = 2;
+					// ensure the uv value matches the correct color class
+					var ci = i == 0 || i == 1 ? 0 : i == 11 || i > 11 ? (11 - 1) : i - 1;
+					$scope.uv_color = uv_c[ci];
+
+					$scope.$watch('uv_color', function() {
+						var el = document.getElementById('uv-index');
+						el.className = el.className + " " + $scope.uv_color;
+						console.log('uv color value', $scope.uv_color, ci, i);
+						console.log("watch on uv_value updated")
+					})
 				}
-				// uv range color values array will come here
+
 			})
 		}
 		_this.get_uv_index();
 
-		$scope.w_today = function() {
-			var day = "PRESENT";
-			var newDay = angular.element(document.querySelector('#day'));
-			var real = angular.element(document.querySelector('#temptemp'));
-			var result = angular.element(document.querySelector('#today-temp'));
-			result.text(real.text());
-			newDay.text(day);
-		}
+		// $scope.w_today = function() {
+		// 	var day = "PRESENT";
+		// 	var newDay = angular.element(document.querySelector('#day'));
+		// 	var real = angular.element(document.querySelector('#temptemp'));
+		// 	var result = angular.element(document.querySelector('#today-temp'));
+		// 	result.text(real.text());
+		// 	newDay.text(day);
+		// }
 
-		$scope.w_tomorrow = function() {
-			var day = "TOMORROW";
-			var newDay = angular.element(document.querySelector('#day'));
-			var result = angular.element(document.querySelector('#today-temp'));
-			result.text(30);
-			newDay.text(day);
-		}
+		// $scope.w_tomorrow = function() {
+		// 	var day = "TOMORROW";
+		// 	var newDay = angular.element(document.querySelector('#day'));
+		// 	var result = angular.element(document.querySelector('#today-temp'));
+		// 	result.text(30);
+		// 	newDay.text(day);
+		// }
 
-		$scope.w_nextDay = function() {
-			var day = "NEXT DAY";
-			var newDay = angular.element(document.querySelector('#day'));
-			var result = angular.element(document.querySelector('#today-temp'));
-			result.text(31);
-			newDay.text(day);
-		}
+		// $scope.w_nextDay = function() {
+		// 	var day = "NEXT DAY";
+		// 	var newDay = angular.element(document.querySelector('#day'));
+		// 	var result = angular.element(document.querySelector('#today-temp'));
+		// 	result.text(31);
+		// 	newDay.text(day);
+		// }
 
 		_this.metars = function() {
 			metApi.get_metar(function(data) {
@@ -111,9 +129,9 @@ angular.module('ionic.metApp')
 					'el': 'weather'
 				}]; //[2, 3, 4, 5, 8, 9];
 
-				_this.metars = [];
+				_this.mdata = [];
 				for (i = 0; i < ids.length; i++) {
-					_this.metars.push({
+					_this.mdata.push({
 						'id': m[ids[i].id].id,
 						'label': m[ids[i].id].label,
 						'station': m[ids[i].id].station,
@@ -129,7 +147,7 @@ angular.module('ionic.metApp')
 				// _this.wind = m[8];
 				// _this.weather = m[9];
 				console.log("metars temp")
-				console.log(_this.metars)
+				console.log(_this.mdata)
 
 				// other metar data for the slide up will come here
 				// console.log(data)
@@ -157,7 +175,7 @@ angular.module('ionic.metApp')
 				// console.log(_this.tml)
 				// vm.ndh = i.
 				// vm.ndl - i.
-				console.log($scope.nd)
+				// console.log($scope.nd)
 			})
 		}
 
@@ -167,10 +185,7 @@ angular.module('ionic.metApp')
 				$scope.current = resp.data;
 
 
-				// get matars data
-				_this.metars();
-				// forecast
-				_this.forecast();
+
 
 				// console.log("current")
 				// console.log(resp.data)
@@ -179,7 +194,7 @@ angular.module('ionic.metApp')
 				$scope.today = my_date();; // today is
 				// $scope.time = convertTimestamp($scope.current.currently.time); //t.toISOString();
 				// fetch a background image from flickr based on out location, time and current weather conditinos
-				_this.getBackgroundImage($scope.current.daily.icon);
+				_this.getBackgroundImage($scope.current.daily.icon + ", trinidad");
 			}, function(error) {
 				var errorTxt = "";
 				switch (error.status) {
@@ -204,8 +219,10 @@ angular.module('ionic.metApp')
 				// google map service will give us a location string based on our current location (or nearest detected location)
 				Geo.reverseGeocode(lat, lng).then(function(locString) {
 					$scope.currentLocationString = locString;
+					// console.log(locString);
 				});
 				_this.getCurrent(lat, lng);
+
 			}, function(error) {
 				// in some cases something may go wrong
 				// most times locatio service for android may be turned off
@@ -216,6 +233,12 @@ angular.module('ionic.metApp')
 				$scope.currentLocationString = "Unable to get current location:" + error;
 				$rootScope.$broadcast('scroll.refreshComplete');
 			});
+			// get matars data
+			_this.metars();
+			// forecast
+			_this.forecast();
+			// update uv
+			_this.get_uv_index();
 		};
 
 		// show alert: can show any type of alert, its a very generic function
@@ -233,6 +256,11 @@ angular.module('ionic.metApp')
 					$scope.activeBgImage = $scope.bgImages[$scope.activeBgImageIndex++ % $scope.bgImages.length];
 				}
 			})
+
+			$scope.country = $scope.currentLocationString.indexOf('Tobago') > -1 ? 'Tobago' : 'Trinidad';
+
+			console.log($scope.country);
+
 		}
 
 		// gets images from flickr, consimes flicker api, with s failed attempt to cache images in local storage

@@ -190,9 +190,9 @@ h1,h2,h3,h4,h5 {
   #cw-summary {
 	margin-top: 40px;
 	margin-left: -20px;
-	line-height: 14px;
+	line-height: 16px;
 	text-align: center;
-	font-size: 12px;
+	font-size: 14px;
   	// margin-bottom: -10px;
   }
   	.icon {
@@ -200,7 +200,10 @@ h1,h2,h3,h4,h5 {
 		display: block;
 		.text-center;
 		margin-top: -10px;
-		margin-left: -23px;
+		margin-left: -12px;
+		svg {
+			height: 88px; width: 80px;
+		}
 		// margin-bottom: -19px;
 	}
 }
@@ -231,13 +234,30 @@ h1,h2,h3,h4,h5 {
 }
 
 #uv-index {
+	&.uvc {
+		-webkit-transition: all 0.4s ease-in-out;
+           -moz-transition: all 0.4s ease-in-out;
+             -o-transition: all 0.4s ease-in-out;
+                transition: all 0.4s ease-in-out;
+		&.c1 > div{ background: rgba(78, 180, 0, 0.6); }
+		&.c2 > div{ background: rgba(160, 206, 0, 0.6); }
+		&.c3 > div{ background: rgba(247, 228, 0, 0.6); }
+		&.c4 > div{ background: rgba(248, 182, 0, 0.6); }
+		&.c5 > div{ background: rgba(248, 135, 0, 0.6); }
+		&.c6 > div{ background: rgba(248, 89, 0, 0.6); }
+		&.c7 > div{ background: rgba(232, 44, 14, 0.6); }
+		&.c8 > div{ background: rgba(216, 0, 29, 0.6); }
+		&.c9 > div{ background: rgba(255, 0, 153, 0.6); }
+		&.c10 > div{ background: rgba(181, 76, 255, 0.6); }
+		&.c11 > div{ background: rgba(153, 140, 255, 0.6); }
+	}
 	max-width: 80px;
 	margin-left: -9px;
 	// max-width: 28%;
 	> div {
 
 		padding: 13px 10px 0px 5px;
-    	background: @green;
+    	// background: @green;
     	border-radius: 13px;
     	border-bottom-right-radius: 0px;
     	span:nth-of-type(odd) {
@@ -270,7 +290,7 @@ h1,h2,h3,h4,h5 {
 	}
 	span {
 		font-size: 1.07em!important;
-		font-weight: 100;
+		font-weight: 300;
 	}
 }
 #present-cond {
@@ -318,7 +338,7 @@ h1,h2,h3,h4,h5 {
 	margin-top: 7px;
 	position: fixed;
     width: 100%;
-    bottom: 55px;
+    bottom: 54px;
 	color: #fff;
 	background-color: rgba(0, 0, 0, 0.45);
 	border-radius: 2px;
@@ -600,6 +620,39 @@ h1,h2,h3,h4,h5 {
   	}
 }
 
+#menu-bg {
+	height: 100%;
+	width: 100%;
+	-webkit-background-size: cover;
+       -moz-background-size: cover;
+         -o-background-size: cover;
+            background-size: cover;
+    height: 140%;
+    width: 140%;
+    margin-left: -35px;
+    margin-top: -40px;
+  	.blur;
+  	&:before {
+	  	height: 100%;
+		background-image: 8121991;
+	    background-image: -webkit-radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
+	    background-image: -moz-radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
+	    background-image: -o-radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
+	    background-image: radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
+ 	}
+}
+
+.blur {
+	-webkit-filter: blur(20px); //contrast(0.4) brightness(1.4);
+	   -moz-filter: blur(20px); //contrast(0.4) brightness(1.4);
+	     -o-filter: blur(20px); //contrast(0.4) brightness(1.4);
+	    -ms-filter: blur(20px); // contrast(0.4) brightness(1.4);
+	filter: url("data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='20'%20/></filter></svg>#blur");
+	filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='20');
+	clip: rect(520px 573px 516px 351px);
+	transition: all 0.5s ease-in-out;
+}
+
 .menu {
 	&.menu-left {
 		.scroll {
@@ -608,8 +661,17 @@ h1,h2,h3,h4,h5 {
 			.list {
 				height: 100%;
 				.item-complex {
+					background: transparent;
+					background-color: transparent;
 					border-color: transparent;
+					font-size: 20px;
+    				letter-spacing: 1px;
+    				text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
+    				// font-weight: 100;
 					.item-content {
+						color: #fff;
+						background: transparent;
+						background-color: transparent;
 						// padding: 12% 10% 12% 15%;
 						// padding: 11.5% 11% 11% 11%;
 						padding: 12.5% 11% 8% 8%;
@@ -728,13 +790,13 @@ h1,h2,h3,h4,h5 {
 }
 
 
-.background-vignette {
-	height: 100%;
+.background-vignette {height: 100%;
 	background-image: 8121991;
     background-image: -webkit-radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
     background-image: -moz-radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
     background-image: -o-radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
     background-image: radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
+
 }
 
 //Scale-In Animation

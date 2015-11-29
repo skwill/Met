@@ -1,116 +1,98 @@
 angular.module('ionic.metApp')
 	.config(function($httpProvider) {
-		$httpProvider.interceptors.push(function($rootScope) {
-			return {
-				request: function(config) {
-					$rootScope.$broadcast('loading:show')
-					return config;
-				},
-				response: function(response) {
-					$rootScope.$broadcast('loading:hide')
-					return response
-				}
-			}
-		})
+
 	})
 	.run(function($http, $cordovaPush, $ionicPlatform, $rootScope, $ionicLoading) {
-		$rootScope.$on('loading:show', function() {
-			$ionicLoading.show({
-				template: ' <ion-spinner></ion-spinner>'
-			});
-		})
-		$rootScope.$on('loading:hide', function() {
-			$ionicLoading.hide();
-		})
 
-		$ionicPlatform.ready(function() { // works on web browser
-			// Ionic.io();
 
-			// var user = Ionic.User.current();
-			// if (!user.id) {
-			// 	user.id = Ionic.User.anonymousId();
-			// 	user.name = "Test User",
-			// 	user.message = "Emulator"
-			// }
-			// user.save();
-			// var push = new Ionic.Push({
-			// 	"debug": true
-			// });
-		})
+	// $ionicPlatform.ready(function() { // works on web browser
+	// 	// Ionic.io();
+
+	// 	// var user = Ionic.User.current();
+	// 	// if (!user.id) {
+	// 	// 	user.id = Ionic.User.anonymousId();
+	// 	// 	user.name = "Test User",
+	// 	// 	user.message = "Emulator"
+	// 	// }
+	// 	// user.save();
+	// 	// var push = new Ionic.Push({
+	// 	// 	"debug": true
+	// 	// });
+	// })
 
 
 
 
-		var androidConfig = {
-			"senderID": "158386410361",
-			// "ecb": "window.onNotification"
-		};
+	// var androidConfig = {
+	// 	"senderID": "158386410361",
+	// 	// "ecb": "window.onNotification"
+	// };
 
-		// window.onNotification = function(e) {
-		// 	alert("nitification")
-		// }
+	// // window.onNotification = function(e) {
+	// // 	alert("nitification")
+	// // }
 
-		document.addEventListener("deviceready", function() {
-			// Ionic.io();
+	// document.addEventListener("deviceready", function() {
+	// 	// Ionic.io();
 
-			// var user = Ionic.User.current();
-			// if (!user.id) {
-			// user.id = Ionic.User.anonymousId();
-			// user.name = "Test User",
-			// user.message = "Emulator"
-			// }
-			// user.save();
-			var push = new Ionic.Push({
-				"debug": true
-			});
+	// 	// var user = Ionic.User.current();
+	// 	// if (!user.id) {
+	// 	// user.id = Ionic.User.anonymousId();
+	// 	// user.name = "Test User",
+	// 	// user.message = "Emulator"
+	// 	// }
+	// 	// user.save();
+	// 	var push = new Ionic.Push({
+	// 		"debug": true
+	// 	});
 
-			push.register(function(token) {
-				console.log('Device token:', token.token);
-				// alert(token.token);
-			})
+	// 	push.register(function(token) {
+	// 		console.log('Device token:', token.token);
+	// 		// alert(token.token);
+	// 	})
 
-			$cordovaPush.register(androidConfig).then(function(result) {
-				// Success
-				// alert("start of push");
-				// console.log(result)
-			}, function(err) {
-				// Error
-			})
+	// 	$cordovaPush.register(androidConfig).then(function(result) {
+	// 		// Success
+	// 		// alert("start of push");
+	// 		// console.log(result)
+	// 	}, function(err) {
+	// 		// Error
+	// 	})
 
-			$rootScope.$on('$cordovaPush:notificationReceived', function(event, notification) {
-				// $scope.$on('pushNotificationReceived', function(event, notification) {
-				// alert("end");
-				switch (notification.event) {
-					case 'registered':
-						if (notification.regid.length > 0) {
-							// alert('registration ID = ' + notification.regid);
-						}
-						break;
+	// 	$rootScope.$on('$cordovaPush:notificationReceived', function(event, notification) {
+	// 		// $scope.$on('pushNotificationReceived', function(event, notification) {
+	// 		// alert("end");
+	// 		switch (notification.event) {
+	// 			case 'registered':
+	// 				if (notification.regid.length > 0) {
+	// 					// alert('registration ID = ' + notification.regid);
+	// 				}
+	// 				break;
 
-					case 'message':
-						// this is the actual push notification. its format depends on the data model from the push server
-						// alert('message = ' + notification.message + ' msgCount = ' + notification.msgcnt);
-						break;
+	// 			case 'message':
+	// 				// this is the actual push notification. its format depends on the data model from the push server
+	// 				// alert('message = ' + notification.message + ' msgCount = ' + notification.msgcnt);
+	// 				break;
 
-					case 'error':
-						// alert('GCM error = ' + notification.msg);
-						break;
+	// 			case 'error':
+	// 				// alert('GCM error = ' + notification.msg);
+	// 				break;
 
-					default:
-						// alert('An unknown GCM event has occurred');
-						break;
-				}
-			});
+	// 			default:
+	// 				// alert('An unknown GCM event has occurred');
+	// 				break;
+	// 		}
+	// 	});
 
 
-			// WARNING: dangerous to unregister(results in loss of tokenID)
-			// $cordovaPush.unregister(options).then(function(result) {
-			// 	// Success!
-			// }, function(err) {
-			// 	// Error
-			// })
+	// 	// WARNING: dangerous to unregister(results in loss of tokenID)
+	// 	// $cordovaPush.unregister(options).then(function(result) {
+	// 	// 	// Success!
+	// 	// }, function(err) {
+	// 	// 	// Error
+	// 	// })
 
-		}, false);
+	// }, false);
 	})
 	.controller('BulletinsCtrl', function(metApi, $scope, $ionicLoading, $timeout, $ionicModal, $cordovaDevice, $ionicPlatform, $cordovaPush, $ionicSlideBoxDelegate) {
 

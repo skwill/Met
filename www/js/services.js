@@ -74,21 +74,24 @@ angular.module('ionic.metApp.services', ['ngResource'])
 .factory('Geo', function($q) {
   return {
     reverseGeocode: function(lat, lng) {
+      // 11.225296, -60.680401 // tobago
       // alert("geo")
       var q = $q.defer();
 
       var geocoder = new google.maps.Geocoder();
       geocoder.geocode({
+        // 'latLng': new google.maps.LatLng('11.281333', '-60.566032')
         'latLng': new google.maps.LatLng(lat, lng)
       }, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-          // console.log('Reverse', results);
+          // console.log(lat, lng);
           if (results.length > 1) {
             var r = results[1];
             var a, types;
             var parts = [];
             var foundLocality = false;
             var foundState = false;
+            var foundCountry = false;
             for (var i = 0; i < r.address_components.length; i++) {
               a = r.address_components[i];
               types = a.types;
@@ -96,10 +99,15 @@ angular.module('ionic.metApp.services', ['ngResource'])
                 if (!foundLocality && types[j] == 'locality') {
                   foundLocality = true;
                   parts.push(a.long_name);
-                } else if (!foundState && types[j] == 'administrative_area_level_1') {
+                }
+                if (!foundState && types[j] == 'administrative_area_level_1') {
                   foundState = true;
                   parts.push(a.short_name);
                 }
+                // if (!foundCountry && types[j] == "country") {
+                //   foundCountry = true;
+                //   parts.push(a.long_name);
+                // }
               }
             }
             // console.log('Reverse', parts);
