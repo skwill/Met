@@ -57,6 +57,7 @@ angular.module('ionic.metApp')
 					// uv range color values array will come here
 					// ii = 2;
 					// ensure the uv value matches the correct color class
+					// i = 10;
 					var ci = i == 0 || i == 1 ? 0 : i == 11 || i > 11 ? (11 - 1) : i - 1;
 					$scope.uv_color = uv_c[ci];
 
@@ -183,10 +184,6 @@ angular.module('ionic.metApp')
 		_this.getCurrent = function(lat, lng) {
 			Weather.getAtLocation(lat, lng).then(function(resp) {
 				$scope.current = resp.data;
-
-
-
-
 				// console.log("current")
 				// console.log(resp.data)
 				$rootScope.$broadcast('scroll.refreshComplete');
@@ -194,7 +191,8 @@ angular.module('ionic.metApp')
 				$scope.today = my_date();; // today is
 				// $scope.time = convertTimestamp($scope.current.currently.time); //t.toISOString();
 				// fetch a background image from flickr based on out location, time and current weather conditinos
-				_this.getBackgroundImage($scope.current.daily.icon + ", trinidad");
+				console.log('currently', $scope.current)
+			_this.getBackgroundImage($scope.current.currently.summary + ", trinidad");
 			}, function(error) {
 				var errorTxt = "";
 				switch (error.status) {
@@ -353,13 +351,12 @@ angular.module('ionic.metApp')
 		function hour_of_day() {
 			var d = new Date();
 			var t = d.getHours();
-			if (t >= 0 && t < 12) {
+			if (t >= 0 && t <= 12) {
 				t = (t == 0 ? '12' : t) + 'am';
 			}
 			if (t > 12) {
 				t = (t - 12) + 'pm';
 			}
-
 			return t;
 		}
 
