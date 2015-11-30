@@ -40,44 +40,31 @@ body {
   background-size: cover;
 }
 
-.bg-fade {
+.bg-fade > div {
 	-webkit-transition: background 1.5s linear;
-	-moz-transition: background 1.5s linear;
-	-o-transition: background 1.5s linear;
-	-ms-transition: background 1.5s linear;
-	transition: background 1.5s linear;
-	// & {
-		&.ng-enter {
-			opacity: 0;
-            -webkit-transition: opacity 2s ease-in-out;
-		}
-		&.ng-enter-active {
-			opacity: 1;
-		}
-		&.ng-leave {
-			opacity: 1;
-            -webkit-transition: opacity 2s ease-in-out;
-		}
-		&.ng-leave-active {
-			opacity: 0;
-		}
-	// }
+	   -moz-transition: background 1.5s linear;
+	     -o-transition: background 1.5s linear;
+	    -ms-transition: background 1.5s linear;
+	        transition: background 1.5s linear;
+	&.ng-enter {
+		opacity: 0;
+        -webkit-transition: opacity 2s ease-in-out;
+           -moz-transition: background 1.5s linear;
+             -o-transition: background 1.5s linear;
+            -ms-transition: background 1.5s linear;
+                transition: background 1.5s linear;
+	}
+	&.ng-enter-active { opacity: 1; }
+	&.ng-leave {
+		opacity: 1;
+        -webkit-transition: opacity 2s ease-in-out;
+           -moz-transition: opacity 2s ease-in-out;
+             -o-transition: opacity 2s ease-in-out;
+            -ms-transition: opacity 2s ease-in-out;
+                transition: opacity 2s ease-in-out;
+	}
+	&.ng-leave-active { opacity: 0; }
 }
-
-// .bg-fade > .ng-enter {
-//   opacity: 0;
-//   -webkit-transition: opacity 2s ease-in-out;
-// }
-// .bg-fade > .ng-enter-active {
-//   opacity: 1;
-// }
-// .bg-fade > .ng-leave {
-//   opacity: 1;
-//   -webkit-transition: opacity 2s ease-in-out;
-// }
-// .bg-fade > .ng-leave-active {
-//   opacity: 0;
-// }
 
 h1,h2,h3,h4,h5 {
   // color: #fff;
@@ -632,14 +619,14 @@ h1,h2,h3,h4,h5 {
     margin-left: -35px;
     margin-top: -40px;
   	.blur;
-  	&:before {
-	  	height: 100%;
-		background-image: 8121991;
-	    background-image: -webkit-radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
-	    background-image: -moz-radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
-	    background-image: -o-radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
-	    background-image: radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
- 	}
+  // 	&:before {
+	 //  	height: 100%;
+		// background-image: 8121991;
+	 //    background-image: -webkit-radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
+	 //    background-image: -moz-radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
+	 //    background-image: -o-radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
+	 //    background-image: radial-gradient(50% 100%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.56) 100%);
+ 	// }
 }
 
 .blur {

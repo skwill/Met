@@ -1,6 +1,6 @@
 <div id="current-weather">
 	<div class="row">
-		<div class="col col-50 uvc" id="uv-index">
+		<div class="col col-50 uvc" id="uv-index" ng-click="uv_modalOpen()">
 			<div class="col">
 				<span>{{hour_of_day}}</span>
 				<span id="uv-value" class="">{{uv_index.uv_value}}</span><br>
@@ -46,13 +46,13 @@
   </svg>
 		</div>
 		<!-- <current-icon icon="current.currently.icon">Loading...</current-icon> -->
-		<div class="col" id="present-cond">
+		<div class="col" id="present-cond" ui-sref="app.forecast">
 			<div>
 				<span class="block-support-text" id="day">PRESENT</span>
 				<div>
 					<h1 class="current-temp">
 				  		<span id="today-temp">{{current_temp}}</span>&deg;
-				  		<span class="block-support-text">/ <span>79%</span></span>
+				  		<span class="block-support-text">/ <span>{{dew_point}}</span></span>
 				    	<!-- <current-icon icon="current.currently.icon">Loading...</current-icon> -->
 				  	</h1>
 				</div>

@@ -114,7 +114,7 @@ angular.module('ionic.metApp.services', ['ngResource'])
             q.resolve(parts.join(', '));
           }
         } else {
-          console.log('reverse fail', results, status);
+          // console.log('reverse fail', results, status);
           q.reject(results);
         }
       })

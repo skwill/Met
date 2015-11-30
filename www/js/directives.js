@@ -1,4 +1,4 @@
-angular.module('ionic.metApp.directives', [])
+angular.module('ionic.metApp.directives', ['ngAnimate'])
 
 
 
@@ -79,7 +79,7 @@ angular.module('ionic.metApp.directives', [])
             $timeout(function checkTime() {
                 if ($scope.localtz) {
                     $scope.currentTime = $filter('date')(+(new Date), 'h:mm') + $scope.localtz;
-                    console.log($scope.currentTime)
+                    // console.log($scope.currentTime);
                 }
                 $timeout(checkTime, 500);
             });
@@ -271,11 +271,12 @@ angular.module('ionic.metApp.directives', [])
         var img = $compile('<background-image></background-image>')(scope);
 
         $animate.enter(img, $element, null, function() {
-            console.log('Inserted');
+
         });
+
         if (child) {
             $animate.leave(angular.element(child), function() {
-                console.log('Removed');
+
             });
         }
     };

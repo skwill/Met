@@ -4,6 +4,7 @@ angular.module('ionic.metApp')
 	.controller('HomeCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval, $ionicBackdrop) {
 		var _this = this;
 		$scope.activeBgImageIndex = 0;
+		// $scope.country = '';
 		$scope.has_images = false; // bool: tells us if we have images in cache or not
 		//  - - - - - - - - - - - - - - -  -
 		// interval block: how ofter the app will refresh it's data \\
@@ -45,7 +46,7 @@ angular.module('ionic.metApp')
 						today_index.push(data.items[i]);
 					}
 				}
-				console.log('uv values for today', today_index);
+				// console.log('uv values for today', today_index);
 				if (today_index.length) {
 					$scope.uv_index = today_index[today_index.length - 1];
 					var ii = Number($scope.uv_index.uv_value);
@@ -65,7 +66,9 @@ angular.module('ionic.metApp')
 						var el = document.getElementById('uv-index');
 						el.className = el.className + " " + $scope.uv_color;
 						console.log('uv color value', $scope.uv_color, ci, i);
-						console.log("watch on uv_value updated")
+						console.log("watch on uv_value updated");
+						// var bmb = document.getElementsByClassName('home-rbg');
+						// bmb[0].className = bmb[0].className + " " + $scope.uv_color;
 					})
 				}
 
@@ -103,32 +106,42 @@ angular.module('ionic.metApp')
 				var m = data.items;
 				// gets the current temp, we only care about the exact number so pull that out from the string
 				$scope.current_temp = m[2].value.substring(0, 3);
+				var p = m[3].value;
+				// console.log('dew point', p);
+				var pat = /([0-9\.]+)%/g;
+				$scope.dew_point = (r = pat.exec(p))[0];
+
+				// while (null != (r = pat.exec(p))) {
+				console.log('regex', r);
+				// }
 				// these are the ids of the metas we want for trinidad
 				var ids = [{
-					'id': 2, // temperature
-					'icon': 'icon ion-thermometer',
-					'el': 'temp'
-				}, {
-					'id': 3, // dewpoint
-					'icon': 'icon ion-waterdrop',
-					'el': 'dew'
-				}, {
-					'id': 4, // pressure
-					'icon': 'icon ion-ios-speedometer-outline',
-					'el': 'pressure'
-				}, {
-					'id': 5, // winds
-					'icon': 'icon ion-ios-analytics-outline',
-					'el': 'winds'
-				}, {
-					'id': 8, // clouds
-					'icon': 'icon ion-ios-cloudy-outline',
-					'el': 'clouds'
-				}, {
+						'id': 2, // temperature
+						'icon': 'icon ion-thermometer',
+						'el': 'temp'
+					}, {
+						'id': 3, // dewpoint
+						'icon': 'icon ion-waterdrop',
+						'el': 'dew'
+					}, {
+						'id': 4, // pressure
+						'icon': 'icon ion-ios-speedometer-outline',
+						'el': 'pressure'
+					}, {
+						'id': 5, // winds
+						'icon': 'icon ion-ios-analytics-outline',
+						'el': 'winds'
+					}, {
+						'id': 8, // clouds
+						'icon': 'icon ion-ios-cloudy-outline',
+						'el': 'clouds'
+					}
+					/*, {
 					'id': 9, // weather
 					'icon': 'icon ion-umbrella',
 					'el': 'weather'
-				}]; //[2, 3, 4, 5, 8, 9];
+				}*/
+				];
 
 				_this.mdata = [];
 				for (i = 0; i < ids.length; i++) {
@@ -169,14 +182,17 @@ angular.module('ionic.metApp')
 				$scope.tm = day_string(1);
 				$scope.nd = day_string(2);
 				// will need to find a way to switch between trin and bago here
-				_this.th = i.maxTrin24look;
-				_this.tl = i.minTrin24look;
-				_this.tmh = i.maxTrin48look;
-				_this.tml = i.minTrin48look;
-				// console.log(_this.tml)
-				// vm.ndh = i.
-				// vm.ndl - i.
-				// console.log($scope.nd)
+				_this.max24 = i.maxTrin24look;
+				_this.min24 = i.minTrin24look;
+				_this.max48 = i.maxTrin48look;
+				_this.min48 = i.minTrin48look;
+				if ($scope.country == "Tobago") {
+					_this.max24 = i.maxTbo24look;
+					_this.min24 = i.minTbo24look;
+					_this.max48 = i.maxTbo48look;
+					_this.min48 = i.minTbo48look;
+				}
+				console.log('country', $scope.country)
 			})
 		}
 
@@ -192,7 +208,7 @@ angular.module('ionic.metApp')
 				// $scope.time = convertTimestamp($scope.current.currently.time); //t.toISOString();
 				// fetch a background image from flickr based on out location, time and current weather conditinos
 				console.log('currently', $scope.current)
-			_this.getBackgroundImage($scope.current.currently.summary + ", trinidad");
+				_this.getBackgroundImage($scope.current.currently.summary + ", trinidad");
 			}, function(error) {
 				var errorTxt = "";
 				switch (error.status) {
@@ -223,7 +239,19 @@ angular.module('ionic.metApp')
 					$scope.currentLocationString = locString;
 					// console.log(locString);
 				});
+				setTimeout(function() {
+					$scope.country = $scope.currentLocationString.indexOf('Tobago') > -1 ? 'Tobago' : 'Trinidad';
+					// console.debug('wait for country', $scope.country);
+					// get matars data
+					_this.metars();
+					// forecast
+					_this.forecast($scope.currentLocationString);
+				}, 300)
 				_this.getCurrent(lat, lng);
+
+
+				// update uv
+				_this.get_uv_index();
 
 			}, function(error) {
 				// in some cases something may go wrong
@@ -235,12 +263,7 @@ angular.module('ionic.metApp')
 				$scope.currentLocationString = "Unable to get current location:" + error;
 				$rootScope.$broadcast('scroll.refreshComplete');
 			});
-			// get matars data
-			_this.metars();
-			// forecast
-			_this.forecast();
-			// update uv
-			_this.get_uv_index();
+
 		};
 
 		// show alert: can show any type of alert, its a very generic function
@@ -259,9 +282,9 @@ angular.module('ionic.metApp')
 				}
 			})
 
-			$scope.country = $scope.currentLocationString.indexOf('Tobago') > -1 ? 'Tobago' : 'Trinidad';
 
-			console.log($scope.country);
+
+			// console.log($scope.country);
 
 		}
 
@@ -398,6 +421,8 @@ angular.module('ionic.metApp')
 				$ionicModal.fromTemplateUrl('app/home/home_menu.html', function(hm_modal) {
 					$scope.home_menu_modal = hm_modal;
 					$scope.home_menu_modal.show();
+					// var el = document.getElementsByClassName('rbg');
+					// el[1].className = el[1].className + " " + $scope.uv_color;
 				}, {
 					// animation we want for modal entrance
 					// animation: 'scale-in'
@@ -405,6 +430,8 @@ angular.module('ionic.metApp')
 				})
 			} else {
 				$scope.home_menu_modal.show();
+				// var el = document.getElementsByClassName('rbg');
+				// el[1].className = el[1].className + " " + $scope.uv_color;
 			}
 		}
 
@@ -412,9 +439,6 @@ angular.module('ionic.metApp')
 		// also special case: if modal is a child of met services menu then open parent
 		$scope.closeModal = function(a) {
 			$scope.modal.hide();
-			if (a == "show_home") {
-				$scope.showHomeMenu();
-			}
 		}
 
 		$scope.$on('modal.hidden', function() {
@@ -424,7 +448,7 @@ angular.module('ionic.metApp')
 		// open uv modal from met services menu
 		$scope.uv_modalOpen = function() {
 			$ionicBackdrop.retain();
-			$scope.modal.hide();
+			// $scope.modal.hide();
 			if (!$scope.uv_modal) {
 				$ionicModal.fromTemplateUrl('app/home/uv_modal.html', function(uv_modal) {
 					$scope.uv_modal = uv_modal;
