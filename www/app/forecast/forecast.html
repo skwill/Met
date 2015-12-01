@@ -6,9 +6,9 @@
         <ion-nav-buttons side="left">
             <button menu-toggle="left" class="button button-icon icon ion-navicon" ></button>
         </ion-nav-buttons>
-        <!-- <ion-nav-buttons side="right">
+        <ion-nav-buttons side="right">
             <button ng-click="vm.refresh_all_b()" class="button button-icon"><i class="settings-icon ion-ios-reload"></i></button>
-        </ion-nav-buttons> -->
+        </ion-nav-buttons>
     </ion-nav-bar>
 
     <ion-content scroll="true" class="has-header" ng-init="vm.getForecast()">
@@ -23,139 +23,6 @@
 
         <div ng-if="vm.forecast.forecastTime == '05:30PM'">
             <five-thirtyp></five-thirtyp>
-        </div>    
-
-
-       
-         <!-- <div ng-include="app/forecast/five-thirty.html"></div> -->
-
-         <!-- <ng-include
-          src="app/forecast/five-thirty.html">
-        
-        </ng-include> -->
-
-        
-
-        
-        <!-- <div style="width: 20px; height: 20px; background-color: #000;" id="time">
-            
-        </div> -->
-
-
-        <!-- <div ng-bind-html="myHTML"></div> -->
-        <!-- //{{vm.hello1}} -->
-       <!--  {{vm.hello1}} -->
-       <!-- <five-thirty></five-thirty> -->
-        <!-- <p>Issued at {{vm.forecast.IssuedAt}}</p> -->
-        <!-- <p>{{vm.forecast.forecastArea1}}</p> -->
-        <!-- <p>{{vm.forecast.forecastArea2}}</p> -->
-       
-       <!--  <p>{{vm.forecast.timePeriod}}</p>
-        <p>Meteorologist: {{vm.forecast.forecaster}}</p>
-        <p>For The Period {{vm.forecast.forecastPeriod}}</p>
-        <p>{{vm.forecast.forecastArea2}}</p>
-        <p>{{vm.forecast.textArea2}}</p>        
-        <p>Piarco Max Temp: {{vm.forecast.PiarcoFcstMxTemp}}&deg;</p>
-        <p>Crown Point Max Temp: {{vm.forecast.CrownFcstMxTemp}}&deg;</p>
-        <p>Piarco Min Temp: {{vm.forecast.PiarcoMnTemp}}&deg;</p>
-        <p>Crown Point Min Temp: {{vm.forecast.CrownMnTemp}}&deg;</p>
-        <p>Piarco Heat Index: {{vm.forecast.PiarcoheatIndex}}&deg;</p>
-        <p>Crown Point Heat Index: {{vm.forecast.CPointheatIndex}}&deg;</p>
-        <p>Rainfall (mm): {{vm.forecast.probrainfall}}</p>
-        <p>Cumulative for Piarco: {{vm.forecast.cumlativeRain}}</p>
-
-        <p>Seas: {{vm.forecast.seas}}</p>
-        <p>Waves: {{vm.forecast.waves1}} {{vm.forecast.waves2}}</p>
-        <p>Sunrise: {{vm.forecast.sunrise}} Sunset: {{vm.forecast.sunset}}</p>
-
-        <h4>Tides</h4>
-        <p>Port of Spain High: {{vm.forecast.trinAmHigh}} {{vm.forecast.trinPmHigh}} Low: {{vm.forecast.trinAmLow}} {{vm.forecast.trinPmLow}}</p>
-        <p>Crown Point High: {{vm.forecast.tobAmHigh}} {{vm.forecast.tobPmHigh}} Low: {{vm.forecast.tobAmLow}} {{vm.forecast.tobPmLow}}</p> -->
-    </ion-content>
-    
+        </div> 
+    </ion-content>    
 </ion-view>
-
-
-<!--<div class="bar bar-subheader">
-        <p class="title">{{sub_title}}</p>
-    </div>
-
-    <ion-content scroll="true" class="has-header">
-        <ion-slide-box on-slide-changed="slideHasChanged($index)" ng-init="vm.update_slide(0)">
-            <ion-slide ng-init="vm.getGIBulletins()">
-                <div class="box">
-                    <ion-list>
-                        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in vm.b_info" type="item-text-wrap" ng-click="b_info_open({{item.bulletininfodatatblID}}, 'b')">
-                        <!-- <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in vm.b_info" type="item-text-wrap" href="#/app/bullettins/{{item.bulletininfodatatblID}}"> --
-                            <img ng-src="{{chat.face}}">
-                            <h2>{{item.bulletinType}}</h2>
-                            <p>{{item.textArea1}}</p>
-                            <i class="icon ion-chevron-right icon-accessory"></i>
-                            <ion-option-button class="button-stable" ng-click="share()">
-                                <i class="icon ion-android-share-alt"></i>
-                            </ion-option-button>
-                        </ion-item>
-                    </ion-list>
-                </div>
-            </ion-slide>
-            <ion-slide ng-init="vm.get_serv_b()">
-                <div class="box">
-                    <ion-list>
-                        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in vm.s_items" ng-click="b_info_open({{item.bulletinsevdatatblID}}, 's')" data-id="item.bulletinsevdatatblID">
-                            <img ng-src="{{chat.face}}">
-                            <h2>{{item.bulletinType}}</h2>
-                            <p>{{item.textArea1}}</p>
-                            <i class="icon ion-chevron-right icon-accessory"></i>
-                            <ion-option-button class="button-stable" ng-click="share()">
-                                <i class="icon ion-android-share-alt"></i>
-                            </ion-option-button>
-                        </ion-item>
-                    </ion-list>
-                </div>
-            </ion-slide>
-            <ion-slide ng-init="vm.get_flood_b()">
-                <div class="box">
-                    <ion-list>
-                        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in vm.f_items" ng-click="b_info_open({{item.bulletinNum}}, 'f')" data-id="item.bulletinNum">
-                            <img ng-src="{{chat.face}}">
-                            <h2>{{item.bulletinType}}</h2>
-                            <p>{{item.textArea1}}</p>
-                            <i class="icon ion-chevron-right icon-accessory"></i>
-                            <ion-option-button class="button-stable" ng-click="share()">
-                                <i class="icon ion-android-share-alt"></i>
-                            </ion-option-button>
-                        </ion-item>
-                    </ion-list>
-                </div>
-            </ion-slide>
-            <ion-slide ng-init="vm.get_sea_b()">
-                <div class="box">
-                    <ion-list>
-                        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in vm.r_items" ng-click="b_info_open({{item.bulletinNum?item.bulletinNum:0}}, 'r')" data-id="item.bulletinNum">
-                            <img ng-src="{{chat.face}}">
-                            <h2>{{item.bulletinType}}</h2>
-                            <p>{{item.textArea1}}</p>
-                            <i class="icon ion-chevron-right icon-accessory"></i>
-                            <ion-option-button class="button-stable" ng-click="share()">
-                                <i class="icon ion-android-share-alt"></i>
-                            </ion-option-button>
-                        </ion-item>
-                    </ion-list>
-                    <div class="list" ng-if="vm.r_items">
-                        <div ng-repeat="item in vm.r_items" ng-click="b_info_open({{item.bulletinNum?item.bulletinNum:0}}, 'r')" data-id="item.bulletinNum">
-                            <div class="item">
-                                <p class="title">{{item.bulletinType}}</p>
-                                <h6 class="follow">{{item.currdate}}, {{item.issuedAt}}</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </ion-slide>
-        </ion-slide-box>
-    </ion-content>
-    <ion-tabs class="tabs-icon-top tabs-color-active-positive">
-      <ion-tab title="General" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="slide(0)"></ion-tab>
-      <ion-tab title="Severe Weather" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="slide(1)"></ion-tab>
-      <ion-tab title="Floods" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="slide(2)"></ion-tab>
-      <ion-tab title="Rough Seas" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="slide(3)"></ion-tab>
-    </ion-tabs>

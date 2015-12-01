@@ -3,17 +3,9 @@ angular.module('ionic.metApp').controller('ForecastCtrl', function(metApi, $root
 	var vm = this;
 
 	vm.getForecast = function() {
-		metApi.get_forecast(function(data) {
-
-			//$scope.myHTML = '<five-thirty></five-thirty>';
-			
+		metApi.get_forecast(function(data) {			
 			vm.forecast = data.items[0];
-			vm.hello = data.items[0].forecastTime;
-			//$scope.hello1 = $sce.trustAsHtml("<five-thirty></five-thirty>");
-			//vm.hello1 = "<five-thirty></five-thirty>";
-			//console.log(vm.forecast);
-			/*console.log("Air");
-			console.log(vm.o_items);*/
+			vm.hello = data.items[0].forecastTime;			
 		})
 	}
 })
