@@ -193,6 +193,7 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
         link: function($scope, $element, $attr) {}
     }
 })
+
 /*
 .directive('fiveThirtyP', function($timeout) {
   return {

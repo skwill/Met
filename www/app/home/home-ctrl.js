@@ -41,12 +41,17 @@ angular.module('ionic.metApp')
 				$scope.hour_of_day = hour_of_day();
 				// drop all uv_info not for today
 				for (var i = 0; i < data.items.length; i++) {
-					var uv_date_clean = data.items[i].uv_date;
+					var uv_date_clean = data.items[i].uv_date.trim();
 					if (d == uv_date_clean) {
 						today_index.push(data.items[i]);
 					}
+					// console.log(uv_date_clean.length);
+					// console.log(d.length);
 				}
 				// console.log('uv values for today', today_index);
+				// console.debug('today', d)
+				// console.debug('today', d)
+				// console.log('all uv values', data.items);
 				if (today_index.length) {
 					$scope.uv_index = today_index[today_index.length - 1];
 					var ii = Number($scope.uv_index.uv_value);
@@ -106,42 +111,80 @@ angular.module('ionic.metApp')
 				var m = data.items;
 				// gets the current temp, we only care about the exact number so pull that out from the string
 				$scope.current_temp = m[2].value.substring(0, 3);
-				var p = m[3].value;
-				// console.log('dew point', p);
-				var pat = /([0-9\.]+)%/g;
-				$scope.dew_point = (r = pat.exec(p))[0];
+
+				// if tobago then switch to tobago dewpoint
+				$scope.dew_point = set_due_point(3, m); //(r = pat.exec(p))[0];
 
 				// while (null != (r = pat.exec(p))) {
 				console.log('regex', r);
 				// }
 				// these are the ids of the metas we want for trinidad
 				var ids = [{
-						'id': 2, // temperature
-						'icon': 'icon ion-thermometer',
-						'el': 'temp'
-					}, {
-						'id': 3, // dewpoint
-						'icon': 'icon ion-waterdrop',
-						'el': 'dew'
-					}, {
-						'id': 4, // pressure
-						'icon': 'icon ion-ios-speedometer-outline',
-						'el': 'pressure'
-					}, {
-						'id': 5, // winds
-						'icon': 'icon ion-ios-analytics-outline',
-						'el': 'winds'
-					}, {
-						'id': 8, // clouds
-						'icon': 'icon ion-ios-cloudy-outline',
-						'el': 'clouds'
-					}
-					/*, {
+					'id': 0, // metar fir
+					'icon': 'icon ion-ios-location-outline',
+					'el': 'met-loc'
+				}, {
+					'id': 2, // temperature
+					'icon': 'icon ion-thermometer',
+					'el': 'temp'
+				}, {
+					'id': 3, // dewpoint
+					'icon': 'icon ion-waterdrop',
+					'el': 'dew'
+				}, {
+					'id': 4, // pressure
+					'icon': 'icon ion-ios-speedometer-outline',
+					'el': 'pressure'
+				}, {
+					'id': 5, // winds
+					'icon': 'icon ion-ios-analytics-outline',
+					'el': 'winds'
+				}, {
+					'id': 8, // clouds
+					'icon': 'icon ion-ios-cloudy-outline',
+					'el': 'clouds'
+				}, {
 					'id': 9, // weather
 					'icon': 'icon ion-umbrella',
 					'el': 'weather'
-				}*/
-				];
+				}];
+				// $scope.currentLocationString.indexOf('Tobago') > -1 ? 'Tobago' : 'Trinidad';
+				$scope.summary_text = m[1].value.indexOf('NOSIG') > -1 ? 'Clear ' + timeOfDay() : '';
+				if ($scope.country == "Tobago") {
+					$scope.current_temp = m[12].value.substring(0, 3);
+					$scope.dew_point = set_due_point(13, m); //(r = pat.exec(p))[0];
+					$scope.summary_text = m[10].value.indexOf('NOSIG') > -1 ? 'Clear ' + timeOfDay() : m[19].value;
+					// ids of metars for tobago
+					var ids = [{
+						'id': 10, // metar for
+						'icon': 'icon ion-ios-location-outline',
+						'el': 'met-loc'
+					}, {
+						'id': 12, // temperature
+						'icon': 'icon ion-thermometer',
+						'el': 'temp'
+					}, {
+						'id': 13, // dewpoint
+						'icon': 'icon ion-waterdrop',
+						'el': 'dew'
+					}, {
+						'id': 14, // pressure
+						'icon': 'icon ion-ios-speedometer-outline',
+						'el': 'pressure'
+					}, {
+						'id': 15, // winds
+						'icon': 'icon ion-ios-analytics-outline',
+						'el': 'winds'
+					}, {
+						'id': 18, // clouds
+						'icon': 'icon ion-ios-cloudy-outline',
+						'el': 'clouds'
+					}, {
+						'id': 19, // weather
+						'icon': 'icon ion-umbrella',
+						'el': 'weather'
+					}];
+				}
 
 				_this.mdata = [];
 				for (i = 0; i < ids.length; i++) {
@@ -168,12 +211,20 @@ angular.module('ionic.metApp')
 			})
 		}
 
+		function set_due_point(idx, arr) {
+			var p = arr[idx].value;
+			// console.log('dew point', p);
+			var pat = /([0-9\.]+)%/g;
+			// if tobago then switch to tobago dewpoint
+			return (r = pat.exec(p))[0];
+		}
+
 		// 3 dat forecast data
 		_this.forecast = function(t) { // can be input of the country we load data for
 			metApi.get_o_tv(function(data) {
 				console.log("outlook tv")
 				var i = data.items[0];
-				$scope.summary_text = i.textArea1;
+				// $scope.summary_text = i.textArea1;
 				console.log(data)
 
 				// 3- day forecast
@@ -189,15 +240,28 @@ angular.module('ionic.metApp')
 				if ($scope.country == "Tobago") {
 					_this.max24 = i.maxTbo24look;
 					_this.min24 = i.minTbo24look;
-					_this.max48 = i.maxTbo48look;
-					_this.min48 = i.minTbo48look;
+					_this.max48 = i.maxTob48look;
+					_this.min48 = i.minTob48look;
+					console.debug('48', _this.max48);
 				}
 				console.log('country', $scope.country)
+			})
+
+			// get forecast
+			// console.warn('get forecast');
+			metApi.get_forecast(function(data) {
+				var f = data.items[0];
+				$scope.fcast = f.imageTrin;
+				if ($scope.country == "Tobago") {
+					$scope.fcast = f.imagebago;
+				}
+				// $scope.ficon = 'icon ion-ios-' + fcast;
+				// console.debug('forecast', $scope.ficon)
 			})
 		}
 
 		// get current location based on device latitude and longitude, this feeds off google map api
-		_this.getCurrent = function(lat, lng) {
+		_this.getCurrent = function(lat, lng, c) {
 			Weather.getAtLocation(lat, lng).then(function(resp) {
 				$scope.current = resp.data;
 				// console.log("current")
@@ -208,7 +272,7 @@ angular.module('ionic.metApp')
 				// $scope.time = convertTimestamp($scope.current.currently.time); //t.toISOString();
 				// fetch a background image from flickr based on out location, time and current weather conditinos
 				console.log('currently', $scope.current)
-				_this.getBackgroundImage($scope.current.currently.summary + ", trinidad");
+				_this.getBackgroundImage($scope.current.currently.summary + ", " + c);
 			}, function(error) {
 				var errorTxt = "";
 				switch (error.status) {
@@ -246,12 +310,16 @@ angular.module('ionic.metApp')
 					_this.metars();
 					// forecast
 					_this.forecast($scope.currentLocationString);
-				}, 300)
-				_this.getCurrent(lat, lng);
+					_this.getCurrent(lat, lng, $scope.country);
+					// update uv
+					if ($scope.country == "Trinidad") {
+						_this.get_uv_index();
+					}
+				}, 500)
 
 
-				// update uv
-				_this.get_uv_index();
+
+
 
 			}, function(error) {
 				// in some cases something may go wrong
@@ -462,6 +530,14 @@ angular.module('ionic.metApp')
 				$scope.uv_modal.show();
 				// $ionicBackdrop.retain()
 			}
+		}
+	})
+	.directive('dayIcon', function($timeout) {
+		return {
+			restrict: 'E',
+			replace: true,
+			templateUrl: 'app/home/svg/icon-sunny.html',
+			link: function($scope, $element, $attr) {}
 		}
 	})
 

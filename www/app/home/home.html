@@ -70,10 +70,10 @@
                     <p class="text-right icon-size"><i class="{{vm.wicons[1]}}"></i></p>
                 </div>
                 <div class="col">
-                    <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{hc.tmh}}<sup>&deg;</sup></p>
+                    <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{hc.max24}}<sup>&deg;</sup></p>
                 </div>
                 <div class="col">
-                    <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{hc.tml}}<sup>&deg;</sup></p>
+                    <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{hc.min24}}<sup>&deg;</sup></p>
                 </div>
             </div>
             <div class="row" >
@@ -84,10 +84,10 @@
                     <p class="text-right icon-size"><i class="{{vm.wicons[2]}}"></i></p>
                 </div>
                 <div class="col">
-                    <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{vm.threeDay[3].high}}<sup>&deg;</sup></p>
+                    <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{hc.max48}}<sup>&deg;</sup></p>
                 </div>
                 <div class="col">
-                    <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{vm.threeDay[3].low}}<sup>&deg;</sup></p>
+                    <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{hc.min48}}<sup>&deg;</sup></p>
                 </div>
             </div>
 
@@ -98,7 +98,7 @@
          <!-- <div id="of1-blurf" class="rbg home-rbg"></div> -->
         <div class="col">
           <div id="met-icon"></div>
-          <span>TTMS</span>
+          <span>Current Conditions For {{country}}</span>
         </div>
       </div>
     </div>
