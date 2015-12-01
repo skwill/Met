@@ -1,105 +1,174 @@
 <ion-pane class="containerr" id="home"  ng-controller="HomeCtrl as hc" >
-    <background-cycler class="bg-fade" id="ff">
-      <!-- <div class="background-vignette"></div> -->
-    </background-cycler>
+    <div class="flip">
+        <div class="homecc" ng-class="{'flipped':isFlipped}">
+            <div class="face front" ng-controller="TrinCtrl as tc">
+            <background-cycler class="bg-fade" id="ff"></background-cycler>
 
-    <ion-header-bar frosted-bar type="bar-frosted" id="header" class="bar bar-header bar-cdlear no-border">
-        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-        <h1 class="title">
-            <span class="city">
-                <i id="city-nav-icon" class="icon ion-navigate"></i>
-                {{currentLocationString}}<br>
-            </span>
-            <current-time localtz="current.local_tz_short"></current-time>
-        </h1>
-        <button ng-click="change_country()" class="button button-icon"><i class="settings-icon ion-ios-location-outline"></i></button>
+            <ion-header-bar frosted-bar type="bar-frosted" id="header" class="bar bar-header bar-cdlear no-border">
+                <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+                <h1 class="title">
+                    <span class="city"><i id="city-nav-icon" class="icon ion-navigate"></i>{{currentLocationString}}<br></span>
+                    <current-time localtz="current.local_tz_short"></current-time>
+                </h1>
+                <button ng-click="flip('Tobago')" class="button button-icon"><i class="settings-icon ion-ios-location-outline"></i></button>
+            </ion-header-bar>
+            <!-- <div id="" class="rbg top"></div> -->
 
-    </ion-header-bar>
-     <!-- <div id="" class="rbg top"></div> -->
-
-    <ion-content scroll-event-interval="20" scroll-effects scrollbar-y="false" class="no-header">
-        <ion-refresher pulling-text="Pull to refresh..." on-refresh="refreshData()" style="margin-top: -20px;">
-          {{last_refresh}}
-        </ion-refresher>
-        <div id="main-content">
-            <current-weather>
-            </current-weather>
-            <current-time>
-            </current-time>
-            <!-- <forecast></forecast> -->
-        </div>
-        <div class="clearfix"></div><br><br><br><br>
+            <ion-content scroll-event-interval="20" scroll-effects scrollbar-y="false" class="no-header">
+                <ion-refresher pulling-text="Pull to refresh..." on-refresh="refreshData()" style="margin-top: -20px;">
+                  {{last_refresh}}
+                </ion-refresher>
+                <div id="main-content">
+                    <current-weather>
+                    </current-weather>
+                    <current-time>
+                    </current-time>
+                    <!-- <forecast></forecast> -->
+                </div>
+                <div class="clearfix"></div><br><br><br><br>
+            </ion-content>
 
 
-    </ion-content>
-
-   <!--  <ion-tabs class="tabs-icon-top tabs-color-active-positive ms">
-
-      <ion-tab title="TODAY" id="today" on-select="w_today()">
-      <p>hello</p>
-      </ion-tab>
-      <ion-tab title="TOMORROW" id="tomorrow" on-select="w_tomorrow()"></ion-tab>
-      <ion-tab title="NEXT DAY" id="next-day"  on-select="w_nextDay()"></ion-tab>
-
-    </ion-tabs> -->
-    <div class="d3 threeDay">
-           <!--  <div class="row">
-                <div class="col">
-                    <h6 class="forecast-block-title text-left">3-day Forecast</h6>
+            <div class="d3 threeDay">
+                <div class="row" >
+                    <div class="col">
+                        <p class="lead" >{{t}}</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-right icon-size"><i class="{{vm.wicons[0]}}"></i></p>
+                    </div>
+                    <div class="col">
+                        <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{hc.th}}<sup>&deg;</sup></p>
+                    </div>
+                    <div class="col">
+                        <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{hc.tl}}<sup>&deg;</sup></p>
+                    </div>
                 </div>
-            </div> -->
-            <div class="row" >
-                <div class="col">
-                    <p class="lead" >{{t}}</p>
+                <div class="row" >
+                    <div class="col">
+                        <p class="lead" >{{tm}}</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-right icon-size"><i class="{{vm.wicons[1]}}"></i></p>
+                    </div>
+                    <div class="col">
+                        <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{hc.max24}}<sup>&deg;</sup></p>
+                    </div>
+                    <div class="col">
+                        <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{hc.min24}}<sup>&deg;</sup></p>
+                    </div>
                 </div>
-                <div class="col">
-                    <p class="text-right icon-size"><i class="{{vm.wicons[0]}}"></i></p>
-                </div>
-                <div class="col">
-                    <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{hc.th}}<sup>&deg;</sup></p>
-                </div>
-                <div class="col">
-                    <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{hc.tl}}<sup>&deg;</sup></p>
-                </div>
-            </div>
-            <div class="row" >
-                <div class="col">
-                    <p class="lead" >{{tm}}</p>
-                </div>
-                <div class="col">
-                    <p class="text-right icon-size"><i class="{{vm.wicons[1]}}"></i></p>
-                </div>
-                <div class="col">
-                    <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{hc.max24}}<sup>&deg;</sup></p>
-                </div>
-                <div class="col">
-                    <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{hc.min24}}<sup>&deg;</sup></p>
-                </div>
-            </div>
-            <div class="row" >
-                <div class="col">
-                    <p class="lead" >{{nd}}</p>
-                </div>
-                <div class="col">
-                    <p class="text-right icon-size"><i class="{{vm.wicons[2]}}"></i></p>
-                </div>
-                <div class="col">
-                    <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{hc.max48}}<sup>&deg;</sup></p>
-                </div>
-                <div class="col">
-                    <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{hc.min48}}<sup>&deg;</sup></p>
+                <div class="row" >
+                    <div class="col">
+                        <p class="lead" >{{nd}}</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-right icon-size"><i class="{{vm.wicons[2]}}"></i></p>
+                    </div>
+                    <div class="col">
+                        <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{hc.max48}}<sup>&deg;</sup></p>
+                    </div>
+                    <div class="col">
+                        <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{hc.min48}}<sup>&deg;</sup></p>
+                    </div>
                 </div>
             </div>
 
+            <div id="ms">
+                <div class="row text-center of1-main" id="of1" ng-click="showHomeMenu()">
+                    <!-- <div id="of1-blurf" class="rbg home-rbg"></div> -->
+                    <div class="col">
+                        <div id="met-icon"></div>
+                        <span>Current Conditions For {{country}}</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
-    <div id="ms">
-      <div class="row text-center of1-main" id="of1" ng-click="showHomeMenu()">
-         <!-- <div id="of1-blurf" class="rbg home-rbg"></div> -->
-        <div class="col">
-          <div id="met-icon"></div>
-          <span>Current Conditions For {{country}}</span>
+        <!-- Tobago -->
+        <div class="face back" ng-init="hc.metars_bago()" ng-controller="BagoCtrl as bc">
+            <background-cycler class="bg-fade" id="ff"></background-cycler>
+
+            <ion-header-bar frosted-bar type="bar-frosted" id="header" class="bar bar-header bar-cdlear no-border">
+                <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+                <h1 class="title">
+                    <span class="city"><i id="city-nav-icon" class="icon ion-navigate"></i>{{currentLocationString}}<br></span>
+                    <current-time localtz="current.local_tz_short"></current-time>
+                </h1>
+                <button ng-click="flip('Trinidad')" class="button button-icon"><i class="settings-icon ion-ios-location-outline"></i></button>
+            </ion-header-bar>
+            <!-- <div id="" class="rbg top"></div> -->
+
+            <ion-content scroll-event-interval="20" scroll-effects scrollbar-y="false" class="no-header">
+                <ion-refresher pulling-text="Pull to refresh..." on-refresh="refreshData()" style="margin-top: -20px;">
+                  {{last_refresh}}
+                </ion-refresher>
+                <div id="main-content">
+                    <current-weather>
+                    </current-weather>
+                    <current-time>
+                    </current-time>
+                    <!-- <forecast></forecast> -->
+                </div>
+                <div class="clearfix"></div><br><br><br><br>
+            </ion-content>
+
+
+            <div class="d3 threeDay">
+                <div class="row" >
+                    <div class="col">
+                        <p class="lead" >{{t}}</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-right icon-size"><i class="{{vm.wicons[0]}}"></i></p>
+                    </div>
+                    <div class="col">
+                        <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{hc.th}}<sup>&deg;</sup></p>
+                    </div>
+                    <div class="col">
+                        <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{hc.tl}}<sup>&deg;</sup></p>
+                    </div>
+                </div>
+                <div class="row" >
+                    <div class="col">
+                        <p class="lead" >{{tm}}</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-right icon-size"><i class="{{vm.wicons[1]}}"></i></p>
+                    </div>
+                    <div class="col">
+                        <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{hc.max24}}<sup>&deg;</sup></p>
+                    </div>
+                    <div class="col">
+                        <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{hc.min24}}<sup>&deg;</sup></p>
+                    </div>
+                </div>
+                <div class="row" >
+                    <div class="col">
+                        <p class="lead" >{{nd}}</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-right icon-size"><i class="{{vm.wicons[2]}}"></i></p>
+                    </div>
+                    <div class="col">
+                        <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{hc.max48}}<sup>&deg;</sup></p>
+                    </div>
+                    <div class="col">
+                        <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{hc.min48}}<sup>&deg;</sup></p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="ms">
+                <div class="row text-center of1-main" id="of1" ng-click="showHomeMenu_bago()">
+                    <!-- <div id="of1-blurf" class="rbg home-rbg"></div> -->
+                    <div class="col">
+                        <div id="met-icon"></div>
+                        <span>Current Conditions For {{country}}</span>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+        </div>
     </div>
 </ion-pane>

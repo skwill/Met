@@ -1,7 +1,7 @@
 // weather app based on driftyco ionic-weather
 // https://github.com/driftyco/ionic-weather
 angular.module('ionic.metApp')
-	.controller('HomeCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval, $ionicBackdrop) {
+	.controller('HomeCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval, $ionicBackdrop, $state) {
 		var _this = this;
 		$scope.activeBgImageIndex = 0;
 		// $scope.country = '';
@@ -106,7 +106,7 @@ angular.module('ionic.metApp')
 		// 	newDay.text(day);
 		// }
 
-		_this.metars = function() {
+		_this.metars_trin = function() {
 			metApi.get_metar(function(data) {
 				var m = data.items;
 				// gets the current temp, we only care about the exact number so pull that out from the string
@@ -116,7 +116,7 @@ angular.module('ionic.metApp')
 				$scope.dew_point = set_due_point(3, m); //(r = pat.exec(p))[0];
 
 				// while (null != (r = pat.exec(p))) {
-				console.log('regex', r);
+				// console.log('regex', r);
 				// }
 				// these are the ids of the metas we want for trinidad
 				var ids = [{
@@ -150,41 +150,7 @@ angular.module('ionic.metApp')
 				}];
 				// $scope.currentLocationString.indexOf('Tobago') > -1 ? 'Tobago' : 'Trinidad';
 				$scope.summary_text = m[1].value.indexOf('NOSIG') > -1 ? 'Clear ' + timeOfDay() : '';
-				if ($scope.country == "Tobago") {
-					$scope.current_temp = m[12].value.substring(0, 3);
-					$scope.dew_point = set_due_point(13, m); //(r = pat.exec(p))[0];
-					$scope.summary_text = m[10].value.indexOf('NOSIG') > -1 ? 'Clear ' + timeOfDay() : m[19].value;
-					// ids of metars for tobago
-					var ids = [{
-						'id': 10, // metar for
-						'icon': 'icon ion-ios-location-outline',
-						'el': 'met-loc'
-					}, {
-						'id': 12, // temperature
-						'icon': 'icon ion-thermometer',
-						'el': 'temp'
-					}, {
-						'id': 13, // dewpoint
-						'icon': 'icon ion-waterdrop',
-						'el': 'dew'
-					}, {
-						'id': 14, // pressure
-						'icon': 'icon ion-ios-speedometer-outline',
-						'el': 'pressure'
-					}, {
-						'id': 15, // winds
-						'icon': 'icon ion-ios-analytics-outline',
-						'el': 'winds'
-					}, {
-						'id': 18, // clouds
-						'icon': 'icon ion-ios-cloudy-outline',
-						'el': 'clouds'
-					}, {
-						'id': 19, // weather
-						'icon': 'icon ion-umbrella',
-						'el': 'weather'
-					}];
-				}
+
 
 				_this.mdata = [];
 				for (i = 0; i < ids.length; i++) {
@@ -197,17 +163,64 @@ angular.module('ionic.metApp')
 						'el': ids[i].el,
 					});
 				}
-				// _this.temp = m[2];
-				// _this.dew = m[3];
-				// _this.pressure = m[4];
-				// _this.wind = m[5];
-				// _this.wind = m[8];
-				// _this.weather = m[9];
-				console.log("metars temp")
-				console.log(_this.mdata)
+				// console.error($scope.country, _this.mdata);
+			})
+		}
+		_this.metars_bago = function() {
+			metApi.get_metar(function(data) {
+				var m = data.items;
 
-				// other metar data for the slide up will come here
-				// console.log(data)
+				// alert();
+				// _this.c = "bago"
+				$scope.current_temp = m[11].value.substring(0, 3);
+				// alert($scope.current_temp)
+				$scope.dew_point = set_due_point(12, m); //(r = pat.exec(p))[0];
+				$scope.summary_text = m[10].value.indexOf('NOSIG') > -1 ? 'Clear ' + timeOfDay() : m[19].value;
+				// ids of metars for tobago
+				var ids = [{
+					'id': 10, // metar for
+					'icon': 'icon ion-ios-location-outline',
+					'el': 'met-loc'
+				}, {
+					'id': 12, // temperature
+					'icon': 'icon ion-thermometer',
+					'el': 'temp'
+				}, {
+					'id': 13, // dewpoint
+					'icon': 'icon ion-waterdrop',
+					'el': 'dew'
+				}, {
+					'id': 14, // pressure
+					'icon': 'icon ion-ios-speedometer-outline',
+					'el': 'pressure'
+				}, {
+					'id': 15, // winds
+					'icon': 'icon ion-ios-analytics-outline',
+					'el': 'winds'
+				}, {
+					'id': 18, // clouds
+					'icon': 'icon ion-ios-cloudy-outline',
+					'el': 'clouds'
+				}, {
+					'id': 19, // weather
+					'icon': 'icon ion-umbrella',
+					'el': 'weather'
+				}];
+
+				_this.mdatab = null;
+				_this.mdatab = [];
+				for (i = 0; i < ids.length; i++) {
+					_this.mdatab.push({
+						'id': m[ids[i].id].id,
+						'label': m[ids[i].id].label,
+						'station': m[ids[i].id].station,
+						'value': m[ids[i].id].value,
+						'icon': ids[i].icon,
+						'el': ids[i].el,
+					});
+				}
+
+				console.error($scope.country, _this.mdatab);
 			})
 		}
 
@@ -301,26 +314,29 @@ angular.module('ionic.metApp')
 				// google map service will give us a location string based on our current location (or nearest detected location)
 				Geo.reverseGeocode(lat, lng).then(function(locString) {
 					$scope.currentLocationString = locString;
-					// console.log(locString);
-				});
-				setTimeout(function() {
-					$scope.country = $scope.currentLocationString.indexOf('Tobago') > -1 ? 'Tobago' : 'Trinidad';
-					// console.debug('wait for country', $scope.country);
+					if (!$scope.country) {
+						$scope.country = $scope.currentLocationString.indexOf('Tobago') > -1 ? 'Tobago' : 'Trinidad';
+					}
 					// get matars data
-					_this.metars();
+					if ($scope.country == "Trinidad") {
+						_this.metars_trin();
+						// console.warn('met for', $scope.country)
+					}
+					if ($scope.country == "Tobago") {
+						_this.metars_bago();
+						console.warn('met for', $scope.country)
+						// alert("met for bago");
+					}
 					// forecast
-					_this.forecast($scope.currentLocationString);
-					_this.getCurrent(lat, lng, $scope.country);
+					_this.forecast($scope.country);
+
 					// update uv
 					if ($scope.country == "Trinidad") {
 						_this.get_uv_index();
 					}
-				}, 500)
 
-
-
-
-
+					_this.getCurrent(lat, lng, $scope.country);
+				});
 			}, function(error) {
 				// in some cases something may go wrong
 				// most times locatio service for android may be turned off
@@ -418,6 +434,105 @@ angular.module('ionic.metApp')
 		// }
 		// _this.getForecast();
 
+
+
+		$scope.isFlipped = false;
+		$scope.flip = function(country) {
+			$scope.isFlipped = !$scope.isFlipped;
+			console.log('show data for', country);
+			$scope.country = country;
+			// $scope.refreshData();
+			// _this.get_uv_index();
+			// _this.metars();
+			$scope.refreshData();
+		}
+
+		// show out met services menu as a partial modal
+		$scope.showHomeMenu = function() {
+			// _this.metars();
+			// $scope.country = "Tobago"
+			// alert($scope.country);
+			// $scope.refreshData();
+			$ionicBackdrop.retain();
+			if (!$scope.home_menu_modal1) {
+				// load modal from given template URL
+				$ionicModal.fromTemplateUrl('app/home/home_menu.html', function(hm_modal1) {
+					$scope.home_menu_modal1 = hm_modal1;
+					$scope.home_menu_modal1.show();
+					// scope: $scope
+					// var el = document.getElementsByClassName('rbg');
+					// el[1].className = el[1].className + " " + $scope.uv_color;
+				}, {
+					// animation we want for modal entrance
+					// animation: 'scale-in'
+					animation: 'slide-in-up'
+				})
+			} else {
+				$scope.home_menu_modal1.show();
+				// var el = document.getElementsByClassName('rbg');
+				// el[1].className = el[1].className + " " + $scope.uv_color;
+			}
+			// $scope.refreshData();
+			// _this.mdata = null;
+			// _this.mdata = [];
+		}
+		$scope.showHomeMenu_bago = function() {
+			// _this.metars();
+			// $scope.country = "Tobago"
+			// alert($scope.country);
+			// $scope.refreshData();
+			$ionicBackdrop.retain();
+			if (!$scope.home_menu_modal2) {
+				// load modal from given template URL
+				$ionicModal.fromTemplateUrl('app/home/home_menu-bago.html', function(hm_modal2) {
+					$scope.home_menu_modal2 = hm_modal2;
+					$scope.home_menu_modal2.show();
+					// scope: $scope
+					// var el = document.getElementsByClassName('rbg');
+					// el[1].className = el[1].className + " " + $scope.uv_color;
+				}, {
+					// animation we want for modal entrance
+					// animation: 'scale-in'
+					animation: 'slide-in-up'
+				})
+			} else {
+				$scope.home_menu_modal2.show();
+				// var el = document.getElementsByClassName('rbg');
+				// el[1].className = el[1].className + " " + $scope.uv_color;
+			}
+			// $scope.refreshData();
+		}
+
+		// close any modal found in the scope
+		// also special case: if modal is a child of met services menu then open parent
+		$scope.closeModal = function(a) {
+			$scope.modal.hide();
+		}
+
+		$scope.$on('modal.hidden', function() {
+			$ionicBackdrop.release();
+		})
+
+		// open uv modal from met services menu
+		$scope.uv_modalOpen = function() {
+			$ionicBackdrop.retain();
+			// $scope.modal.hide();
+			if (!$scope.uv_modal) {
+				$ionicModal.fromTemplateUrl('app/home/uv_modal.html', function(uv_modal) {
+					$scope.uv_modal = uv_modal;
+					$scope.uv_modal.show();
+				}, {
+					// animation we want for modal entrance
+					// animation: 'scale-in'
+					animation: 'slide-in-up'
+				})
+			} else {
+				$scope.uv_modal.show();
+				// $ionicBackdrop.retain()
+			}
+		}
+
+
 		// helper functins
 		// they help format dates and stuff
 
@@ -481,55 +596,8 @@ angular.module('ionic.metApp')
 			return time;
 		}
 
-		// show out met services menu as a partial modal
-		$scope.showHomeMenu = function() {
-			$ionicBackdrop.retain();
-			if (!$scope.home_menu_modal) {
-				// load modal from given template URL
-				$ionicModal.fromTemplateUrl('app/home/home_menu.html', function(hm_modal) {
-					$scope.home_menu_modal = hm_modal;
-					$scope.home_menu_modal.show();
-					// var el = document.getElementsByClassName('rbg');
-					// el[1].className = el[1].className + " " + $scope.uv_color;
-				}, {
-					// animation we want for modal entrance
-					// animation: 'scale-in'
-					animation: 'slide-in-up'
-				})
-			} else {
-				$scope.home_menu_modal.show();
-				// var el = document.getElementsByClassName('rbg');
-				// el[1].className = el[1].className + " " + $scope.uv_color;
-			}
-		}
-
-		// close any modal found in the scope
-		// also special case: if modal is a child of met services menu then open parent
-		$scope.closeModal = function(a) {
-			$scope.modal.hide();
-		}
-
-		$scope.$on('modal.hidden', function() {
-			$ionicBackdrop.release();
-		})
-
-		// open uv modal from met services menu
-		$scope.uv_modalOpen = function() {
-			$ionicBackdrop.retain();
-			// $scope.modal.hide();
-			if (!$scope.uv_modal) {
-				$ionicModal.fromTemplateUrl('app/home/uv_modal.html', function(uv_modal) {
-					$scope.uv_modal = uv_modal;
-					$scope.uv_modal.show();
-				}, {
-					// animation we want for modal entrance
-					// animation: 'scale-in'
-					animation: 'slide-in-up'
-				})
-			} else {
-				$scope.uv_modal.show();
-				// $ionicBackdrop.retain()
-			}
+		function is_word_in_string(string, word) {
+			return new RegExp('\\b' + word + '\\b', 'i').test(string);
 		}
 	})
 	.directive('dayIcon', function($timeout) {
@@ -539,6 +607,12 @@ angular.module('ionic.metApp')
 			templateUrl: 'app/home/svg/icon-sunny.html',
 			link: function($scope, $element, $attr) {}
 		}
+	})
+	.controller('TrinCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval, $ionicBackdrop, $state) {
+
+	})
+	.controller('BagoCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval, $ionicBackdrop, $state) {
+
 	})
 
 .controller('SettingsCtrl', function($scope, Settings) {
