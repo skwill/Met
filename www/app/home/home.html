@@ -2,9 +2,9 @@
     <div class="flip">
         <div class="homecc" ng-class="{'flipped':isFlipped}">
             <div class="face front" ng-controller="TrinCtrl as tc">
-            <background-cycler class="bg-fade" id="ff"></background-cycler>
+            <background-cycler-trin class="bg-fade" id="ff"></background-cycler-trin>
 
-            <ion-header-bar frosted-bar type="bar-frosted" id="header" class="bar bar-header bar-cdlear no-border">
+            <ion-header-bar frosted-bar type="bar-frosted" id="headerr" class="header trin bar bar-header bar-cdlear no-border">
                 <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
                 <h1 class="title">
                     <span class="city"><i id="city-nav-icon" class="icon ion-navigate"></i>{{currentLocationString}}<br></span>
@@ -15,12 +15,12 @@
             <!-- <div id="" class="rbg top"></div> -->
 
             <ion-content scroll-event-interval="20" scroll-effects scrollbar-y="false" class="no-header">
-                <ion-refresher pulling-text="Pull to refresh..." on-refresh="refreshData()" style="margin-top: -20px;">
+                <ion-refresher pulling-text="Pull to refresh..." on-refresh="tc.refreshData()" style="margin-top: -20px;">
                   {{last_refresh}}
                 </ion-refresher>
-                <div id="main-content">
-                    <current-weather>
-                    </current-weather>
+                <div class="main-content">
+                    <current-weather-trin>
+                    </current-weather-trin>
                     <current-time>
                     </current-time>
                     <!-- <forecast></forecast> -->
@@ -38,10 +38,10 @@
                         <p class="text-right icon-size"><i class="{{vm.wicons[0]}}"></i></p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{hc.th}}<sup>&deg;</sup></p>
+                        <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{tc.th}}<sup>&deg;</sup></p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{hc.tl}}<sup>&deg;</sup></p>
+                        <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{tc.tl}}<sup>&deg;</sup></p>
                     </div>
                 </div>
                 <div class="row" >
@@ -52,10 +52,10 @@
                         <p class="text-right icon-size"><i class="{{vm.wicons[1]}}"></i></p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{hc.max24}}<sup>&deg;</sup></p>
+                        <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{tc.max24}}<sup>&deg;</sup></p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{hc.min24}}<sup>&deg;</sup></p>
+                        <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{tc.min24}}<sup>&deg;</sup></p>
                     </div>
                 </div>
                 <div class="row" >
@@ -66,30 +66,30 @@
                         <p class="text-right icon-size"><i class="{{vm.wicons[2]}}"></i></p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{hc.max48}}<sup>&deg;</sup></p>
+                        <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{tc.max48}}<sup>&deg;</sup></p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{hc.min48}}<sup>&deg;</sup></p>
+                        <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{tc.min48}}<sup>&deg;</sup></p>
                     </div>
                 </div>
             </div>
 
-            <div id="ms">
-                <div class="row text-center of1-main" id="of1" ng-click="showHomeMenu()">
+            <div class="ms">
+                <div class="row text-center of1-main of1" id="" ng-click="showMetarsTrin()">
                     <!-- <div id="of1-blurf" class="rbg home-rbg"></div> -->
                     <div class="col">
-                        <div id="met-icon"></div>
-                        <span>Current Conditions For {{country}}</span>
+                        <div class="met-icon"></div>
+                        <span>Current Conditions For Trinidad</span>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Tobago -->
-        <div class="face back" ng-init="hc.metars_bago()" ng-controller="BagoCtrl as bc">
-            <background-cycler class="bg-fade" id="ff"></background-cycler>
+        <div class="face back" ng-controller="BagoCtrl as bc">
+            <background-cycler-bago class="bg-fade" id="ff"></background-cycler-bago>
 
-            <ion-header-bar frosted-bar type="bar-frosted" id="header" class="bar bar-header bar-cdlear no-border">
+            <ion-header-bar frosted-bar type="bar-frosted" class="header bago bar bar-header bar-cdlear no-border">
                 <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
                 <h1 class="title">
                     <span class="city"><i id="city-nav-icon" class="icon ion-navigate"></i>{{currentLocationString}}<br></span>
@@ -100,12 +100,12 @@
             <!-- <div id="" class="rbg top"></div> -->
 
             <ion-content scroll-event-interval="20" scroll-effects scrollbar-y="false" class="no-header">
-                <ion-refresher pulling-text="Pull to refresh..." on-refresh="refreshData()" style="margin-top: -20px;">
+                <ion-refresher pulling-text="Pull to refresh..." on-refresh="bc.refreshData()" style="margin-top: -20px;">
                   {{last_refresh}}
                 </ion-refresher>
-                <div id="main-content">
-                    <current-weather>
-                    </current-weather>
+                <div class="main-content">
+                    <current-weather-bago>
+                    </current-weather-bago>
                     <current-time>
                     </current-time>
                     <!-- <forecast></forecast> -->
@@ -123,10 +123,10 @@
                         <p class="text-right icon-size"><i class="{{vm.wicons[0]}}"></i></p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{hc.th}}<sup>&deg;</sup></p>
+                        <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{bc.th}}<sup>&deg;</sup></p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{hc.tl}}<sup>&deg;</sup></p>
+                        <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{bc.tl}}<sup>&deg;</sup></p>
                     </div>
                 </div>
                 <div class="row" >
@@ -137,10 +137,10 @@
                         <p class="text-right icon-size"><i class="{{vm.wicons[1]}}"></i></p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{hc.max24}}<sup>&deg;</sup></p>
+                        <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{bc.max24}}<sup>&deg;</sup></p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{hc.min24}}<sup>&deg;</sup></p>
+                        <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{bc.min24}}<sup>&deg;</sup></p>
                     </div>
                 </div>
                 <div class="row" >
@@ -151,20 +151,20 @@
                         <p class="text-right icon-size"><i class="{{vm.wicons[2]}}"></i></p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{hc.max48}}<sup>&deg;</sup></p>
+                        <p class="text-right fc-high"><i class="ion-ios-arrow-thin-up"></i>{{bc.max48}}<sup>&deg;</sup></p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{hc.min48}}<sup>&deg;</sup></p>
+                        <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{bc.min48}}<sup>&deg;</sup></p>
                     </div>
                 </div>
             </div>
 
-            <div id="ms">
-                <div class="row text-center of1-main" id="of1" ng-click="showHomeMenu_bago()">
+            <div class="ms">
+                <div class="row text-center of1-main of1" id="" ng-click="showMetarsBago()">
                     <!-- <div id="of1-blurf" class="rbg home-rbg"></div> -->
                     <div class="col">
-                        <div id="met-icon"></div>
-                        <span>Current Conditions For {{country}}</span>
+                        <div class="met-icon"></div>
+                        <span>Current Conditions For Tobago</span>
                     </div>
                 </div>
             </div>

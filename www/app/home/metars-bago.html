@@ -1,14 +1,14 @@
-<div id="home_menu-modal-bago" class="modal partial" ng-controller="HomeCtrl as hc">
-    <div class="row text-center" id="of1" ng-click="closeModal()">
+<div id="home_menu-modal" class="modal partial" ng-controller="HomeCtrl as hc">
+    <div class="row text-center of1" id="" ng-click="closeModal()">
         <div id="of1-blurf" class="rbg"></div>
         <div class="col">
-            <div id="met-icon"></div>
+            <div class="met-icon"></div>
             <span>TTMS bago</span>
         </div>
     </div>
-    <ion-content has-header="false" scroll="true" id="ms_m">
-    <div class="content metars" ng-init="hc.metars_bago()">
-        <div class="row " ng-repeat="item in hc.mdatab">
+    <ion-content has-header="false" scroll="true" class="ms_m" ng-controller="BagoCtrl as bc">
+    <div class="content metars">
+        <div class="row " ng-repeat="item in bc.mdatab">
             <div class="card">
                 <div class="item item-divider">
                     {{item.label}}

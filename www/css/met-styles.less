@@ -74,7 +74,7 @@ h1,h2,h3,h4,h5 {
 .tab-content {
 	// background: transparent;
 }
-#main-content {
+.main-content {
 	// background: transparent;
 	color: #fff;
 	padding: 10px;
@@ -105,7 +105,7 @@ h1,h2,h3,h4,h5 {
 //  	}
 //     // margin-top: 20px;
 // }
-#header {
+.header {
 	// margin-top: 10px;
 	button {
 		color: #fff;
@@ -222,6 +222,19 @@ h1,h2,h3,h4,h5 {
 
 #uv-index {
 	&.uvc {
+		&.bago {
+			// position: relative;
+			height: 40px;
+    		margin-top: 23px;
+			div > {
+				padding: 5px 5px 5px 12px;
+				span:nth-of-type(1) {
+		    		position: relative;
+		    		margin-top: -8px;
+		    		font-size: 14px;
+		    	}
+			}
+		}
 		-webkit-transition: all 0.4s ease-in-out;
            -moz-transition: all 0.4s ease-in-out;
              -o-transition: all 0.4s ease-in-out;
@@ -266,6 +279,14 @@ h1,h2,h3,h4,h5 {
 	font-size: 10px;
 }
 #today-block {
+	&.bago {
+		font-size: 1.1em!important;
+		p {
+			// margin-bottom: 2px;
+    		margin-top: 18px!important;
+    		margin-bottom: -4px!important;
+		}
+	}
 	font-size: 1.3em;
 	margin-left: -5px;
 	margin-top: -3px;
@@ -461,7 +482,7 @@ h1,h2,h3,h4,h5 {
 #home_menu-modal {
 	background: transparent;
 	text-transform: uppercase;
-	#of1 {
+	.of1 {
 		color:#fff;
 		// background: rgba(108,206,236,.8);
 	}
@@ -509,7 +530,7 @@ h1,h2,h3,h4,h5 {
 
     	}
 	}
-	#ms_m {
+	.ms_m {
 		background: #fff;
     	margin-top: 54px;
     	margin-bottom: 40%;
@@ -828,7 +849,7 @@ h1,h2,h3,h4,h5 {
  */.content-slide-out.ng-enter,.content-slide-out>.ng-enter{z-index:1;-webkit-transition:.5s ease-in-out all;-webkit-transform:translate3d(-100%,0,0);box-shadow:-1px 0 10px rgba(0,0,0,.6)}.content-slide-out.ng-enter-active,.content-slide-out>.ng-enter-active{-webkit-transform:translate3d(0,0,0)}.content-slide-out.ng-leave,.content-slide-out>.ng-leave{z-index:0;-webkit-transition:.5s ease-in-out all;-webkit-transform:translate3d(0%,0,0)}.content-slide-out.ng-leave-active,.content-slide-out>.ng-leave-active{-webkit-transform:translate3d(10%,0,0);opacity:.8}.bar-title-in-add{-webkit-transition:-webkit-transform .5s ease-in-out,opacity .5s ease-in-out;-webkit-transform:translate3d(100%,0,0);opacity:0}.bar-title-in-add-active{-webkit-transform:translate3d(0px,0,0);opacity:1}.bar-title-out-add{-webkit-transition:-webkit-transform .5s ease-in-out,opacity .5s ease-in-out}.bar-title-out-add-active{-webkit-transform:translate3d(-100%,0,0);opacity:0}.bar-button-in{opacity:0}.bar-button-in-add{-webkit-transition:-webkit-transform .5s ease-in-out,opacity .5s ease-in-out;-webkit-transform:translate3d(50%,0,0);opacity:0}.bar-button-in-active{-webkit-transform:translate3d(0px,0,0);opacity:1}.fade-in-out.ng-enter,.fade-in-out>.ng-enter{opacity:0;-webkit-transition:opacity .3s ease-in-out}.fade-in-out.ng-enter-active,.fade-in-out>.ng-enter-active{opacity:1}.fade-in-out.ng-leave,.fade-in-out>.ng-leave{opacity:1;-webkit-transition:opacity .3s ease-in-out}.fade-in-out.ng-leave-active,.fade-in-out>.ng-leave-active{opacity:0}.toggle{display:inline-block}.toggle input{display:none}.toggle .track{position:relative;display:inline-block;box-sizing:border-box;width:54px;height:32px;border:solid 2px #ddd;border-radius:20px;background-color:#fff;cursor:pointer;transition:.4s ease}.toggle .handle{position:absolute;display:block;width:auto;height:auto;box-shadow:0 0 2px rgba(0,0,0,.5),0 4px 5px rgba(0,0,0,.25);border-radius:20px;background-color:#fff;left:0;top:0;bottom:0;right:20px;transition:.2s ease;transition-property:left,right;transition-delay:0s,.05s}.toggle :checked+.track{border-color:#4bd863;background-color:#ccc;box-shadow:inset 0 0 0 20px #4bd863;transition:.2s ease}.toggle :checked+.track .handle{background-color:#fff;right:0;left:20px;-webkit-transform:none;transition-delay:.05s,0s}
 
 
-#ms {
+.ms {
     width: 100%;
     position: fixed;
     bottom: 0;
@@ -851,11 +872,11 @@ h1,h2,h3,h4,h5 {
 
 }
 
- #of1 {
+ .of1 {
 	padding: 0px;
 	background: rgba(0, 64, 128,0.60);//;rgba(108, 206, 236, 0.6);
 	letter-spacing: 2px;
-	#met-icon {
+	.met-icon {
 		height: 20px;
 		margin-bottom: 4px;
 		background: url('../img/met_servicesicon.png')no-repeat center center;

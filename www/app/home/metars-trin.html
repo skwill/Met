@@ -1,14 +1,14 @@
 <div id="home_menu-modal" class="modal partial" ng-controller="HomeCtrl as hc">
-    <div class="row text-center" id="of1" ng-click="closeModal()">
+    <div class="row text-center of1" id="" ng-click="closeModal()">
         <div id="of1-blurf" class="rbg"></div>
         <div class="col">
-            <div id="met-icon"></div>
+            <div class="met-icon"></div>
             <span>TTMS {{hc.c}}</span>
         </div>
     </div>
-    <ion-content has-header="false" scroll="true" id="ms_m">
+    <ion-content has-header="false" scroll="true" class="ms_m" ng-controller="TrinCtrl as tc">
     <div class="content metars">
-        <div class="row " ng-repeat="item in hc.mdata">
+        <div class="row " ng-repeat="item in tc.mdata">
             <div class="card">
                 <div class="item item-divider">
                     {{item.label}}

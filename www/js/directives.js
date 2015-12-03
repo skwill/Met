@@ -87,64 +87,21 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
     }
 })
 
-.directive('currentWeather', function($timeout, $rootScope, Settings) {
+// need two of this
+.directive('currentWeatherTrin', function($timeout, $rootScope, Settings) {
     return {
         restrict: 'E',
         replace: true,
-        templateUrl: 'app/home/current-weather.html',
-        controller: 'HomeCtrl',
+        templateUrl: 'app/home/current-weather-trin.html',
+        // controller: 'HomeCtrl',
         scope: true,
         compile: function(element, attr) {
             return function($scope, $element, $attr) {
-
-                $rootScope.$on('settings.changed', function(settings) {
-                    var units = Settings.get('tempUnits');
-                    // alert();
-                    // console.log($scope)
-                    if ($scope.current) {
-                        // console.log($scope.current.currently)
-                        var forecast = $scope.current.daily.data[0];
-                        var current = $scope.current.currently;
-
-                        if (units == 'f') {
-                            // console.log('f')
-                            $scope.highTemp = forecast.temperatureMax;
-                            $scope.lowTemp = forecast.temperatureMin;
-                            $scope.currentTemp = Math.floor(current.temperature);
-                        } else {
-                            // console.log('c')
-                            $scope.highTemp = forecast.temperatureMax;
-                            $scope.lowTemp = forecast.temperatureMin;
-                            $scope.currentTemp = Math.floor((current.temperature - 32) * .5556);
-                        }
-                    }
-                });
-
-                $scope.$watch('current', function(current) {
-                    var units = Settings.get('tempUnits');
-
-                    if (current) {
-                        // console.log(current)
-                        if (units == 'f') {
-                            $scope.currentTemp = Math.floor(current.currently.temperature);
-                        } else {
-                            $scope.currentTemp = Math.floor((current.currently.temperature - 32) * .5556);
-                        }
-                        if (units == 'f') {
-                            $scope.highTemp = Math.floor(current.daily.data[0].temperatureMax);
-                            $scope.lowTemp = Math.floor(current.daily.data[0].temperatureMin);
-                        } else {
-                            $scope.highTemp = Math.floor(current.daily.data[0].temperatureMax);
-                            $scope.lowTemp = Math.floor(current.daily.data[0].temperatureMin);
-                        }
-                    }
-                });
-                // console.log($scope);
                 // Delay so we are in the DOM and can calculate sizes
                 $timeout(function() {
                     var windowHeight = window.innerHeight;
                     var thisHeight = $element[0].offsetHeight;
-                    var headerHeight = document.querySelector('#header').offsetHeight;
+                    var headerHeight = document.querySelector('.header.trin').offsetHeight;
                     // $element[0].style.paddingTop = (windowHeight - (thisHeight) + 10) + 'px';
                     $element[0].style.paddingTop = (windowHeight - thisHeight) / 4 + 'px';
                     // console.log((windowHeight - thisHeight) / 2)
@@ -157,6 +114,76 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
         }
     }
 })
+    .directive('currentWeatherBago', function($timeout, $rootScope, Settings) {
+        return {
+            restrict: 'E',
+            replace: true,
+            templateUrl: 'app/home/current-weather-bago.html',
+            // controller: 'HomeCtrl',
+            scope: true,
+            compile: function(element, attr) {
+                return function($scope, $element, $attr) {
+
+                    $rootScope.$on('settings.changed', function(settings) {
+                        var units = Settings.get('tempUnits');
+                        // alert();
+                        // console.log($scope)
+                        if ($scope.current) {
+                            // console.log($scope.current.currently)
+                            var forecast = $scope.current.daily.data[0];
+                            var current = $scope.current.currently;
+
+                            if (units == 'f') {
+                                // console.log('f')
+                                $scope.highTemp = forecast.temperatureMax;
+                                $scope.lowTemp = forecast.temperatureMin;
+                                $scope.currentTemp = Math.floor(current.temperature);
+                            } else {
+                                // console.log('c')
+                                $scope.highTemp = forecast.temperatureMax;
+                                $scope.lowTemp = forecast.temperatureMin;
+                                $scope.currentTemp = Math.floor((current.temperature - 32) * .5556);
+                            }
+                        }
+                    });
+
+                    $scope.$watch('current', function(current) {
+                        var units = Settings.get('tempUnits');
+
+                        if (current) {
+                            // console.log(current)
+                            if (units == 'f') {
+                                $scope.currentTemp = Math.floor(current.currently.temperature);
+                            } else {
+                                $scope.currentTemp = Math.floor((current.currently.temperature - 32) * .5556);
+                            }
+                            if (units == 'f') {
+                                $scope.highTemp = Math.floor(current.daily.data[0].temperatureMax);
+                                $scope.lowTemp = Math.floor(current.daily.data[0].temperatureMin);
+                            } else {
+                                $scope.highTemp = Math.floor(current.daily.data[0].temperatureMax);
+                                $scope.lowTemp = Math.floor(current.daily.data[0].temperatureMin);
+                            }
+                        }
+                    });
+                    // console.log($scope);
+                    // Delay so we are in the DOM and can calculate sizes
+                    $timeout(function() {
+                        var windowHeight = window.innerHeight;
+                        var thisHeight = $element[0].offsetHeight;
+                        var headerHeight = document.querySelector('.header.bago').offsetHeight;
+                        // $element[0].style.paddingTop = (windowHeight - (thisHeight) + 10) + 'px';
+                        $element[0].style.paddingTop = (windowHeight - thisHeight) / 4 + 'px';
+                        // console.log((windowHeight - thisHeight) / 2)
+                        angular.element(document.querySelector('.content')).css('-webkit-overflow-scrolling', 'auto');
+                        $timeout(function() {
+                            angular.element(document.querySelector('.content')).css('-webkit-overflow-scrolling', 'touch');
+                        }, 50);
+                    });
+                }
+            }
+        }
+    })
 
 .directive('forecast', function($timeout) {
     return {
@@ -226,7 +253,7 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
             var ff = document.getElementById('ff');
             $element.bind('scroll', function(e) {
                 if (!header) {
-                    header = document.getElementById('header');
+                    header = document.querySelector('.header');
                 }
                 st = e.detail.scrollTop;
                 if (st >= 0) {
@@ -264,7 +291,7 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
     }
 })
 
-.directive('backgroundCycler', function($compile, $animate) {
+.directive('backgroundCyclerTrin', function($compile, $animate) {
     var animate = function($scope, $element, newImageUrl) {
         var child = $element.children()[0];
         var scope = $scope.$new();
@@ -301,6 +328,43 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
         }
     }
 })
+    .directive('backgroundCyclerBago', function($compile, $animate) {
+        var animate = function($scope, $element, newImageUrl) {
+            var child = $element.children()[0];
+            var scope = $scope.$new();
+            scope.url = newImageUrl;
+            var img = $compile('<background-image></background-image>')(scope);
+
+            $animate.enter(img, $element, null, function() {
+
+            });
+
+            if (child) {
+                $animate.leave(angular.element(child), function() {
+
+                });
+            }
+        };
+
+        return {
+            restrict: 'E',
+            link: function($scope, $element, $attr) {
+                $scope.$watch('activeBgImage', function(v) {
+                    if (!v) {
+                        return;
+                    }
+                    // console.log('Active bg image changed', v);
+                    var item = v;
+                    var url = "http://farm" + item.farm + ".static.flickr.com/" + item.server + "/" + item.id + "_" + item.secret + "_z.jpg";
+                    $el2 = document.getElementById('menu-bg');
+                    $el2.style.backgroundImage = 'url(' + url + ')'
+                    // console.log($element);
+                    // alert("1");
+                    animate($scope, $element, url);
+                });
+            }
+        }
+    })
 
 // .directive('backgroundMenu', function($compile, $animate) {
 //     // .directive('backgroundMenu', function($compile, $animate) {
