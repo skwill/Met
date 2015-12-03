@@ -122,28 +122,30 @@
             </div>
         </div>
     </div>
-    
-    <div class="card">
-        <div class="item item-divider text-center">         
-            <i class="ion-ios-rainy-outline"></i>
-            <p>Precipitation</p>
+    <span ng-if="vm.forecast.precipitation">
+        <div class="card">
+            <div class="item item-divider text-center">         
+                <i class="ion-ios-rainy-outline"></i>
+                <p>Precipitation</p>
+            </div>
+            <div class="item item-text-wrap text-center"> 
+                <span class="em-txt">
+                    <p>{{vm.forecast.precipitation}}</p>
+                </span>           
+            </div>
         </div>
-        <div class="item item-text-wrap text-center"> 
-            <span class="em-txt">
-                <p>{{vm.forecast.precipitation}}</p>
-            </span>           
+    </span>
+    <span ng-if="vm.forecast.probrainfall">
+        <div class="card">
+            <div class="item item-divider text-center">         
+                <i class="ion-umbrella"></i>
+                <p>Probable Rainfall</p>
+            </div>
+            <div class="item item-text-wrap text-center"> 
+                <span class="em-txt">
+                    <p>{{vm.forecast.probrainfall}}</p>
+                </span>           
+            </div>
         </div>
-    </div>
-
-    <div class="card">
-        <div class="item item-divider text-center">         
-            <i class="ion-umbrella"></i>
-            <p>Probable Rainfall</p>
-        </div>
-        <div class="item item-text-wrap text-center"> 
-            <span class="em-txt">
-                <p>{{vm.forecast.probrainfall}}</p>
-            </span>           
-        </div>
-    </div>
+    </span>
 </div>
