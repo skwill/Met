@@ -11,87 +11,77 @@
         </ion-nav-buttons>
     </ion-nav-bar>
 
-    <div class="bar bar-subheader">
-        <p class="title">{{sub_title}}</p>
-    </div>
-
     <ion-content scroll="true" class="has-header">
         <ion-slide-box on-slide-changed="slideHasChanged($index)" ng-init="vm.update_slide(0)">
             <ion-slide ng-init="vm.getGIBulletins()">
-                <div class="box">
-                    <ion-list>
-                        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in vm.b_info" type="item-text-wrap" ng-click="b_info_open({{item.bulletininfodatatblID}}, 'b')">
-                        <!-- <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in vm.b_info" type="item-text-wrap" href="#/app/bullettins/{{item.bulletininfodatatblID}}"> -->
-                            <img ng-src="{{chat.face}}">
-                            <h2>{{item.bulletinType}}</h2>
-                            <p>{{item.textArea1}}</p>
-                            <i class="icon ion-chevron-right icon-accessory"></i>
-                            <ion-option-button class="button-stable" ng-click="share()">
-                                <i class="icon ion-android-share-alt"></i>
-                            </ion-option-button>
-                        </ion-item>
-                    </ion-list>
+                <div class="card" >
+                    <div class="item item-divider text-center">
+                        <i class="ion-flag"></i>
+                        <p>{{vm.b_info.bulletinpage}} Bulletin</p>            
+                    </div>
+                    <div class="item item-text-wrap">
+                        <span ng-if="vm.b_info.textArea1" class="em-txt"><p>{{vm.b_info.textArea1}}</p></span><br/>
+                        <span ng-if="vm.b_info.textArea2" class="em-txt"><p>{{vm.b_info.textArea2}}</p></span><br/>
+                        <span ng-if="vm.b_info.textArea3" class="em-txt"><p>{{vm.b_info.textArea3}}</p></span><br/>
+                        <span ng-if="vm.b_info.textArea4" class="em-txt"><p>{{vm.b_info.textArea4}}</p></span><br/>
+                        <span ng-if="vm.b_info.textArea5" class="em-txt"><p>{{vm.b_info.textArea5}}</p></span><br/>
+                        <span ng-if="!vm.b_info.textArea5 && !vm.b_info.textArea4 &&!vm.b_info.textArea3 && !vm.b_info.textArea2 && !vm.b_info.textArea1" class="em-txt text-center"><p>There is no {{vm.b_info.bulletinpage}} Bulletin at this time</p></span>
+                    </div>
                 </div>
             </ion-slide>
             <ion-slide ng-init="vm.get_serv_b()">
-                <div class="box">
-                    <ion-list>
-                        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in vm.s_items" ng-click="b_info_open({{item.bulletinsevdatatblID}}, 's')" data-id="item.bulletinsevdatatblID">
-                            <img ng-src="{{chat.face}}">
-                            <h2>{{item.bulletinType}}</h2>
-                            <p>{{item.textArea1}}</p>
-                            <i class="icon ion-chevron-right icon-accessory"></i>
-                            <ion-option-button class="button-stable" ng-click="share()">
-                                <i class="icon ion-android-share-alt"></i>
-                            </ion-option-button>
-                        </ion-item>
-                    </ion-list>
+                <div class="card" >
+                    <div class="item item-divider text-center">
+                        <i class="ion-flag"></i>
+                        <p>{{vm.s_items.bulletinpage}} Bulletin</p>            
+                    </div>
+                    <div class="item item-text-wrap">
+                        <span ng-if="vm.s_items.textArea1" class="em-txt"><p>{{vm.s_items.textArea1}}</p></span><br/>
+                        <span ng-if="vm.s_items.textArea2" class="em-txt"><p>{{vm.s_items.textArea2}}</p></span><br/>
+                        <span ng-if="vm.s_items.textArea3" class="em-txt"><p>{{vm.s_items.textArea3}}</p></span><br/>
+                        <span ng-if="vm.s_items.textArea5" class="em-txt"><p>{{vm.s_items.textArea5}}</p></span><br/>
+                        <span ng-if="!vm.s_items.textArea5 &&!vm.s_items.textArea4 && !vm.s_items.textArea3 && !vm.s_items.textArea2 && !vm.s_items.textArea1" class="em-txt text-center"><p>There is no {{vm.s_items.bulletinpage}} Bulletin at this time</p></span>
+                    </div>
                 </div>
             </ion-slide>
             <ion-slide ng-init="vm.get_flood_b()">
-                <div class="box">
-                    <ion-list>
-                        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in vm.f_items" ng-click="b_info_open({{item.bulletinNum}}, 'f')" data-id="item.bulletinNum">
-                            <img ng-src="{{chat.face}}">
-                            <h2>{{item.bulletinType}}</h2>
-                            <p>{{item.textArea1}}</p>
-                            <i class="icon ion-chevron-right icon-accessory"></i>
-                            <ion-option-button class="button-stable" ng-click="share()">
-                                <i class="icon ion-android-share-alt"></i>
-                            </ion-option-button>
-                        </ion-item>
-                    </ion-list>
+                <div class="card" >
+                    <div class="item item-divider text-center">
+                        <i class="ion-flag"></i>
+                        <p>{{vm.f_items.bulletinpage}} Bulletin</p>            
+                    </div>
+                    <div class="item item-text-wrap">
+                        <span ng-if="vm.f_items.textArea1" class="em-txt"><p>{{vm.f_items.textArea1}}</p></span><br/>
+                        <span ng-if="vm.f_items.textArea2" class="em-txt"><p>{{vm.f_items.textArea2}}</p></span><br/>
+                        <span ng-if="vm.f_items.textArea3" class="em-txt"><p>{{vm.f_items.textArea3}}</p></span><br/>
+                        <span ng-if="vm.f_items.textArea4" class="em-txt"><p>{{vm.f_items.textArea4}}</p></span><br/>
+                        <span ng-if="vm.f_items.textArea5" class="em-txt"><p>{{vm.f_items.textArea5}}</p></span><br/>
+                        <span ng-if="!vm.f_items.textArea5 && !vm.f_items.textArea4 && !vm.f_items.textArea3 && !vm.f_items.textArea2 && !vm.f_items.textArea1" class="em-txt text-center"><p>There is no {{vm.f_items.bulletinpage}} Bulletin at this time</p></span>
+                    </div>
                 </div>
             </ion-slide>
             <ion-slide ng-init="vm.get_sea_b()">
-                <div class="box">
-                    <ion-list>
-                        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in vm.r_items" ng-click="b_info_open({{item.bulletinNum?item.bulletinNum:0}}, 'r')" data-id="item.bulletinNum">
-                            <img ng-src="{{chat.face}}">
-                            <h2>{{item.bulletinType}}</h2>
-                            <p>{{item.textArea1}}</p>
-                            <i class="icon ion-chevron-right icon-accessory"></i>
-                            <ion-option-button class="button-stable" ng-click="share()">
-                                <i class="icon ion-android-share-alt"></i>
-                            </ion-option-button>
-                        </ion-item>
-                    </ion-list>
-                    <!-- <div class="list" ng-if="vm.r_items">
-                        <div ng-repeat="item in vm.r_items" ng-click="b_info_open({{item.bulletinNum?item.bulletinNum:0}}, 'r')" data-id="item.bulletinNum">
-                            <div class="item">
-                                <p class="title">{{item.bulletinType}}</p>
-                                <h6 class="follow">{{item.currdate}}, {{item.issuedAt}}</h6>
-                            </div>
-                        </div>
-                    </div> -->
+                <div class="card" >
+                    <div class="item item-divider text-center">
+                        <i class="ion-flag"></i>
+                        <p>{{vm.r_items.bulletinpage}} Bulletin</p>            
+                    </div>
+                    <div class="item item-text-wrap">
+                        <span ng-if="vm.r_items.textArea1" class="em-txt"><p>{{vm.r_items.textArea1}}</p></span><br/>
+                        <span ng-if="vm.f_items.textArea2" class="em-txt"><p>{{vm.r_items.textArea2}}</p></span><br/>
+                        <span ng-if="vm.r_items.textArea3" class="em-txt"><p>{{vm.r_items.textArea3}}</p></span><br/>
+                        <span ng-if="vm.r_items.textArea4" class="em-txt"><p>{{vm.r_items.textArea4}}</p></span><br/>
+                        <span ng-if="vm.r_items.textArea5" class="em-txt"><p>{{vm.r_items.textArea5}}</p></span><br/>
+                        <span ng-if="!vm.r_items.textArea5 && !vm.r_items.textArea4 && !vm.r_items.textArea3 && !vm.r_items.textArea2 && !vm.r_items.textArea1" class="em-txt text-center"><p>There is no {{vm.r_items.bulletinpage}} Bulletin at this time</p></span>
+                    </div>
                 </div>
             </ion-slide>
         </ion-slide-box>
     </ion-content>
     <ion-tabs class="tabs-icon-top tabs-color-active-positive">
-      <ion-tab title="General" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="slide(0)"></ion-tab>
-      <ion-tab title="Severe Weather" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="slide(1)"></ion-tab>
-      <ion-tab title="Floods" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="slide(2)"></ion-tab>
-      <ion-tab title="Rough Seas" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="slide(3)"></ion-tab>
+      <ion-tab title="General" icon-off="ion-ios-information-outline" icon-on="ion-ios-information-outline" on-select="slide(0)"></ion-tab>
+      <ion-tab title="Severe Weather" icon-off="ion-ios-thunderstorm-outline" icon-on="ion-ios-thunderstorm-outline" on-select="slide(1)"></ion-tab>
+      <ion-tab title="Floods" icon-off="ion-waterdrop" icon-on="ion-waterdrop" on-select="slide(2)"></ion-tab>
+      <ion-tab title="Rough Seas" icon-off="ion-android-boat" icon-on="ion-android-boat" on-select="slide(3)"></ion-tab>
     </ion-tabs>
 </ion-view>
