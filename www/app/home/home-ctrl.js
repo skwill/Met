@@ -11,6 +11,8 @@ angular.module('ionic.metApp')
 		var interval = 10 * 60000;
 		$interval(function time() {
 			// $scope.refreshData();
+			$rootScope.ref_trin();
+			$rootScope.ref_bago();
 			console.log("fetch info and location")
 		}, interval);
 
@@ -45,7 +47,7 @@ angular.module('ionic.metApp')
 
 		$scope.flip = function(country) {
 			$scope.isFlipped = !$scope.isFlipped;
-			console.debug($scope)
+			// console.debug($scope)
 			if (country == "Trinidad") {
 				$rootScope.ref_trin();
 			} else {
@@ -145,14 +147,6 @@ angular.module('ionic.metApp')
 
 		function is_word_in_string(string, word) {
 			return new RegExp('\\b' + word + '\\b', 'i').test(string);
-		}
-	})
-	.directive('dayIcon', function($timeout) {
-		return {
-			restrict: 'E',
-			replace: true,
-			templateUrl: 'app/home/svg/icon-sunny.html',
-			link: function($scope, $element, $attr) {}
 		}
 	})
 	.controller('TrinCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval, $ionicBackdrop, $state) {
@@ -289,31 +283,30 @@ angular.module('ionic.metApp')
 			metApi.get_metar(function(data) {
 				var m = data.items;
 				// gets the current temp, we only care about the exact number so pull that out from the string
-				$scope.current_temp_trin = m[2].value.substring(0, 3);
-				$scope.dew_point_trin = $scope.set_due_point(3, m);
+
 				// these are the ids of the metas we want for trinidad
 				var ids = [{
-						'id': 0, // metar fir
+						'id': 1, // metar fir
 						'icon': 'icon ion-ios-location-outline',
 						'el': 'met-loc'
 					}, {
-						'id': 2, // temperature
+						'id': 3, // temperature
 						'icon': 'icon ion-thermometer',
 						'el': 'temp'
 					}, {
-						'id': 3, // dewpoint
+						'id': 4, // dewpoint
 						'icon': 'icon ion-waterdrop',
 						'el': 'dew'
 					}, {
-						'id': 4, // pressure
+						'id': 5, // pressure
 						'icon': 'icon ion-ios-speedometer-outline',
 						'el': 'pressure'
 					}, {
-						'id': 5, // winds
+						'id': 6, // winds
 						'icon': 'icon ion-ios-analytics-outline',
 						'el': 'winds'
 					}, {
-						'id': 8, // clouds
+						'id': 9, // clouds
 						'icon': 'icon ion-ios-cloudy-outline',
 						'el': 'clouds'
 					}
@@ -324,19 +317,26 @@ angular.module('ionic.metApp')
 				}*/
 				];
 
-				$scope.summary_text_trin = m[1].value.indexOf('NOSIG') > -1 ? 'Clear ' + $scope.timeOfDay() : '';
-
 				_this.mdata = [];
-				for (i = 0; i < ids.length; i++) {
-					_this.mdata.push({
-						'id': m[ids[i].id].id,
-						'label': m[ids[i].id].label,
-						'station': m[ids[i].id].station,
-						'value': m[ids[i].id].value,
-						'icon': ids[i].icon,
-						'el': ids[i].el,
-					});
+				for (x = 0; x < ids.length; x++) { // ids
+					for (i = 0; i < m.length; i++) { // metars
+						if (ids[x].id == m[i].id) {
+							// console.debug('metars', m[i].id, ids[x].id, m[i]);
+							_this.mdata.push({
+								'id': m[i].id,
+								'label': m[i].label,
+								'station': m[i].station,
+								'value': m[i].value,
+								'icon': ids[x].icon,
+								'el': ids[x].el,
+							});
+						}
+					}
 				}
+
+				$scope.current_temp_trin = _this.mdata[1].value.substring(0, 3);
+				$scope.dew_point_trin = $scope.set_due_point(2, _this.mdata);
+				$scope.summary_text_trin = m[1].value.indexOf('NOSIG') > -1 ? 'Clear ' + $scope.timeOfDay() : '';
 			})
 		}
 
@@ -465,52 +465,61 @@ angular.module('ionic.metApp')
 		_this.metars_bago = function() {
 			metApi.get_metar(function(data) {
 				var m = data.items;
-				$scope.current_temp = m[11].value.substring(0, 3);
-				$scope.dew_point = $scope.set_due_point(12, m);
-				$scope.summary_text = m[10].value.indexOf('NOSIG') > -1 ? 'Clear ' + $scope.timeOfDay() : m[19].value;
+
 				// ids of metars for tobago
 				var ids = [{
-					'id': 10, // metar for
-					'icon': 'icon ion-ios-location-outline',
-					'el': 'met-loc'
-				}, {
-					'id': 11, // temperature
-					'icon': 'icon ion-thermometer',
-					'el': 'temp'
-				}, {
-					'id': 12, // dewpoint
-					'icon': 'icon ion-waterdrop',
-					'el': 'dew'
-				}, {
-					'id': 13, // pressure
-					'icon': 'icon ion-ios-speedometer-outline',
-					'el': 'pressure'
-				}, {
-					'id': 14, // winds
-					'icon': 'icon ion-ios-analytics-outline',
-					'el': 'winds'
-				}, {
-					'id': 17, // clouds
-					'icon': 'icon ion-ios-cloudy-outline',
-					'el': 'clouds'
-				}, {
+						'id': 10, // metar for
+						'icon': 'icon ion-ios-location-outline',
+						'el': 'met-loc'
+					}, {
+						'id': 12, // temperature
+						'icon': 'icon ion-thermometer',
+						'el': 'temp'
+					}, {
+						'id': 13, // dewpoint
+						'icon': 'icon ion-waterdrop',
+						'el': 'dew'
+					}, {
+						'id': 14, // pressure
+						'icon': 'icon ion-ios-speedometer-outline',
+						'el': 'pressure'
+					}, {
+						'id': 15, // winds
+						'icon': 'icon ion-ios-analytics-outline',
+						'el': 'winds'
+					}, {
+						'id': 18, // clouds
+						'icon': 'icon ion-ios-cloudy-outline',
+						'el': 'clouds'
+					}
+					/*, {
 					'id': 19, // weather
 					'icon': 'icon ion-umbrella',
 					'el': 'weather'
-				}];
+				}*/
+				];
 
 				_this.mdatab = null;
 				_this.mdatab = [];
-				for (i = 0; i < ids.length; i++) {
-					_this.mdatab.push({
-						'id': m[ids[i].id].id,
-						'label': m[ids[i].id].label,
-						'station': m[ids[i].id].station,
-						'value': m[ids[i].id].value,
-						'icon': ids[i].icon,
-						'el': ids[i].el,
-					});
+				for (x = 0; x < ids.length; x++) { // ids
+					for (i = 0; i < m.length; i++) { // metars
+						if (ids[x].id == m[i].id) {
+							// console.debug('metars', m[i].id, ids[x].id, m[i]);
+							_this.mdatab.push({
+								'id': m[i].id,
+								'label': m[i].label,
+								'station': m[i].station,
+								'value': m[i].value,
+								'icon': ids[x].icon,
+								'el': ids[x].el,
+							});
+						}
+					}
 				}
+
+				$scope.current_temp = _this.mdatab[1].value.substring(0, 3);
+				$scope.dew_point = $scope.set_due_point(2, _this.mdatab);
+				$scope.summary_text = m[10].value.indexOf('NOSIG') > -1 ? 'Clear ' + $scope.timeOfDay() : typeof m[19] != 'undefined' ? m[19].value : '';
 			})
 		}
 
@@ -563,4 +572,20 @@ angular.module('ionic.metApp')
 
 		_this.refreshData();
 
+	})
+	.directive('weatherIconTrin', function($timeout) {
+		return {
+			restrict: 'E',
+			replace: true,
+			templateUrl: 'app/home/svg/icon-rain-night.html',
+			link: function($scope, $element, $attr) {}
+		}
+	})
+	.directive('weatherIconBago', function($timeout) {
+		return {
+			restrict: 'E',
+			replace: true,
+			templateUrl: 'app/home/svg/icon-rain-night.html',
+			link: function($scope, $element, $attr) {}
+		}
 	})

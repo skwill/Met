@@ -120,18 +120,19 @@ h1,h2,h3,h4,h5 {
   		font-size: 12px;
 	  	// line-height: 20px;
 	  	margin-top: -2px;
+	  	left: 0px!important; right: 0px!important;
 	  	.city {
 
-	  		font-size: 16px;
+	  		font-size: 14px;
   			// font-weight: 100;
 	  	}
   	}
 }
 
 
-#city-nav-icon {
+.city-nav-icon {
   font-size: 11px;
-  margin-right: 2px;
+  margin-right: 12px;
 }
 
 .scroll-refresher {
@@ -904,11 +905,13 @@ h1,h2,h3,h4,h5 {
 }
 .flip .homecc.flipped {
   -webkit-transform: rotatey(180deg);
+  // transform: scale(1);
 }
 .flip .homecc {
   width: 100%;
   height: 100%;
   -webkit-transform-style: preserve-3d;
+   // transform: scale(0);
   -webkit-transition: 0.5s;
 }
 .flip .homecc .face {
