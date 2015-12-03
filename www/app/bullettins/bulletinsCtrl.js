@@ -133,9 +133,9 @@ angular.module('ionic.metApp')
 		// get general info bulletins
 		vm.getGIBulletins = function() {
 			metApi.get_b_info(function(data) {
-				vm.b_info = data.items;
-				console.log("general info")
-				console.log(data.items)
+				vm.b_info = data.items[0];
+				/*console.log("general info")
+				console.log(data.items)*/
 				// alert(data.item[0].flag)
 			});
 		}
@@ -143,18 +143,18 @@ angular.module('ionic.metApp')
 		// get severe weather bulletins
 		vm.get_serv_b = function() {
 			metApi.get_b_serv(function(data) {
-				console.log("severe info")
-				console.log(data.items)
-				vm.s_items = data.items;
+				/*console.log("severe info")
+				console.log(data.items)*/
+				vm.s_items = data.items[0];
 
 			})
 		}
 		// get blood bulletins
 		vm.get_flood_b = function() {
 			metApi.get_b_flood(function(data) {
-				console.log("flood info")
-				console.log(data.items)
-				vm.f_items = data.items;
+				/*console.log("flood info")
+				console.log(data.items)*/
+				vm.f_items = data.items[0];
 
 			})
 		}
@@ -162,9 +162,9 @@ angular.module('ionic.metApp')
 		// get rouch seas
 		vm.get_sea_b = function() {
 			metApi.get_b_sea(function(data) {
-				vm.r_items = data.items;
-				console.log("rough info")
-				console.log(data.items);
+				vm.r_items = data.items[0];
+				/*console.log("rough info")
+				console.log(data.items);*/
 				// console.log(data)
 			})
 		}
