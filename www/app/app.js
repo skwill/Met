@@ -301,6 +301,22 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
                 console.log("Device token: ", token.token)
             })
         })
+    // document.addEventListener('deviceready', function() {
+    //     // Enable to debug issues.
+    //     // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
+
+    //     var notificationOpenedCallback = function(jsonData) {
+    //         console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
+    //     };
+
+    //     window.plugins.OneSignal.init("2454221a-a18a-4b68-8034-65039635829f", {
+    //             googleProjectNumber: "158386410361"
+    //         },
+    //         notificationOpenedCallback);
+
+    //     // Show an alert box if a notification comes in when the user is in your app.
+    //     window.plugins.OneSignal.enableInAppAlertNotification(true);
+    // }, false);
     });
 // .controller('appCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval) {
 

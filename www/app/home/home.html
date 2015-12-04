@@ -1,13 +1,15 @@
 <ion-pane class="containerr" id="home"  ng-controller="HomeCtrl as hc" >
     <div class="flip">
+
+
         <div class="homecc" ng-class="{'flipped':isFlipped}">
             <div class="face front" ng-controller="TrinCtrl as tc">
-            <background-cycler-trin class="bg-fade" id="ff"></background-cycler-trin>
-
+            <background-cycler-trin class="bg-fade" id="trin-img"></background-cycler-trin>
+            <img crossorigin="Anonymous" style="display: none" id="i-trin" src="" />
             <ion-header-bar frosted-bar type="bar-frosted" id="headerr" class="header trin bar bar-header bar-cdlear no-border">
                 <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
                 <h1 class="title">
-                    <span class="city"><i id="" class="city-nav-icon icon ion-navigate"></i>{{currentLocationString}}<br></span>
+                    <span class="city"><i class="city-nav-icon icon ion-navigate"></i>{{currentLocationString}}<br></span>
                     <current-time localtz="current.local_tz_short"></current-time>
                 </h1>
                 <button ng-click="flip('Tobago')" class="button button-icon">
@@ -18,9 +20,7 @@
             <!-- <div id="" class="rbg top"></div> -->
 
             <ion-content scroll-event-interval="20" scroll-effects scrollbar-y="false" class="no-header">
-                <ion-refresher pulling-text="Pull to refresh..." on-refresh="tc.refreshData()" style="margin-top: -20px;">
-                  {{last_refresh}}
-                </ion-refresher>
+
                 <div class="main-content">
                     <current-weather-trin>
                     </current-weather-trin>
@@ -29,13 +29,14 @@
                     <!-- <forecast></forecast> -->
                 </div>
                 <!-- <div class="clearfix"></div><br><br><br><br> -->
+                <ion-refresher pulling-text="Pull to refresh..." on-refresh="tc.refreshData()" style="margin-top: -20px;"></ion-refresher>
 
             </ion-content>
 
 
 
             <div class="bar-footer">
-               <div class="d3 threeDay">
+               <div class="d3 threeDay trin">
                 <div class="row" >
                     <div class="col">
                         <p class="lead" >{{t}}</p>
@@ -95,7 +96,7 @@
         <!-- Tobago -->
         <div class="face back" ng-controller="BagoCtrl as bc">
             <background-cycler-bago class="bg-fade" id="ff"></background-cycler-bago>
-
+            <img crossorigin="Anonymous" style="display: none" id="i-bago" src="" />
             <ion-header-bar frosted-bar type="bar-frosted" class="header bago bar bar-header bar-cdlear no-border">
                 <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
                 <h1 class="title">
@@ -124,7 +125,7 @@
             </ion-content>
 
 
-            <div class="d3 threeDay">
+            <div class="d3 threeDay bago">
                 <div class="row" >
                     <div class="col">
                         <p class="lead" >{{t}}</p>

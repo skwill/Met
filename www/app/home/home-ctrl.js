@@ -151,6 +151,82 @@ angular.module('ionic.metApp')
 			return time;
 		}
 
+		// testing a function to dynamically change text color
+		$scope.getAverageRGB = function(el, el2) {
+			var blockSize = 5,
+				defaultRGB = {
+					r: 0,
+					g: 0,
+					b: 0
+				},
+				canvas = document.createElement('canvas'),
+				context = canvas.getContext && canvas.getContext('2d'),
+				data, width, height,
+				i = -4,
+				length,
+				rgb = {
+					r: 0,
+					g: 0,
+					b: 0
+				},
+				count = 0;
+			var bright = 0;
+			if (!context) {
+				return defaultrgb;
+			}
+			height = canvas.height = el.naturalHeight || el.offsetHeight || el.height;
+			width = canvas.width = el.naturalWidth || el.offsetWidth || el.width;
+
+
+			// var image = new Image();
+			// image.crossOrigin = "Anonymous";
+			// image.src = el.style.backgroundImage.slice(4, -1);
+			// image.style.width = '400px';
+			// image.style.height = '400px';
+			// $('body').html(image)
+			// var image = $('<img crossorigin="Anonymous" id="test-image"> ');
+			// $('body').append(image);
+			// image.hide();
+			// image.attr('src', el.style.backgroundImage.slice(4, -1));
+			// image.width('400');
+			// image.height('400');
+			context.drawImage(el, 0, 0);
+			// <img crossorigin="Anonymous" src="http://farm1.static.flickr.com/702/22883483373_ba71cedace_z.jpg" style="width: 400px; height: 400px;">
+			// try {
+			data = context.getImageData(0, 0, width, height);
+			// } catch (e) {
+			// 	 security error, img on diff domain
+			// 	alert('x');
+			// 	return defaultRGB;
+			// }
+			// console.log(height, width)
+			length = data.data.length;
+
+			while ((i += blockSize * 4) < length) {
+				++count;
+				rgb.r += data.data[i];
+				rgb.g += data.data[i + 1];
+				rgb.b += data.data[i + 2];
+
+				bright += (0.34 * rgb.r + 0.5 * rgb.g + 0.16 * rgb.b);
+				// console.debug('color', data.data[i]);
+			}
+
+			// ~~ used to floor values
+			rgb.r = ~~ (rgb.r / count);
+			rgb.g = ~~ (rgb.g / count);
+			rgb.b = ~~ (rgb.b / count);
+
+			// rgb.r = 255 - rgb.r;
+			// rgb.g = 255 - rgb.g;
+			// rgb.b = 255 - rgb.b;
+
+			// document.querySelector('#i')rgba(0,0,0,0.5);
+			$(el2 + '.bar, ' + el2 + '.d3').css('background-color', 'rgba(' + [rgb.r, rgb.g, rgb.b, 0.6].join(', ') + ')');
+			// return rgb;
+			// console.log(rgb, 'rgba(' + [rgb.r, rgb.g, rgb.b, 0.6].join(', ') + ')')
+		}
+
 		function is_word_in_string(string, word) {
 			return new RegExp('\\b' + word + '\\b', 'i').test(string);
 		}
@@ -178,6 +254,10 @@ angular.module('ionic.metApp')
 					_this.get_uv_index();
 					_this.metars_trin();
 					_this.trin_3day();
+					setTimeout(function() {
+						$scope.getAverageRGB(document.querySelector('#i-trin'), '.trin')
+					}, 2000)
+					// getAverageRGB(el)
 				});
 			}, function(error) {
 				// in some cases something may go wrong
@@ -244,7 +324,7 @@ angular.module('ionic.metApp')
 			var uv_c = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9', 'c10', 'c11'];
 			metApi.get_uv_index(function(data) {
 				// console.log(data);
-				console.log("UV Index: ");
+				// console.log("UV Index: ");
 				var today = new Date();
 				var d = today.getDate() + '.' + (today.getMonth() + 1) + '.' + today.getFullYear();
 				$scope.hour_of_day = $scope.hourOfDay();
@@ -273,8 +353,8 @@ angular.module('ionic.metApp')
 					$scope.$watch('uv_color', function() {
 						var el = document.getElementById('uv-index');
 						el.className = el.className + " " + $scope.uv_color;
-						console.log('uv color value', $scope.uv_color, ci, i);
-						console.log("watch on uv_value updated");
+						// console.log('uv color value', $scope.uv_color, ci, i);
+						// console.log("watch on uv_value updated");
 					})
 				} else {
 					// just some placeholder data for when the uv index has not been updated yet
@@ -388,7 +468,6 @@ angular.module('ionic.metApp')
 		}
 
 		_this.refreshData();
-
 	})
 	.controller('BagoCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval, $ionicBackdrop, $state) {
 		var _this = this;
@@ -409,9 +488,12 @@ angular.module('ionic.metApp')
 					// $scope.country = $scope.currentLocationString.indexOf('Tobago') > -1 ? 'Tobago' : 'Trinidad';
 					_this.getCurrent(lat, lng);
 					// _this.get_uv_index();
-					_this.metars_bago();
+					// _this.metars_bago();
 					_this.bago_3day();
 					_this.set_time_bubble();
+					setTimeout(function() {
+						$scope.getAverageRGB(document.querySelector('#i-bago'), '.bago')
+					}, 2000)
 				});
 			}, function(error) {
 				// in some cases something may go wrong
