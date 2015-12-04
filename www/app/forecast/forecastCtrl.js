@@ -3,13 +3,13 @@ angular.module('ionic.metApp').controller('ForecastCtrl', function(metApi, $root
 	var vm = this;
 
 	vm.getForecast = function() {
-		metApi.get_forecast(function(data) {			
+		metApi.get_forecast(function(data) {
 			vm.forecast = data.items[0];
-			vm.hello = data.items[0].forecastTime;			
+			vm.hello = data.items[0].forecastTime;
 		})
 	}
 })
-	/*var vm = this;
+/*var vm = this;
 	$scope.slideHasChanged = function(index) {
 		vm.update_slide(index);
 	}

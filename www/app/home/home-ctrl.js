@@ -24,6 +24,12 @@ angular.module('ionic.metApp')
 		$scope.test = function() {
 			return "LOL";
 		}
+		// flip tp tobago after making all calls if location is tobago
+		setTimeout(function() {
+			if ($rootScope.c == "Tobago") {
+				$scope.flip('Tobago')
+			}
+		}, 1000);
 		// end if interval block
 
 		//  - - - - - - - - - - - - - - - - - - -
@@ -165,6 +171,9 @@ angular.module('ionic.metApp')
 				Geo.reverseGeocode(lat, lng).then(function(locString) {
 					$scope.currentLocationString = locString;
 					$scope.country = $scope.currentLocationString.indexOf('Tobago') > -1 ? 'Tobago' : 'Trinidad';
+					$scope.$watch('country', function() {
+						$rootScope.c = $scope.country;
+					})
 					_this.getCurrent(lat, lng);
 					_this.get_uv_index();
 					_this.metars_trin();
