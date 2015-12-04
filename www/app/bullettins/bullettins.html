@@ -14,25 +14,26 @@
     <ion-content scroll="true" class="has-header">
         <ion-slide-box on-slide-changed="slideHasChanged($index)" ng-init="vm.update_slide(0)">
             <ion-slide ng-init="vm.getGIBulletins()">
-                <div class="card" >
+                <div class="card b-info" >
                     <div class="item item-divider text-center">
-                        <i class="ion-flag"></i>
+                        <i class="ion-flag pull-left"></i>
                         <p>{{vm.b_info.bulletinpage}} Bulletin</p>
                     </div>
-                    <div class="item item-text-wrap">
-                        <span ng-if="vm.b_info.textArea1" class="em-txt"><p>{{vm.b_info.textArea1}}</p></span><br/>
-                        <span ng-if="vm.b_info.textArea2" class="em-txt"><p>{{vm.b_info.textArea2}}</p></span><br/>
-                        <span ng-if="vm.b_info.textArea3" class="em-txt"><p>{{vm.b_info.textArea3}}</p></span><br/>
-                        <span ng-if="vm.b_info.textArea4" class="em-txt"><p>{{vm.b_info.textArea4}}</p></span><br/>
-                        <span ng-if="vm.b_info.textArea5" class="em-txt"><p>{{vm.b_info.textArea5}}</p></span><br/>
+                    <div class="item item-text-wrap" >
+                        <span ng-if="vm.b_info.textArea1" class="em-txt"><p>{{vm.b_info.textArea1}}</p><br/></span>
+                        <span ng-if="vm.b_info.textArea2" class="em-txt"><p>{{vm.b_info.textArea2}}</p><br/></span>
+                        <span ng-if="vm.b_info.textArea3" class="em-txt"><p>{{vm.b_info.textArea3}}</p><br/></span>
+                        <span ng-if="vm.b_info.textArea4" class="em-txt"><p>{{vm.b_info.textArea4}}</p><br/></span>
+                        <span ng-if="vm.b_info.textArea5" class="em-txt"><p>{{vm.b_info.textArea5}}</p></span>
                         <span ng-if="!vm.b_info.textArea5 && !vm.b_info.textArea4 &&!vm.b_info.textArea3 && !vm.b_info.textArea2 && !vm.b_info.textArea1" class="em-txt text-center"><p>There is no {{vm.b_info.bulletinpage}} Bulletin at this time</p></span>
                     </div>
                 </div>
+                <br><br><br>
             </ion-slide>
             <ion-slide ng-init="vm.get_serv_b()">
-                <div class="card" >
+                <div class="card b-info" >
                     <div class="item item-divider text-center">
-                        <i class="ion-flag"></i>
+                        <i class="ion-flag pull-left"></i>
                         <p>{{vm.s_items.bulletinpage}} Bulletin</p>
                     </div>
                     <div class="item item-text-wrap">
@@ -45,9 +46,9 @@
                 </div>
             </ion-slide>
             <ion-slide ng-init="vm.get_flood_b()">
-                <div class="card" >
+                <div class="card b-info" >
                     <div class="item item-divider text-center">
-                        <i class="ion-flag"></i>
+                        <i class="ion-flag pull-left"></i>
                         <p>{{vm.f_items.bulletinpage}} Bulletin</p>
                     </div>
                     <div class="item item-text-wrap">
@@ -61,9 +62,9 @@
                 </div>
             </ion-slide>
             <ion-slide ng-init="vm.get_sea_b()">
-                <div class="card" >
+                <div class="card b-info" >
                     <div class="item item-divider text-center">
-                        <i class="ion-flag"></i>
+                        <i class="ion-flag pull-left"></i>
                         <p>{{vm.r_items.bulletinpage}} Bulletin</p>
                     </div>
                     <div class="item item-text-wrap">

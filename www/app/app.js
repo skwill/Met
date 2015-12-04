@@ -285,6 +285,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
                 // org.apache.cordova.statusbar required
                 // StatusBar.styleDefault();
                 StatusBar.hide();
+                ionic.Platform.fullScreen();
                 // StatusBar.styleBlackTranslucent();
             }
 
