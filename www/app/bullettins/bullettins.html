@@ -1,4 +1,4 @@
-<ion-view view-title="Bullettins" ng-class=""  ng-controller="BulletinsCtrl as vm">
+<ion-view view-title="Bullettins" ng-controller="BulletinsCtrl as vm">
     <ion-nav-bar class="bar no-border bar-positivee">
         <ion-nav-back-button class="button-clear">
             <i class="ion-arrow-left-c"></i>
@@ -17,7 +17,8 @@
                 <div class="card" >
                     <div class="item item-divider text-center">
                         <i class="ion-flag"></i>
-                        <p>{{vm.b_info.bulletinpage}} Bulletin</p>            
+                        <p>{{vm.b_info.bulletinpage}} Bulletin</p> 
+                        <p>Issued at {{vm.b_info.issuedAt}}</p>           
                     </div>
                     <div class="item item-text-wrap">
                         <span ng-if="vm.b_info.textArea1" class="em-txt"><p>{{vm.b_info.textArea1}}</p></span><br/>
@@ -33,7 +34,8 @@
                 <div class="card" >
                     <div class="item item-divider text-center">
                         <i class="ion-flag"></i>
-                        <p>{{vm.s_items.bulletinpage}} Bulletin</p>            
+                        <p>{{vm.s_items.bulletinpage}} Bulletin</p>   
+                        <p>Issued at {{vm.s_items.issuedAt}}</p>          
                     </div>
                     <div class="item item-text-wrap">
                         <span ng-if="vm.s_items.textArea1" class="em-txt"><p>{{vm.s_items.textArea1}}</p></span><br/>
@@ -48,7 +50,8 @@
                 <div class="card" >
                     <div class="item item-divider text-center">
                         <i class="ion-flag"></i>
-                        <p>{{vm.f_items.bulletinpage}} Bulletin</p>            
+                        <p>{{vm.f_items.bulletinpage}} Bulletin</p>   
+                        <p>Issued at {{vm.f_items.issuedAt}}</p>         
                     </div>
                     <div class="item item-text-wrap">
                         <span ng-if="vm.f_items.textArea1" class="em-txt"><p>{{vm.f_items.textArea1}}</p></span><br/>
@@ -64,7 +67,8 @@
                 <div class="card" >
                     <div class="item item-divider text-center">
                         <i class="ion-flag"></i>
-                        <p>{{vm.r_items.bulletinpage}} Bulletin</p>            
+                        <p>{{vm.r_items.bulletinpage}} Bulletin</p> 
+                        <p>Issued at {{vm.r_items.issuedAt}}</p>           
                     </div>
                     <div class="item item-text-wrap">
                         <span ng-if="vm.r_items.textArea1" class="em-txt"><p>{{vm.r_items.textArea1}}</p></span><br/>
