@@ -47,6 +47,7 @@ body {
 	     -o-transition: background 1.5s linear;
 	    -ms-transition: background 1.5s linear;
 	        transition: background 1.5s linear;
+	        -webkit-transform: translate3d(0, 0, 0);
 	&.ng-enter {
 		opacity: 0;
         -webkit-transition: opacity 2s ease-in-out;
@@ -54,6 +55,7 @@ body {
              -o-transition: background 1.5s linear;
             -ms-transition: background 1.5s linear;
                 transition: background 1.5s linear;
+                -webkit-transform: translate3d(0, 0, 0);
 	}
 	&.ng-enter-active { opacity: 1; }
 	&.ng-leave {
@@ -63,6 +65,7 @@ body {
              -o-transition: opacity 2s ease-in-out;
             -ms-transition: opacity 2s ease-in-out;
                 transition: opacity 2s ease-in-out;
+                -webkit-transform: translate3d(0, 0, 0);
 	}
 	&.ng-leave-active { opacity: 0; }
 }
@@ -111,6 +114,9 @@ h1,h2,h3,h4,h5 {
            -moz-transition: background-color 0.4s ease-in-out;
              -o-transition: background-color 0.4s ease-in-out;
                 transition: background-color 0.4s ease-in-out;
+                -webkit-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.6);
+       -moz-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.6);
 	margin-top: 0px;
 	button {
 		color: #fff;
@@ -119,7 +125,7 @@ h1,h2,h3,h4,h5 {
   	// background-color: rgba(73, 73, 73, 0.6);
   	height: 44px;
   	& > * {
-  		// margin-top: 0px;
+  		margin-top: 0px;
   	}
   	.title {
   		color: #fff;
@@ -183,15 +189,13 @@ h1,h2,h3,h4,h5 {
   }
   #cw-summary {
 	margin-top: 40px;
-	margin-left: -20px;
+	// margin-left: -20px;
 	line-height: 16px;
 	text-align: center;
-	font-size: 14px;
-	color: rgb(183, 183, 183);
-	// &:after {
-	// 	mix-blend-mode: diference
-	// }
-  	// margin-bottom: -10px;
+	font-size: 18px;
+	// text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
+	font-weight: 500;
+	letter-spacing: 1px;
   }
   	.icon {
   		font-size: 6em;
@@ -549,6 +553,12 @@ h1,h2,h3,h4,h5 {
 		background: #fff;
     	margin-top: 54px;
     	margin-bottom: 40%;
+    	.row {
+    		padding: 0px;
+    	}
+    	.card {
+    		margin: 0px;
+    	}
     	.item {
     		.icon {
     			font-size: 3em;

@@ -1,6 +1,6 @@
 // weather app based on driftyco ionic-weather
 // https://github.com/driftyco/ionic-weather
-angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.services', 'ionic.metApp.filters', 'ionic.metApp.directives', 'ngCordova', 'ngResource'])
+angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.services', 'ionic.metApp.filters', 'ionic.metApp.directives', 'ngCordova', 'ngResource', 'ion-affix'])
 
 .constant('WUNDERGROUND_API_KEY', '1cc2d3de40fa5af0')
     .constant('FORECASTIO_KEY', '4cd3c5673825a361eb5ce108103ee84a')
@@ -24,8 +24,11 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
                 return response
             }
         }
-    })
+    });
+    // ionic configs
     $ionicConfigProvider.tabs.position('bottom');
+    $ionicConfigProvider.scrolling.jsScrolling(false);
+
     //this is the home route
     $stateProvider
         .state('app', {
@@ -36,7 +39,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
 
     .state('app.home', {
         url: '/home',
-        // cache: false,
+        cache: false,
         views: {
             //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
             'mainContent': {
@@ -301,22 +304,22 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
                 console.log("Device token: ", token.token)
             })
         })
-    // document.addEventListener('deviceready', function() {
-    //     // Enable to debug issues.
-    //     // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
+        // document.addEventListener('deviceready', function() {
+        //     // Enable to debug issues.
+        //     // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
 
-    //     var notificationOpenedCallback = function(jsonData) {
-    //         console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
-    //     };
+        //     var notificationOpenedCallback = function(jsonData) {
+        //         console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
+        //     };
 
-    //     window.plugins.OneSignal.init("2454221a-a18a-4b68-8034-65039635829f", {
-    //             googleProjectNumber: "158386410361"
-    //         },
-    //         notificationOpenedCallback);
+        //     window.plugins.OneSignal.init("2454221a-a18a-4b68-8034-65039635829f", {
+        //             googleProjectNumber: "158386410361"
+        //         },
+        //         notificationOpenedCallback);
 
-    //     // Show an alert box if a notification comes in when the user is in your app.
-    //     window.plugins.OneSignal.enableInAppAlertNotification(true);
-    // }, false);
+        //     // Show an alert box if a notification comes in when the user is in your app.
+        //     window.plugins.OneSignal.enableInAppAlertNotification(true);
+        // }, false);
     });
 // .controller('appCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval) {
 

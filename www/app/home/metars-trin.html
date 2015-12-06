@@ -9,8 +9,8 @@
     <ion-content has-header="false" scroll="true" class="ms_m" ng-controller="TrinCtrl as tc">
     <div class="content metars">
         <div class="row " ng-repeat="item in tc.mdata">
-            <div class="card">
-                <div class="item item-divider">
+            <div class="card" ng-if="item.show">
+                <div class="item item-divider" ion-affix data-affix-within-parent-with-class="card">
                     {{item.label}}
                 </div>
                 <div class="item item-text-wrap">

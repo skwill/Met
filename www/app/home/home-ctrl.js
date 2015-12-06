@@ -176,30 +176,8 @@ angular.module('ionic.metApp')
 			}
 			height = canvas.height = el.naturalHeight || el.offsetHeight || el.height;
 			width = canvas.width = el.naturalWidth || el.offsetWidth || el.width;
-
-
-			// var image = new Image();
-			// image.crossOrigin = "Anonymous";
-			// image.src = el.style.backgroundImage.slice(4, -1);
-			// image.style.width = '400px';
-			// image.style.height = '400px';
-			// $('body').html(image)
-			// var image = $('<img crossorigin="Anonymous" id="test-image"> ');
-			// $('body').append(image);
-			// image.hide();
-			// image.attr('src', el.style.backgroundImage.slice(4, -1));
-			// image.width('400');
-			// image.height('400');
 			context.drawImage(el, 0, 0);
-			// <img crossorigin="Anonymous" src="http://farm1.static.flickr.com/702/22883483373_ba71cedace_z.jpg" style="width: 400px; height: 400px;">
-			// try {
 			data = context.getImageData(0, 0, width, height);
-			// } catch (e) {
-			// 	 security error, img on diff domain
-			// 	alert('x');
-			// 	return defaultRGB;
-			// }
-			// console.log(height, width)
 			length = data.data.length;
 
 			while ((i += blockSize * 4) < length) {
@@ -207,24 +185,19 @@ angular.module('ionic.metApp')
 				rgb.r += data.data[i];
 				rgb.g += data.data[i + 1];
 				rgb.b += data.data[i + 2];
-
 				bright += (0.34 * rgb.r + 0.5 * rgb.g + 0.16 * rgb.b);
-				// console.debug('color', data.data[i]);
+				if (bright !== 0) bright /= 2;
 			}
+			// bright = 0.1;
+			if (bright > 0.5) var textColor = "#FFFFFF";
+			else var textColor = "#000000";
 
 			// ~~ used to floor values
 			rgb.r = ~~ (rgb.r / count);
 			rgb.g = ~~ (rgb.g / count);
 			rgb.b = ~~ (rgb.b / count);
-
-			// rgb.r = 255 - rgb.r;
-			// rgb.g = 255 - rgb.g;
-			// rgb.b = 255 - rgb.b;
-
-			// document.querySelector('#i')rgba(0,0,0,0.5);
 			$(el2 + '.bar, ' + el2 + '.d3').css('background-color', 'rgba(' + [rgb.r, rgb.g, rgb.b, 0.6].join(', ') + ')');
-			// return rgb;
-			// console.log(rgb, 'rgba(' + [rgb.r, rgb.g, rgb.b, 0.6].join(', ') + ')')
+			$('#cw-summary').css('color', textColor);
 		}
 
 		function is_word_in_string(string, word) {
@@ -254,9 +227,9 @@ angular.module('ionic.metApp')
 					_this.get_uv_index();
 					_this.metars_trin();
 					_this.trin_3day();
-					setTimeout(function() {
-						$scope.getAverageRGB(document.querySelector('#i-trin'), '.trin')
-					}, 2000)
+					// setTimeout(function() {
+					// 	$scope.getAverageRGB(document.querySelector('#i-trin'), '.trin')
+					// }, 2000)
 					// getAverageRGB(el)
 				});
 			}, function(error) {
@@ -302,6 +275,9 @@ angular.module('ionic.metApp')
 			$timeout(function cycle() {
 				if ($scope.bgImages) {
 					$scope.activeBgImage = $scope.bgImages[$scope.activeBgImageIndex++ % $scope.bgImages.length + 3];
+					setTimeout(function() {
+						$scope.getAverageRGB(document.querySelector('#i-trin'), '.trin')
+					}, 2000)
 				}
 			})
 		}
@@ -375,56 +351,74 @@ angular.module('ionic.metApp')
 
 				// these are the ids of the metas we want for trinidad
 				var ids = [{
-						'id': 1, // metar fir
-						'icon': 'icon ion-ios-location-outline',
-						'el': 'met-loc'
-					}, {
-						'id': 3, // temperature
-						'icon': 'icon ion-thermometer',
-						'el': 'temp'
-					}, {
-						'id': 4, // dewpoint
-						'icon': 'icon ion-waterdrop',
-						'el': 'dew'
-					}, {
-						'id': 5, // pressure
-						'icon': 'icon ion-ios-speedometer-outline',
-						'el': 'pressure'
-					}, {
-						'id': 6, // winds
-						'icon': 'icon ion-ios-analytics-outline',
-						'el': 'winds'
-					}, {
-						'id': 9, // clouds
-						'icon': 'icon ion-ios-cloudy-outline',
-						'el': 'clouds'
-					}
-					/*, {
-					'id': 9, // weather
+					'id': 1, // metar fir
+					'icon': 'icon ion-ios-location-outline',
+					'el': 'met-loc',
+					'show': true
+				}, {
+					'id': 2, // text
+					'icon': 'icon ion-thermometer',
+					'el': null,
+					'show': false
+				}, {
+					'id': 3, // temp
+					'icon': 'icon ion-thermometer',
+					'el': 'temp',
+					'show': true
+				}, {
+					'id': 4, // dewpoint
+					'icon': 'icon ion-waterdrop',
+					'el': 'dew',
+					'show': true
+				}, {
+					'id': 5, // pressure
+					'icon': 'icon ion-ios-speedometer-outline',
+					'el': 'pressure',
+					'show': true
+				}, {
+					'id': 6, // winds
+					'icon': 'icon ion-ios-analytics-outline',
+					'el': 'winds',
+					'show': true
+				}, {
+					'id': 7, // visibility
+					'icon': 'icon',
+					'el': 'weather',
+					'show': false
+				}, {
+					'id': 8, // ceiling
+					'el': 'weather',
+					'show': false
+				}, {
+					'id': 9, // clouds
+					'icon': 'icon ion-ios-cloudy-outline',
+					'el': 'clouds',
+					'show': true
+				}, {
+					'id': 10, // weather
 					'icon': 'icon ion-umbrella',
-					'el': 'weather'
-				}*/
-				];
+					'el': 'weather',
+					'show': false
+				}];
 
 				_this.mdata = [];
-				for (x = 0; x < ids.length; x++) { // ids
-					for (i = 0; i < m.length; i++) { // metars
-						if (ids[x].id == m[i].id) {
-							// console.debug('metars', m[i].id, ids[x].id, m[i]);
-							_this.mdata.push({
-								'id': m[i].id,
-								'label': m[i].label,
-								'station': m[i].station,
-								'value': m[i].value,
-								'icon': ids[x].icon,
-								'el': ids[x].el,
-							});
-						}
+				for (i = 0; i < m.length; i++) {
+					if (m[i].station == "TTPP") {
+						_this.mdata.push({
+							'id': m[i].id,
+							'label': m[i].label,
+							'station': m[i].station,
+							'value': m[i].value,
+							'icon': ids[i].icon,
+							'el': ids[i].el,
+							'show': ids[i].show
+						});
 					}
 				}
 
-				$scope.current_temp_trin = _this.mdata[1].value.substring(0, 3);
-				$scope.dew_point_trin = $scope.set_due_point(2, _this.mdata);
+
+				$scope.current_temp_trin = _this.mdata[2].value.substring(0, 3);
+				$scope.dew_point_trin = $scope.set_due_point(3, _this.mdata);
 				$scope.summary_text_trin = m[1].value.indexOf('NOSIG') > -1 ? 'Clear ' + $scope.timeOfDay() : '';
 			})
 		}
@@ -488,12 +482,9 @@ angular.module('ionic.metApp')
 					// $scope.country = $scope.currentLocationString.indexOf('Tobago') > -1 ? 'Tobago' : 'Trinidad';
 					_this.getCurrent(lat, lng);
 					// _this.get_uv_index();
-					// _this.metars_bago();
+					_this.metars_bago();
 					_this.bago_3day();
 					_this.set_time_bubble();
-					setTimeout(function() {
-						$scope.getAverageRGB(document.querySelector('#i-bago'), '.bago')
-					}, 2000)
 				});
 			}, function(error) {
 				// in some cases something may go wrong
@@ -538,6 +529,9 @@ angular.module('ionic.metApp')
 			$timeout(function cycle() {
 				if ($scope.bgImages) {
 					$scope.activeBgImage = $scope.bgImages[$scope.activeBgImageIndex++ % $scope.bgImages.length];
+					setTimeout(function() {
+						$scope.getAverageRGB(document.querySelector('#i-bago'), '.bago')
+					}, 2000)
 				}
 			})
 		}
@@ -559,58 +553,75 @@ angular.module('ionic.metApp')
 
 				// ids of metars for tobago
 				var ids = [{
-						'id': 10, // metar for
-						'icon': 'icon ion-ios-location-outline',
-						'el': 'met-loc'
-					}, {
-						'id': 12, // temperature
-						'icon': 'icon ion-thermometer',
-						'el': 'temp'
-					}, {
-						'id': 13, // dewpoint
-						'icon': 'icon ion-waterdrop',
-						'el': 'dew'
-					}, {
-						'id': 14, // pressure
-						'icon': 'icon ion-ios-speedometer-outline',
-						'el': 'pressure'
-					}, {
-						'id': 15, // winds
-						'icon': 'icon ion-ios-analytics-outline',
-						'el': 'winds'
-					}, {
-						'id': 18, // clouds
-						'icon': 'icon ion-ios-cloudy-outline',
-						'el': 'clouds'
-					}
-					/*, {
-					'id': 19, // weather
-					'icon': 'icon ion-umbrella',
-					'el': 'weather'
-				}*/
-				];
+					'id': 9, // metar for
+					'icon': 'icon ion-ios-location-outline',
+					'el': 'met-loc',
+					'show': true
+				}, {
+					'id': 10, // text
+					'icon': 'icon ',
+					'el': null,
+					'show': false
+				}, {
+					'id': 11, // temperature
+					'icon': 'icon ion-thermometer',
+					'el': 'temp',
+					'show': true
+				}, {
+					'id': 12, // dewpoint
+					'icon': 'icon ion-waterdrop',
+					'el': 'dew',
+					'show': true
+				}, {
+					'id': 13, // pressure
+					'icon': 'icon ion-ios-speedometer-outline',
+					'el': 'pressure',
+					'show': true
+				}, {
+					'id': 14, // winds
+					'icon': 'icon ion-ios-analytics-outline',
+					'el': 'winds',
+					'show': true
+				}, {
+					'id': 15, // visibility
+					'icon': 'icon ion-thermometer',
+					'el': null,
+					'show': false
+				}, {
+					'id': 16, // ceiling
+					'icon': 'icon ',
+					'el': null,
+					'show': false
+				}, {
+					'id': 17, // clouds
+					'icon': 'icon ion-ios-cloudy-outline',
+					'el': 'clouds',
+					'show': true
+				}];
 
 				_this.mdatab = null;
 				_this.mdatab = [];
-				for (x = 0; x < ids.length; x++) { // ids
-					for (i = 0; i < m.length; i++) { // metars
-						if (ids[x].id == m[i].id) {
-							// console.debug('metars', m[i].id, ids[x].id, m[i]);
-							_this.mdatab.push({
-								'id': m[i].id,
-								'label': m[i].label,
-								'station': m[i].station,
-								'value': m[i].value,
-								'icon': ids[x].icon,
-								'el': ids[x].el,
-							});
-						}
+				var c = 0;
+				for (i = 0; i < m.length; i++) { // metars
+					if (m[i].station == 'TTCP') {
+						_this.mdatab.push({
+							'id': m[i].id,
+							'label': m[i].label,
+							'station': m[i].station,
+							'value': m[i].value,
+							'icon': ids[c].icon,
+							'el': ids[c].el,
+							'show': ids[c].show
+						});
+						// console.log(i, ids[c])
+						c++;
 					}
 				}
 
-				$scope.current_temp = _this.mdatab[1].value.substring(0, 3);
-				$scope.dew_point = $scope.set_due_point(2, _this.mdatab);
-				$scope.summary_text = m[10].value.indexOf('NOSIG') > -1 ? 'Clear ' + $scope.timeOfDay() : typeof m[19] != 'undefined' ? m[19].value : '';
+
+				$scope.current_temp = _this.mdatab[2].value.substring(0, 3);
+				$scope.dew_point = $scope.set_due_point(3, _this.mdatab);
+				$scope.summary_text = _this.mdatab[1].value.indexOf('NOSIG') > -1 ? 'Clear ' + $scope.timeOfDay() : '';
 			})
 		}
 

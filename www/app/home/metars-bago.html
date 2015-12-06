@@ -9,7 +9,7 @@
     <ion-content has-header="false" scroll="true" class="ms_m" ng-controller="BagoCtrl as bc">
     <div class="content metars">
         <div class="row " ng-repeat="item in bc.mdatab">
-            <div class="card">
+            <div class="card" ng-if="item.show">
                 <div class="item item-divider">
                     {{item.label}}
                 </div>
