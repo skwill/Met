@@ -40,7 +40,7 @@ angular.module('ionic.metApp').controller('warningsCtrl', function(metApi, $root
 
 	vm.get_o_air = function() {
 		metApi.get_o_air(function(data) {
-			vm.o_items = data.items;
+			vm.o_items = data.items[0];
 			console.log("Air");
 			console.log(vm.o_items);
 		})
@@ -48,7 +48,7 @@ angular.module('ionic.metApp').controller('warningsCtrl', function(metApi, $root
 	}
 	vm.get_sigmet = function() {
 		metApi.get_sigmet(function(data) {
-			vm.s_items = data.items;
+			vm.s_items = data.items[0];
 			console.log("SIg");
 			console.log(vm.s_items);
 		})
@@ -56,7 +56,7 @@ angular.module('ionic.metApp').controller('warningsCtrl', function(metApi, $root
 	}
 	vm.get_warn = function() {
 		metApi.get_warn(function(data) {
-			vm.w_items = data.items;
+			vm.w_items = data.items[0];
 			console.log("Warning");
 			console.log(vm.w_items);
 
@@ -65,7 +65,7 @@ angular.module('ionic.metApp').controller('warningsCtrl', function(metApi, $root
 	}
 	vm.get_watch = function() {
 		metApi.get_watch(function(data) {
-			vm.wt_items = data.items;
+			vm.wt_items = data.items[0];
 			console.log("Watch");
 			console.log(vm.wt_items);
 		})
