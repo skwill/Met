@@ -39,7 +39,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
 
     .state('app.home', {
         url: '/home',
-        cache: false,
+        // cache: false,
         views: {
             //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
             'mainContent': {
@@ -166,6 +166,16 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
             }
         }
     })
+        .state('app.uv_index', {
+            url: '/home/uv_index',
+            // abstract: true,
+            views: {
+                //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
+                'mainContent': {
+                    templateUrl: "app/home/uv_index.html"
+                }
+            }
+        })
 
 
     // .state('app.bullettin-detail', {

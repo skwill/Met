@@ -1,7 +1,7 @@
 // weather app based on driftyco ionic-weather
 // https://github.com/driftyco/ionic-weather
 angular.module('ionic.metApp')
-	.controller('HomeCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval, $ionicBackdrop, $state) {
+	.controller('HomeCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval, $ionicBackdrop, $state, $ionicHistory) {
 		var _this = this;
 		$scope.activeBgImageIndex = 0;
 		// $scope.country = '';
@@ -13,7 +13,8 @@ angular.module('ionic.metApp')
 			// $scope.refreshData();
 			$rootScope.ref_trin();
 			$rootScope.ref_bago();
-			console.log("fetch info and location")
+			console.log("fetch info and location", 'cache cleared');
+			$ionicHistory.clearCache()
 		}, interval);
 
 		$rootScope.$on("call_test", function() {
@@ -72,21 +73,21 @@ angular.module('ionic.metApp')
 		})
 
 		// open uv info modal
-		$scope.uv_modalOpen = function() {
-			$ionicBackdrop.retain();
-			if (!$scope.uv_modal) {
-				$ionicModal.fromTemplateUrl('app/home/uv_modal.html', function(uv_modal) {
-					$scope.uv_modal = uv_modal;
-					$scope.uv_modal.show();
-				}, {
-					// animation we want for modal entrance
-					// animation: 'scale-in'
-					animation: 'slide-in-up'
-				})
-			} else {
-				$scope.uv_modal.show();
-			}
-		}
+		// $scope.uv_modalOpen = function() {
+		// 	$ionicBackdrop.retain();
+		// 	if (!$scope.uv_modal) {
+		// 		$ionicModal.fromTemplateUrl('app/home/uv_modal.html', function(uv_modal) {
+		// 			$scope.uv_modal = uv_modal;
+		// 			$scope.uv_modal.show();
+		// 		}, {
+		// 			// animation we want for modal entrance
+		// 			// animation: 'scale-in'
+		// 			animation: 'slide-in-up'
+		// 		})
+		// 	} else {
+		// 		$scope.uv_modal.show();
+		// 	}
+		// }
 
 
 		// helper functins
@@ -457,7 +458,7 @@ angular.module('ionic.metApp')
 			// get forecast
 			metApi.get_forecast(function(data) {
 				var f = data.items[0];
-				$scope.fcast = f.imageTrin;
+				$rootScope.fcast = f.imageTrin;
 				$scope.summary_text_trin = f.textArea1;
 			})
 		}
