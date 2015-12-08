@@ -109,17 +109,18 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
             }
         }
     })
-        .state('app.services.home', {
-            //abstract: true,
-            url: "/services/home",
-            views: {
-                //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
-                'servicesContent': {
-                    templateUrl: "app/services/service_main.html"
-                }
-            }
 
-        })
+    .state('app.services.home', {
+        //abstract: true,
+        url: "/services/home",
+        views: {
+            //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
+            'servicesContent': {
+                templateUrl: "app/services/service_main.html"
+            }
+        }
+
+    })
 
 
     .state('app.services.aviation', {
@@ -131,6 +132,54 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
             }
         }
     })
+
+    // .state('app.services.radar_loop', {
+    //     //abstract: true,
+    //     url: "/radar_loop",
+    //     views: {
+    //         'servicesContent': {
+    //             templateUrl: "app/services/radar/radar_loop.html"
+    //         }
+    //     }
+    // })
+    .state('app.services.radar_loop', {
+        //abstract: true,
+        url: "/radar_loop",
+        views: {
+            'servicesContent': {
+                templateUrl: "app/services/radar/radar_loop.html"
+            }
+        }
+    })
+        .state('app.services.radar_150', {
+            //abstract: true,
+            url: "/radar_150",
+            views: {
+                'servicesContent': {
+                    templateUrl: "app/services/radar/radar_150.html"
+                }
+            }
+        })
+        .state('app.services.radar_250', {
+            //abstract: true,
+            url: "/aviation",
+            views: {
+                'servicesContent': {
+                    templateUrl: "app/services/radar/radar_250.html"
+                }
+            }
+        })
+        .state('app.services.radar_400', {
+            //abstract: true,
+            url: "/aviation",
+            views: {
+                'servicesContent': {
+                    templateUrl: "app/services/radar/radar_400.html"
+                }
+            }
+        })
+
+    // app.services.aviation.radar.250">
 
     .state('app.services.climate', {
         //abstract: true,

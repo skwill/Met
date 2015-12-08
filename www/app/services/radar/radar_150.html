@@ -1,0 +1,111 @@
+<ion-view view-title="Radar 150" ng-class="" class="" ng-controller="ServicesCtrl">
+    <ion-nav-bar class="bar no-border blue">
+        <ion-nav-back-button class="button-clear">
+            <i class="ion-arrow-left-c"></i>
+        </ion-nav-back-button>
+        <ion-nav-buttons side="left">
+            <button menu-toggle="left" class="button button-icon icon ion-navicon" ></button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content class="has-header " ng-init="radars_150()">
+        <div class="container">
+            <h5><strong>Click one to view it...!!</strong></h5>
+        </div>
+        <ion-list>
+
+            <!-- <ion-list> -->
+            <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in radars_150" ng-click="w_info_open({{item.warndatatblID}}, 'w')" data-id="item.warndatatblID">
+                <img ng-src="{{chat.face}}">
+                <h2>{{item.warnType}}</h2>
+                <p>{{item.currdate}}, {{item.issuedAt}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+                <ion-option-button class="button-stable" ng-click="share()">
+                    <i class="icon ion-android-share-alt"></i>
+                </ion-option-button>
+            </ion-item>
+                    <!-- </ion-list> -->
+
+           <!--  <ion-item class="item-avatar item-icon-right" ng-click="" data-id="">
+                <img ng-src="http://190.58.130.190/web/aviation/RadarPages2014/150km/vvp7.png">
+                <h4>VVP (Velocity Volume Processing)</h4>
+                <p>Provides an estimate of the wind profile up to a certain height.</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+                <ion-option-button class="button-stable" ng-click="share()">
+                    <i class="icon ion-android-share-alt"></i>
+                </ion-option-button>
+            </ion-item>
+
+            <ion-item class="item-avatar item-icon-right" ng-click="" data-id="">
+                <img ng-src="http://190.58.130.190/web/aviation/RadarPages2014/150km/sri7.png">
+                <h4>SRI (Serface Rainfall Intensity)</h4>
+                <p>An estimate of rainfall intensity associated with different echoes. </p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+                <ion-option-button class="button-stable" ng-click="share()">
+                    <i class="icon ion-android-share-alt"></i>
+                </ion-option-button>
+            </ion-item>
+
+            <ion-item class="item-avatar item-icon-right" ng-click="" data-id="">
+                <img ng-src="http://190.58.130.190/web/aviation/RadarPages2014/150km/ppi7.png">
+                <h4>PPI (Plan Position Indicator)</h4>
+                <p>A representation of the cloud echoes in a horizontal plane.</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+                <ion-option-button class="button-stable" ng-click="share()">
+                    <i class="icon ion-android-share-alt"></i>
+                </ion-option-button>
+            </ion-item>
+
+            <ion-item class="item-avatar item-icon-right" ng-click="" data-id="">
+                <img ng-src="http://190.58.130.190/web/aviation/RadarPages2014/150km/max7.png">
+                <h4>MAX (Maximum)</h4>
+                <p>Shows a 2 Dimensional (2D) flow for the horizontal and vertical profile of the clouds.</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+                <ion-option-button class="button-stable" ng-click="share()">
+                    <i class="icon ion-android-share-alt"></i>
+                </ion-option-button>
+            </ion-item>
+
+            <ion-item class="item-avatar item-icon-right" ng-click="" data-id="">
+                <img ng-src="http://190.58.130.190/web/aviation/RadarPages2014/150km/hwind7.png">
+                <h4>HWIND (Horizontal Wind)</h4>
+                <p>Shows wind flow at a specific altitude.</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+                <ion-option-button class="button-stable" ng-click="share()">
+                    <i class="icon ion-android-share-alt"></i>
+                </ion-option-button>
+            </ion-item>
+
+            <ion-item class="item-avatar item-icon-right" ng-click="" data-id="">
+                <img ng-src="http://190.58.130.190/web/aviation/RadarPages2014/150km/eht7.png">
+                <h4>EHT (Echo Height Top)</h4>
+                <p>Gives a representation of the height to which the top of the clouds extend.</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+                <ion-option-button class="button-stable" ng-click="share()">
+                    <i class="icon ion-android-share-alt"></i>
+                </ion-option-button>
+            </ion-item> -->
+
+        </ion-list>
+        <!-- <div class="list">
+            <div class="item">
+                <p>VVP (Velocity Volume Processing)</p>
+            </div>
+            <div class="item">
+                <p>VVP</p>
+            </div>
+            <div class="item">
+                <p>VVP</p>
+            </div>
+            <div class="item">
+                <p>VVP</p>
+            </div>
+            <div class="item">
+                <p>VVP</p>
+            </div>
+            <div class="item">
+                <p>VVP</p>
+            </div>
+        </div> -->
+    </ion-content>
+</ion-view>

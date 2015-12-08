@@ -149,6 +149,18 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(metApi, $scop
 		// sc.refresh_all_b();
 	}
 
+	$scope.radars_150 = function() {
+		$scope.radars_150_list = [{
+			'id': 1,
+			'img': 'http://190.58.130.190/web/aviation/RadarPages2014/150km/vvp7.png',
+			'title': 'VVP (Velocity Volume Processing)',
+			'follow': 'Provides an estimate of the wind profile up to a certain height.'
+		}]
+
+		console.log('radars 150', $scope.radars_150_list)
+	}
+
+
 
 
 

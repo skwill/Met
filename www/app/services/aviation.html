@@ -1,5 +1,5 @@
-<ion-view view-title="Aviation" ng-controller="ServicesCtrl as sc">
-    <ion-nav-bar class="bar no-border">
+<ion-view view-title="Aviation" ng-controller="ServicesCtrl as sc" >
+    <ion-nav-bar class="bar no-border blue">
         <ion-nav-back-button class="button-clear">
             <i class="ion-arrow-left-c"></i>
         </ion-nav-back-button>
@@ -11,7 +11,7 @@
         </ion-nav-buttons>
     </ion-nav-bar>
 
-    <div class="bar bar-subheader">
+    <div class="bar bar-subheader blue no-border">
         <p class="title">{{sub_title}}</p>
     </div>
 
@@ -21,111 +21,45 @@
     <ion-content class="has-header">
         <!-- <sup>Description of warnings</sup> -->
         <ion-slide-box on-slide-changed="slideHasChanged_a($index)" ng-init="sc.update_slide_a(0)">
+
             <ion-slide>
                 <div class="box">
                     <p>No Satellite data</p>
                 </div>
             </ion-slide>
+
             <ion-slide ng-init="sc.get_o_aviation()">
                 <div class="box">
                     <!-- <h1 class="text-center">Radar</h1> -->
                     <div class="list">
-                        <div ng-repeat="item in sc.aviation_items" data-id="item.watchdatatblID">
-                            <div class="item">
-                                <p class="title">Issued on {{item.insertionDate}} at {{item.issuedAt}}</p>
-                                <h6 class="follow"></h6>
-                                <div ng-init="sc.get_aviation_radar()">
-                                  <p>{{sc.radar.id}}</p>
-                                  <p>{{sc.radar.category}}</p>
-                                  <div id="img_holder"></div>
-                                  <!-- <img src="{{Base64.decode(sc.radar.image_src)}}" alt=""> -->
-                                  <!-- <p>{{sc.radar.id}}</p> -->
-                                </div>
-                            </div>
-                        </div>
+                        <div class="item" ui-sref="app.services.radar_loop">
+                          <h2>Radar Loop</h2>
+                      </div>
+                      <div class="item" ui-sref="app.services.radar_150">
+                          <h2>150 KM</h2>
+                      </div>
+                      <div class="item" ui-sref="app.services.radar_250">
+                          <h2>250 KM</h2>
+                      </div>
+                      <div class="item" ui-sref="app.services.radar_400">
+                          <h2>400 KM</h2>
+                      </div>
                     </div>
-                    <!-- <div ng-repeat="item in vm.bulletins">
-                        <div class="item" ng-click="openModalFunction()">
-                            <h1></h1>
-                            <h2>{{item.bulletinType}}</h2>
-                            <p>{{item.currdate}}, {{item.issuedAt}}</p>
-                        </div>
-                        <div class="item tabs tabs-secondary tabs-icon-left">
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-thumbsup"></i>
-                              Like
-                            </a>
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-chatbox"></i>
-                              Comment
-                            </a>
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-share"></i>
-                              Share
-                            </a>
-                        </div>
-                    </div> -->
-                    <!-- <p>Box 1</p>
-                    <p>{{vm.bulletins[0].bulletinType}}</p> -->
                 </div>
             </ion-slide >
 
             <ion-slide style="height: 400px;">
                 <div class="box">
                     <h1 class="text-center">Weather Reports</h1>
-                    <!-- <div ng-repeat="item in vm.flood" >
-                        <div class="item" ng-click="openModalFunction()">
-                            <h2>{{item.bulletinType}}</h2>
-                            <p>{{item.currdate}}, {{item.issuedAt}}</p>
-                        </div> -->
-                        <!-- <div class="item">
-                            <sup>{{item.currdate}}, {{item.issuedAt}}</sup>
-                        </div> -->
-                        <!-- <div class="item tabs tabs-secondary tabs-icon-left">
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-thumbsup"></i>
-                              Like
-                            </a>
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-chatbox"></i>
-                              Comment
-                            </a>
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-share"></i>
-                              Share
-                            </a>
-                        </div>
-                    </div> -->
                 </div>
             </ion-slide>
+
             <ion-slide style="height: 400px;">
                 <div class="box">
                     <h1 class="text-center">Forecast</h1>
-                    <!-- <div ng-repeat="item in vm.sea" >
-                        <div class="item" ng-click="openModalFunction()">
-                            <h2>{{item.bulletinType}}</h2>
-                            <p>{{item.currdate}}, {{item.issuedAt}}</p>
-                        </div> -->
-                        <!-- <div class="item">
-                            <sup>{{item.currdate}}, {{item.issuedAt}}</sup>
-                        </div> -->
-                       <!--  <div class="item tabs tabs-secondary tabs-icon-left">
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-thumbsup"></i>
-                              Like
-                            </a>
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-chatbox"></i>
-                              Comment
-                            </a>
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-share"></i>
-                              Share
-                            </a>
-                        </div>
-                    </div> -->
                 </div>
             </ion-slide>
+
         </ion-slide-box>
     </ion-content>
     <ion-tabs class="tabs-icon-top tabs-color-active-positive">
@@ -135,18 +69,3 @@
         <ion-tab title="Forecast" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="slide(3)"></ion-tab>
     </ion-tabs>
 </ion-view>
-
-<!-- <ion-slide-box on-slide-changed="slideHasChanged($index)" >
-    <ion-slide>
-      <div class="box blue" style="height: 400px; background-color: blue;"><h1>BLUE</h1></div>
-    </ion-slide>
-    <ion-slide>
-      <div class="box yellow" style="height: 400px; background-color: yellow;"><h1>YELLOW</h1></div>
-    </ion-slide>
-    <ion-slide>
-      <div class="box pink" style="height: 400px; background-color: pink;"><h1>PINK</h1></div>
-    </ion-slide>
-    <ion-slide>
-      <div class="box pink" style="height: 400px; background-color: black;"><h1>BLACK</h1></div>
-    </ion-slide>
-  </ion-slide-box> -->

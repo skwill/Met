@@ -113,7 +113,7 @@ h1,h2,h3,h4,h5 {
 //     // margin-top: 20px;
 // }
 .header {
-	-webkit-transition: background-color 0.4s ease-in-out;
+		-webkit-transition: background-color 0.4s ease-in-out;
            -moz-transition: background-color 0.4s ease-in-out;
              -o-transition: background-color 0.4s ease-in-out;
                 transition: background-color 0.4s ease-in-out;
@@ -577,12 +577,21 @@ h1,h2,h3,h4,h5 {
 	}
 }
 
+.services-list {
+	.item {
+		text-align: center;
+		padding: 10%;
+	}
+}
 
 .slider {
 	.card {
+		.icon {
+			color: red;
+		}
 		margin-top: 10px;
 		&.b-info {
-			border-left: 2px solid red;
+			border-left: 2px solid #4F91DD;
 		}
 	}
 }
@@ -681,6 +690,7 @@ h1,h2,h3,h4,h5 {
 			height: 100%;
 			text-align: center;
 			.list {
+				border-top: 3px solid #4F91DD;
 				height: 100%;
 				.item-complex {
 					background: transparent;
@@ -738,6 +748,13 @@ h1,h2,h3,h4,h5 {
 }
 
 .bar {
+	&.blue {
+		background: #4F91DD!important;
+		color: #fff;
+		button {
+			color: #fff;
+		}
+	}
 	&.no-border {
 		border-bottom: 1px solid transparent!important;
 		background-image: none;
