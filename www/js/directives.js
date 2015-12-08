@@ -257,9 +257,9 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
                 }
                 st = e.detail.scrollTop;
                 if (st >= 0) {
-                    header.style.webkitTransform = 'translate3d(0, 0, 0)';
+                    // header.style.webkitTransform = 'translate3d(0, 0, 0)';
                 } else if (st < 0) {
-                    header.style.webkitTransform = 'translate3d(0, ' + -st + 'px, 0)';
+                    // header.style.webkitTransform = 'translate3d(0, ' + -st + 'px, 0)';
                 }
                 amt = Math.min(0.6, st / 1000);
                 var b_amount = 60;
@@ -319,8 +319,11 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
                 // console.log('Active bg image changed', v);
                 var item = v;
                 var url = "http://farm" + item.farm + ".static.flickr.com/" + item.server + "/" + item.id + "_" + item.secret + "_z.jpg";
+                // var url = '';
                 $el2 = document.getElementById('menu-bg');
                 $el2.style.backgroundImage = 'url(' + url + ')'
+                $el3 = document.getElementById('i-trin');
+                $el3.src = url;
                 // console.log($element);
                 // alert("1");
                 animate($scope, $element, url);
@@ -358,6 +361,8 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
                     var url = "http://farm" + item.farm + ".static.flickr.com/" + item.server + "/" + item.id + "_" + item.secret + "_z.jpg";
                     $el2 = document.getElementById('menu-bg');
                     $el2.style.backgroundImage = 'url(' + url + ')'
+                    $el3 = document.getElementById('i-bago');
+                    $el3.src = url;
                     // console.log($element);
                     // alert("1");
                     animate($scope, $element, url);
