@@ -8,6 +8,10 @@ angular.module('ionic.metApp').controller('ForecastCtrl', function(metApi, $root
 			vm.hello = data.items[0].forecastTime;
 		})
 	}
+	$scope.isFlipped = false;
+	$scope.flip = function(country) {
+		$scope.isFlipped = !$scope.isFlipped;
+	}
 })
 /*var vm = this;
 	$scope.slideHasChanged = function(index) {

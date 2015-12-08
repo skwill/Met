@@ -1,13 +1,17 @@
 <ion-modal-view ng-controller="HomeCtrl">
   <ion-header-bar class="bar has-border">
-    <h1 class="title">UV Status</h1>
+    <h1 class="title">UV Index Monitor</h1>
     <div class="buttons">
-      <button class="button button-clear" ng-click="closeModal('show_home')">Close</button>
+      <button class="button button-clear" ng-click="closeModal('show_home')">
+        <i class="settings-icon ion-ios-close-empty"></i>
+      </button>
+
     </div>
   </ion-header-bar>
   <ion-content>
-      <div class="container list">
-        <p>UV Status info goes here</p>
-      </div>
+    <div class="container list">
+      <p>Do you understand <strong>UV Index monitor?</strong></p>
+      <p>Small amounts of UV are beneficial for people and essential in the production of vitamin D while UV radiation is also used to treat several diseases, including rackets, psoriasis, exzema and jaundice. However, excessive exposure to solar UV radiation can result in harmful effects to the skin, eyes and immune system. </p>
+    </div>
   </ion-content>
 </ion-modal-view>

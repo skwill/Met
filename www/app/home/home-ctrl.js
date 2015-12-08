@@ -419,7 +419,7 @@ angular.module('ionic.metApp')
 
 				$scope.current_temp_trin = _this.mdata[2].value.substring(0, 3);
 				$scope.dew_point_trin = $scope.set_due_point(3, _this.mdata);
-				$scope.summary_text_trin = m[1].value.indexOf('NOSIG') > -1 ? 'Clear ' + $scope.timeOfDay() : '';
+				// $scope.summary_text_trin = m[1].value.indexOf('NOSIG') > -1 ? 'Clear ' + $scope.timeOfDay() : '';
 			})
 		}
 
@@ -458,6 +458,7 @@ angular.module('ionic.metApp')
 			metApi.get_forecast(function(data) {
 				var f = data.items[0];
 				$scope.fcast = f.imageTrin;
+				$scope.summary_text_trin = f.textArea1;
 			})
 		}
 

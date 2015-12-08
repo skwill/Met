@@ -1,32 +1,32 @@
 <div id="five-thirty">
-    <div class="card">
-        <div class="item item-text-wrap">
+    <div class="card wide">
+        <div class="item item-text-wrap" ion-affix data-affix-within-parent-with-class="card">
             <div class="info-container">
                 <div class="row date">
                     <div class="col text-center">
                         <p>{{vm.forecast.timePeriod}}</p>
-                    </div>            
+                    </div>
                 </div>
                 <div class="row issued-at">
                     <div class="col text-center">
                         <p>Issued at {{vm.forecast.IssuedAt}}</p>
-                    </div>  
-                </div>   
+                    </div>
+                </div>
                 <div class="row meteoroligist">
                     <div class="col text-center">
                         <p>By {{vm.forecast.forecaster}}</p>
-                    </div>  
-                </div>     
+                    </div>
+                </div>
             </div>
             <i class="ion-ios-time-outline"></i>
-            <span class="em-txt">For The Period {{vm.forecast.forecastPeriod}}</span>            
+            <span class="em-txt">For The Period {{vm.forecast.forecastPeriod}}</span>
         </div>
-    </div>    
+    </div>
     <div ng-if="vm.forecast.textArea1">
-        <div class="card" >
-            <div class="item item-divider text-center">
+        <div class="card wide" >
+            <div class="item item-divider text-center" ion-affix data-affix-within-parent-with-class="card">
                 <i class="ion-ios-location"></i>
-                <p>{{vm.forecast.forecastArea1}}</p>            
+                <p>{{vm.forecast.forecastArea1}}</p>
             </div>
             <div class="item item-text-wrap">
                 <span class="em-txt"><p>{{vm.forecast.textArea1}}</p></span>
@@ -34,44 +34,44 @@
         </div>
     </div>
     <div ng-if="vm.forecast.textArea2">
-        <div class="card" >
-            <div class="item item-divider text-center">         
+        <div class="card wide" >
+            <div class="item item-divider text-center" ion-affix data-affix-within-parent-with-class="card">
                 <i class="ion-ios-location"></i>
-                <p>{{vm.forecast.forecastArea2}}</p>            
+                <p>{{vm.forecast.forecastArea2}}</p>
             </div>
-            <div class="item item-text-wrap">                
+            <div class="item item-text-wrap">
                 <span class="em-txt"><p>{{vm.forecast.textArea2}}</p></span>
             </div>
         </div>
     </div>
 
     <div ng-if="vm.forecast.textArea3">
-        <div class="card" >
-            <div class="item item-divider text-center">         
+        <div class="card wide" >
+            <div class="item item-divider text-center" ion-affix data-affix-within-parent-with-class="card">
                 <i class="ion-ios-location"></i>
-                <p>{{vm.forecast.forecastArea3}}</p>            
+                <p>{{vm.forecast.forecastArea3}}</p>
             </div>
-            <div class="item item-text-wrap">      
+            <div class="item item-text-wrap">
                 <span class="em-txt"><p>{{vm.forecast.textArea3}}</p></span>
             </div>
         </div>
-    </div>  
-    
+    </div>
+
     <div ng-if="vm.forecast.PiarcoFcstMxTemp">
-        <div class="card" id="temp-container">
-            <div class="item item-divider text-center">         
+        <div class="card wide" id="temp-container">
+            <div class="item item-divider text-center" ion-affix data-affix-within-parent-with-class="card">
                 <i class="ion-thermometer"></i>
                 <p>Temperature Forecast</p>
             </div>
-            <div class="item item-text-wrap"> 
+            <div class="item item-text-wrap">
                 <div class="row">
                     <div class="col text-center">
                         <span><p class="temp-sm">Piarco Max Temp</p></span>
-                        <span><p class="temp-lg">{{vm.forecast.PiarcoFcstMxTemp}}&deg;</p></span> 
+                        <span><p class="temp-lg">{{vm.forecast.PiarcoFcstMxTemp}}&deg;</p></span>
                         <br/><br/>
                         <span><p class="temp-sm">Piarco Min Temp</p></span>
-                        <span><p class="temp-lg">{{vm.forecast.PiarcoMnTemp}}&deg;</p></span>   
-                    </div>    
+                        <span><p class="temp-lg">{{vm.forecast.PiarcoMnTemp}}&deg;</p></span>
+                    </div>
                     <div class="col text-center">
                         <span><p class="temp-sm">Crown Point Max Temp</p></span>
                         <span><p class="temp-lg">{{vm.forecast.CrownFcstMxTemp}}&deg;</p></span>
@@ -82,74 +82,74 @@
                 </div>
             </div>
             <div class="item item-text-wrap text-center">
-                <span ng-if="vm.forecast.uvrate"> 
+                <span ng-if="vm.forecast.uvrate">
                     <p class="temp-lg">UV Rate: {{vm.forecast.uvrate}}</p>
                 </span>
             </div>
         </div>
     </div>
 
-    <div class="card">
-        <div class="item item-divider text-center">         
+    <div class="card wide">
+        <div class="item item-divider text-center" ion-affix data-affix-within-parent-with-class="card">
             <i class="ion-android-boat"></i>
             <p>Seas</p>
         </div>
-        <div class="item item-text-wrap text-center"> 
+        <div class="item item-text-wrap text-center">
             <span class="em-txt">
-                <p>{{vm.forecast.seas}}</p>                        
-            </span>           
+                <p>{{vm.forecast.seas}}</p>
+            </span>
         </div>
     </div>
 
-    <div class="card">
-        <div class="item item-divider text-center">         
+    <div class="card wide">
+        <div class="item item-divider text-center" ion-affix data-affix-within-parent-with-class="card">
             <i class="ion-help-buoy"></i>
             <p>Waves</p>
         </div>
-        <div class="item item-text-wrap text-center"> 
+        <div class="item item-text-wrap text-center">
             <span class="em-txt">
                 <p>{{vm.forecast.waves1}} {{vm.forecast.waves2}}</p>
-            </span>           
+            </span>
         </div>
     </div>
 
     <div ng-if="vm.forecast.addMarine">
-        <div class="row">
-            <div class="card">
-                <div class="item item-divider text-center">         
+        <div class="row no-padding">
+            <div class="card wide">
+                <div class="item item-divider text-center" ion-affix data-affix-within-parent-with-class="card">
                     <i class="ion-android-boat"></i>
                     <p>Additional Marine Info</p>
                 </div>
-                <div class="item item-text-wrap text-center"> 
+                <div class="item item-text-wrap text-center">
                     <span class="em-txt">
-                        <p>{{vm.forecast.addMarine}}</p>                     
-                    </span>           
+                        <p>{{vm.forecast.addMarine}}</p>
+                    </span>
                 </div>
             </div>
         </div>
     </div>
-    
-    <div class="card">
-        <div class="item item-divider text-center">         
+
+    <div class="card wide">
+        <div class="item item-divider text-center" ion-affix data-affix-within-parent-with-class="card">
             <i class="ion-ios-rainy-outline"></i>
             <p>Precipitation</p>
         </div>
-        <div class="item item-text-wrap text-center"> 
+        <div class="item item-text-wrap text-center">
             <span class="em-txt">
                 <p>{{vm.forecast.precipitation}}</p>
-            </span>           
+            </span>
         </div>
     </div>
 
-    <div class="card">
-        <div class="item item-divider text-center">         
+    <div class="card wide">
+        <div class="item item-divider text-center" ion-affix data-affix-within-parent-with-class="card">
             <i class="ion-umbrella"></i>
             <p>Probable Rainfall</p>
         </div>
-        <div class="item item-text-wrap text-center"> 
+        <div class="item item-text-wrap text-center">
             <span class="em-txt">
                 <p>{{vm.forecast.probrainfall}}</p>
-            </span>           
+            </span>
         </div>
     </div>
 </div>

@@ -27,7 +27,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
     });
     // ionic configs
     $ionicConfigProvider.tabs.position('bottom');
-    $ionicConfigProvider.scrolling.jsScrolling(false);
+    // $ionicConfigProvider.scrolling.jsScrolling(false);
 
     //this is the home route
     $stateProvider
