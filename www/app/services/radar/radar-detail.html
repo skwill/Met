@@ -1,5 +1,5 @@
-<ion-view view-title="Radar 400" ng-class="" class="" ng-controller="RadarDetailCtrl as rdc">
-    <ion-nav-bar class="bar no-border blue">
+<ion-view view-title="{{rdc.radar.title}}" ng-class="" class="" ng-init="get_radar_detail()">
+    <ion-nav-bar class="bar no-border blue blur-it">
         <ion-nav-back-button class="button-clear">
             <i class="ion-arrow-left-c"></i>
         </ion-nav-back-button>
@@ -8,10 +8,17 @@
         </ion-nav-buttons>
     </ion-nav-bar>
 
-    <ion-content class="has-header" ng-init="sc.get_radar_400()">
+    <ion-content class="has-header blur-it">
         <div class="container" >
             <h5><strong>{{rdc.radar.title}}</strong></h5>
+            <div ng-if="rdc.radar.title == 'Radar Loop'">
+                <h5>Radar Loop may take a while to load</h5>
+                <!-- <button> -->
+                    <button ng-click="reload_page()" class="button button-icon"><i class="settings-icon ion-ios-reload"></i></button>
+                <!-- </button> -->
+            </div>
             <p>{{rdc.radar.sub}}</p>
+            <h6 ng-if="rdc.radar.cat">Scan: {{rdc.radar.cat}}km</h6>
         </div>
         <div class="container">
             <!-- <p>Some title for the image</p> -->

@@ -6,7 +6,7 @@
 
 
 	function metApi($http) {
-/*
+		/*
 		function get_forecast(callback, id) {
 			var link = (id = !'undefined') ? '/' + id : '';
 			$http.get(url + '/forecast' + link).success(function(resp) {
@@ -156,7 +156,13 @@
 		// new set of keys
 		// was there before just modified to take an id
 		function get_radar(callback, id) {
-			var link = (id = !'undefined') ? '/' + id : '';
+			var link = "";
+			if (id && id != 0) {
+				link = '/' + id;
+			}
+			// var link = (id = !'undefined') ? '/' + id : '';
+
+			// console.log('link', link)
 			$http.get(url + '/radars' + link).success(function(data) {
 				callback(data)
 			})

@@ -160,9 +160,19 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
                 }
             }
         })
+        .state('app.services.radar-detail', {
+            //abstract: true,
+            url: "/radar_detail/:id",
+            views: {
+                'servicesContent': {
+                    templateUrl: "app/services/radar/radar-detail.html",
+                    controller: 'RadarDetailCtrl as rdc',
+                }
+            }
+        })
         .state('app.services.radar_250', {
             //abstract: true,
-            url: "/aviation",
+            url: "/radar_250",
             views: {
                 'servicesContent': {
                     templateUrl: "app/services/radar/radar_250.html"
@@ -171,10 +181,11 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
         })
         .state('app.services.radar_400', {
             //abstract: true,
-            url: "/aviation",
+            url: "/radar_400",
             views: {
                 'servicesContent': {
-                    templateUrl: "app/services/radar/radar_400.html"
+                    templateUrl: "app/services/radar/radar_400.html",
+                    // controller: 'RadarDetailCtrl as rdc',
                 }
             }
         })
@@ -363,6 +374,11 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
                 console.log("Device token: ", token.token)
             })
         })
+
+        $(document).ready(function() {
+            /* Basic Gallery */
+            $('.swipebox').swipebox();
+        })
         // document.addEventListener('deviceready', function() {
         //     // Enable to debug issues.
         //     // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
@@ -379,6 +395,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
         //     // Show an alert box if a notification comes in when the user is in your app.
         //     window.plugins.OneSignal.enableInAppAlertNotification(true);
         // }, false);
+
     });
 // .controller('appCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval) {
 

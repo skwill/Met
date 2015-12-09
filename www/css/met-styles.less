@@ -583,6 +583,14 @@ h1,h2,h3,h4,h5 {
 		padding: 10%;
 	}
 }
+#swipebox-overlay {
+	background: rgba(13, 13, 13, .8)
+}
+#swipebox-slider {
+	.slide {
+		// border-top: 3px solid #4F91DD;
+	}
+}
 
 .slider {
 	.card {
@@ -683,6 +691,22 @@ h1,h2,h3,h4,h5 {
 	clip: rect(520px 573px 516px 351px);
 	transition: all 0.5s ease-in-out;
 }
+
+.blur-it {
+	transition: all 0.4s ease-in-out;
+	&.blur_small {
+
+	-webkit-filter: blur(10px); //contrast(0.4) brightness(1.4);
+	   -moz-filter: blur(10px); //contrast(0.4) brightness(1.4);
+	     -o-filter: blur(10px); //contrast(0.4) brightness(1.4);
+	    -ms-filter: blur(10px); // contrast(0.4) brightness(1.4);
+	filter: url("data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='20'%20/></filter></svg>#blur");
+	filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='20');
+	// clip: rect(520px 573px 516px 351px);
+
+	}
+}
+
 
 .menu {
 	&.menu-left {

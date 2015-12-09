@@ -15,15 +15,11 @@
         <p class="title">{{sub_title}}</p>
     </div>
 
-<!-- 	<ion-content class="has-header"> -->
-		<!-- <h4>Bullettins</h4> -->
-
     <ion-content class="has-header">
-        <!-- <sup>Description of warnings</sup> -->
         <ion-slide-box on-slide-changed="slideHasChanged_a($index)" ng-init="sc.update_slide_a(0)">
 
             <ion-slide>
-                <div class="box">
+                <div class="box container">
                     <p>No Satellite data</p>
                 </div>
             </ion-slide>
@@ -32,25 +28,62 @@
                 <div class="box">
                     <!-- <h1 class="text-center">Radar</h1> -->
                     <div class="list">
-                        <div class="item" ui-sref="app.services.radar_loop">
-                          <h2>Radar Loop</h2>
-                      </div>
-                      <div class="item" ui-sref="app.services.radar_150">
-                          <h2>150 KM</h2>
-                      </div>
-                      <div class="item" ui-sref="app.services.radar_250">
-                          <h2>250 KM</h2>
-                      </div>
-                      <div class="item" ui-sref="app.services.radar_400">
-                          <h2>400 KM</h2>
-                      </div>
+                        <a class="item" href="#/app/services/radar_detail/0">
+                            <h2>Radar Loop</h2>
+                        </a>
+                        <div class="item" ui-sref="app.services.radar_150">
+                            <h2>150 KM</h2>
+                        </div>
+                        <div class="item" ui-sref="app.services.radar_250">
+                            <h2>250 KM</h2>
+                        </div>
+                        <a class="item" href="#/app/services/radar_detail/15">
+                            <h2>400 KM</h2>
+                        </a>
                     </div>
                 </div>
             </ion-slide >
 
-            <ion-slide style="height: 400px;">
+            <ion-slide ng-init="sc.get_metars()">
                 <div class="box">
-                    <h1 class="text-center">Weather Reports</h1>
+                    <div class="group">
+                        <div class="group-list">
+                            <div class="item item-divider" ion-affix data-affix-within-parent-with-class="group-list">
+                                Metars Trinidad
+                            </div>
+                            <!-- <span class="badge badge-royal">{{n}}</span> -->
+                            <div class="row " ng-repeat="item in sc.mdata">
+                                <div class="card wide" ng-if="item.show">
+                                    <div class="item item-divider" ion-affix data-affix-within-parent-with-class="card">
+                                        {{item.label}}
+                                    </div>
+                                    <div class="item item-text-wrap">
+                                        <i class="{{item.icon}}"></i>
+                                        <span class="txt" id="{{item.el}}">{{item.value}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group-list">
+                            <div class="item item-divider" ion-affix data-affix-within-parent-with-class="group-list">
+                                Sigmet
+                            </div>
+                            <div class="row " ng-repeat="item in sc.sig">
+                                <div class="card wide">
+                                    <div class="item item-divider" ion-affix data-affix-within-parent-with-class="card">
+                                        {{item.forecaster}}
+                                    </div>
+                                    <div class="item item-text-wrap">
+                                        <p>{{item.currdate}}</p>
+                                        <p>{{item.issuedAt}}</p>
+                                        <p>{{item.textArea1}}</p>
+                                        <p>{{item.textArea2}}</p>
+                                        <p>{{item.textArea3}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </ion-slide>
 
@@ -63,9 +96,9 @@
         </ion-slide-box>
     </ion-content>
     <ion-tabs class="tabs-icon-top tabs-color-active-positive">
-        <ion-tab title="Satellite" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="slide(0)"></ion-tab>
-        <ion-tab title="Radar" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="slide(1)"></ion-tab>
-        <ion-tab title="Weather Reports" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="slide(2)"></ion-tab>
-        <ion-tab title="Forecast" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="slide(3)"></ion-tab>
+        <ion-tab title="Satellite" icon-off="ion-earth" icon-on="ion-ios-arrow-up" on-select="slide(0)"></ion-tab>
+        <ion-tab title="Radar" icon-off="ion-radio-waves" icon-on="ion-ios-arrow-up" on-select="slide(1)"></ion-tab>
+        <ion-tab title="Weather Reports" icon-off="ion-easel" icon-on="ion-ios-arrow-up" on-select="slide(2)"></ion-tab>
+        <ion-tab title="Forecast" icon-off="ion-ios-calendar-outline" icon-on="ion-ios-arrow-up" on-select="slide(3)"></ion-tab>
     </ion-tabs>
 </ion-view>
