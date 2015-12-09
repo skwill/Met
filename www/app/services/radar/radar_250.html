@@ -1,4 +1,4 @@
-<ion-view view-title="Contact" ng-class="" class="">
+<ion-view view-title="Radar 250" ng-class="" class="" ng-controller="ServicesCtrl as sc">
     <ion-nav-bar class="bar no-border blue">
         <ion-nav-back-button class="button-clear">
             <i class="ion-arrow-left-c"></i>
@@ -8,71 +8,20 @@
         </ion-nav-buttons>
     </ion-nav-bar>
 
-    <ion-content class="has-header ">
+    <ion-content class="has-header " ng-init="sc.radars_250()">
         <div class="container">
-            <h5><strong>Connect with us using the information below.</strong></h5>
+            <h5><strong>Click one to view it...!!</strong></h5>
         </div>
-        <div class="row no-padding">
-            <div class="card wide">
-                <div class="item item-divider" ion-affix data-affix-within-parent-with-class="card">
-                    Rawinsonde Building
-                </div>
-                <div class="item item-text-wrap">
-                    <strong>South Terminal</strong><br>
-                    <ul>
-                        <li>Piarco International Airport, Piarco</li>
-                        <li>Trinidad</li>
-                        <li>Ph : 868-669-5465/3964</li>
-                        <li>Fx : 868-669-4009</li>
-                        <li>Em : dirmet@metoffice.gov.tt</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="row no-padding">
-            <div class="card wide">
-                <div class="item item-divider" ion-affix data-affix-within-parent-with-class="card">
-                    Synoptic Branch
-                </div>
-                <div class="item item-text-wrap">
-                    <strong>South Terminal</strong><br>
-                    <ul>
-                        <li>Piarco International Airport, Piarco</li>
-                        <li>Trinidad</li>
-                        <li>Ph : 868-669-4392</li>
-                        <li>Fx : 868-669-4727</li>
-                        <li>Em :synop@metoffice.gov.tt</li>
-                        <li></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="row no-padding">
-            <div class="card wide">
-                <div class="item item-divider" ion-affix data-affix-within-parent-with-class="card">
-                    Crown Point Meteorological Office
-                </div>
-                <div class="item item-text-wrap">
-                    <strong>Crown Point International Airport</strong><br>
-                    <ul>
-                        <li>Crown Point, Tobago</li>
-                        <li>Ph : 868- 639- 8780</li>
-                        <li>Fx : 868-639-9987</li>
-                        <li>Em : crownmet@metoffice.gov.tt</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-
-
-
-
-
-
+        <ion-list>
+            <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in sc.radars_250_list" href="#/app/services/radar_detail/{{item.id}}">
+                <img ng-src="{{item.img}}">
+                <h2>{{item.title}}</h2>
+                <p>{{item.sub}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+                <ion-option-button class="button-stable" ng-click="share()">
+                    <i class="icon ion-android-share-alt"></i>
+                </ion-option-button>
+            </ion-item>
+        </ion-list>
     </ion-content>
 </ion-view>

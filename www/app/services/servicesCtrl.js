@@ -1,4 +1,4 @@
-angular.module('ionic.metApp').controller('ServicesCtrl', function(metApi, $scope, $ionicLoading, $timeout, $ionicModal, $cordovaDevice, $ionicPlatform, $cordovaPush, $ionicSlideBoxDelegate) {
+angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metApi, $scope, $ionicLoading, $timeout, $ionicModal, $cordovaDevice, $ionicPlatform, $cordovaPush, $ionicSlideBoxDelegate) {
 
 	var sc = this;
 
@@ -11,7 +11,7 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(metApi, $scop
 	sc.get_o_aviation = function() {
 		metApi.get_o_aviation(function(data) {
 			sc.aviation_items = data.items;
-			console.log(sc.aviation_items);
+			// console.log(sc.aviation_items);
 		})
 	}
 
@@ -149,23 +149,262 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(metApi, $scop
 		// sc.refresh_all_b();
 	}
 
-	$scope.radars_150 = function() {
-		$scope.radars_150_list = [{
-			'id': 1,
-			'img': 'http://190.58.130.190/web/aviation/RadarPages2014/150km/vvp7.png',
-			'title': 'VVP (Velocity Volume Processing)',
-			'follow': 'Provides an estimate of the wind profile up to a certain height.'
-		}]
-
-		console.log('radars 150', $scope.radars_150_list)
+	sc.radars_150 = function() {
+		sc.radars_150_list = Radars.all_of_cat(150);
+		console.log('radars 150', sc.radars_150_list)
+	}
+	sc.radars_250 = function() {
+		sc.radars_250_list = Radars.all_of_cat(250);
+		console.log('radars 250', sc.radars_250_list)
+	}
+	sc.get_radar_400 = function() {
+		alert();
 	}
 
+	sc.get_metars = function() {
+		metApi.get_metar(function(data) {
+			var m = data.items;
+			// gets the current temp, we only care about the exact number so pull that out from the string
 
+			// these are the ids of the metas we want for trinidad
+			var ids = [{
+				'id': 1, // metar fir
+				'icon': 'icon ion-ios-location-outline',
+				'el': 'met-loc',
+				'show': true
+			}, {
+				'id': 2, // text
+				'icon': 'icon ion-thermometer',
+				'el': null,
+				'show': false
+			}, {
+				'id': 3, // temp
+				'icon': 'icon ion-thermometer',
+				'el': 'temp',
+				'show': true
+			}, {
+				'id': 4, // dewpoint
+				'icon': 'icon ion-waterdrop',
+				'el': 'dew',
+				'show': true
+			}, {
+				'id': 5, // pressure
+				'icon': 'icon ion-ios-speedometer-outline',
+				'el': 'pressure',
+				'show': true
+			}, {
+				'id': 6, // winds
+				'icon': 'icon ion-ios-analytics-outline',
+				'el': 'winds',
+				'show': true
+			}, {
+				'id': 7, // visibility
+				'icon': 'icon',
+				'el': 'weather',
+				'show': false
+			}, {
+				'id': 8, // ceiling
+				'el': 'weather',
+				'show': false
+			}, {
+				'id': 9, // clouds
+				'icon': 'icon ion-ios-cloudy-outline',
+				'el': 'clouds',
+				'show': true
+			}, {
+				'id': 10, // weather
+				'icon': 'icon ion-umbrella',
+				'el': 'weather',
+				'show': false
+			}];
 
+			sc.mdata = [];
+			for (i = 0; i < m.length; i++) {
+				if (m[i].station == "TTPP") {
+					sc.mdata.push({
+						'id': m[i].id,
+						'label': m[i].label,
+						'station': m[i].station,
+						'value': m[i].value,
+						'icon': ids[i].icon,
+						'el': ids[i].el,
+						'show': ids[i].show
+					});
+				}
+			}
+		})
+		sc.sigmet();
+	}
 
-
-
-
-
+	sc.sigmet = function() {
+		metApi.get_sigmet(function(data) {
+			sc.sig = data.items;
+			console.debug('sigmet', sc.sig)
+		})
+	}
 
 })
+	.controller('RadarDetailCtrl', function($scope, $stateParams, metApi, Radars) {
+		// $scope.radar = radar_list.get($stateParams.chatId);
+		var rdc = this;
+		$scope.get_radar_detail = function() {
+			console.log("here")
+			rdc.radar = Radars.get($stateParams.id);
+			metApi.get_radar(function(data) {
+
+				//sc.aviation_items = data.items;
+
+				// rdc.radar = data;
+				var image = new Image();
+				image.src = data.image_src;
+				image.style.maxWidth = "100%";
+
+				var img_div = $('.img_holder');
+				img_div.html(image);
+				img_div.find('img').wrap('<a href="' + data.image_src + '" class="swipebox" title="' + rdc.radar.title + '"></a>')
+
+			// $('.scroll-content.ionic-scroll.has-header, .bar.no-border.blue').addClass('blur_small')
+				console.log('radar image', data)
+				// console.log(i);
+			}, $stateParams.id);
+			rdc.radar = Radars.get($stateParams.id)
+
+			// get text based details of radar
+			console.debug('radar item detail', Radars.get($stateParams.id))
+		}
+		$scope.reload_page = function() {
+			// alert();
+			$state.go($state.current, {}, {
+				reload: true
+			});
+		}
+		// $scope.get_radar_detail();
+		// console.log($stateParams.id)
+	})
+	.factory('Radars', function() {
+		var radar_list = [{
+				'id': 0,
+				'img': ' ',
+				'title': 'Radar Loop',
+				'sub': 'Loops all radar scans.',
+				'cat': null
+			}, {
+				'id': 1,
+				'img': 'http://190.58.130.190/web/aviation/RadarPages2014/150km/eht7.png',
+				'title': 'EHT (Echo Height Top)',
+				'sub': 'Gives a representation of the height to which the top of the clouds extend.',
+				'cat': 150
+			}, {
+				'id': 2,
+				'img': 'http://190.58.130.190/web/aviation/RadarPages2014/150km/hwind7.png',
+				'title': 'HWIND (Horizontal Wind)',
+				'sub': 'Shows wind flow at a specific altitude.',
+				'cat': 150
+			}, {
+				'id': 3,
+				'img': 'http://190.58.130.190/web/aviation/RadarPages2014/150km/max7.png',
+				'title': 'MAX (Maximum)',
+				'sub': 'Shows a 2 Dimensional (2D) flow for the horizontal and vertical profile of the clouds.',
+				'cat': 150
+			}, {
+				'id': 4,
+				'img': ' ',
+				'title': 'PAC',
+				'sub': 'No Subtitle',
+				'cat': 150
+			}, {
+				'id': 5,
+				'img': 'http://190.58.130.190/web/aviation/RadarPages2014/150km/ppi7.png',
+				'title': 'PPI (Plan Position Indicator)',
+				'sub': 'A representation of the cloud echoes in a horizontal plane.',
+				'cat': 150
+			}, {
+				'id': 6,
+				'img': 'http://190.58.130.190/web/aviation/RadarPages2014/150km/sri7.png',
+				'title': 'SRI (Serface Rainfall Intensity)',
+				'sub': 'An estimate of rainfall intensity associated with different echoes.',
+				'cat': 150
+			}, {
+				'id': 7,
+				'img': 'http://190.58.130.190/web/aviation/RadarPages2014/150km/vvp7.png',
+				'title': 'VVP (Velocity Volume Processing)',
+				'sub': 'Provides an estimate of the wind profile up to a certain height.',
+				'cat': 150
+			},
+			// - - - - - - - - - - - - - -
+			// radars 250
+			{
+				'id': 8,
+				'img': 'http://190.58.130.190/web/aviation/RadarPages2014/200km/eht1.png',
+				'title': 'ETH(Height)',
+				'sub': 'Gives a representation of the height to which the top of the clouds extend.',
+				'cat': 250
+			}, {
+				'id': 9,
+				'img': '',
+				'title': '',
+				'sub': '',
+				'cat': 0
+			}, {
+				'id': 10,
+				'img': 'http://190.58.130.190/web/aviation/RadarPages2014/200km/hwind7.png',
+				'title': 'HWIND (Horizontal Wind)',
+				'sub': 'Shows wind flow at a specific altitude.',
+				'cat': 250
+			}, {
+				'id': 11,
+				'img': 'http://190.58.130.190/web/aviation/RadarPages2014/200km/max7.png',
+				'title': 'MAX (Maximum)',
+				'sub': 'Shows a 2 Dimensional (2D) flow for the horizontal and vertical profile of the clouds.',
+				'cat': 250
+			}, {
+				'id': 12,
+				'img': 'http://190.58.130.190/web/aviation/RadarPages2014/200km/ppi7.png',
+				'title': 'PPI (Plan Position Indicator)',
+				'sub': 'A representation of the cloud echoes in a horizontal plane.',
+				'cat': 250
+			}, {
+				'id': 13,
+				'img': 'http://190.58.130.190/web/aviation/RadarPages2014/200km/sri7.png',
+				'title': 'SRI (Serface Rainfall Intensity)',
+				'sub': 'An estimate of rainfall intensity associated with different echoes.',
+				'cat': 250
+			}, {
+				'id': 14,
+				'img': 'http://190.58.130.190/web/aviation/RadarPages2014/200km/vvp7.png',
+				'title': 'VVP (Velocity Volume Processing)',
+				'sub': 'Provides an estimate of the wind profile up to a certain height.',
+				'cat': 250
+			},
+			// - - - - - - - - - - - - - -
+			// radars 400
+			{
+				'id': 15,
+				'img': 'http://190.58.130.190/web/aviation/RadarPages2014/400km/400ppi7.png',
+				'title': 'PPI (Plan Position Indicator)',
+				'sub': 'A representation of the cloud echoes in a horizontal plane.',
+				'cat': 400
+			},
+
+		]
+
+		return {
+			all_of_cat: function(cat_filter) {
+				var cat_list = [];
+				for (var i = 0; i < radar_list.length; i++) {
+					if (radar_list[i].cat === parseInt(cat_filter)) {
+						cat_list.push(radar_list[i]);
+					}
+				}
+				return cat_list;
+			},
+			get: function(radar_id) {
+				for (var i = 0; i < radar_list.length; i++) {
+					if (radar_list[i].id === parseInt(radar_id)) {
+						return radar_list[i];
+					}
+				}
+				return null;
+			}
+		};
+	});

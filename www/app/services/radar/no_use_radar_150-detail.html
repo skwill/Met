@@ -1,4 +1,4 @@
-<ion-view view-title="Radar 400" ng-class="" class="" ng-controller="RadarDetailCtrl as rdc">
+<ion-view view-title="{{rdc.radar.title}}" ng-class="" class="" ng-init="get_radar_detail()">
     <ion-nav-bar class="bar no-border blue">
         <ion-nav-back-button class="button-clear">
             <i class="ion-arrow-left-c"></i>
@@ -8,7 +8,7 @@
         </ion-nav-buttons>
     </ion-nav-bar>
 
-    <ion-content class="has-header" ng-init="sc.get_radar_400()">
+    <ion-content class="has-header">
         <div class="container" >
             <h5><strong>{{rdc.radar.title}}</strong></h5>
             <p>{{rdc.radar.sub}}</p>
