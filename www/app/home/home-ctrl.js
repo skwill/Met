@@ -62,6 +62,13 @@ angular.module('ionic.metApp')
 			}
 		}
 
+		$scope.$on('$ionicView.beforeEnter', function() {
+			console.log('before enter')
+			// $state.reload();
+			// $ionicHistory.clearCache();
+			// $ionicHistory.clearHistory();
+		})
+
 		// close any modal found in the scope
 		// also special case: if modal is a child of met services menu then open parent
 		$scope.closeModal = function(a) {
@@ -420,6 +427,7 @@ angular.module('ionic.metApp')
 
 				$scope.current_temp_trin = _this.mdata[2].value.substring(0, 3);
 				$scope.dew_point_trin = $scope.set_due_point(3, _this.mdata);
+				console.debug('metars trin', data);
 				// $scope.summary_text_trin = m[1].value.indexOf('NOSIG') > -1 ? 'Clear ' + $scope.timeOfDay() : '';
 			})
 		}
@@ -611,9 +619,9 @@ angular.module('ionic.metApp')
 							'label': m[i].label,
 							'station': m[i].station,
 							'value': m[i].value,
-							'icon': ids[c].icon,
-							'el': ids[c].el,
-							'show': ids[c].show
+							'icon': ids[c] != undefined ? ids[c].icon : '',
+							'el': ids[c] != undefined ? ids[c].el : '',
+							'show': ids[c] != undefined ? ids[c].show : ''
 						});
 						// console.log(i, ids[c])
 						c++;
@@ -622,6 +630,7 @@ angular.module('ionic.metApp')
 
 
 				$scope.current_temp = _this.mdatab[2].value.substring(0, 3);
+				console.log('bago temp', _this.mdatab)
 				$scope.dew_point = $scope.set_due_point(3, _this.mdatab);
 				$scope.summary_text = _this.mdatab[1].value.indexOf('NOSIG') > -1 ? 'Clear ' + $scope.timeOfDay() : '';
 			})

@@ -310,7 +310,7 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 				img_div.html(image);
 				img_div.find('img').wrap('<a href="' + data.image_src + '" class="swipebox" title="' + rdc.radar.title + '"></a>')
 
-			// $('.scroll-content.ionic-scroll.has-header, .bar.no-border.blue').addClass('blur_small')
+				// $('.scroll-content.ionic-scroll.has-header, .bar.no-border.blue').addClass('blur_small')
 				console.log('radar image', data)
 				// console.log(i);
 			}, $stateParams.id);
@@ -368,7 +368,7 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 			}, {
 				'id': 6,
 				'img': 'http://190.58.130.190/web/aviation/RadarPages2014/150km/sri7.png',
-				'title': 'SRI (Serface Rainfall Intensity)',
+				'title': 'SRI (Surface Rainfall Intensity)',
 				'sub': 'An estimate of rainfall intensity associated with different echoes.',
 				'cat': 150
 			}, {
@@ -413,7 +413,7 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 			}, {
 				'id': 13,
 				'img': 'http://190.58.130.190/web/aviation/RadarPages2014/200km/sri7.png',
-				'title': 'SRI (Serface Rainfall Intensity)',
+				'title': 'SRI (Surface Rainfall Intensity)',
 				'sub': 'An estimate of rainfall intensity associated with different echoes.',
 				'cat': 250
 			}, {
