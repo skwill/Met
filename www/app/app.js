@@ -39,7 +39,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
 
     .state('app.home', {
         url: '/home',
-        // cache: false,
+        cache: false,
         views: {
             //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
             'mainContent': {
@@ -50,6 +50,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
 
     .state('app.bullettins', {
         url: '/bullettins',
+        cache: false,
         // abstract: true,
         views: {
             //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
@@ -58,32 +59,10 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
             }
         }
     })
-    // .state('app.bullettin-detail', {
-    //   url: '/bullettins/:bullettinId',
-    //   // abstract: true,
-    //   views: {
-    //     //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
-    //     'mainContent': {
-    //       templateUrl: "app/bullettins/info_item.html",
-    //       controller: 'BulletinsDCtrl'
-    //     }
-    //   }
-    // })
-
-
-    // .state('app.bulletinsev', {
-    //     url: '/bulletinsev',
-    //     views: {
-    //         //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
-    //         'mainContent': {
-    //             templateUrl: "app/bullettins/severe.html"
-
-    //         }
-    //     }
-    // })
 
     .state('app.warnings', {
         url: '/warnings',
+        cache: false,
         views: {
             //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
             'mainContent': {
@@ -133,15 +112,6 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
         }
     })
 
-    // .state('app.services.radar_loop', {
-    //     //abstract: true,
-    //     url: "/radar_loop",
-    //     views: {
-    //         'servicesContent': {
-    //             templateUrl: "app/services/radar/radar_loop.html"
-    //         }
-    //     }
-    // })
     .state('app.services.radar_loop', {
         //abstract: true,
         url: "/radar_loop",
@@ -202,22 +172,9 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
         }
     })
 
-
-
-
-    // .state('app.bullettins', {
-    //     url: '/bullettins',
-    //     // abstract: true,
-    //     views: {
-    //         //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
-    //         'mainContent': {
-    //             templateUrl: "app/bullettins/bullettins.html"
-    //         }
-    //     }
-    // })
-
     .state('app.forecast', {
         url: '/forecast',
+        cache: false,
         // abstract: true,
         views: {
             //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
@@ -237,20 +194,6 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
             }
         })
 
-
-    // .state('app.bullettin-detail', {
-    //   url: '/bullettins/:bullettinId',
-    //   // abstract: true,
-    //   views: {
-    //     //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
-    //     'mainContent': {
-    //       templateUrl: "app/bullettins/info_item.html",
-    //       controller: 'BulletinsDCtrl'
-    //     }
-    //   }
-    // })
-
-
     .state('app.bulletinsev', {
         url: '/bulletinsev',
         views: {
@@ -261,25 +204,6 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
             }
         }
     })
-
-    // .state('app.warnings', {
-    //     url: '/warnings',
-    //     views: {
-    //         //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
-    //         'mainContent': {
-    //             templateUrl: "app/warnings/warnings.html"
-    //         }
-    //     }
-    // })
-    // .state('app.about', {
-    //     url: '/about',
-    //     views: {
-    //         'mainContent': {
-    //             templateUrl: 'app/about/about.html'
-    //         }
-    //     }
-
-    // })
 
     .state('app.services.marine', {
         //abstract: true,

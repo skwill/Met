@@ -22,101 +22,54 @@
                         <p>Issued at {{wc.wt_items.issuedAt}}</p>
                     </div>
                     <div class="item item-text-wrap">
-                        <span ng-if="wc.wt_items.textArea1" class="em-txt"><p>{{wc.wt_items.textArea1}}</p></span><br/>
-                        <span ng-if="wc.wt_items.textArea2" class="em-txt"><p>{{wc.wt_items.textArea2}}</p></span><br/>
-                        <span ng-if="wc.wt_items.textArea3" class="em-txt"><p>{{wc.wt_items.textArea3}}</p></span><br/>
-                        <!-- <span ng-if="vm.b_info.textArea4" class="em-txt"><p>{{vm.b_info.textArea4}}</p></span><br/>
-                        <span ng-if="vm.b_info.textArea5" class="em-txt"><p>{{vm.b_info.textArea5}}</p></span><br/> -->
+                        <span ng-if="wc.wt_items.textArea1" class="em-txt"><p>{{wc.wt_items.textArea1}}</p><br/></span>
+                        <span ng-if="wc.wt_items.textArea2" class="em-txt"><p>{{wc.wt_items.textArea2}}</p><br/></span>
+                        <span ng-if="wc.wt_items.textArea3" class="em-txt"><p>{{wc.wt_items.textArea3}}</p><br/></span>
                         <span ng-if="!wc.wt_items.textArea3 && !wc.wt_items.textArea2 && !wc.wt_items.textArea1" class="em-txt text-center"><p>There is no {{wc.wt_items.warnType}} at this time</p></span>
                     </div>
                 </div>
             </ion-slide>
             <ion-slide ng-init="wc.get_warn()">
-                <!-- <div class="box">
-                    <ion-list>
-                        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in wc.w_items" ng-click="w_info_open({{item.warndatatblID}}, 'w')" data-id="item.warndatatblID">
-                            <img ng-src="{{chat.face}}">
-                            <h2>{{item.warnType}}</h2>
-                            <p>{{item.currdate}}, {{item.issuedAt}}</p>
-                            <i class="icon ion-chevron-right icon-accessory"></i>
-                            <ion-option-button class="button-stable" ng-click="share()">
-                                <i class="icon ion-android-share-alt"></i>
-                            </ion-option-button>
-                        </ion-item>
-                    </ion-list>
-                </div> -->
                 <div class="card b-info" >
                     <div class="item item-divider text-center">
-                        <i class="iicon pull-left on-flag"></i>
+                        <i class="icon pull-left ion-flag"></i>
                         <p>{{wc.w_items.warnType}}</p>
                         <p>Issued at {{wc.w_items.issuedAt}}</p>
                     </div>
                     <div class="item item-text-wrap">
-                        <span ng-if="wc.w_items.textArea1" class="em-txt"><p>{{wc.w_items.textArea1}}</p></span><br/>
-                        <span ng-if="wc.w_items.textArea2" class="em-txt"><p>{{wc.w_items.textArea2}}</p></span><br/>
-                        <span ng-if="wc.w_items.textArea3" class="em-txt"><p>{{wc.w_items.textArea3}}</p></span><br/>
-                        <!-- <span ng-if="vm.b_info.textArea4" class="em-txt"><p>{{vm.b_info.textArea4}}</p></span><br/>
-                        <span ng-if="vm.b_info.textArea5" class="em-txt"><p>{{vm.b_info.textArea5}}</p></span><br/> -->
+                        <span ng-if="wc.w_items.textArea1" class="em-txt"><p>{{wc.w_items.textArea1}}</p><br/></span>
+                        <span ng-if="wc.w_items.textArea2" class="em-txt"><p>{{wc.w_items.textArea2}}</p><br/></span>
+                        <span ng-if="wc.w_items.textArea3" class="em-txt"><p>{{wc.w_items.textArea3}}</p><br/></span>
                         <span ng-if="!wc.w_items.textArea3 && !wc.w_items.textArea2 && !wc.w_items.textArea1" class="em-txt text-center"><p>There is no {{wc.w_items.warnType}} at this time</p></span>
                     </div>
                 </div>
             </ion-slide>
             <ion-slide ng-init="wc.get_sigmet()">
-                <!-- <div class="box">
-                    <ion-list>
-                        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in wc.s_items" ng-click="w_info_open({{item.sigmetdatatblID}}, 's')" data-id="item.sigmetdatatblID">
-                            <img ng-src="{{chat.face}}">
-                            <h2>{{item.warnType}}</h2>
-                            <p>{{item.currdate}}, {{item.issuedAt}}</p>
-                            <i class="icon ion-chevron-right icon-accessory"></i>
-                            <ion-option-button class="button-stable" ng-click="share()">
-                                <i class="icon ion-android-share-alt"></i>
-                            </ion-option-button>
-                        </ion-item>
-                    </ion-list>
-                </div> -->
                 <div class="card b-info" >
                     <div class="item item-divider text-center">
-                        <i class="iicon pull-left on-flag"></i>
+                        <i class="icon pull-left ion-flag"></i>
                         <p>{{wc.s_items.warnType}}</p>
                         <p>Issued at {{wc.s_items.issuedAt}}</p>
                     </div>
                     <div class="item item-text-wrap">
-                        <span ng-if="wc.s_items.textArea1" class="em-txt"><p>{{wc.s_items.textArea1}}</p></span><br/>
-                        <span ng-if="wc.s_items.textArea2" class="em-txt"><p>{{wc.s_items.textArea2}}</p></span><br/>
-                        <span ng-if="wc.s_items.textArea3" class="em-txt"><p>{{wc.s_items.textArea3}}</p></span><br/>
-                        <!-- <span ng-if="vm.b_info.textArea4" class="em-txt"><p>{{vm.b_info.textArea4}}</p></span><br/>
-                        <span ng-if="vm.b_info.textArea5" class="em-txt"><p>{{vm.b_info.textArea5}}</p></span><br/> -->
+                        <span ng-if="wc.s_items.textArea1" class="em-txt"><p>{{wc.s_items.textArea1}}</p><br/></span>
+                        <span ng-if="wc.s_items.textArea2" class="em-txt"><p>{{wc.s_items.textArea2}}</p><br/></span>
+                        <span ng-if="wc.s_items.textArea3" class="em-txt"><p>{{wc.s_items.textArea3}}</p><br/></span>
                         <span ng-if="!wc.s_items.textArea3 && !wc.s_items.textArea2 && !wc.s_items.textArea1" class="em-txt text-center"><p>There is no {{wc.s_items.warnType}} at this time</p></span>
                     </div>
                 </div>
             </ion-slide>
             <ion-slide ng-init="wc.get_o_air()">
-                <!-- <div class="box">
-                    <ion-list>
-                        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in wc.o_items" ng-click="w_info_open({{item.outlookairguarddatatblID?item.outlookairguarddatatblID:0}}, 'o')" data-id="item.outlookairguarddatatblID">
-                            <img ng-src="{{chat.face}}">
-                            <h2>{{item.forecaster}}</h2>
-                            <p>{{item.currdate}}, {{item.issuedAt}}</p>
-                            <i class="icon ion-chevron-right icon-accessory"></i>
-                            <ion-option-button class="button-stable" ng-click="share()">
-                                <i class="icon ion-android-share-alt"></i>
-                            </ion-option-button>
-                        </ion-item>
-                    </ion-list>
-                </div> -->
                 <div class="card b-info" >
                     <div class="item item-divider text-center">
-                        <i class="iicon pull-left on-flag"></i>
+                        <i class="icon pull-left ion-flag"></i>
                         <p>{{wc.o_items.warnType}}</p>
                         <p>Issued at {{wc.o_items.issuedAt}}</p>
                     </div>
                     <div class="item item-text-wrap">
-                        <span ng-if="wc.o_items.textArea1" class="em-txt"><p>{{wc.o_items.textArea1}}</p></span><br/>
-                        <span ng-if="wc.o_items.textArea2" class="em-txt"><p>{{wc.o_items.textArea2}}</p></span><br/>
-                        <span ng-if="wc.o_items.textArea3" class="em-txt"><p>{{wc.o_items.textArea3}}</p></span><br/>
-                        <!-- <span ng-if="vm.b_info.textArea4" class="em-txt"><p>{{vm.b_info.textArea4}}</p></span><br/>
-                        <span ng-if="vm.b_info.textArea5" class="em-txt"><p>{{vm.b_info.textArea5}}</p></span><br/> -->
+                        <span ng-if="wc.o_items.textArea1" class="em-txt"><p>{{wc.o_items.textArea1}}</p><br/></span>
+                        <span ng-if="wc.o_items.textArea2" class="em-txt"><p>{{wc.o_items.textArea2}}</p><br/></span>
+                        <span ng-if="wc.o_items.textArea3" class="em-txt"><p>{{wc.o_items.textArea3}}</p><br/></span>
                         <span ng-if="!wc.o_items.textArea3 && !wc.o_items.textArea2 && !wc.o_items.textArea1" class="em-txt text-center"><p>There is no {{wc.o_items.warnType}} at this time</p></span>
                     </div>
                 </div>
@@ -124,9 +77,9 @@
         </ion-slide-box>
 	</ion-content>
     <ion-tabs class="tabs-icon-top tabs-color-active-positive">
-      <ion-tab title="Watches" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="slide(0)"></ion-tab>
-      <ion-tab title="Warnings" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="slide(1)"></ion-tab>
-      <ion-tab title="Sigmet" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="slide(2)"></ion-tab>
-      <ion-tab title="Airmet" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="slide(3)"></ion-tab>
+      <ion-tab title="Watches" icon-off="ion-ios-time-outline" icon-on="ion-ios-arrow-up" on-select="slide(0)"></ion-tab>
+      <ion-tab title="Warnings" icon-off="ion-android-warning" icon-on="ion-ios-arrow-up" on-select="slide(1)"></ion-tab>
+      <ion-tab title="Sigmet" icon-off="ion-paper-airplane" icon-on="ion-ios-arrow-up" on-select="slide(2)"></ion-tab>
+      <ion-tab title="Airmet" icon-off="ion-paper-airplane" icon-on="ion-ios-arrow-up" on-select="slide(3)"></ion-tab>
     </ion-tabs>
 </ion-view>

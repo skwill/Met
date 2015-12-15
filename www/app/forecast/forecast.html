@@ -6,13 +6,13 @@
         <ion-nav-buttons side="left">
             <button menu-toggle="left" class="button button-icon icon ion-navicon" ></button>
         </ion-nav-buttons>
-        <ion-nav-buttons side="right">
+       <!--  <ion-nav-buttons side="right">
             <button ng-click="vm.refresh_all_b()" class="button button-icon"><i class="settings-icon ion-ios-reload"></i></button>
-        </ion-nav-buttons>
+        </ion-nav-buttons> -->
     </ion-nav-bar>
 
     <ion-content scroll="true" class="" ng-init="vm.getForecast()">
-
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="vm.getForecast()" style="margin-top: -20px;"></ion-refresher>
         <div ng-if="vm.forecast.forecastTime == '05:30AM'">
             <five-thirty></five-thirty>
         </div>

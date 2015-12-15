@@ -37,10 +37,10 @@
                         <p>{{vm.s_items.bulletinpage}} Bulletin</p>
                     </div>
                     <div class="item item-text-wrap">
-                        <span ng-if="vm.s_items.textArea1" class="em-txt"><p>{{vm.s_items.textArea1}}</p></span><br/>
-                        <span ng-if="vm.s_items.textArea2" class="em-txt"><p>{{vm.s_items.textArea2}}</p></span><br/>
-                        <span ng-if="vm.s_items.textArea3" class="em-txt"><p>{{vm.s_items.textArea3}}</p></span><br/>
-                        <span ng-if="vm.s_items.textArea5" class="em-txt"><p>{{vm.s_items.textArea5}}</p></span><br/>
+                        <span ng-if="vm.s_items.textArea1" class="em-txt"><p>{{vm.s_items.textArea1}}</p><br/></span>
+                        <span ng-if="vm.s_items.textArea2" class="em-txt"><p>{{vm.s_items.textArea2}}</p><br/></span>
+                        <span ng-if="vm.s_items.textArea3" class="em-txt"><p>{{vm.s_items.textArea3}}</p><br/></span>
+                        <span ng-if="vm.s_items.textArea5" class="em-txt"><p>{{vm.s_items.textArea5}}</p><br/></span>
                         <span ng-if="!vm.s_items.textArea5 &&!vm.s_items.textArea4 && !vm.s_items.textArea3 && !vm.s_items.textArea2 && !vm.s_items.textArea1" class="em-txt text-center"><p>There is no {{vm.s_items.bulletinpage}} Bulletin at this time</p></span>
                     </div>
                 </div>
@@ -52,11 +52,11 @@
                         <p>{{vm.f_items.bulletinpage}} Bulletin</p>
                     </div>
                     <div class="item item-text-wrap">
-                        <span ng-if="vm.f_items.textArea1" class="em-txt"><p>{{vm.f_items.textArea1}}</p></span><br/>
-                        <span ng-if="vm.f_items.textArea2" class="em-txt"><p>{{vm.f_items.textArea2}}</p></span><br/>
-                        <span ng-if="vm.f_items.textArea3" class="em-txt"><p>{{vm.f_items.textArea3}}</p></span><br/>
-                        <span ng-if="vm.f_items.textArea4" class="em-txt"><p>{{vm.f_items.textArea4}}</p></span><br/>
-                        <span ng-if="vm.f_items.textArea5" class="em-txt"><p>{{vm.f_items.textArea5}}</p></span><br/>
+                        <span ng-if="vm.f_items.textArea1" class="em-txt"><p>{{vm.f_items.textArea1}}</p><br/></span>
+                        <span ng-if="vm.f_items.textArea2" class="em-txt"><p>{{vm.f_items.textArea2}}</p><br/></span>
+                        <span ng-if="vm.f_items.textArea3" class="em-txt"><p>{{vm.f_items.textArea3}}</p><br/></span>
+                        <span ng-if="vm.f_items.textArea4" class="em-txt"><p>{{vm.f_items.textArea4}}</p><br/></span>
+                        <span ng-if="vm.f_items.textArea5" class="em-txt"><p>{{vm.f_items.textArea5}}</p><br/></span>
                         <span ng-if="!vm.f_items.textArea5 && !vm.f_items.textArea4 && !vm.f_items.textArea3 && !vm.f_items.textArea2 && !vm.f_items.textArea1" class="em-txt text-center"><p>There is no {{vm.f_items.bulletinpage}} Bulletin at this time</p></span>
                     </div>
                 </div>
@@ -68,11 +68,11 @@
                         <p>{{vm.r_items.bulletinpage}} Bulletin</p>
                     </div>
                     <div class="item item-text-wrap">
-                        <span ng-if="vm.r_items.textArea1" class="em-txt"><p>{{vm.r_items.textArea1}}</p></span><br/>
-                        <span ng-if="vm.f_items.textArea2" class="em-txt"><p>{{vm.r_items.textArea2}}</p></span><br/>
-                        <span ng-if="vm.r_items.textArea3" class="em-txt"><p>{{vm.r_items.textArea3}}</p></span><br/>
-                        <span ng-if="vm.r_items.textArea4" class="em-txt"><p>{{vm.r_items.textArea4}}</p></span><br/>
-                        <span ng-if="vm.r_items.textArea5" class="em-txt"><p>{{vm.r_items.textArea5}}</p></span><br/>
+                        <span ng-if="vm.r_items.textArea1" class="em-txt"><p>{{vm.r_items.textArea1}}</p><br/></span>
+                        <span ng-if="vm.f_items.textArea2" class="em-txt"><p>{{vm.r_items.textArea2}}</p><br/></span>
+                        <span ng-if="vm.r_items.textArea3" class="em-txt"><p>{{vm.r_items.textArea3}}</p><br/></span>
+                        <span ng-if="vm.r_items.textArea4" class="em-txt"><p>{{vm.r_items.textArea4}}</p><br/></span>
+                        <span ng-if="vm.r_items.textArea5" class="em-txt"><p>{{vm.r_items.textArea5}}</p><br/></span>
                         <span ng-if="!vm.r_items.textArea5 && !vm.r_items.textArea4 && !vm.r_items.textArea3 && !vm.r_items.textArea2 && !vm.r_items.textArea1" class="em-txt text-center"><p>There is no {{vm.r_items.bulletinpage}} Bulletin at this time</p></span>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
     </ion-content>
     <ion-tabs class="tabs-icon-top tabs-color-active-positive">
       <ion-tab title="General" icon-off="ion-ios-information-outline" icon-on="ion-ios-arrow-up" on-select="slide(0)"></ion-tab>
-      <ion-tab title="Severe Weather" icon-off="ion-ios-thunderstorm-outline" icon-on="ion-ios-arrow-up" on-select="slide(1)"></ion-tab>
+      <ion-tab title="Severe Weather" id="sev-w-icon" icon-off="ion-ios-thunderstorm-outline sev-w-icon" icon-on="ion-ios-arrow-up" on-select="slide(1)"></ion-tab>
       <ion-tab title="Floods" icon-off="ion-waterdrop" icon-on="ion-ios-arrow-up" on-select="slide(2)"></ion-tab>
       <ion-tab title="Rough Seas" icon-off="ion-android-boat" icon-on="ion-ios-arrow-up" on-select="slide(3)"></ion-tab>
     </ion-tabs>

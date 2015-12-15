@@ -119,6 +119,20 @@ h1,h2,h3,h4,h5 {
  * Current weather
  */
 
+.current_no_data {
+	-webkit-transition: all 0.4s ease-in-out;
+           -moz-transition: all 0.4s ease-in-out;
+             -o-transition: all 0.4s ease-in-out;
+                transition: all 0.4s ease-in-out;
+
+    h1 {
+    	font-size: 30px!important;
+    }
+    .block-support-text, #deg {
+    	display: none;
+    }
+}
+
 #current-weather {
 	height: 180px;
 	width: 241px;
@@ -309,6 +323,9 @@ h1,h2,h3,h4,h5 {
 		i {
 			margin-right: 5px;
 		}
+	}
+	.fc-high {
+		font-size: 30px; color: red;
 	}
 }
 
@@ -807,4 +824,13 @@ h1,h2,h3,h4,h5 {
     background: white;
     color: black;
     cursor: pointer;
+}
+
+.sev-w-icon {
+	font-size: 50px!important;
+    margin-top: -10px!important;
+    margin-bottom: 10px!important;
+	span {
+
+	}
 }

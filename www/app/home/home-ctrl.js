@@ -303,15 +303,16 @@ angular.module('ionic.metApp')
 
 		_this.get_uv_index = function() {
 			var today_index = [];
+			var today = new Date();
+			var d = today.getDate() + '.' + (today.getMonth() + 1) + '.' + today.getFullYear();
+			$scope.hour_of_day = $scope.hourOfDay();
 			// these indexes represent uv values. but instead of using the value directly we use a color in place of the index to represent the value
 			// the index will match to a color class to represent the uv_index value on the summary page
 			var uv_c = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9', 'c10', 'c11'];
 			metApi.get_uv_index(function(data) {
 				// console.log(data);
 				// console.log("UV Index: ");
-				var today = new Date();
-				var d = today.getDate() + '.' + (today.getMonth() + 1) + '.' + today.getFullYear();
-				$scope.hour_of_day = $scope.hourOfDay();
+
 				// drop all uv_info not for today
 				for (var i = 0; i < data.items.length; i++) {
 					var uv_date_clean = data.items[i].uv_date.trim();
@@ -340,19 +341,30 @@ angular.module('ionic.metApp')
 						// console.log('uv color value', $scope.uv_color, ci, i);
 						// console.log("watch on uv_value updated");
 					})
-				} else {
-					// just some placeholder data for when the uv index has not been updated yet
-					var ti = [{
-						'uv_value': 0
-					}]
-					var el = document.getElementById('uv-index');
-					$scope.uv_index = ti[0];
-					el.className = el.className + " c1";
 				}
+				// else {
+				// 	// just some placeholder data for when the uv index has not been updated yet
+				// 	var ti = [{
+				// 		'uv_value': 0
+				// 	}]
+				// 	var el = document.getElementById('uv-index');
+				// 	$scope.uv_index = ti[0];
+				// 	el.className = el.className + " c1";
+				// }
 			})
+
+			if (!today_index.length) {
+				var ti = [{
+					'uv_value': 0
+				}]
+				var el = document.getElementById('uv-index');
+				$scope.uv_index = ti[0];
+				el.className = el.className + " c1";
+			}
 		}
 
 		_this.metars_trin = function() {
+			$scope.current_temp_trin = "No data";
 			metApi.get_metar(function(data) {
 				var m = data.items;
 				// gets the current temp, we only care about the exact number so pull that out from the string
@@ -423,7 +435,6 @@ angular.module('ionic.metApp')
 						});
 					}
 				}
-
 
 				$scope.current_temp_trin = _this.mdata[2].value.substring(0, 3);
 				$scope.dew_point_trin = $scope.set_due_point(3, _this.mdata);

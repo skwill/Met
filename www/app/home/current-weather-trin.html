@@ -25,9 +25,9 @@
 		<div class="col" id="present-cond" ui-sref="app.forecast">
 			<div>
 				<span class="block-support-text" id="day">PRESENT</span>
-				<div>
-					<h1 class="current-temp">
-				  		<span id="today-temp">{{current_temp_trin}}</span>&deg;
+				<div ng-class="{'current_no_data': current_temp_trin == 'No data'}">
+					<h1 class="current-temp" >
+					<span id="today-temp">{{current_temp_trin}}</span><span id="deg">&deg;</span>
 				  		<span class="block-support-text">/ <span>{{dew_point_trin}}</span></span>
 				    	<!-- <current-icon icon="current.currently.icon">Loading...</current-icon> -->
 				  	</h1>
