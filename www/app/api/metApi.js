@@ -64,6 +64,7 @@
 			})
 		}
 
+		// check for winds
 		function get_o_air(callback, id) {
 			var link = (id = !'undefined') ? '/' + id : '';
 
@@ -148,7 +149,11 @@
 
 
 		function get_uv_index(callback) {
-			$http.get(url + '/uv').success(function(data) {
+			var headers = {
+				'Cache-Control': 'max-age="600"'
+			};
+			$http.get(url + '/uv', headers).success(function(data) {
+				console.warn(data)
 				callback(data)
 			})
 		}

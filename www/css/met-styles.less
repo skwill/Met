@@ -301,6 +301,7 @@ h1,h2,h3,h4,h5 {
 	position: fixed;
     width: 100%;
     bottom: 54px;
+    padding-top: 10px;
 	color: #fff;
 	background-color: rgba(0, 0, 0, 0.8);
 	// -webkit-box-shadow: 0 8px 6px -6px rgba(0,0,0,.6);
@@ -311,7 +312,7 @@ h1,h2,h3,h4,h5 {
 	}
 
 	p.lead {
-		font-weight: 200;
+		// font-weight: 200;
 	}
 	.forecast-block-title {
 		color: #fff;
@@ -325,7 +326,12 @@ h1,h2,h3,h4,h5 {
 		}
 	}
 	.fc-high {
-		font-size: 30px; color: red;
+		font-size: 22px; color: rgb(255, 61, 0);
+		text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
+	}
+	.fc-low {
+		// color: rgb(78,180,0);
+		text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
 	}
 }
 
@@ -448,6 +454,10 @@ h1,h2,h3,h4,h5 {
 #home_menu-modal {
 	background: transparent;
 	text-transform: uppercase;
+	-webkit-transition: background-color 0.4s ease-in-out;
+           -moz-transition: background-color 0.4s ease-in-out;
+             -o-transition: background-color 0.4s ease-in-out;
+                transition: background-color 0.4s ease-in-out;
 	.of1 {
 		color:#fff;
 		// background: rgba(108,206,236,.8);
