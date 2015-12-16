@@ -1,13 +1,12 @@
 <div id="home_menu-modal" class="modal partial" ng-controller="HomeCtrl as hc">
-    <div class="row text-center of1" id="" ng-click="closeModal()">
+    <div class="row text-center of1 bago" id="" ng-click="closeModal()">
         <div id="of1-blurf" class="rbg"></div>
         <div class="col">
             <div class="met-icon"></div>
-            <span>TTMS bago</span>
+            <span>Current conditions for Tobago</span>
         </div>
     </div>
     <ion-content has-header="false" scroll="true" class="ms_m" ng-controller="BagoCtrl as bc">
-    <!-- <div class="content metars"> -->
         <div class="row " ng-repeat="item in bc.mdatab">
             <div class="card wide" ng-if="item.show">
                 <div class="item item-divider" ion-affix data-affix-within-parent-with-class="card">
@@ -19,6 +18,5 @@
                 </div>
             </div>
         </div>
-    <!-- </div> -->
     </ion-content>
 </div>

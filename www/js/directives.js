@@ -319,6 +319,9 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
                 // console.log('Active bg image changed', v);
                 var item = v;
                 var url = "http://farm" + item.farm + ".static.flickr.com/" + item.server + "/" + item.id + "_" + item.secret + "_z.jpg";
+                // place scope fcast here to get image for the current weather contition
+                // var url = "app/home/IMG_3133.jpg"
+                console.warn($scope)
                 // var url = '';
                 $el2 = document.getElementById('menu-bg');
                 $el2.style.backgroundImage = 'url(' + url + ')'
