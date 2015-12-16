@@ -1,4 +1,4 @@
-<ion-view view-title="Bulletins" ng-class=""  ng-controller="BulletinsCtrl as vm">
+<ion-view view-title="Bulletins" id="bulletins"  ng-controller="BulletinsCtrl as vm">
     <ion-nav-bar class="bar no-border blue">
         <ion-nav-back-button class="button-clear">
             <i class="ion-arrow-left-c"></i>
@@ -14,10 +14,10 @@
     <ion-content scroll="true" class="has-header">
         <ion-slide-box on-slide-changed="slideHasChanged($index)" ng-init="vm.update_slide(0)">
             <ion-slide ng-init="vm.getGIBulletins()">
-                <div class="card b-info" >
+                <div class="card wide b-info" >
                     <div class="item item-divider text-center" ion-affix data-affix-within-parent-with-class="card">
                         <i class="icon ion-flag pull-left"></i>
-                        <p>{{vm.b_info.bulletinpage}} Bulletin</p>
+                        <p class="dark">{{vm.b_info.bulletinpage}} Bulletin</p>
                     </div>
                     <div class="item item-text-wrap" >
                         <span ng-if="vm.b_info.textArea1" class="em-txt"><p>{{vm.b_info.textArea1}}</p><br/></span>
@@ -31,10 +31,10 @@
                 <br><br><br>
             </ion-slide>
             <ion-slide ng-init="vm.get_serv_b()">
-                <div class="card b-info" >
+                <div class="card wide b-info" >
                     <div class="item item-divider text-center">
                         <i class="icon ion-flag pull-left"></i>
-                        <p>{{vm.s_items.bulletinpage}} Bulletin</p>
+                        <p class="dark">{{vm.s_items.bulletinpage}} Bulletin</p>
                     </div>
                     <div class="item item-text-wrap">
                         <span ng-if="vm.s_items.textArea1" class="em-txt"><p>{{vm.s_items.textArea1}}</p><br/></span>
@@ -46,10 +46,10 @@
                 </div>
             </ion-slide>
             <ion-slide ng-init="vm.get_flood_b()">
-                <div class="card b-info" >
+                <div class="card wide b-info" >
                     <div class="item item-divider text-center">
                         <i class="icon ion-flag pull-left"></i>
-                        <p>{{vm.f_items.bulletinpage}} Bulletin</p>
+                        <p class="dark">{{vm.f_items.bulletinpage}} Bulletin</p>
                     </div>
                     <div class="item item-text-wrap">
                         <span ng-if="vm.f_items.textArea1" class="em-txt"><p>{{vm.f_items.textArea1}}</p><br/></span>
@@ -62,10 +62,10 @@
                 </div>
             </ion-slide>
             <ion-slide ng-init="vm.get_sea_b()">
-                <div class="card b-info" >
+                <div class="card wide b-info" >
                     <div class="item item-divider text-center">
                         <i class="icon ion-flag pull-left"></i>
-                        <p>{{vm.r_items.bulletinpage}} Bulletin</p>
+                        <p class="dark">{{vm.r_items.bulletinpage}} Bulletin</p>
                     </div>
                     <div class="item item-text-wrap">
                         <span ng-if="vm.r_items.textArea1" class="em-txt"><p>{{vm.r_items.textArea1}}</p><br/></span>
@@ -79,7 +79,7 @@
             </ion-slide>
         </ion-slide-box>
     </ion-content>
-    <ion-tabs class="tabs-icon-top tabs-color-active-positive">
+    <ion-tabs class="ibottom tabs-icon-top tabs-positive tabs-color-active-light">
       <ion-tab title="General" icon-off="ion-ios-information-outline" icon-on="ion-ios-arrow-up" on-select="slide(0)"></ion-tab>
       <ion-tab title="Severe Weather" id="sev-w-icon" icon-off="ion-ios-thunderstorm-outline sev-w-icon" icon-on="ion-ios-arrow-up" on-select="slide(1)"></ion-tab>
       <ion-tab title="Floods" icon-off="ion-waterdrop" icon-on="ion-ios-arrow-up" on-select="slide(2)"></ion-tab>

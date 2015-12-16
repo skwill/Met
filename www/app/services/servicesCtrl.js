@@ -33,25 +33,48 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	// calls for climate data
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	sc.get_elnino = function() {
+	/*sc.get_elnino = function() {
 		metApi.get_elnino(function(data) {
-			sc.el_info = data.items
-			console.log("el nino")
-			console.log(data)
+			sc.el_infos = data.items;
+			console.log("el nino");
+			console.log(data.items[0]);		
+
+
+			sc.headings = [];
+			var num = 1;
+			for (var i = 0; i < 10; i++) {
+				if (data.items[0].head+"1"){
+					sc.headings[0] = data.items[0].head+"1";
+					console.log(sc.headings[0]);
+				};
+
+				num++;
+			};
+
+			
 		})
 	}
+*/
+	sc.get_elninos = function() {
+		metApi.get_elninos(function(data) {			
+			sc.el_infos = data;
+			console.log("el nino");
+			console.log(data);		
+		})
+	}
+
 	sc.get_rainandtemp = function() {
 		metApi.get_rainandtemp(function(data) {
 			sc.rt = data.items;
-			console.log("rain and temp")
-			console.log(data)
+			/*console.log("rain and temp")
+			console.log(data)*/
 		})
 	}
 	sc.get_drywet = function() {
 		metApi.get_drywet(function(data) {
 			sc.dw = data.items;
-			console.log("dry wet")
-			console.log(data)
+			/*console.log("dry wet")
+			console.log(data)*/
 		})
 	}
 

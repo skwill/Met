@@ -221,6 +221,25 @@
 			})
 		}
 
+		function get_elninos(callback) {
+			$http.get(url + '/elninos').success(function(data) {
+				//console.log("Total = " + data._meta.totalCount);
+
+				var count = data._meta.totalCount;
+				var info = new Array(count);
+
+				for (var i=0; i<count; i++) {
+					info[i] = data.items[i];
+				};
+
+				//console.log(info[0]);
+				data = info;
+
+				callback(data)
+			})
+		}
+
+
 		function get_rainandtemp(callback) {
 			$http.get(url + '/rainandtemp').success(function(data) {
 				callback(data)
@@ -264,6 +283,7 @@
 			get_agrotbg: get_agrotbg,
 			get_trend: get_trend,
 			get_elnino: get_elnino,
+			get_elninos: get_elninos,
 			get_rainandtemp: get_rainandtemp,
 			get_project: get_project,
 			get_metar: get_metar,
