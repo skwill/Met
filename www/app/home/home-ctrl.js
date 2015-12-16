@@ -105,7 +105,7 @@ angular.module('ionic.metApp')
 			var time = date.getHours();
 			var s = "";
 
-			if (time >= 6 && time < 12) {
+			if (time >= 0 && time < 12) {
 				s = "morning";
 			} else if (time >= 12 && time < 18) {
 				s = "mid day";
@@ -215,6 +215,8 @@ angular.module('ionic.metApp')
 	})
 	.controller('TrinCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval, $ionicBackdrop, $state) {
 		var _this = this;
+		$scope.fcasttrin = "sunny"; // default trin image
+		$scope.fcastbago = "sunny";
 
 		$rootScope.ref_trin = function() {
 			_this.refreshData();
@@ -491,7 +493,11 @@ angular.module('ionic.metApp')
 				var f = data.items[0];
 				_this.th = f.PiarcoFcstMnTemp;
 				_this.tl = f.PiarcoFcstMxTemp;
-				$rootScope.fcast = f.imageTrin;
+				$scope.fcasttrin = f.imageTrin;
+				console.debug($scope.fcasttrin);
+				// $scope.$watch('fcasttrin', function() {
+					// $scope.fct = f.imageTrin;
+				// })
 				// $scope.summary_text_trin = f.textArea1;
 			})
 		}
@@ -704,7 +710,8 @@ angular.module('ionic.metApp')
 			// get forecast
 			metApi.get_forecast(function(data) {
 				var f = data.items[0];
-				$scope.fcast = f.imagebago;
+				// $scope.fcast = f.imagebago;
+				$scope.fcastbago = f.imagebago;
 				_this.th = f.CrownFcstMnTemp;
 				_this.tl = f.CrownFcstMxTemp;
 			})
@@ -713,19 +720,65 @@ angular.module('ionic.metApp')
 		_this.refreshData();
 
 	})
-	.directive('weatherIconTrin', function($timeout) {
+	.directive('weatherIconTrin', function() {
+		// // console.log($timeout)
+		// return {
+		// 	restrict: 'E',
+		// 	replace: true,
+		// 	scope: {
+		// 		fcasttrin: '=fcasttrin'
+		// 	},
+		// 	templateUrl: 'app/home/svg/{{fcasttrin}}.html',
+		// 	// link: function($scope, $element, $attr) { }
+		// }
 		return {
-			restrict: 'E',
-			replace: true,
-			templateUrl: 'app/home/svg/icon-rain-night.html',
-			link: function($scope, $element, $attr) {}
-		}
+	        restrict: 'E',
+	        link: function(scope, element, attrs) {
+	        	setTimeout(function() {
+	        		var j = scope.fcasttrin.replace(/\s/g, "-").toLowerCase();
+	        		console.debug('fcast trin', scope.fcasttrin)
+
+	        		scope.getContentUrl  = function() {
+	        			return 'app/home/svg/'+j+'.html';
+	        		}
+	        	}, 2000)
+	        },
+	        template: '<div ng-include="getContentUrl()"></div>'
+	    };
 	})
 	.directive('weatherIconBago', function($timeout) {
 		return {
 			restrict: 'E',
-			replace: true,
-			templateUrl: 'app/home/svg/icon-rain-night.html',
-			link: function($scope, $element, $attr) {}
+			link: function(scope, element, attrs) {
+	        	setTimeout(function() {
+	        		var j = scope.fcastbago.replace(/\s/g, "-").toLowerCase();
+	        		console.debug('fcast bago', scope.fcastbago)
+	        		scope.getContentUrl  = function() {
+	        			return 'app/home/svg/'+j+'.html';
+	        		}
+	        	}, 2000)
+	        },
+	        template: '<div ng-include="getContentUrl()"></div>'
 		}
 	})
+	// .directive('passObject', function() {
+	//     return {
+	//         restrict: 'E',
+	//         // replace: true,
+	//         // scope: { fcasttrin: '=fcasttrin' },
+	//         // controller: function($scope, $rootScope) {
+	//         // 	$scope.ff = $scope.fcasttrin;
+	//         // 	console.debug('directive controller:', $scope.fcasttrin)
+	//         // },
+	//         link: function(scope, element, attrs) {
+	//         	setTimeout(function() {
+	//         		console.debug(scope.fcasttrin)
+	//         		scope.getContentUrl  = function() {
+	//         			return 'app/home/svg/'+scope.fcasttrin+'.html';
+	//         		}
+	//         	}, 2000)
+	//         },
+	//         template: '<div ng-include="getContentUrl()"></div>'
+	//         // template: 'app/home/svg/{{ff}}.html',
+	//     };
+	// });
