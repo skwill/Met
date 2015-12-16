@@ -33,47 +33,14 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	// calls for climate data
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	sc.get_elnino = function() {
+	/*sc.get_elnino = function() {
 		metApi.get_elnino(function(data) {
-			sc.el_info = data.items;
+			sc.el_infos = data.items;
 			console.log("el nino");
-			console.log(data.items[0]);
-
-			var headings = [data.items[0].head1, data.items[0].head2, data.items[0].head3,data.items[0].head4,data.items[0].head5, data.items[0].head6, data.items[0].head7, data.items[0].head8, data.items[0].head9,data.items[0].head10];
-
-			sc.paragraphs = [data.items[0].para1, data.items[0].para2,, data.items[0].para3, data.items[0].para4, data.items[0].para12, data.items[0].para22,, data.items[0].para32, data.items[0].para42, data.items[0].para13, data.items[0].para23, data.items[0].para33, data.items[0].para43, data.items[0].para14, data.items[0].para24, data.items[0].para34, data.items[0].para44, data.items[0].para15, data.items[0].para25, data.items[0].para35, data.items[0].para45, data.items[0].para16, data.items[0].para26, data.items[0].para36, data.items[0].para46, data.items[0].para17, data.items[0].para27, data.items[0].para37, data.items[0].para47, data.items[0].para18,, data.items[0].para28, data.items[0].para38, data.items[0].para48, data.items[0].para19, data.items[0].para29, data.items[0].para39, data.items[0].para49, data.items[0].para20, data.items[0].para30, data.items[0].para40, data.items[0].para1, data.items[0].para50,]
-
-			sc.real_headings = [];
-			
-
-			for(var i=0; i<10; i++){
-				if (headings[i]) {
-					sc.real_headings[i] = (headings[i]);					
-				};				
-			};
+			console.log(data.items[0]);		
 
 
-			//var count = 0;
-
-			// for(var a=0; a<sc.real_headings.length; a++){
-
-			// 	for (var p=count; p<4; count++) {
-			// 		sc.real_para[p] = paragraphs[p];
-			// 	};				 
-			// 	console.log(sc.real_headings[a]);		
-			// };
-
-			// for(var e=0; e<sc.real_para.length; e++){
-
-							 
-			// 	console.log(sc.real_para[e]);		
-			// };
-
-
-
-			//bla = data.items[0].head1;
-
-			/*sc.headings = [];
+			sc.headings = [];
 			var num = 1;
 			for (var i = 0; i < 10; i++) {
 				if (data.items[0].head+"1"){
@@ -83,10 +50,19 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 
 				num++;
 			};
-*/
+
 			
 		})
 	}
+*/
+	sc.get_elninos = function() {
+		metApi.get_elninos(function(data) {			
+			sc.el_infos = data;
+			console.log("el nino");
+			console.log(data);		
+		})
+	}
+
 	sc.get_rainandtemp = function() {
 		metApi.get_rainandtemp(function(data) {
 			sc.rt = data.items;

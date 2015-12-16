@@ -17,43 +17,21 @@
 
     <ion-content scroll="true" class="has-header">
         <ion-slide-box on-slide-changed="slideHasChanged_c($index)">
-            <ion-slide ng-init="sc.get_elnino()">
-                <div class="card wide" ng-repeat="item in sc.real_headings">
-                    <div class="item item-divider text-center" ion-affix data-affix-within-parent-with-class="card">
+            <ion-slide ng-init="sc.get_elninos()">
+                <div class="card wide" ng-repeat="item in sc.el_infos">
+                    <div class="item item-divider text-center"  ion-affix data-affix-within-parent-with-class="card">
                         <!-- <i class="ion-ios-location"></i> -->
-                        <p>{{item}}</p>
+                        <p>{{item.heading}}</p>
                     </div>
-                    <div class="item item-text-wrap" ng-repeat="bla in sc.paragraphs track by $index" ng-if="$index >= 0 && $index < 4">
-                        <span class="em-txt"><p>{{bla}}</p></span>
-                        <!-- <span class="em-txt" ng-if="$index >= 4 && $index < 8"><p>{{bla}}</p></span> -->
-                       
+                    <div class="item item-text-wrap">
+                        <span class="em-txt"><p>{{item.para1}}</p></span>
+                        <span class="em-txt"><p>{{item.para2}}</p></span>
+                        <span class="em-txt"><p>{{item.para3}}</p></span>
+                        <span class="em-txt"><p>{{item.para4}}</p></span>                      
                     </div>
-                    <!-- <div class="item item-text-wrap" ng-repeat="bla in sc.paragraphs track by $index">
-                        <span class="em-txt"><p>{{bla}}</p></span>
-                       
-                    </div> -->
-
-                </div> 
-
-               
-
-                <!-- <div ng-repeat="item in sc.real_headings">
-                    <p>{{item}}</p>
-                    
-                </div> -->
-
-                <!-- <div class="box">
-                    <ion-list>
-                        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in sc.el_info" type="item-text-wrap" ng-click="cinfo_open({{item.elninoID}}, 'el')"  data-id="item.elninoID">
-                            <img ng-src="{{chat.face}}">
-                            <h2>{{item.head1}}</h2>
-                            <p>{{item.month}}, {{item.year}}</p>
-                            <i class="icon ion-chevron-right icon-accessory"></i>
-                        </ion-item>
-                    </ion-list>
-                </div> -->
+                </div>
             </ion-slide >
-            <!-- <ion-slide ng-init="sc.get_rainandtemp()">
+            <ion-slide ng-init="sc.get_rainandtemp()">
                 <div class="box">
                     <ion-list>
                         <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in sc.rt" type="item-text-wrap" ng-click="cinfo_open({{item.rainandtempID}}, 'rt')"  data-id="item.rainandtempID">
@@ -64,7 +42,7 @@
                         </ion-item>
                     </ion-list>
                 </div>
-            </ion-slide> -->
+            </ion-slide>
             <!-- <ion-slide ng-init="sc.get_drywet()">
                 <div class="box">
                     <ion-list>
