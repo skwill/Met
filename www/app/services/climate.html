@@ -15,11 +15,11 @@
         <p class="title">{{sub_title}}</p>
     </div> -->
 
-    <ion-content scroll="true" class="has-header climate-container">
+    <ion-content scroll="true" class="has-header climate-container text-left">
         <ion-slide-box on-slide-changed="slideHasChanged_c($index)" ng-init="disableSwipe()">
             <ion-slide ng-init="sc.get_elninos()">
                 <div class="card wide" ng-repeat="item in sc.el_infos">
-                    <div class="item item-divider text-center" >
+                    <div class="item item-divider" >
                         <!-- <i class="ion-ios-location"></i> -->
                         <p class="dark">{{item.heading}}</p>
                     </div>
@@ -27,13 +27,13 @@
                         <span class="em-txt"><p>{{item.para1}}</p></span>
                         <span class="em-txt"><p>{{item.para2}}</p></span>
                         <span class="em-txt"><p>{{item.para3}}</p></span>
-                        <span class="em-txt"><p>{{item.para4}}</p></span>                      
+                        <span class="em-txt"><p>{{item.para4}}</p></span>
                     </div>
                 </div>
             </ion-slide >
             <ion-slide ng-init="sc.get_rainandtemp()">
                 <div class="card wide" ng-repeat="item in sc.rt">
-                    <div class="item item-divider text-center"  ion-affix data-affix-within-parent-with-class="card">
+                    <div class="item item-divider">
                         <!-- <i class="ion-ios-location"></i> -->
                         <p class="dark">{{item.heading}}</p>
                     </div>
@@ -41,13 +41,13 @@
                         <span class="em-txt"><p>{{item.para1}}</p></span>
                         <span class="em-txt"><p>{{item.para2}}</p></span>
                         <span class="em-txt"><p>{{item.para3}}</p></span>
-                        <span class="em-txt"><p>{{item.para4}}</p></span>                      
+                        <span class="em-txt"><p>{{item.para4}}</p></span>
                     </div>
                 </div>
                <!--  <div class="box">
                     <ion-list>
                         <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in sc.rt">
-                            
+
                             <h2>{{item.heading}}</h2>
                             <p>{{item.month}}, {{item.year}}</p>
                             <i class="icon ion-chevron-right icon-accessory"></i>
@@ -57,7 +57,7 @@
             </ion-slide>
             <ion-slide ng-init="sc.get_drywet()">
                 <div class="card wide" ng-repeat="item in sc.dw">
-                    <div class="item item-divider text-center">
+                    <div class="item item-divider">
                         <!-- <i class="ion-ios-location"></i> -->
                         <p class="dark">{{item.heading}}</p>
                     </div>
@@ -65,7 +65,7 @@
                         <span class="em-txt"><p>{{item.para1}}</p></span>
                         <span class="em-txt"><p>{{item.para2}}</p></span>
                         <span class="em-txt"><p>{{item.para3}}</p></span>
-                        <span class="em-txt"><p>{{item.para4}}</p></span>                      
+                        <span class="em-txt"><p>{{item.para4}}</p></span>
                     </div>
                 </div>
                 <!-- <div class="box">
