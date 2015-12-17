@@ -224,6 +224,15 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
             }
         }
     })
+    .state('app.services.aws', {
+        //abstract: true,
+        url: "/aws",
+        views: {
+            'servicesContent': {
+                templateUrl: "app/services/aws.html"
+            }
+        }
+    })
         .state('app.services.tourism', {
             //abstract: true,
             url: "/tourism",

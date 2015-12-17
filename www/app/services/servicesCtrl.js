@@ -5,7 +5,7 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 	$scope.disableSwipe = function() {
 	   $ionicSlideBoxDelegate.enableSlide(false);
 	};
-	
+
 
 	sc.refresh_all_a = function() {
 
@@ -42,7 +42,7 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 		metApi.get_elnino(function(data) {
 			sc.el_infos = data.items;
 			console.log("el nino");
-			console.log(data.items[0]);		
+			console.log(data.items[0]);
 
 
 			sc.headings = [];
@@ -56,15 +56,15 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 				num++;
 			};
 
-			
+
 		})
 	}
 */
 	sc.get_elninos = function() {
-		metApi.get_elninos(function(data) {			
+		metApi.get_elninos(function(data) {
 			sc.el_infos = data;
 			console.log("el nino");
-			console.log(data);		
+			console.log(data);
 		})
 	}
 
@@ -436,4 +436,135 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 				return null;
 			}
 		};
+	}).controller('AWSCtrl', function(metApi, $scope, $timeout, $ionicModal, $ionicPlatform, $ionicPopup, $interval, $ionicBackdrop, $state) {
+		var _this = this;
+
+		var cities = [{
+	        city : 'Guyaguayare',
+	        desc : 'Guyaguayare AWS',
+	        lat : 10.84584 ,
+	        long : -60.594896
+	    },
+	    {
+	        city : 'El Reposo',
+	        desc : 'El Reposo AWS',
+	        lat : 10.35426,
+	        long : -61.71008
+	    },
+	    {
+	        city : 'Centeno',
+	        desc : 'Centeno AWS',
+	        lat : 10.352226,
+	        long : -61.192286
+	    },
+	    {
+	        city : 'Brasso Venado',
+	        desc : 'Brasso Venado AWS',
+	        lat : 10.252784,
+	        long : -61.17798
+	    },
+	    {
+	        city : 'Waterloo',
+	        desc : 'Waterloo AWS',
+	        lat : 10.28492,
+	        long : -61.28408
+	    },
+	    {
+			city: 'Penal',
+			desc: 'Penal AWS',
+			lat: 10.103324,
+			long: -61.27252
+		},
+		{
+			city: 'Chatham ',
+			desc: 'Chatham  AWS',
+			lat: 10.8702,
+			long: -61.431278
+		},
+		{
+			city: 'Piarco  (BASE)',
+			desc: 'Piarco  (BASE) AWS',
+			lat: 10.352436,
+			long: -61.204158
+		},
+		{
+			city: 'SYNOPAWS',
+			desc: 'SYNOPAWS AWS',
+			lat: 10.352000,
+			long: -61.20403
+		},
+		{
+			city: 'San Salvador',
+			desc: 'San Salvador AWS',
+			lat: 10.22588,
+			long: -61.223143
+		},
+		{
+			city: 'IMA Chaguaramas',
+			desc: 'IMA Chaguaramas AWS',
+			lat: 10.41121,
+			long: -61.3715
+		},
+		{
+			city: 'UTT (Camden)',
+			desc: 'UTT (Camden) AWS',
+			lat: 10.25384,
+			long: -61.26425
+		}];
+
+
+	    $scope.initialise = function() {
+	    	var myLatlng = new google.maps.LatLng(10.84584, -60.594896);
+	    	var mapOptions = {
+	    		center: myLatlng,
+	    		zoom: 8,
+	    		mapTypeId: google.maps.MapTypeId.ROADMAP
+	    	};
+	    	var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+	    	$scope.map = map;
+
+	    	// geo location may come here
+	    	navigator.geolocation.getCurrentPosition(function(pos) {
+	            map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+	            // var myLocation = new google.maps.Marker({
+	            //     position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
+	            //     map: $scope.map,
+	            //     animation: google.maps.Animation.DROP,
+	            //     title: "My Location"
+	            // });
+	        });
+
+
+	    	$scope.markers = [];
+	    	var infoWindow = new google.maps.InfoWindow();
+	    	var createMarker = function(info) {
+	    		var marker = new google.maps.Marker({
+	    			position: new google.maps.LatLng(info.lat, info.long),
+	    			map: $scope.map,
+	    			animation: google.maps.Animation.DROP,
+	    			title: info.city
+	    		})
+	    		marker.content = '<div class="infoWindowContent">'+info.desc+'</div>';
+	    		marker.addListener('click', function() {
+	    			infoWindow.setContent('<h2>'+marker.title+'</h2>'+marker.content);
+	    			infoWindow.open($scope.map, marker)
+	    		});
+	    		$scope.markers.push(marker);
+	    		console.debug('marker', marker)
+	    	}
+
+	    	for(i = 0; i< cities.length; i++) {
+	    		createMarker(cities[i]);
+	    	}
+
+	    }
+
+	    _this.aws_click = function() {
+	    	alert();
+	    }
+
+
+
+	    google.maps.event.addDomListener(document.getElementById("map"), 'load', $scope.initialise());
+	    // console.log($scope.markers)
 	});
