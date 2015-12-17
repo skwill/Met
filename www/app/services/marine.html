@@ -1,4 +1,4 @@
-<ion-view view-title="Marine" ng-controller="ServicesCtrl as mc">
+<ion-view view-title="Marine" ng-controller="ForecastCtrl as mc">
     <ion-nav-bar class="bar no-border blue">
         <ion-nav-back-button class="button-clear">
             <i class="ion-arrow-left-c"></i>
@@ -11,8 +11,84 @@
         </ion-nav-buttons> -->
     </ion-nav-bar>
 
-    <ion-content class="has-header container">
-        <p>No marine key</p>
+    <ion-content scroll="true" ng-init="mc.getForecast()">
+        <!-- <ion-refresher pulling-text="Pull to refresh..." on-refresh="vm.getForecast()" style="margin-top: -20px;"></ion-refresher>        
+ -->    <div class="marine-info">       
+            <div class="card wide">
+                <div class="item item-divider" ion-affix data-affix-within-parent-with-class="card">
+                    <i class="ion-android-boat dark"></i>
+                    <p class="dark">Seas</p>
+                </div>
+                <div class="item item-text-wrap">
+                    <span class="em-txt">
+                        <p>{{mc.forecast.seas}}</p>
+                    </span>
+                </div>
+            </div>
+
+            <div class="card wide">
+                <div class="item item-divider" ion-affix data-affix-within-parent-with-class="card">
+                    <i class="ion-help-buoy dark"></i>
+                    <p class="dark">Waves</p>
+                </div>
+                <div class="item item-text-wrap ">
+                    <span class="em-txt">
+                        <p>{{mc.forecast.waves1}} {{mc.forecast.waves2}}</p>
+                    </span>
+                </div>
+            </div>
+
+            <div ng-if="mc.forecast.addMarine">
+                <div class="row no-padding">
+                    <div class="card wide">
+                        <div class="item item-divider" ion-affix data-affix-within-parent-with-class="card">
+                            <i class="ion-android-boat dark"></i>
+                            <p class="dark">Additional Marine Info</p>
+                        </div>
+                        <div class="item item-text-wrap">
+                            <span class="em-txt">
+                                <p>{{mc.forecast.addMarine}}</p>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+
+            <div ng-if="mc.forecast.tideDate">
+                <div class="card wide">
+                    <div class="item item-divider">         
+                        <i class="ion-ios-moon-outline dark"></i>
+                        <p class="dark">Tides</p>
+                    </div>
+                    <div class="item item-text-wrap text-center"> 
+                        <h1 class="temp-md">Port of Spain</h1>
+                        <div class="row">
+                            <div class="col">High:</div>
+                            <div class="col">{{vm.forecast.trinAmHigh}}</div>
+                            <div class="col">{{vm.forecast.trinPmHigh}}</div>                    
+                        </div>
+                        <div class="row">                    
+                            <div class="col">Low:</div>
+                            <div class="col">{{vm.forecast.trinAmLow}}</div>
+                            <div class="col">{{vm.forecast.trinPmLow}}</div>                    
+                        </div>
+
+                        <h1 class="temp-md">Crown Point</h1>
+                        <div class="row">
+                            <div class="col">High:</div>
+                            <div class="col">{{vm.forecast.tobAmHigh}}</div>
+                            <div class="col">{{vm.forecast.tobPmHigh}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">Low:</div>
+                            <div class="col">{{vm.forecast.tobAmLow}}</div>
+                            <div class="col">{{vm.forecast.tobPmLow}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>           
+        </div>
+        <!-- <p>No marine key</p> -->
     </ion-content>
 
 
