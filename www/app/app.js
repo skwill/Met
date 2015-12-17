@@ -214,7 +214,15 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
                 templateUrl: "app/services/marine.html"
             }
         }
-
+    })
+    .state('app.services.winds', {
+        //abstract: true,
+        url: "/winds",
+        views: {
+            'servicesContent': {
+                templateUrl: "app/services/winds.html"
+            }
+        }
     })
         .state('app.services.tourism', {
             //abstract: true,
@@ -282,9 +290,9 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
             if (window.StatusBar) {
                 // org.apache.cordova.statusbar required
                 // StatusBar.styleDefault();
-                StatusBar.hide();
-                ionic.Platform.fullScreen();
-                // StatusBar.styleBlackTranslucent();
+                // StatusBar.hide();
+                // ionic.Platform.fullScreen();
+                StatusBar.styleBlackTranslucent();
             }
 
         });

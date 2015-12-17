@@ -9,9 +9,6 @@
     </ion-nav-bar>
 
     <ion-content class="has-header " ng-init="sc.radars_150()">
-        <div class="container">
-            <h5><strong>Click one to view it...!!</strong></h5>
-        </div>
         <ion-list>
             <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in sc.radars_150_list" href="#/app/services/radar_detail/{{item.id}}">
                 <img ng-src="{{item.img}}">

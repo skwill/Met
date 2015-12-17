@@ -141,7 +141,7 @@ angular.module('ionic.metApp')
 		// @ add_days will be the number of days to add to today
 		$scope.day_string = function(add_days) {
 			var today = new Date();
-			var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+			var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Mon'];
 			return days[today.getDay() + add_days];
 		}
 
@@ -207,6 +207,7 @@ angular.module('ionic.metApp')
 			$(el2 + '.bar, ' + el2 + '.d3').css('background-color', 'rgba(' + [rgb.r, rgb.g, rgb.b, 0.6].join(', ') + ')');
 			$('#cw-summary').css('color', textColor);
 			$(el2 + '.of1').css('background-color', 'rgba(' + [rgb.r, rgb.g, rgb.b, 0.9].join(', ') + ')');
+			$('.item-complex').css('border-bottom', '1px solid rgba(' + [rgb.r, rgb.g, rgb.b, 0.9].join(', ') + ')');
 		}
 
 		function is_word_in_string(string, word) {
@@ -265,7 +266,7 @@ angular.module('ionic.metApp')
 				// $scope.time = convertTimestamp($scope.current.currently.time); //t.toISOString();
 				// fetch a background image from flickr based on out location, time and current weather conditinos
 				console.log('currently', $scope.current)
-				_this.getBackgroundImage($scope.current.currently.summary + ", Trinidad");
+				_this.getBackgroundImage("Trinidad");
 			}, function(error) {
 				var errorTxt = "";
 				switch (error.status) {
@@ -297,6 +298,7 @@ angular.module('ionic.metApp')
 		this.getBackgroundImage = function(locString) {
 			Flickr.search(locString).then(function(resp) {
 				var photos = resp.photos;
+				console.debug('photos', photos)
 				$scope.bgImages = photos.photo;
 				_this.cycleBgImages();
 			}, function(error) {
@@ -478,7 +480,8 @@ angular.module('ionic.metApp')
 				var i = data.items[0];
 				// 3- day forecast
 				// days as text
-				$scope.t = $scope.day_string(0);
+				// $scope.t = $scope.day_string(0);
+				$scope.t = 'Today';
 				$scope.tm = $scope.day_string(1);
 				$scope.nd = $scope.day_string(2);
 				// will need to find a way to switch between trin and bago here
@@ -491,6 +494,10 @@ angular.module('ionic.metApp')
 			// get forecast
 			metApi.get_forecast(function(data) {
 				var f = data.items[0];
+				_this.ftime_trin = f.forecastTime;
+				if(_this.ftime_trin == "05:30PM") {
+					$scope.t = 'Tonight';
+				}
 				_this.th = f.PiarcoFcstMnTemp;
 				_this.tl = f.PiarcoFcstMxTemp;
 				$scope.fcasttrin = f.imageTrin;
@@ -698,7 +705,8 @@ angular.module('ionic.metApp')
 				// 3- day forecast
 				// days as text
 				// need to find a bettwe way to do this as it will fail at the end of the week
-				$scope.t = $scope.day_string(0);
+				// $scope.tb = $scope.day_string(0);
+				$scope.t = 'Today';
 				$scope.tm = $scope.day_string(1);
 				$scope.nd = $scope.day_string(2);
 				_this.max24 = i.maxTbo24look;
@@ -710,7 +718,11 @@ angular.module('ionic.metApp')
 			// get forecast
 			metApi.get_forecast(function(data) {
 				var f = data.items[0];
-				// $scope.fcast = f.imagebago;
+
+				_this.ftime_bago = f.forecastTime;
+				if(_this.ftime_bago == "05:30PM") {
+					$scope.t = 'Tonight';
+				}
 				$scope.fcastbago = f.imagebago;
 				_this.th = f.CrownFcstMnTemp;
 				_this.tl = f.CrownFcstMxTemp;
