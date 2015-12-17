@@ -96,6 +96,11 @@ angular.module('ionic.metApp')
 	})
 	.controller('BulletinsCtrl', function(metApi, $scope, $ionicLoading, $timeout, $ionicModal, $cordovaDevice, $ionicPlatform, $cordovaPush, $ionicSlideBoxDelegate) {
 
+		$scope.disableSwipe = function() {
+		   $ionicSlideBoxDelegate.enableSlide(false);
+		};
+	
+		
 		var vm = this;
 
 		$ionicPlatform.ready(function() {

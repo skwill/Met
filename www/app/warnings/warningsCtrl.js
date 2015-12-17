@@ -1,5 +1,9 @@
 angular.module('ionic.metApp').controller('warningsCtrl', function(metApi, $rootScope, $scope, $ionicLoading, $timeout, $ionicModal, $cordovaDevice, $ionicPlatform, $cordovaPush, $ionicSlideBoxDelegate) {
 
+	$scope.disableSwipe = function() {
+	   $ionicSlideBoxDelegate.enableSlide(false);
+	};
+	
 	var vm = this;
 	$scope.slideHasChanged = function(index) {
 		vm.update_slide(index);

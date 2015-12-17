@@ -2,6 +2,11 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 
 	var sc = this;
 
+	$scope.disableSwipe = function() {
+	   $ionicSlideBoxDelegate.enableSlide(false);
+	};
+	
+
 	sc.refresh_all_a = function() {
 
 	}
@@ -65,6 +70,7 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 
 	sc.get_rainandtemp = function() {
 		metApi.get_rainandtemp(function(data) {
+			console.log("Rain and Temp "+data.items[0].year);
 			sc.rt = data.items;
 			/*console.log("rain and temp")
 			console.log(data)*/

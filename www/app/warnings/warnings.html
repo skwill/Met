@@ -13,9 +13,9 @@
 
 	<ion-content class="has-header">
         <!-- <ion-refresher pulling-text="Pull to refresh..." on-refresh="wc.refreshData(sub_title)"></ion-refresher> -->
-        <ion-slide-box on-slide-changed="slideHasChanged($index)" ng-init="wc.update_slide(0)">
+        <ion-slide-box on-slide-changed="slideHasChanged($index)" ng-init="wc.update_slide(0); disableSwipe()">
             <ion-slide ng-init="wc.get_watch()">
-               <div class="card b-info" >
+               <div class="card b-info wide" >
                     <div class="item item-divider text-center">
                         <i class="icon pull-left ion-flag"></i>
                         <p>{{wc.wt_items.warnType}}</p>
@@ -30,7 +30,7 @@
                 </div>
             </ion-slide>
             <ion-slide ng-init="wc.get_warn()">
-                <div class="card b-info" >
+                <div class="card b-info wide" >
                     <div class="item item-divider text-center">
                         <i class="icon pull-left ion-flag"></i>
                         <p>{{wc.w_items.warnType}}</p>
@@ -45,7 +45,7 @@
                 </div>
             </ion-slide>
             <ion-slide ng-init="wc.get_sigmet()">
-                <div class="card b-info" >
+                <div class="card b-info wide" >
                     <div class="item item-divider text-center">
                         <i class="icon pull-left ion-flag"></i>
                         <p>{{wc.s_items.warnType}}</p>
@@ -60,7 +60,7 @@
                 </div>
             </ion-slide>
             <ion-slide ng-init="wc.get_o_air()">
-                <div class="card b-info" >
+                <div class="card b-info wide" >
                     <div class="item item-divider text-center">
                         <i class="icon pull-left ion-flag"></i>
                         <p>{{wc.o_items.warnType}}</p>
