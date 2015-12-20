@@ -21,7 +21,7 @@
                 <div class="card wide" ng-repeat="item in sc.el_infos">
                     <div class="item item-divider" >
                         <!-- <i class="ion-ios-location"></i> -->
-                        <p class="dark">{{item.heading}}</p>
+                        <p class="darkk">{{item.heading}}</p>
                     </div>
                     <div class="item item-text-wrap">
                         <span class="em-txt"><p>{{item.para1}}</p></span>
@@ -35,7 +35,7 @@
                 <div class="card wide" ng-repeat="item in sc.rt">
                     <div class="item item-divider">
                         <!-- <i class="ion-ios-location"></i> -->
-                        <p class="dark">{{item.heading}}</p>
+                        <p class="darkk">{{item.heading}}</p>
                     </div>
                     <div class="item item-text-wrap" style="margin-bottom: 40px;">
                         <span class="em-txt"><p>{{item.para1}}</p></span>
@@ -59,7 +59,7 @@
                 <div class="card wide" ng-repeat="item in sc.dw">
                     <div class="item item-divider">
                         <!-- <i class="ion-ios-location"></i> -->
-                        <p class="dark">{{item.heading}}</p>
+                        <p class="darkk">{{item.heading}}</p>
                     </div>
                     <div class="item item-text-wrap">
                         <span class="em-txt"><p>{{item.para1}}</p></span>
@@ -83,7 +83,7 @@
     </ion-content>
     <ion-tabs class="tabs-icon-top tabs-color-active-positive">
         <ion-tab title="El Nino Update" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="slide(0)"></ion-tab>
-        <ion-tab title="Rainfall &middot; Temp" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="slide(1)"></ion-tab>
-        <ion-tab title="Dry/Wet Outlook" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="slide(2)"></ion-tab>
+        <ion-tab title="Rainfall &middot; Temp" icon-off="icon ion-ios-rainy-outline" icon-on="icon ion-ios-rainy" on-select="slide(1)"></ion-tab>
+        <ion-tab title="Dry/Wet Outlook" icon-off="icon ion-ios-cloud-outline" icon-on="icon ion-ios-cloud" on-select="slide(2)"></ion-tab>
     </ion-tabs>
 </ion-view>

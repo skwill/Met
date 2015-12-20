@@ -317,16 +317,23 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
                     return;
                 }
                 // console.log('Active bg image changed', v);
+                // we need a default background untill the one from flickr is loaded
+                var url = "img/home-images/"+$scope.default_trin+".jpg";
                 var item = v;
-                var url = "http://farm" + item.farm + ".static.flickr.com/" + item.server + "/" + item.id + "_" + item.secret + "_z.jpg";
+                url = "http://farm" + item.farm + ".static.flickr.com/" + item.server + "/" + item.id + "_" + item.secret + "_z.jpg";
                 // place scope fcast here to get image for the current weather contition
                 // var url = "app/home/IMG_3133.jpg"
                 // console.warn($scope)
                 // var url = '';
                 $el2 = document.getElementById('menu-bg');
                 $el2.style.backgroundImage = 'url(' + url + ')'
+                // $el2.setAttribute("cache-src", url);
+                // $el2.setAttribute("src-is", "background");
+
                 $el3 = document.getElementById('i-trin');
                 $el3.src = url;
+                // $el3.setAttribute("cache-src", url);
+                // $el3.setAttribute("src-id", "background");
                 // console.log($element);
                 // alert("1");
                 animate($scope, $element, url);
@@ -364,6 +371,7 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
                     var url = "http://farm" + item.farm + ".static.flickr.com/" + item.server + "/" + item.id + "_" + item.secret + "_z.jpg";
                     $el2 = document.getElementById('menu-bg');
                     $el2.style.backgroundImage = 'url(' + url + ')'
+
                     $el3 = document.getElementById('i-bago');
                     $el3.src = url;
                     // console.log($element);
@@ -418,6 +426,8 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
         scope: true,
         link: function($scope, $element, $attr) {
             if ($scope.url) {
+                // $element[0].setAttribute("cache-src", $scope.url);
+                // $element[0].setAttribute("src-is", "background");
                 $element[0].style.backgroundImage = 'url(' + $scope.url + ')';
             }
         }

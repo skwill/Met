@@ -142,6 +142,7 @@ angular.module('ionic.metApp.services', ['ngResource'])
 
   var flickrSearch = $resource(baseUrl, {
     method: 'flickr.photos.search',
+    user_id: '124768355@N05',
     // group_id: '2893668@N24',
     safe_search: 1,
     jsoncallback: 'JSON_CALLBACK',
