@@ -404,7 +404,7 @@ angular.module('ionic.metApp')
 					'id': 1, // metar fir
 					'icon': 'icon ion-ios-location-outline',
 					'el': 'met-loc',
-					'show': true
+					'show': false
 				}, {
 					'id': 2, // text
 					'icon': 'icon ion-thermometer',
@@ -569,7 +569,7 @@ angular.module('ionic.metApp')
 					// start of precipitation / weather conditions
 					for(x = 0; x < metars_cloud.length; x++) {
 						if(mets[mets.length-1] == metars_cloud[x].code) {
-							console.log('rains');
+							// console.log('rains');
 							$scope.cc = metars_cloud[x].code;
 						}
 					}
@@ -599,6 +599,8 @@ angular.module('ionic.metApp')
 
 				$scope.fcasttrin = ci=='Clear'?'clear-'+$scope.timeOfDay():ci;
 
+				// does the
+
 
 
 
@@ -619,7 +621,7 @@ angular.module('ionic.metApp')
 					// metars has a weather condition
 					// we pull the weather condition string from the weather index of the data set
 					// weather index only exists when we have no sig
-					$scope.summary_text_trin = $scope.capFLetter(_this.mdata[9].value.match(/\(([^)]+)\)/)[1]); // this is the weather index
+					$scope.summary_text_trin = $scope.capFLetter(_this.mdata[9].value.match(/\(([^)]+)\)/)[1]).replace('(', ''); // this is the weather index
 
 					// when metars tells us that we have a weather condition then we need to match that current condition to our array of conditions
 					// and select the appropriate icon
