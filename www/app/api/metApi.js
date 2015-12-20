@@ -107,7 +107,7 @@
 			$http.get(url + '/sigmet' + link)
 				.success(function(data) {
 					callback(data)
-				})
+			})
 		}
 
 		function get_ttcp(callback, id) {
@@ -198,14 +198,30 @@
 		}
 
 		function get_agrotrini(callback) {
-			$http.get(url + '/agrotrini').success(function(data) {
+			$http.get(url + '/argotrini').success(function(data) {
 				callback(data)
 			})
 		}
 
+		function get_agroData(type, callback){
+			var agrourl = 'http://190.58.130.230/api/argotrini/search?item=';
+
+			$http.get(agrourl + type).success(function(data) {
+				callback(data);
+			})
+		}
+
 		function get_agrotbg(callback) {
-			$http.get(url + '/agrotbg').success(function(data) {
+			$http.get(url + '/argotbg').success(function(data) {
 				callback(data)
+			})
+		}
+
+		function get_agroDataTbg(type, callback){
+			var agrourl = 'http://190.58.130.230/api/argotbg/search?item=';
+
+			$http.get(agrourl + type).success(function(data) {
+				callback(data);
 			})
 		}
 
@@ -281,6 +297,8 @@
 			get_issue: get_issue,
 			get_agrotrini: get_agrotrini,
 			get_agrotbg: get_agrotbg,
+			get_agroData: get_agroData,
+			get_agroDataTbg: get_agroDataTbg,
 			get_trend: get_trend,
 			get_elnino: get_elnino,
 			get_elninos: get_elninos,
