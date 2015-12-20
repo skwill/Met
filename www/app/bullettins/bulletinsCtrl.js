@@ -99,8 +99,8 @@ angular.module('ionic.metApp')
 		$scope.disableSwipe = function() {
 		   $ionicSlideBoxDelegate.enableSlide(false);
 		};
-	
-		
+
+
 		var vm = this;
 
 		$ionicPlatform.ready(function() {
@@ -114,19 +114,19 @@ angular.module('ionic.metApp')
 			}
 
 		})
-		// var m = "";
+
 		// slide had changed listener event
 		$scope.slideHasChanged = function(index) {
-			vm.update_slide(index);
+			// vm.update_slide(index);
 		}
 
 		// update slide with index
-		vm.update_slide = function(index) {
-			titles = ['General Information', 'Severe Weather', 'Floods', 'Rough Seas'];
-			$scope.sub_title = titles[index];
-			// m = index;
-			// console.log($scope.m)
-		}
+		// vm.update_slide = function(index) {
+		// 	titles = ['General Information', 'Severe Weather', 'Floods', 'Rough Seas'];
+		// 	$scope.sub_title = titles[index];
+		// 	// m = index;
+		// 	// console.log($scope.m)
+		// }
 
 		vm.refresh_all_b = function() {
 			vm.getGIBulletins();
@@ -139,17 +139,12 @@ angular.module('ionic.metApp')
 		vm.getGIBulletins = function() {
 			metApi.get_b_info(function(data) {
 				vm.b_info = data.items[0];
-				/*console.log("general info")
-				console.log(data.items)*/
-				// alert(data.item[0].flag)
 			});
 		}
 
 		// get severe weather bulletins
 		vm.get_serv_b = function() {
 			metApi.get_b_serv(function(data) {
-				/*console.log("severe info")
-				console.log(data.items)*/
 				vm.s_items = data.items[0];
 
 			})
@@ -157,8 +152,6 @@ angular.module('ionic.metApp')
 		// get blood bulletins
 		vm.get_flood_b = function() {
 			metApi.get_b_flood(function(data) {
-				/*console.log("flood info")
-				console.log(data.items)*/
 				vm.f_items = data.items[0];
 
 			})
@@ -168,9 +161,6 @@ angular.module('ionic.metApp')
 		vm.get_sea_b = function() {
 			metApi.get_b_sea(function(data) {
 				vm.r_items = data.items[0];
-				/*console.log("rough info")
-				console.log(data.items);*/
-				// console.log(data)
 			})
 		}
 
@@ -220,9 +210,7 @@ angular.module('ionic.metApp')
 		};
 
 		$scope.slide = function(to) {
-			// $scope.current = to;
 			$ionicSlideBoxDelegate.slide(to);
-			// vm.refresh_all_b();
 		}
 
 	})

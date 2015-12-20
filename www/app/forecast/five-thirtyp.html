@@ -5,30 +5,30 @@
                 <div class="row date">
                     <div class="col text-center">
                         <p>{{vm.forecast.timePeriod}}</p>
-                    </div>            
+                    </div>
                 </div>
                 <div class="row issued-at">
                     <div class="col text-center">
                         <p>Issued at {{vm.forecast.IssuedAt}}</p>
-                    </div>  
-                </div>   
+                    </div>
+                </div>
                 <div class="row meteoroligist">
                     <div class="col text-center">
                         <p>By {{vm.forecast.forecaster}}</p>
-                    </div>  
-                </div>     
+                    </div>
+                </div>
             </div>
             <div class="text-center">
-                <i class="ion-ios-time-outline"></i>
+                <i class="ion-ios-time-outline"></i><br>
                 <span class="em-txt">For The Period {{vm.forecast.forecastPeriod}}</span>
-            </div>             
+            </div>
         </div>
-    </div>    
+    </div>
     <div ng-if="vm.forecast.textArea1">
         <div class="card wide" >
             <div class="item item-divider">
                 <i class="ion-ios-location dark"></i>
-                <p class="dark">{{vm.forecast.forecastArea1}}</p>            
+                <p class="dark">{{vm.forecast.forecastArea1}}</p>
             </div>
             <div class="item item-text-wrap">
                 <span class="em-txt"><p>{{vm.forecast.textArea1}}</p></span>
@@ -37,11 +37,11 @@
     </div>
     <div ng-if="vm.forecast.textArea2">
         <div class="card wide" >
-            <div class="item item-divider">         
+            <div class="item item-divider">
                 <i class="ion-ios-location dark"></i>
-                <p class="dark">{{vm.forecast.forecastArea2}}</p>            
+                <p class="dark">{{vm.forecast.forecastArea2}}</p>
             </div>
-            <div class="item item-text-wrap">                
+            <div class="item item-text-wrap">
                 <span class="em-txt"><p>{{vm.forecast.textArea2}}</p></span>
             </div>
         </div>
@@ -49,32 +49,32 @@
 
     <div ng-if="vm.forecast.textArea3">
         <div class="card wide" >
-            <div class="item item-divider">         
+            <div class="item item-divider">
                 <i class="ion-ios-location dark"></i>
-                <p class="dark">{{vm.forecast.forecastArea3}}</p>            
+                <p class="dark">{{vm.forecast.forecastArea3}}</p>
             </div>
-            <div class="item item-text-wrap">      
+            <div class="item item-text-wrap">
                 <span class="em-txt"><p>{{vm.forecast.textArea3}}</p></span>
             </div>
         </div>
-    </div>  
-    
+    </div>
+
     <div ng-if="vm.forecast.PiarcoFcstMxTemp">
         <div class="card wide" id="temp-container">
-            <div class="item item-divider">         
+            <div class="item item-divider">
                 <i class="ion-thermometer dark"></i>
                 <p class="dark">Temperature Forecast</p>
             </div>
-            <div class="item item-text-wrap"> 
+            <div class="item item-text-wrap">
                 <div class="row">
                     <div class="col text-center">
                         <h1 class="temp-lg">Piarco</h1>
                         <span ng-if="vm.forecast.PiarcoFcstMxTemp"><p class="temp-sm">Max Temp</p></span><br/>
-                        <span ng-if="vm.forecast.PiarcoFcstMxTemp"><p class="temp-lg">{{vm.forecast.PiarcoFcstMxTemp}}&deg;</p></span> 
+                        <span ng-if="vm.forecast.PiarcoFcstMxTemp"><p class="temp-lg">{{vm.forecast.PiarcoFcstMxTemp}}&deg;</p></span>
                         <br/><br/>
                         <span ng-if="vm.forecast.PiarcoFcstMnTemp"><p class="temp-sm">Min Temp</p></span><br/>
-                        <span ng-if="vm.forecast.PiarcoFcstMnTemp"><p class="temp-lg">{{vm.forecast.PiarcoFcstMnTemp}}&deg;</p></span>   
-                    </div>    
+                        <span ng-if="vm.forecast.PiarcoFcstMnTemp"><p class="temp-lg">{{vm.forecast.PiarcoFcstMnTemp}}&deg;</p></span>
+                    </div>
                     <div class="col text-center">
                         <h1 class="temp-lg">Crown Pt</h1>
                         <span ng-if="vm.forecast.CrownFcstMxTemp"><p class="temp-sm">Max Temp</p></span><br/>
@@ -87,18 +87,18 @@
                 <div class="row">
                     <div class="col text-center">
                         <span ng-if="vm.forecast.PiarcoFcstMxTemp"><p class="temp-sm">Heat Index</p></span><br/>
-                        <span ng-if="vm.forecast.PiarcoFcstMxTemp"><p class="temp-lg">{{vm.forecast.PiarcoheatIndex}}&deg;</p></span> 
-                         
-                    </div>    
+                        <span ng-if="vm.forecast.PiarcoFcstMxTemp"><p class="temp-lg">{{vm.forecast.PiarcoheatIndex}}&deg;</p></span>
+
+                    </div>
                     <div class="col text-center">
                         <span ng-if="vm.forecast.CrownFcstMxTemp"><p class="temp-sm">Heat Index</p></span><br/>
                         <span ng-if="vm.forecast.CrownFcstMxTemp"><p class="temp-lg">{{vm.forecast.CPointheatIndex}}&deg;</p></span>
-                        
+
                     </div>
                 </div>
             </div>
             <div class="item item-text-wrap">
-                <span ng-if="vm.forecast.uvrate"> 
+                <span ng-if="vm.forecast.uvrate">
                     <p class="temp-lg">UV Rate: {{vm.forecast.uvrate}}</p>
                 </span>
             </div>
@@ -106,119 +106,119 @@
     </div>
 
     <div class="card wide">
-        <div class="item item-divider">         
+        <div class="item item-divider">
             <i class="ion-android-boat dark"></i>
             <p class="dark">Seas</p>
         </div>
-        <div class="item item-text-wrap"> 
+        <div class="item item-text-wrap">
             <span class="em-txt">
-                <p>{{vm.forecast.seas}}</p>                        
-            </span>           
+                <p>{{vm.forecast.seas}}</p>
+            </span>
         </div>
     </div>
 
     <div class="card wide">
-        <div class="item item-divider">         
+        <div class="item item-divider">
             <i class="ion-help-buoy dark"></i>
             <p class="dark">Waves</p>
         </div>
-        <div class="item item-text-wrap"> 
+        <div class="item item-text-wrap">
             <span class="em-txt">
                 <p>{{vm.forecast.waves1}} {{vm.forecast.waves2}}</p>
-            </span>           
+            </span>
         </div>
     </div>
 
     <div ng-if="vm.forecast.addMarine">
         <div class="row">
             <div class="card wide">
-                <div class="item item-divider">         
+                <div class="item item-divider">
                     <i class="ion-android-boat dark"></i>
                     <p class="dark">Additional Marine Info</p>
                 </div>
-                <div class="item item-text-wrap"> 
+                <div class="item item-text-wrap">
                     <span class="em-txt">
-                        <p>{{vm.forecast.addMarine}}</p>                     
-                    </span>           
+                        <p>{{vm.forecast.addMarine}}</p>
+                    </span>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <div ng-if="vm.forecast.precipitation">
         <div class="card wide">
-            <div class="item item-divider">         
+            <div class="item item-divider">
                 <i class="ion-ios-rainy-outline dark"></i>
                 <p class="dark">Precipitation</p>
             </div>
-            <div class="item item-text-wrap"> 
+            <div class="item item-text-wrap">
                 <span class="em-txt">
                     <p>{{vm.forecast.precipitation}}</p>
-                </span>           
+                </span>
             </div>
         </div>
     </div>
 
     <div ng-if="vm.forecast.cumlativeRain">
         <div class="card wide">
-            <div class="item item-divider">         
+            <div class="item item-divider">
                 <i class="ion-ios-rainy dark"></i>
                 <p class="dark">Cumulative Rainfall</p>
             </div>
-            <div class="item item-text-wrap"> 
+            <div class="item item-text-wrap">
                 <span class="em-txt">
                     <p>{{vm.forecast.cumlativeRain}}</p>
-                </span>           
+                </span>
             </div>
         </div>
     </div>
 
     <div ng-if="vm.forecast.probrainfall">
         <div class="card wide">
-            <div class="item item-divider">         
+            <div class="item item-divider">
                 <i class="ion-umbrella dark"></i>
                 <p class="dark">Probable Rainfall</p>
             </div>
-            <div class="item item-text-wrap"> 
+            <div class="item item-text-wrap">
                 <span class="em-txt">
                     <p>{{vm.forecast.probrainfall}}</p>
-                </span>           
+                </span>
             </div>
         </div>
     </div>
 
     <div ng-if="vm.forecast.sunrise">
         <div class="card wide">
-            <div class="item item-divider">         
+            <div class="item item-divider">
                 <i class="ion-ios-sunny dark"></i>
                 <p class="dark">Sunrise & Sunset</p>
             </div>
-            <div class="item item-text-wrap"> 
+            <div class="item item-text-wrap">
                 <span class="em-txt">
                     <p>Sunrise: {{vm.forecast.sunrise}}</p><br/>
                     <p> Sunset: {{vm.forecast.sunset}}</p>
-                </span>           
+                </span>
             </div>
         </div>
     </div>
 
     <div ng-if="vm.forecast.tideDate">
         <div class="card wide">
-            <div class="item item-divider">         
+            <div class="item item-divider">
                 <i class="ion-ios-moon-outline dark"></i>
                 <p class="dark">Tides</p>
             </div>
-            <div class="item item-text-wrap text-center"> 
+            <div class="item item-text-wrap text-center">
                 <h1 class="temp-md">Port of Spain</h1>
                 <div class="row">
                     <div class="col">High:</div>
                     <div class="col">{{vm.forecast.trinAmHigh}}</div>
-                    <div class="col">{{vm.forecast.trinPmHigh}}</div>                    
+                    <div class="col">{{vm.forecast.trinPmHigh}}</div>
                 </div>
-                <div class="row">                    
+                <div class="row">
                     <div class="col">Low:</div>
                     <div class="col">{{vm.forecast.trinAmLow}}</div>
-                    <div class="col">{{vm.forecast.trinPmLow}}</div>                    
+                    <div class="col">{{vm.forecast.trinPmLow}}</div>
                 </div>
 
                 <h1 class="temp-md">Crown Point</h1>

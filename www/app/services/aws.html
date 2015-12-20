@@ -16,11 +16,11 @@
         <div id="map"></div>
         <div id="map-bar">
             <ul>
-                <li><button ng-click="a.aws_click()">1</button></li>
-                <li><button ng-click="a.aws_click()">2</button></li>
-                <li><button ng-click="a.aws_click()">3</button></li>
-                <li><button ng-click="a.aws_click()">4</button></li>
-                <li><button ng-click="a.aws_click()">5</button></li>
+                <li><button class="button button-light" ng-click="a.aws_click(1); activeButton = 'a'" ng-class="{'active': activeButton === 'a'}">1</button></li>
+                <li><button class="button button-light" ng-click="a.aws_click(2); activeButton = 'b'" ng-class="{'active': activeButton === 'b'}">2</button></li>
+                <li><button class="button button-light" ng-click="a.aws_click(3); activeButton = 'c'" ng-class="{'active': activeButton === 'c'}">3</button></li>
+                <li><button class="button button-light" ng-click="a.aws_click(4); activeButton = 'd'" ng-class="{'active': activeButton === 'd'}">4</button></li>
+                <li><button class="button button-light" ng-click="a.aws_click(5); activeButton = 'e'" ng-class="{'active': activeButton === 'e'}">5</button></li>
             </ul>
         </div>
     </ion-content>

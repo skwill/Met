@@ -17,7 +17,9 @@
                 <div class="card wide b-info" >
                     <div class="item item-divider text-center">
                         <i class="icon ion-flag pull-left"></i>
-                        <p class="dark">{{vm.b_info.bulletinpage}} Bulletin</p>
+                        <!-- <p class="darkk">{{vm.b_info.bulletinpage}} Bulletin</p> -->
+                        <p>Information</p>
+                        <p ng-if="vm.b_info.issuedAt">Issued at: {{vm.b_info.issuedAt}}</p>
                     </div>
                     <div class="item item-text-wrap" >
                         <span ng-if="vm.b_info.textArea1" class="em-txt"><p>{{vm.b_info.textArea1}}</p><br/></span>
@@ -25,7 +27,7 @@
                         <span ng-if="vm.b_info.textArea3" class="em-txt"><p>{{vm.b_info.textArea3}}</p><br/></span>
                         <span ng-if="vm.b_info.textArea4" class="em-txt"><p>{{vm.b_info.textArea4}}</p><br/></span>
                         <span ng-if="vm.b_info.textArea5" class="em-txt"><p>{{vm.b_info.textArea5}}</p></span>
-                        <span ng-if="!vm.b_info.textArea5 && !vm.b_info.textArea4 &&!vm.b_info.textArea3 && !vm.b_info.textArea2 && !vm.b_info.textArea1" class="em-txt text-center"><p>There is no {{vm.b_info.bulletinpage}} Bulletin at this time</p></span>
+                        <span ng-if="!vm.b_info.textArea5 && !vm.b_info.textArea4 &&!vm.b_info.textArea3 && !vm.b_info.textArea2 && !vm.b_info.textArea1" class="em-txt text-center"><p>There is no <strong>Information Bulletin</strong> at this time</p></span>
                     </div>
                 </div>
                 <br><br><br>
@@ -34,14 +36,16 @@
                 <div class="card wide b-info" >
                     <div class="item item-divider text-center">
                         <i class="icon ion-flag pull-left"></i>
-                        <p class="dark">{{vm.s_items.bulletinpage}} Bulletin</p>
+                        <!-- <p class="darkk">{{vm.s_items.bulletinpage}} Bulletin</p> -->
+                        <p>Severe Weather</p>
+                        <p ng-if="vm.s_items.issuedAt">Issued at: {{vm.s_items.issuedAt}}</p>
                     </div>
                     <div class="item item-text-wrap">
                         <span ng-if="vm.s_items.textArea1" class="em-txt"><p>{{vm.s_items.textArea1}}</p><br/></span>
                         <span ng-if="vm.s_items.textArea2" class="em-txt"><p>{{vm.s_items.textArea2}}</p><br/></span>
                         <span ng-if="vm.s_items.textArea3" class="em-txt"><p>{{vm.s_items.textArea3}}</p><br/></span>
                         <span ng-if="vm.s_items.textArea5" class="em-txt"><p>{{vm.s_items.textArea5}}</p><br/></span>
-                        <span ng-if="!vm.s_items.textArea5 &&!vm.s_items.textArea4 && !vm.s_items.textArea3 && !vm.s_items.textArea2 && !vm.s_items.textArea1" class="em-txt text-center"><p>There is no {{vm.s_items.bulletinpage}} Bulletin at this time</p></span>
+                        <span ng-if="!vm.s_items.textArea5 &&!vm.s_items.textArea4 && !vm.s_items.textArea3 && !vm.s_items.textArea2 && !vm.s_items.textArea1" class="em-txt text-center"><p>There is no <strong>Severe Weather Bulletin</strong> at this time</p></span>
                     </div>
                 </div>
             </ion-slide>
@@ -49,7 +53,9 @@
                 <div class="card wide b-info">
                     <div class="item item-divider text-center">
                         <i class="icon ion-flag pull-left"></i>
-                        <p class="dark">{{vm.f_items.bulletinpage}} Bulletin</p>
+                        <!-- <p class="darkk">{{vm.f_items.bulletinpage}} Bulletin</p> -->
+                        <p>Floods</p>
+                        <p ng-if="vm.f_items.issuedAt">Issued at: {{vm.f_items.issuedAt}}</p>
                     </div>
                     <div class="item item-text-wrap">
                         <span ng-if="vm.f_items.textArea1" class="em-txt"><p>{{vm.f_items.textArea1}}</p><br/></span>
@@ -57,7 +63,7 @@
                         <span ng-if="vm.f_items.textArea3" class="em-txt"><p>{{vm.f_items.textArea3}}</p><br/></span>
                         <span ng-if="vm.f_items.textArea4" class="em-txt"><p>{{vm.f_items.textArea4}}</p><br/></span>
                         <span ng-if="vm.f_items.textArea5" class="em-txt"><p>{{vm.f_items.textArea5}}</p><br/></span>
-                        <span ng-if="!vm.f_items.textArea5 && !vm.f_items.textArea4 && !vm.f_items.textArea3 && !vm.f_items.textArea2 && !vm.f_items.textArea1" class="em-txt text-center"><p>There is no {{vm.f_items.bulletinpage}} Bulletin at this time</p></span>
+                        <span ng-if="!vm.f_items.textArea5 && !vm.f_items.textArea4 && !vm.f_items.textArea3 && !vm.f_items.textArea2 && !vm.f_items.textArea1" class="em-txt text-center"><p>There is no <strong>Floods Bulletin</strong> at this time</p></span>
                     </div>
                 </div>
             </ion-slide>
@@ -65,7 +71,9 @@
                 <div class="card wide b-info">
                     <div class="item item-divider text-center">
                         <i class="icon ion-flag pull-left"></i>
-                        <p class="dark">{{vm.r_items.bulletinpage}} Bulletin</p>
+                        <!-- <p class="darkk">{{vm.r_items.bulletinpage}} Bulletin</p> -->
+                        <p>Rough Seas</p>
+                        <p ng-if="vm.r_items.issuedAt">Issued at: {{vm.r_items.issuedAt}}</p>
                     </div>
                     <div class="item item-text-wrap">
                         <span ng-if="vm.r_items.textArea1" class="em-txt"><p>{{vm.r_items.textArea1}}</p><br/></span>
@@ -73,7 +81,7 @@
                         <span ng-if="vm.r_items.textArea3" class="em-txt"><p>{{vm.r_items.textArea3}}</p><br/></span>
                         <span ng-if="vm.r_items.textArea4" class="em-txt"><p>{{vm.r_items.textArea4}}</p><br/></span>
                         <span ng-if="vm.r_items.textArea5" class="em-txt"><p>{{vm.r_items.textArea5}}</p><br/></span>
-                        <span ng-if="!vm.r_items.textArea5 && !vm.r_items.textArea4 && !vm.r_items.textArea3 && !vm.r_items.textArea2 && !vm.r_items.textArea1" class="em-txt text-center"><p>There is no {{vm.r_items.bulletinpage}} Bulletin at this time</p></span>
+                        <span ng-if="!vm.r_items.textArea5 && !vm.r_items.textArea4 && !vm.r_items.textArea3 && !vm.r_items.textArea2 && !vm.r_items.textArea1" class="em-txt text-center"><p>There is no <strong>Rough Seas Bulletin</strong> at this time</p></span>
                     </div>
                 </div>
             </ion-slide>

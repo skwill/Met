@@ -1,6 +1,6 @@
 // weather app based on driftyco ionic-weather
 // https://github.com/driftyco/ionic-weather
-angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.services', 'ionic.metApp.directives', 'ngCordova', 'ngResource', 'ion-affix'])
+angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.services', 'ionic.metApp.directives', 'ngCordova', 'ngResource', 'ion-affix'/*, 'angular-svg-round-progress', 'ionic-cache-src'*/])
 
 .constant('WUNDERGROUND_API_KEY', '1cc2d3de40fa5af0')
     .constant('FORECASTIO_KEY', '4cd3c5673825a361eb5ce108103ee84a')
@@ -339,6 +339,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
         // }, false);
 
     });
+
 // .controller('appCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval) {
 
 //   $scope.msg = "";

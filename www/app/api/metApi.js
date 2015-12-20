@@ -153,7 +153,7 @@
 				'Cache-Control': 'max-age="600"'
 			};
 			$http.get(url + '/uv', headers).success(function(data) {
-				console.warn(data)
+				// console.warn(data)
 				callback(data)
 			})
 		}

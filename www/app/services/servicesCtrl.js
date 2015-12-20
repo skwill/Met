@@ -273,9 +273,12 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 	}
 
 })
-	.controller('RadarDetailCtrl', function($scope, $stateParams, metApi, Radars) {
+	.controller('RadarDetailCtrl', function($scope, $stateParams, metApi, Radars, $http, $cordovaPush, $ionicPlatform, $rootScope, $ionicLoading, $state) {
 		// $scope.radar = radar_list.get($stateParams.chatId);
 		var rdc = this;
+		$scope.close_loading = function() {
+			$ionicLoading.hide();
+		}
 		$scope.get_radar_detail = function() {
 			console.log("here")
 			rdc.radar = Radars.get($stateParams.id);
@@ -303,12 +306,23 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 		}
 		$scope.reload_page = function() {
 			// alert();
-			$state.go($state.current, {}, {
-				reload: true
-			});
+			// $state.go($state.current, {}, {
+			// 	reload: true
+			// });
+			$scope.get_radar_detail($stateParams.id);
+			console.log($stateParams.id)
 		}
 		// $scope.get_radar_detail();
 		// console.log($stateParams.id)
+		$scope.$on('loading:show', function() {
+            $ionicLoading.show({
+            	template: ' <ion-spinner></ion-spinner><br><button class="button button-light button-block" ng-click="close_loading()">Cancel</button>',
+            	scope: $scope
+            });
+        })
+        // $scope.$on('loading:hide', function() {
+        //     $ionicLoading.hide();
+        // })
 	})
 	.factory('Radars', function() {
 		var radar_list = [{
@@ -536,8 +550,8 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 
 
 	    	$scope.markers = [];
-	    	var infoWindow = new google.maps.InfoWindow();
 	    	var createMarker = function(info) {
+	    	var infoWindow = new google.maps.InfoWindow();
 	    		var marker = new google.maps.Marker({
 	    			position: new google.maps.LatLng(info.lat, info.long),
 	    			map: $scope.map,
@@ -545,12 +559,12 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 	    			title: info.city
 	    		})
 	    		marker.content = '<div class="infoWindowContent">'+info.desc+'</div>';
-	    		marker.addListener('click', function() {
+	    		// marker.addListener('click', function() {
 	    			infoWindow.setContent('<h2>'+marker.title+'</h2>'+marker.content);
-	    			infoWindow.open($scope.map, marker)
-	    		});
+	    			// infoWindow.open($scope.map, marker)
+	    		// });
 	    		$scope.markers.push(marker);
-	    		console.debug('marker', marker)
+	    		// console.debug('marker', marker)
 	    	}
 
 	    	for(i = 0; i< cities.length; i++) {
@@ -559,12 +573,19 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 
 	    }
 
-	    _this.aws_click = function() {
-	    	alert();
+	    _this.aws_click = function(i) {
+	    	$('.gm-style-iw').each(function(idx, val) {
+	    		$(this).find('.infoWindowContent').html(i)
+	    	})
 	    }
+	    // gm-style-iw
+	    // infoWindowContent
 
 
 
 	    google.maps.event.addDomListener(document.getElementById("map"), 'load', $scope.initialise());
 	    // console.log($scope.markers)
-	});
+	})
+.run(function($http, $cordovaPush, $ionicPlatform, $rootScope, $ionicLoading) {
+
+});
