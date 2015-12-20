@@ -1,151 +1,150 @@
-<ion-view view-title="Agriculture" >
-    <ion-nav-bar>
-        <!-- <ion-nav-title align-title="center">Met App</ion-nav-title> -->
-        <!-- <button menu-toggle="left" class="button button-icon icon ion-navicon"></button> -->
+<ion-view view-title="Agriculture" ng-controller="ServicesCtrl as ac" id="agri">
+    <ion-nav-bar class="bar no-border blue">
         <ion-nav-back-button class="button-clear">
             <i class="ion-arrow-left-c"></i>
         </ion-nav-back-button>
-
-        <!-- <ion-nav-buttons side="left">
+        <ion-nav-buttons side="left">
             <button menu-toggle="left" class="button button-icon icon ion-navicon" ></button>
-        </ion-nav-buttons> -->
-
+        </ion-nav-buttons>
     </ion-nav-bar>
-    
-<!-- 	<ion-content class="has-header"> -->
-		<!-- <h4>Bullettins</h4> -->
 
-    <ion-content class="has-header container">
-        <!-- <sup>Description of warnings</sup> -->
-        <ion-slide-box on-slide-changed="slideHasChanged($index)">
-            <ion-slide style="height: 400px;">
-                <div class="box">
-                    <h1 class="text-center">Information</h1>
-                    
-                    <!-- <div ng-repeat="item in vm.bulletins">
-                        <div class="item" ng-click="openModalFunction()">
-                            <h1></h1>
-                            <h2>{{item.bulletinType}}</h2>
-                            <p>{{item.currdate}}, {{item.issuedAt}}</p>
-                        </div>
-                        <div class="item tabs tabs-secondary tabs-icon-left">
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-thumbsup"></i>
-                              Like
-                            </a>
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-chatbox"></i>
-                              Comment
-                            </a>
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-share"></i>
-                              Share
-                            </a>
-                        </div>
-                    </div> -->
-                    <!-- <p>Box 1</p>
-                    <p>{{vm.bulletins[0].bulletinType}}</p> -->
+    <ion-content scroll="true" class="has-header climate-container text-left">
+        <ion-slide-box on-slide-changed="slideHasChanged_c($index)" ng-init="disableSwipe()">
+            <ion-slide ng-init="ac.agrotrini()">
+                <div class="card wide">
+                    <div class="item item-divider text-center">                       
+                        <p class="dark">Trinidad Agromet for</p>
+                        <p class="dark">{{ac.atrin.Month}} {{ac.atrin.Day}}</p>                        
+                    </div>                    
                 </div>
+
+
+                <div class="card wide ">
+                    <div class="item item-divider text-center headings">
+                        <i class="ion-ios-rainy-outline dark"></i>                       
+                        <p class="dark">Rainfall Forecast</p>                                               
+                    </div>                    
+                </div>
+                <div class="card wide" ng-repeat="item in ac.area">                  
+                    <div class="item item-divider">                                                
+                        <p class="dark">{{item}}</p>
+                    </div>
+                    <div class="item item-text-wrap">
+                        <span class="em-txt"><p>{{ac.rain[$index]}}</p></span>
+                    </div>                   
+                </div>
+
+                <div class="card wide ">
+                    <div class="item item-divider text-center headings">  
+                        <i class="ion-thermometer dark"></i>
+                        <p class="dark">Temperature Forecast</p>                                               
+                    </div>                    
+                </div>
+
+                <div class="card wide" ng-repeat="item in ac.temp">                   
+                    <div class="item item-text-wrap">
+                        <span class="em-txt"><p>{{ac.temp}}</p></span>
+                    </div>                   
+                </div>
+
+                <div class="card wide ">
+                    <div class="item item-divider text-center headings">                       
+                        <p class="dark">Summary</p>                                               
+                    </div>                    
+                </div>
+
+                <div class="card wide">                   
+                    <div class="item item-text-wrap">
+                        <span class="em-txt"><p>{{ac.sum.sum}}</p></span>
+                    </div>                   
+                </div>
+
+                <div class="card wide ">
+                    <div class="item item-divider text-center headings">                       
+                        <p class="dark">Preliminary Rainfall and Temperature Outlook</p>                                               
+                    </div>                    
+                </div>
+
+                <div class="card wide" style="margin-bottom: 40px;">                   
+                    <div class="item item-text-wrap">
+                        <span class="em-txt"><p>{{ac.sum.prt}}</p></span>
+                    </div>                   
+                </div>
+
+
+
             </ion-slide >
-            <ion-slide style="height: 400px;">
-                <div class="box">
-                    <h1 class="text-center">Severe Weather</h1>
-                    <!-- <div ng-repeat="item in vm.severe">
-                        <div class="item" ng-click="openModalFunction()">
-                            <h2>{{item.bulletinType}}</h2>
-                            <p>{{item.currdate}}, {{item.issuedAt}}</p>                            
-                        </div> -->
-                        <!-- <div class="item">
-                            <sup>{{item.currdate}}, {{item.issuedAt}}</sup>
-                        </div> -->
-                        <!-- <div class="item tabs tabs-secondary tabs-icon-left">
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-thumbsup"></i>
-                              Like
-                            </a>
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-chatbox"></i>
-                              Comment
-                            </a>
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-share"></i>
-                              Share
-                            </a>
-                        </div>
-                    </div> -->
+
+
+            <ion-slide ng-init="ac.agrotbg()">
+                <div class="card wide">
+                    <div class="item item-divider text-center">                       
+                        <p class="dark">Tobago Agromet for</p>
+                        <p class="dark">{{ac.atbg.Month}} {{ac.atbg.Day}}</p>                        
+                    </div>                    
                 </div>
-            </ion-slide>
-            <ion-slide style="height: 400px;">
-                <div class="box">
-                    <h1 class="text-center">Floods</h1>
-                    <!-- <div ng-repeat="item in vm.flood" >
-                        <div class="item" ng-click="openModalFunction()">
-                            <h2>{{item.bulletinType}}</h2>
-                            <p>{{item.currdate}}, {{item.issuedAt}}</p>
-                        </div> -->
-                        <!-- <div class="item">
-                            <sup>{{item.currdate}}, {{item.issuedAt}}</sup>
-                        </div> -->
-                        <!-- <div class="item tabs tabs-secondary tabs-icon-left">
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-thumbsup"></i>
-                              Like
-                            </a>
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-chatbox"></i>
-                              Comment
-                            </a>
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-share"></i>
-                              Share
-                            </a>
-                        </div>
-                    </div> -->
+
+
+                <div class="card wide ">
+                    <div class="item item-divider text-center headings">  
+                        <i class="ion-ios-rainy-outline dark"></i>                     
+                        <p class="dark">Rainfall Forecast</p>                                               
+                    </div>                    
                 </div>
-            </ion-slide>
-            <ion-slide style="height: 400px;">
-                <div class="box">
-                    <h1 class="text-center">Rough Seas</h1>
-                    <!-- <div ng-repeat="item in vm.sea" >
-                        <div class="item" ng-click="openModalFunction()">
-                            <h2>{{item.bulletinType}}</h2>
-                            <p>{{item.currdate}}, {{item.issuedAt}}</p>
-                        </div> -->
-                        <!-- <div class="item">
-                            <sup>{{item.currdate}}, {{item.issuedAt}}</sup>
-                        </div> -->
-                       <!--  <div class="item tabs tabs-secondary tabs-icon-left">
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-thumbsup"></i>
-                              Like
-                            </a>
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-chatbox"></i>
-                              Comment
-                            </a>
-                            <a class="tab-item" href="#">
-                              <i class="icon ion-share"></i>
-                              Share
-                            </a>
-                        </div>
-                    </div> -->
+                <div class="card wide" ng-repeat="item in ac.areatbg">                  
+                    <div class="item item-divider">                                              
+                        <p class="dark">{{item}}</p>
+                    </div>
+                    <div class="item item-text-wrap">
+                        <span class="em-txt"><p>{{ac.raintbg[$index]}}</p></span>
+                    </div>                   
                 </div>
-            </ion-slide>
+
+                <div class="card wide ">
+                    <div class="item item-divider text-center headings"> 
+                      <i class="ion-thermometer dark"></i>                      
+                      <p class="dark">Temperature Forecast</p>                                               
+                    </div>                    
+                </div>
+
+                <div class="card wide" ng-repeat="item in ac.temp">                   
+                    <div class="item item-text-wrap">
+                        <span class="em-txt"><p>{{ac.temptbg}}</p></span>
+                    </div>                   
+                </div>
+
+                <div class="card wide ">
+                    <div class="item item-divider text-center headings">                       
+                        <p class="dark">Summary</p>                                               
+                    </div>                    
+                </div>
+
+                <div class="card wide">                   
+                    <div class="item item-text-wrap">
+                        <span class="em-txt"><p>{{ac.sumtbg.sum}}</p></span>
+                    </div>                   
+                </div>
+
+                <div class="card wide ">
+                    <div class="item item-divider text-center headings">                       
+                        <p class="dark">Preliminary Rainfall and Temperature Outlook</p>                                               
+                    </div>                    
+                </div>
+
+                <div class="card wide" style="margin-bottom: 40px;">                   
+                    <div class="item item-text-wrap">
+                        <span class="em-txt"><p>{{ac.sumtbg.prt}}</p></span>
+                    </div>                   
+                </div>
+
+
+          
+            </ion-slide>          
         </ion-slide-box>
     </ion-content>
+    <ion-tabs class="tabs-icon-top tabs-color-active-positive">
+        <ion-tab title="Trinidad Agro" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="slide(0)"></ion-tab>
+        <ion-tab title="Tobago Agro" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="slide(1)"></ion-tab>       
+    </ion-tabs>
+    
 </ion-view>
-
-<!-- <ion-slide-box on-slide-changed="slideHasChanged($index)" >
-    <ion-slide>
-      <div class="box blue" style="height: 400px; background-color: blue;"><h1>BLUE</h1></div>
-    </ion-slide>
-    <ion-slide>
-      <div class="box yellow" style="height: 400px; background-color: yellow;"><h1>YELLOW</h1></div>
-    </ion-slide>
-    <ion-slide>
-      <div class="box pink" style="height: 400px; background-color: pink;"><h1>PINK</h1></div>
-    </ion-slide>
-    <ion-slide>
-      <div class="box pink" style="height: 400px; background-color: black;"><h1>BLACK</h1></div>
-    </ion-slide>
-  </ion-slide-box> -->

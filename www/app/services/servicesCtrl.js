@@ -71,17 +71,77 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 	sc.get_rainandtemp = function() {
 		metApi.get_rainandtemp(function(data) {
 			console.log("Rain and Temp "+data.items[0].year);
-			sc.rt = data.items;
-			/*console.log("rain and temp")
-			console.log(data)*/
+			sc.rt = data.items;			
 		})
 	}
 	sc.get_drywet = function() {
 		metApi.get_drywet(function(data) {
-			sc.dw = data.items;
-			/*console.log("dry wet")
-			console.log(data)*/
+			sc.dw = data.items;			
 		})
+	}
+
+	sc.agrotrini = function() {
+		metApi.get_agrotrini(function(data) {
+			sc.atrin = data.items[0];
+			//console.log("Agro Trini");
+			console.log(sc.atrin);			
+		})
+
+		metApi.get_agroData('area', function(area){
+			//console.log("Agro Info");
+			console.log(area);
+			sc.area = area;
+		})
+
+		metApi.get_agroData('rainfall', function(area){
+			//console.log("Rain Info");
+			console.log(area);
+			sc.rain = area;
+		})
+
+		metApi.get_agroData('temperature', function(area){
+			//console.log("Temp Info");
+			console.log(area);
+			sc.temp = area;
+		})
+
+		metApi.get_agroData('summary', function(area){
+			//console.log("Summary Info");
+			console.log(area);
+			sc.sum = area;
+		})		
+	}
+
+	sc.agrotbg = function() {
+		metApi.get_agrotbg(function(data) {
+			sc.atbg = data.items[0];
+			console.log("Agro TBG");
+			console.log(sc.atrin);			
+		})
+
+		metApi.get_agroDataTbg('area', function(area){
+			console.log("Agro Info tbg");
+			console.log(area);
+			sc.areatbg = area;
+		})
+
+		metApi.get_agroDataTbg('rainfall', function(area){
+			console.log("Rain Info");
+			console.log(area);
+			sc.raintbg = area;
+		})
+
+		metApi.get_agroDataTbg('temperature', function(area){
+			console.log("Temp Info");
+			console.log(area);
+			sc.temptbg = area;
+		})
+
+		metApi.get_agroDataTbg('summary', function(area){
+			console.log("Summary Info");
+			console.log(area);
+			sc.sumtbg = area;
+		})		
 	}
 
 	$ionicModal.fromTemplateUrl('app/services/elrtinfo_item.html', {

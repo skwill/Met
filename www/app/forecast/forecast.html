@@ -8,7 +8,7 @@
         </ion-nav-buttons>
     </ion-nav-bar>
     <ion-content scroll="true" class="" ng-init="vm.getForecast()">
-        <ion-refresher pulling-text="Pull to refresh..." on-refresh="vm.getForecast()" style="margin-top: -20px;"></ion-refresher>
+        
         <div ng-if="vm.forecast.forecastTime == '05:30AM'">
             <five-thirty></five-thirty>
         </div>
