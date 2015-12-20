@@ -5,7 +5,13 @@
   fill: white;
   stroke-width: 0%;
   stroke: black;
+
 }
+
+.climacon_component-stroke.black {
+  fill: #666!important;
+}
+
 
 .climacon_component-fill {
   fill: #aedef4;

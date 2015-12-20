@@ -12,6 +12,9 @@
 .text-center { text-align: center; }
 .no-padding { padding: 0px; }
 .container { padding: 20px; }
+.small {
+	font-size: 	12px!important;
+}
 
 .bg-image {
 	// background-image: url('../img/IMG_3114.JPG');
@@ -447,10 +450,20 @@ h1,h2,h3,h4,h5 {
 .modal-backdrop, .modal-backdrop-bg {
     z-index: 23;
 }
+.wrap {
+	white-space: normal!important;
+}
 .item {
 	&.item-divider {
 		border-width: 0px!important;
 		border-color: transparent!important;
+		&.simple {
+			background: transparent!important;
+			margin-bottom: -13px;
+			p {
+				.wrap;
+			}
+		}
 	}
 }
 .card {
