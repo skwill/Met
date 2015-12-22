@@ -1,6 +1,6 @@
 // weather app based on driftyco ionic-weather
 // https://github.com/driftyco/ionic-weather
-angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.services', 'ionic.metApp.directives', 'ngCordova', 'ngResource', 'ion-affix'/*, 'angular-svg-round-progress', 'ionic-cache-src'*/])
+angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.services', 'ionic.metApp.directives', 'ngCordova', 'ngResource', 'ion-affix', 'ngIOS9UIWebViewPatch'/*, 'angular-svg-round-progress', 'ionic-cache-src'*/])
 
 .constant('WUNDERGROUND_API_KEY', '1cc2d3de40fa5af0')
     .constant('FORECASTIO_KEY', '4cd3c5673825a361eb5ce108103ee84a')
@@ -299,9 +299,10 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
             if (window.StatusBar) {
                 // org.apache.cordova.statusbar required
                 // StatusBar.styleDefault();
+                StatusBar.styleLightContent();
                 // StatusBar.hide();
                 // ionic.Platform.fullScreen();
-                StatusBar.styleBlackTranslucent();
+                // StatusBar.styleBlackTranslucent();
             }
 
         });
@@ -339,28 +340,3 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
         // }, false);
 
     });
-
-// .controller('appCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval) {
-
-//   $scope.msg = "";
-//   var app = this;
-//   $scope.test = function() {
-//     // alert();
-//     $scope.$broadcast("call_test");
-//     console.log("test")
-//     // console.log($scope)
-//     return $scope.msg;
-//   }
-
-//   // $scope.test();
-//   $scope.$on('pingBack', function(e, data) {
-//     // alert();
-//     $scope.msg = data;
-//     console.log(data)
-//     // console.log($scope.data);
-//   })
-
-//   // test();
-
-
-// });

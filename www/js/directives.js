@@ -250,7 +250,7 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
         link: function($scope, $element, $attr) {
             var amt, st, header;
             var bg = document.querySelector('.bg-image');
-            var ff = document.getElementById('ff');
+            var ff = document.getElementById('trin-img');
             $element.bind('scroll', function(e) {
                 if (!header) {
                     header = document.querySelector('.header');
@@ -262,7 +262,7 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
                     // header.style.webkitTransform = 'translate3d(0, ' + -st + 'px, 0)';
                 }
                 amt = Math.min(0.6, st / 1000);
-                var b_amount = 60;
+                var b_amount = 5;
                 var blur = "-webkit-filter: blur(" + Math.abs(amt * b_amount) + "px);" +
                     "-moz-filter: blur(" + amt * b_amount + "px);" +
                     "-o-filter: blur(" + amt * b_amount + "px);" +
@@ -431,6 +431,42 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
                 $element[0].style.backgroundImage = 'url(' + $scope.url + ')';
             }
         }
+    }
+})
+
+.directive('trinSunUp', function($timeout) {
+    return {
+        restrict: 'E',
+        replace: true,
+        templateUrl: 'app/home/svg/sun-rise.html',
+        link: function($scope, $element, $attr) {}
+    }
+})
+
+.directive('trinSunDown', function($timeout) {
+    return {
+        restrict: 'E',
+        replace: true,
+        templateUrl: 'app/home/svg/sun-set.html',
+        link: function($scope, $element, $attr) {}
+    }
+})
+
+.directive('bagoSunUp', function($timeout) {
+    return {
+        restrict: 'E',
+        replace: true,
+        templateUrl: 'app/forecast/five-thirtyp.html',
+        link: function($scope, $element, $attr) {}
+    }
+})
+
+.directive('bagoSunDown', function($timeout) {
+    return {
+        restrict: 'E',
+        replace: true,
+        templateUrl: 'app/forecast/five-thirtyp.html',
+        link: function($scope, $element, $attr) {}
     }
 })
 

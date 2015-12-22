@@ -15,6 +15,8 @@
                     </div>
                     <div class="item item-text-wrap">
                         <i class="{{item.icon}}"></i>
+                        <div ng-if="item.txt" class="txt-other"><p>{{item.txt}}</p></div>
+                        <!-- <div ng-if="!item.txt"></div> -->
                         <span class="txt" id="{{item.el}}">{{item.value}}</span>
                     </div>
                 </div>
