@@ -39,7 +39,7 @@
 			<!-- <pass-object fcasttrin="fcasttrin"></pass-object> -->
 		</div>
 		<!-- <current-icon icon="current.currently.icon">Loading...</current-icon> -->
-		<div class="col" id="present-cond" ui-sref="app.forecast">
+		<div class="col" id="present-cond" ng-click="showMetarsTrin()">
 			<div>
 				<span class="block-support-text" id="day">PRESENT</span>
 				<div ng-class="{'current_no_data': current_temp_trin == 'No data'}">

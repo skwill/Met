@@ -23,54 +23,6 @@ var forecastioWeather = ['$q', '$resource', '$http', 'FORECASTIO_KEY',
 
 angular.module('ionic.metApp.services', ['ngResource'])
 
-.constant('DEFAULT_SETTINGS', {
-  'tempUnits': 'c'
-})
-
-.factory('Settings', function($rootScope, DEFAULT_SETTINGS) {
-  var _settings = {};
-  try {
-    _settings = JSON.parse(window.localStorage['settings']);
-  } catch (e) {}
-
-  // Just in case we have new settings that need to be saved
-  _settings = angular.extend({}, DEFAULT_SETTINGS, _settings);
-
-  if (!_settings) {
-    window.localStorage['settings'] = JSON.stringify(_settings);
-  }
-
-  var obj = {
-    getSettings: function() {
-      return _settings;
-    },
-    // Save the settings to localStorage
-    save: function() {
-      window.localStorage['settings'] = JSON.stringify(_settings);
-      $rootScope.$broadcast('settings.changed', _settings);
-    },
-    // Get a settings val
-    get: function(k) {
-      return _settings[k];
-    },
-    // Set a settings val
-    set: function(k, v) {
-      // console.log(k + ': ' + v);
-      // console.log(v);
-      _settings[k] = v;
-      this.save();
-    },
-
-    getTempUnits: function() {
-      return _settings['tempUnits'];
-    }
-  }
-
-  // Save the settings to be safe
-  obj.save();
-  return obj;
-})
-
 .factory('Geo', function($q) {
   return {
     reverseGeocode: function(lat, lng) {
@@ -104,17 +56,11 @@ angular.module('ionic.metApp.services', ['ngResource'])
                   foundState = true;
                   parts.push(a.short_name);
                 }
-                // if (!foundCountry && types[j] == "country") {
-                //   foundCountry = true;
-                //   parts.push(a.long_name);
-                // }
               }
             }
-            // console.log('Reverse', parts);
             q.resolve(parts.join(', '));
           }
         } else {
-          // console.log('reverse fail', results, status);
           q.reject(results);
         }
       })
@@ -123,10 +69,7 @@ angular.module('ionic.metApp.services', ['ngResource'])
     },
     getLocation: function() {
       var q = $q.defer();
-      // console.log("here")
       navigator.geolocation.getCurrentPosition(function(position) {
-
-        // console.log(position)
         q.resolve(position);
       }, function(error) {
         q.reject(error);
@@ -157,9 +100,7 @@ angular.module('ionic.metApp.services', ['ngResource'])
   return {
     search: function(tags, lat, lng) {
       var q = $q.defer();
-
-      console.log('Searching flickr for tags', tags);
-
+      // console.log('Searching flickr for tags', tags);
       flickrSearch.get({
         tags: tags,
         lat: lat,

@@ -242,67 +242,28 @@ angular.module('ionic.metApp')
 		}
 
 		// metars fcast array
-		$scope.metars_cloud = [{
-					'code': 'FEW',
-					'desc': 'Clear'
-				}, {
-					'code': 'SCT',
-					'desc': 'Partly Cloudy'
-				}, {
-					'code': 'BKN',
-					'desc': 'Mostly Cloudy'
-				}, {
-					'code': 'OVC',
-					'desc': 'Overcast'
-				}, {
-					'code': '-RA',
-					'desc':'Light Rain'
-				}, {
-					'code': '-SHRA',
-					'desc': 'Light Showers'
-				}, {
-					'code': 'RA',
-					'desc': 'Moderate Rain'
-				}, {
-					'code': 'SHRA',
-					'desc': 'Moderate Showers'
-				}, {
-					'code': '+RA',
-					'desc': 'Heavy Rain'
-				}, {
-					'code': '+SHRA',
-					'desc': 'Heavy Showers'
-				}, {
-					'code': 'TS',
-					'desc': 'Thunder'
-				}, {
-					'code': '-TSRA',
-					'desc': 'Light Thundershowers'
-				}, {
-					'code': 'TSRA',
-					'desc': 'Moderate Thundershowers'
-				}, {
-					'code': '+THRA',
-					'desc': 'Heavy Thundershowers'
-				}, {
-					'code': 'FC',
-					'desc': 'Funnel Cloud'
-				}, {
-					'code': 'BR',
-					'desc': 'Mist'
-				}, {
-					'code': 'FG',
-					'desc': 'Fog'
-				}, {
-					'code': 'FU',
-					'desc': 'Smoke'
-				}, {
-					'code': 'HZ',
-					'desc': 'Haze'
-				}, {
-					'code': 'SQ',
-					'desc': 'Squall'
-				}];
+		$scope.metars_cloud = [
+			{ 'code': 'FEW', 'desc': 'Clear' },
+			{ 'code': 'SCT', 'desc': 'Partly Cloudy' },
+			{ 'code': 'BKN', 'desc': 'Mostly Cloudy' },
+			{ 'code': 'OVC', 'desc': 'Overcast' },
+			{ 'code': '-RA', 'desc':'Light Rain' },
+			{ 'code': '-SHRA', 'desc': 'Light Showers' },
+			{ 'code': 'RA', 'desc': 'Moderate Rain' },
+			{ 'code': 'SHRA', 'desc': 'Moderate Showers' },
+			{ 'code': '+RA', 'desc': 'Heavy Rain' },
+			{ 'code': '+SHRA', 'desc': 'Heavy Showers' },
+			{ 'code': 'TS', 'desc': 'Thunder' },
+			{ 'code': '-TSRA', 'desc': 'Light Thundershowers' },
+			{ 'code': 'TSRA', 'desc': 'Moderate Thundershowers' },
+			{ 'code': '+THRA', 'desc': 'Heavy Thundershowers' },
+			{ 'code': 'FC', 'desc': 'Funnel Cloud' },
+			{ 'code': 'BR', 'desc': 'Mist' },
+			{ 'code': 'FG', 'desc': 'Fog' },
+			{ 'code': 'FU', 'desc': 'Smoke' },
+			{ 'code': 'HZ', 'desc': 'Haze' },
+			{ 'code': 'SQ', 'desc': 'Squall' }
+		];
 	})
 	.controller('TrinCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval, $ionicBackdrop, $state) {
 		var _this = this;
@@ -411,13 +372,10 @@ angular.module('ionic.metApp')
 					var ii = Number($scope.uv_index.uv_value);
 					var i = ii.toFixed(0);
 					$scope.uv_index.uv_value = i; // our scope uv variable
+
 					console.log($scope.uv_index);
 
-					// find uv index color
-					// uv range color values array will come here
-					// ii = 2;
 					// ensure the uv value matches the correct color class
-					// i = 10;
 					var ci = i == 0 || i == 1 ? 0 : i == 11 || i > 11 ? (11 - 1) : i - 1;
 					$scope.uv_color = uv_c[ci];
 
@@ -425,13 +383,10 @@ angular.module('ionic.metApp')
 					for (x = 0; x < uv_c.length; x++) {
 						if (hasClass(el, uv_c[x])) {
 							el.classList.remove(uv_c[x])
-							// console.log(uv_c[x])
 						}
 					}
 					$scope.$watch('uv_color', function() {
 						el.className = el.className + "  " + $scope.uv_color;
-						// console.log('uv color value', $scope.uv_color, ci, i);
-						// console.log("watch on uv_value updated");
 					})
 				}
 			})
@@ -445,78 +400,41 @@ angular.module('ionic.metApp')
 			}
 		}
 
+		// test if a gived element has a given class
 		function hasClass(el, cls) {
 			return (' ' + el.className + ' ').indexOf(' ' + cls + ' ') > -1;
 		}
 
+		//metars keys for trinidad
 		_this.metars_trin = function() {
 			$scope.current_temp_trin = "No data";
 			metApi.get_metar(function(data) {
 				var m = data.items;
-				// gets the current temp, we only care about the exact number so pull that out from the string
-
-				// these are the ids of the metas we want for trinidad
-				var ids = [{
-					'id': 1, // metar fir
-					'icon': 'icon ion-ios-location-outline',
-					'el': 'met-loc',
-					'show': false,
-					'txt': null,
-				}, {
-					'id': 2, // text
-					'icon': 'icon ion-thermometer',
-					'el': null,
-					'show': false,
-					'txt': null,
-				}, {
-					'id': 3, // temp
-					'icon': 'icon ion-thermometer',
-					'el': 'temp',
-					'show': true,
-					'txt': null,
-				}, {
-					'id': 4, // dewpoint
-					'icon': 'icon ion-waterdrop',
-					'el': 'dew',
-					'show': true,
-					'txt': null,
-				}, {
-					'id': 5, // pressure
-					'icon': 'icon ion-ios-speedometer-outline',
-					'el': 'pressure',
-					'show': true,
-					'txt': null,
-				}, {
-					'id': 6, // winds
-					'icon': 'icon ion-ios-analytics-outline',
-					'el': 'winds',
-					'show': true,
-					'txt': null,
-				}, {
-					'id': 7, // visibility
-					'icon': 'icon',
-					'el': 'weather',
-					'show': false,
-					'txt': null,
-				}, {
-					'id': 8, // ceiling
-					'el': 'weather',
-					'show': false,
-					'txt': null,
-				}, {
-					'id': 9, // clouds
-					'icon': 'icon ion-ios-cloudy-outline',
-					'el': 'clouds',
-					'show': true,
-					'txt': null,
-				}, {
-					'id': 10, // weather
-					'icon': 'icon ion-umbrella',
-					'el': 'weather',
-					'show': false
-				}];
+				var ids = [
+					// metar for
+					{ 'id': 1, 'icon': 'icon ion-ios-location-outline', 'el': 'met-loc', 'show': false, 'txt': null, },
+					// text
+					{ 'id': 2, 'icon': 'icon ion-thermometer', 'el': null, 'show': false, 'txt': null, },
+					// temp
+					{ 'id': 3, 'icon': 'icon ion-thermometer', 'el': 'temp', 'show': true, 'txt': null, },
+					// dewpoint
+					{ 'id': 4, 'icon': 'icon ion-waterdrop', 'el': 'dew', 'show': true, 'txt': null, },
+					// pressure
+					{ 'id': 5, 'icon': 'icon ion-ios-speedometer-outline', 'el': 'pressure', 'show': true, 'txt': null, },
+					// winds
+					{ 'id': 6, 'icon': 'icon ion-ios-analytics-outline', 'el': 'winds', 'show': true, 'txt': null, },
+					// visibility
+					{ 'id': 7, 'icon': 'icon', 'el': 'weather', 'show': false, 'txt': null, },
+					// ceiling
+					{ 'id': 8, 'el': 'weather', 'show': false, 'txt': null, },
+					// clouds
+					{ 'id': 9, 'icon': 'icon ion-ios-cloudy-outline', 'el': 'clouds', 'show': true, 'txt': null, },
+					// weather
+					{ 'id': 10, 'icon': 'icon ion-umbrella', 'el': 'weather', 'show': false }
+				];
 
 				_this.mdata = [];
+				// push any items with station of TTPP to the mdata array
 				for (i = 0; i < m.length; i++) {
 					if (m[i].station == "TTPP") {
 						_this.mdata.push({
@@ -532,23 +450,14 @@ angular.module('ionic.metApp')
 				}
 
 				$scope.current_temp_trin = _this.mdata[2].value.substring(0, 3);
-
-				// var ct = $scope.cTemp(Number($scope.current_temp_trin));
 				_this.mdata[2].txt = 'Looks like a ' + $scope.cTemp(Number($scope.current_temp_trin));
-
 				_this.mdata[5].value = $scope.cWind(_this.mdata[5].value);
-				// var ww = $scope.cWind(_this.mdata[5].value);
 				console.debug('winds', _this.mdata[5].value);
-
-				// console.debug('current temp', ct);
-				// console.debug('modified metars', _this.mdata);
-
 				$scope.dew_point_trin = $scope.set_due_point(3, _this.mdata);
 
 				// metars we compare against for building home screen up-to-date summary
-
-
 				var mets = [];
+				// use the parent scope metars_cloud array and compayr trinidad metars to it to buuld conditions
 				for(i = 0; i < $scope.metars_cloud.length; i++) {
 					if(_this.mdata[1].value.indexOf($scope.metars_cloud[i].code) > -1) {
 						console.log($scope.metars_cloud[i].code);
@@ -557,11 +466,10 @@ angular.module('ionic.metApp')
 				}
 
 				$scope.cc;
-				// mets = ['-SHRA', 'FEW', 'SCT', 'SHRA'];
+				// mets = ['-SHRA', 'FEW', 'SCT', 'SHRA']; // testing other conditions
 				for(i = 0; i < mets.length; i++) {
-					// start of clouf conditions
+					// start of cloud conditions
 					if(mets[i] == "FEW") {
-						// cannot have SCT, BKN or OVC
 						if(!$scope.inArray('SCT', mets) && !$scope.inArray('BKN', mets) && !$scope.inArray('OVC', mets)) {
 							$scope.cc = 'FEW';
 						}
@@ -585,27 +493,13 @@ angular.module('ionic.metApp')
 					// start of precipitation / weather conditions
 					for(x = 0; x < $scope.metars_cloud.length; x++) {
 						if(mets[mets.length-1] == $scope.metars_cloud[x].code) {
-							// console.log('rains');
 							$scope.cc = $scope.metars_cloud[x].code;
 						}
 					}
 					// end of weather conditions
-
-
 				}
 
-
-
-
-
-
-
-				// $scope.fcasttrin
-
-
-
 				var ci = "";
-
 				for(x = 0; x < $scope.metars_cloud.length; x++) {
 					if($scope.cc == $scope.metars_cloud[x].code) {
 						ci = $scope.metars_cloud[x].desc;
@@ -613,35 +507,28 @@ angular.module('ionic.metApp')
 					}
 				}
 
+				// ci = 'Clear';
 				$scope.fcasttrin = ci=='Clear'?'clear-'+$scope.timeOfDay():ci;
-
-				// does the
-
-
-
-
-				// console.debug('metars trin', _this.mdata);
+				// if we are between midnight and general sunrise time with clear conditions show us a moon
+				if(ci=='Clear' && parseInt($scope.hourOfDay()) >= 0 && parseInt($scope.hourOfDay()) <= 5) {
+					$scope.fcasttrin = 'clear-night';
+				}
 				console.debug('metars trin', mets, $scope.cc, ci, $scope.fcasttrin);
 				// deal with summary text based on metars
 				if(_this.mdata[1].value.indexOf('NOSIG') > -1) {
 					// metars says no sig
-					// var v = 'Clear ' + $scope.timeOfDay()+', '+ $scope.summary_text_trin ;
-					var v = $scope.summary_text_trin + " " + $scope.timeOfDay();;
-					$scope.summary_text_trin = $scope.capFLetter(v);
 					// when metars says no sig then we need an icon to say clear conditions for the current time of day
+					var v = $scope.summary_text_trin; // + " " + $scope.timeOfDay();;
+					$scope.summary_text_trin = $scope.capFLetter(v);
 				}
 				else {
-
 					// "value": "TTPP 181400Z 11007KT 3000 -SHRA VCSH FEW010CB SCT012 24/23 Q1015 TEMPO SHRA RMK CB-E/S SHWRS-ALL QUADS",
-
 					// metars has a weather condition
 					// we pull the weather condition string from the weather index of the data set
 					// weather index only exists when we have no sig
 					$scope.summary_text_trin = $scope.capFLetter(_this.mdata[9].value.match(/\(([^)]+)\)/)[1]).replace('(', ''); // this is the weather index
-
 					// when metars tells us that we have a weather condition then we need to match that current condition to our array of conditions
 					// and select the appropriate icon
-
 				}
 
 				if($scope.summary_text_trin.indexOf('Haze') > -1) {
@@ -653,11 +540,10 @@ angular.module('ionic.metApp')
 					var tod = $scope.timeOfDay()=='night'?'-night':'';
 					$scope.fcasttrin = $scope.fcasttrin+tod;
 				}
-				// $scope.summary_text_trin = _this.mdata[1].value.indexOf('NOSIG') > -1 ? 'Clear ' + $scope.timeOfDay() : '';
 			})
 		}
 
-
+		// shows the modal for trin metars: slide up from bottom
 		$scope.showMetarsTrin = function() {
 			$ionicBackdrop.retain();
 			if (!$scope.mettrin_modal) {
@@ -674,24 +560,21 @@ angular.module('ionic.metApp')
 				$scope.mettrin_modal.show();
 			}
 		}
+		// outlook tv for the 3-day forecast
 		_this.trin_3day = function(t) { // can be input of the country we load data for
 			_this.wicons = [];
 			metApi.get_o_tv(function(data) {
 				var i = data.items[0];
-				// 3- day forecast
-				// days as text
-				// $scope.t = $scope.day_string(0);
 				$scope.t = 'Today';
 				$scope.tm = $scope.day_string(1);
 				$scope.nd = $scope.day_string(2);
-				// will need to find a way to switch between trin and bago here
 				_this.max24 = i.maxTrin24look;
 				_this.min24 = i.minTrin24look;
 				_this.max48 = i.maxTrin48look;
 				_this.min48 = i.minTrin48look;
 			})
 
-			// get forecast
+			// get forecast for first day of 3-day forecast
 			metApi.get_forecast(function(data) {
 				var f = data.items[0];
 				_this.ftime_trin = f.forecastTime;
@@ -700,27 +583,20 @@ angular.module('ionic.metApp')
 				}
 				_this.th = f.PiarcoFcstMnTemp;
 				_this.tl = f.PiarcoFcstMxTemp;
+				// temp icons
 				_this.wicons[0] = 'ion-ios-partlysunny-outline';
 				_this.wicons[1] = 'ion-ios-partlysunny-outline';
 				_this.wicons[2] = 'ion-ios-partlysunny-outline';
-
 				_this.sunup = f.sunrise;
 				_this.sundown = f.sunset;
-				// alert()
-				// $scope.fcasttrin = f.imageTrin?f.imageTrin:'sunny';
-				// console.debug($scope.fcasttrin);
-				// $scope.$watch('fcasttrin', function() {
-					// $scope.fct = f.imageTrin;
-				// })
-				// $scope.summary_text_trin = f.textArea1;
 			})
 		}
 
+		// do initial load
 		_this.refreshData();
 	})
 	.controller('BagoCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval, $ionicBackdrop, $state) {
 		var _this = this;
-
 		// refresh when we flip screen
 		$rootScope.ref_bago = function() {
 			_this.refreshData();
@@ -734,9 +610,7 @@ angular.module('ionic.metApp')
 				// google map service will give us a location string based on our current location (or nearest detected location)
 				Geo.reverseGeocode(lat, lng).then(function(locString) {
 					$scope.currentLocationString = locString;
-					// $scope.country = $scope.currentLocationString.indexOf('Tobago') > -1 ? 'Tobago' : 'Trinidad';
 					_this.getCurrent(lat, lng);
-					// _this.get_uv_index();
 					_this.metars_bago();
 					_this.bago_3day();
 					_this.set_time_bubble();
@@ -758,11 +632,7 @@ angular.module('ionic.metApp')
 			Weather.getAtLocation(lat, lng).then(function(resp) {
 				$scope.current = resp.data;
 				$rootScope.$broadcast('scroll.refreshComplete');
-				var s = $scope.timeOfDay(); // time of day, eg: morning, night
-				$scope.today = $scope.my_date();; // today is
-				// $scope.time = convertTimestamp($scope.current.currently.time); //t.toISOString();
-				// fetch a background image from flickr based on out location, time and current weather conditinos
-				// console.log('currently', $scope.current)
+				$scope.today = $scope.my_date();
 				_this.getBackgroundImage($scope.current.currently.summary + ", Tobago");
 			}, function(error) {
 				var errorTxt = "";
@@ -783,7 +653,6 @@ angular.module('ionic.metApp')
 		_this.cycleBgImages = function() {
 			$timeout(function cycle() {
 				if ($scope.bgImages) {
-					// console.log('scope images', $scope.bgImages)
 					$scope.activeBgImage = $scope.bgImages[$scope.activeBgImageIndex++ % $scope.bgImages.length];
 					setTimeout(function() {
 						$scope.getAverageRGB(document.querySelector('#i-bago'), '.bago')
@@ -796,7 +665,6 @@ angular.module('ionic.metApp')
 		this.getBackgroundImage = function(locString) {
 			Flickr.search(locString).then(function(resp) {
 				var photos = resp.photos;
-				// console.debug('flickr photos bago', photos)
 				$scope.bgImages = photos.photo;
 				_this.cycleBgImages();
 			}, function(error) {
@@ -807,63 +675,27 @@ angular.module('ionic.metApp')
 		_this.metars_bago = function() {
 			metApi.get_metar(function(data) {
 				var m = data.items;
-
 				// ids of metars for tobago
-				var ids = [{
-					'id': 9, // metar for
-					'icon': 'icon ion-ios-location-outline',
-					'el': 'met-loc',
-					'show': true,
-					'txt': null,
-				}, {
-					'id': 10, // text
-					'icon': 'icon ',
-					'el': null,
-					'show': false,
-					'txt': null,
-				}, {
-					'id': 11, // temperature
-					'icon': 'icon ion-thermometer',
-					'el': 'temp',
-					'show': true,
-					'txt': null,
-				}, {
-					'id': 12, // dewpoint
-					'icon': 'icon ion-waterdrop',
-					'el': 'dew',
-					'show': true,
-					'txt': null,
-				}, {
-					'id': 13, // pressure
-					'icon': 'icon ion-ios-speedometer-outline',
-					'el': 'pressure',
-					'show': true,
-					'txt': null,
-				}, {
-					'id': 14, // winds
-					'icon': 'icon ion-ios-analytics-outline',
-					'el': 'winds',
-					'show': true,
-					'txt': null,
-				}, {
-					'id': 15, // visibility
-					'icon': 'icon ion-thermometer',
-					'el': null,
-					'show': false,
-					'txt': null,
-				}, {
-					'id': 16, // ceiling
-					'icon': 'icon ',
-					'el': null,
-					'show': false,
-					'txt': null,
-				}, {
-					'id': 17, // clouds
-					'icon': 'icon ion-ios-cloudy-outline',
-					'el': 'clouds',
-					'show': true,
-					'txt': null,
-				}];
+				var ids = [
+					// metar for
+					{ 'id': 9, 'icon': 'icon ion-ios-location-outline', 'el': 'met-loc', 'show': false, 'txt': null, },
+					// text
+					{ 'id': 10, 'icon': 'icon ', 'el': null, 'show': false, 'txt': null, },
+					// temperature
+					{ 'id': 11, 'icon': 'icon ion-thermometer', 'el': 'temp', 'show': true, 'txt': null, },
+					// dewpoint
+					{ 'id': 12, 'icon': 'icon ion-waterdrop', 'el': 'dew', 'show': true, 'txt': null, },
+					// pressure
+					{ 'id': 13, 'icon': 'icon ion-ios-speedometer-outline', 'el': 'pressure', 'show': true, 'txt': null, },
+					// winds
+					{ 'id': 14, 'icon': 'icon ion-ios-analytics-outline', 'el': 'winds', 'show': true, 'txt': null, },
+					// visibility
+					{ 'id': 15, 'icon': 'icon ion-thermometer', 'el': null, 'show': false, 'txt': null, },
+					// ceiling
+					{ 'id': 16, 'icon': 'icon ', 'el': null, 'show': false, 'txt': null, },
+					// clouds
+					{ 'id': 17, 'icon': 'icon ion-ios-cloudy-outline', 'el': 'clouds', 'show': true, 'txt': null, }
+				];
 
 				_this.mdatab = null;
 				_this.mdatab = [];
@@ -879,17 +711,13 @@ angular.module('ionic.metApp')
 							'el': ids[c] != undefined ? ids[c].el : '',
 							'show': ids[c] != undefined ? ids[c].show : ''
 						});
-						// console.log(i, ids[c])
 						c++;
 					}
 				}
 
 				$scope.current_temp = _this.mdatab[2].value.substring(0, 3);
 				_this.mdatab[2].txt = 'Looks like a ' + $scope.cTemp(Number($scope.current_temp));
-				// console.log('bago temp', _this.mdatab)
 				$scope.dew_point = $scope.set_due_point(3, _this.mdatab);
-				// metars we compare against for building home screen up-to-date summary
-
 
 				var mets = [];
 				for(i = 0; i < $scope.metars_cloud.length; i++) {
@@ -900,7 +728,6 @@ angular.module('ionic.metApp')
 				}
 
 				$scope.cd;
-				// mets = ['-SHRA', 'FEW', 'SCT', 'SHRA'];
 				for(i = 0; i < mets.length; i++) {
 					// start of clouf conditions
 					if(mets[i] == "FEW") {
@@ -909,22 +736,18 @@ angular.module('ionic.metApp')
 							$scope.cc = 'FEW';
 						}
 					}
-
 					if(mets[i] == "SCT") {
 						if(!$scope.inArray('BKN', mets) && !$scope.inArray('OVC', mets)) {
 							$scope.cc = 'SCT';
 						}
 					}
-
 					if($scope.inArray('BKN', mets)) {
 						$scope.cc = 'BKN';
 					}
-
 					if($scope.inArray('OVC', mets)) {
 						$scope.cc = 'OVC';
 					}
 					// end of cloud conditions
-
 					// start of precipitation / weather conditions
 					for(x = 0; x < $scope.metars_cloud.length; x++) {
 						if(mets[mets.length-1] == $scope.metars_cloud[x].code) {
@@ -934,23 +757,23 @@ angular.module('ionic.metApp')
 				}
 
 				var ci = "";
-
 				for(x = 0; x < $scope.metars_cloud.length; x++) {
 					if($scope.cd == $scope.metars_cloud[x].code) {
 						ci = $scope.metars_cloud[x].desc;
 						$scope.summary_text = ci;
 					}
 				}
-
 				$scope.fcastbago = ci=='Clear'?'clear-'+$scope.timeOfDay():ci;
-
+				if(ci=='Clear' && parseInt($scope.hourOfDay()) >= 0 && parseInt($scope.hourOfDay()) <= 5) {
+					$scope.fcastbago = 'clear-night';
+				}
 				console.debug('metars bago', mets, $scope.cd, ci, $scope.fcastbago);
 				// deal with summary text based on metars
 				if(_this.mdatab[1].value.indexOf('NOSIG') > -1) {
-					var v = $scope.summary_text + " " + $scope.timeOfDay();;
+					var v = $scope.summary_text;// + " " + $scope.timeOfDay();;
 					$scope.summary_text = $scope.capFLetter(v);
 				}
-				else {g
+				else {
 					$scope.summary_text = $scope.capFLetter(_this.mdatab[9].value.match(/\(([^)]+)\)/)[1]).replace('(', ''); // this is the weather index
 				}
 
@@ -976,8 +799,6 @@ angular.module('ionic.metApp')
 					$scope.metbago_modal = mb_modal;
 					$scope.metbago_modal.show();
 				}, {
-					// animation we want for modal entrance
-					// animation: 'scale-in'
 					animation: 'slide-in-up'
 				})
 			} else {
@@ -1004,12 +825,10 @@ angular.module('ionic.metApp')
 			// get forecast
 			metApi.get_forecast(function(data) {
 				var f = data.items[0];
-
 				_this.ftime_bago = f.forecastTime;
 				if(_this.ftime_bago == "05:30PM") {
 					$scope.t = 'Tonight';
 				}
-				// $scope.fcastbago = f.imagebago?f.imagebago:'sunny';
 				_this.th = f.CrownFcstMnTemp;
 				_this.tl = f.CrownFcstMxTemp;
 			})
@@ -1019,16 +838,6 @@ angular.module('ionic.metApp')
 
 	})
 	.directive('weatherIconTrin', function() {
-		// // console.log($timeout)
-		// return {
-		// 	restrict: 'E',
-		// 	replace: true,
-		// 	scope: {
-		// 		fcasttrin: '=fcasttrin'
-		// 	},
-		// 	templateUrl: 'app/home/svg/{{fcasttrin}}.html',
-		// 	// link: function($scope, $element, $attr) { }
-		// }
 		return {
 	        restrict: 'E',
 	        link: function(scope, element, attrs) {
@@ -1059,24 +868,3 @@ angular.module('ionic.metApp')
 	        template: '<div ng-include="getContentUrl()"></div>'
 		}
 	})
-	// .directive('passObject', function() {
-	//     return {
-	//         restrict: 'E',
-	//         // replace: true,
-	//         // scope: { fcasttrin: '=fcasttrin' },
-	//         // controller: function($scope, $rootScope) {
-	//         // 	$scope.ff = $scope.fcasttrin;
-	//         // 	console.debug('directive controller:', $scope.fcasttrin)
-	//         // },
-	//         link: function(scope, element, attrs) {
-	//         	setTimeout(function() {
-	//         		console.debug(scope.fcasttrin)
-	//         		scope.getContentUrl  = function() {
-	//         			return 'app/home/svg/'+scope.fcasttrin+'.html';
-	//         		}
-	//         	}, 2000)
-	//         },
-	//         template: '<div ng-include="getContentUrl()"></div>'
-	//         // template: 'app/home/svg/{{ff}}.html',
-	//     };
-	// });
