@@ -1,8 +1,10 @@
 // weather app based on driftyco ionic-weather
 // https://github.com/driftyco/ionic-weather
 angular.module('ionic.metApp')
-	.controller('HomeCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval, $ionicBackdrop, $state, $ionicHistory) {
+	.controller('HomeCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform,
+		$ionicPopup, $interval, $ionicBackdrop, $state, $ionicHistory) {
 		var _this = this;
+		// console.warn('home');
 		$scope.activeBgImageIndex = 0;
 		// $scope.country = '';
 		$scope.isFlipped = false;
@@ -13,8 +15,11 @@ angular.module('ionic.metApp')
 			// $scope.refreshData();
 			$rootScope.ref_trin();
 			$rootScope.ref_bago();
-			console.log("fetch info and location", 'cache cleared');
-			$ionicHistory.clearCache();
+			// console.log("fetch info and location", 'cache cleared');
+			// $ionicHistory.clearCache();
+   			// $ionicHistory.clearHistory();
+
+			// $state.go('app.home')
 		}, interval);
 
 		// flip tp tobago after making all calls if location is tobago
@@ -94,9 +99,16 @@ angular.module('ionic.metApp')
 
 		// clear home screen cache when entering the view
 		$scope.$on('$ionicView.beforeEnter', function() {
-			$ionicHistory.clearCache();
-			$ionicHistory.clearHistory();
+			// $ionicHistory.clearCache();
+			// $ionicHistory.clearHistory();
+			// $state.go('app.home')
 		})
+		$scope.$on('$ionicView.enter', function() {
+		 	// $timeout(function() {
+				// $ionicHistory.clearCache()
+			// }, 100);
+			// $state.go('app.home')
+		});
 
 		// close any modal found in the scope
 		// also special case: if modal is a child of met services menu then open parent
@@ -265,10 +277,19 @@ angular.module('ionic.metApp')
 			{ 'code': 'SQ', 'desc': 'Squall' }
 		];
 	})
-	.controller('TrinCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval, $ionicBackdrop, $state) {
+	.controller('TrinCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform,
+		$ionicPopup, $interval, $ionicBackdrop, $state, $ionicHistory) {
 		var _this = this;
 		$scope.fcasttrin = "sunny"; // default trin fcast
 		$scope.fcastbago = "sunny"; // default bago fcast
+		var interval = 10 * 60000;
+		$interval(function time() {
+			$ionicHistory.clearCache().then(function() {
+				console.log('cache cleared')
+				$state.go('app.home');
+			});
+			$ionicHistory.clearHistory();
+		}, interval);
 
 		$rootScope.ref_trin = function() {
 			_this.refreshData();
@@ -301,6 +322,10 @@ angular.module('ionic.metApp')
 				$scope.currentLocationString = "Unable to get current location:" + error;
 				$rootScope.$broadcast('scroll.refreshComplete');
 			});
+
+			$ionicHistory.clearCache().then(function() {
+			    	// console.log('cache cleared')
+			    });
 
 		};
 
@@ -508,9 +533,11 @@ angular.module('ionic.metApp')
 				}
 
 				// ci = 'Clear';
+				var d = new Date();
 				$scope.fcasttrin = ci=='Clear'?'clear-'+$scope.timeOfDay():ci;
 				// if we are between midnight and general sunrise time with clear conditions show us a moon
-				if(ci=='Clear' && parseInt($scope.hourOfDay()) >= 0 && parseInt($scope.hourOfDay()) <= 5) {
+				if(ci=='Clear' && parseInt(d.getHours()) >= 0 && parseInt(d.getHours()) <= 5) {
+				// if(ci=='Clear' && parseInt($scope.hourOfDay()) >= 0 && parseInt($scope.hourOfDay()) <= 5) {
 					$scope.fcasttrin = 'clear-night';
 				}
 				console.debug('metars trin', mets, $scope.cc, ci, $scope.fcasttrin);
@@ -597,6 +624,7 @@ angular.module('ionic.metApp')
 	})
 	.controller('BagoCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval, $ionicBackdrop, $state) {
 		var _this = this;
+		$scope.fcastbago = "sunny"; // default bago fcast
 		// refresh when we flip screen
 		$rootScope.ref_bago = function() {
 			_this.refreshData();
@@ -763,8 +791,12 @@ angular.module('ionic.metApp')
 						$scope.summary_text = ci;
 					}
 				}
+				// temp variable
+				var d = new Date();
+
 				$scope.fcastbago = ci=='Clear'?'clear-'+$scope.timeOfDay():ci;
-				if(ci=='Clear' && parseInt($scope.hourOfDay()) >= 0 && parseInt($scope.hourOfDay()) <= 5) {
+				console.log(d.getHours())
+				if(ci=='Clear' && parseInt(d.getHours()) >= 0 && parseInt(d.getHours()) <= 5) {
 					$scope.fcastbago = 'clear-night';
 				}
 				console.debug('metars bago', mets, $scope.cd, ci, $scope.fcastbago);

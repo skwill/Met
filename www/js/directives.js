@@ -265,6 +265,7 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
                 var url = "img/home-images/"+$scope.default_trin+".jpg";
                 var item = v;
                 url = "http://farm" + item.farm + ".static.flickr.com/" + item.server + "/" + item.id + "_" + item.secret + "_z.jpg";
+                console.log(url);
                 // place scope fcast here to get image for the current weather contition
                 // var url = "app/home/IMG_3133.jpg"
                 // console.warn($scope)

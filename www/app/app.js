@@ -1,6 +1,7 @@
 // weather app based on driftyco ionic-weather
 // https://github.com/driftyco/ionic-weather
-angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.services', 'ionic.metApp.directives', 'ngCordova', 'ngResource', 'ion-affix', 'ngIOS9UIWebViewPatch'/*, 'angular-svg-round-progress', 'ionic-cache-src'*/])
+angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.services', 'ionic.metApp.directives',
+    'ngCordova', 'ngResource', 'ion-affix', 'ngIOS9UIWebViewPatch', 'ionic.ion.imageCacheFactory'/*, 'angular-svg-round-progress', 'ionic-cache-src'*/])
 
 .constant('WUNDERGROUND_API_KEY', '1cc2d3de40fa5af0')
     .constant('FORECASTIO_KEY', '4cd3c5673825a361eb5ce108103ee84a')
@@ -279,7 +280,17 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/home');
 })
-    .run(function($http, $cordovaPush, $ionicPlatform, $rootScope, $ionicLoading) {
+    .run(function($http, $cordovaPush, $ionicPlatform, $rootScope, $ionicLoading, $ImageCacheFactory) {
+        // preload images from flickr api
+        $ImageCacheFactory.Cache([
+            'http://farm1.static.flickr.com/644/23688702732_26414ac119_z.jpg',
+            'http://farm6.static.flickr.com/5780/23714706741_972799109b_z.jpg'
+        ]).then(function() {
+            console.log('all images loaded')
+        }, function(failed) {
+            console.log('error loading images')
+        });
+
         $rootScope.$on('loading:show', function() {
             $ionicLoading.show({
                 template: ' <ion-spinner></ion-spinner>'

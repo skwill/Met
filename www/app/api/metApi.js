@@ -273,6 +273,12 @@
 				callback(data)
 			})
 		}
+
+		function get_aws(callback, station) {
+			$http.get(url + '/aws/search?name=' + station).success(function(data) {
+				callback(data)
+			});
+		}
 		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		return {
 			get_forecast: get_forecast,
@@ -305,6 +311,7 @@
 			get_rainandtemp: get_rainandtemp,
 			get_project: get_project,
 			get_metar: get_metar,
+			get_aws: get_aws,
 		};
 	}
 })();

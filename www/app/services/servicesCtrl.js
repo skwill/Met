@@ -71,12 +71,12 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 	sc.get_rainandtemp = function() {
 		metApi.get_rainandtemp(function(data) {
 			console.log("Rain and Temp "+data.items[0].year);
-			sc.rt = data.items;			
+			sc.rt = data.items;
 		})
 	}
 	sc.get_drywet = function() {
 		metApi.get_drywet(function(data) {
-			sc.dw = data.items;			
+			sc.dw = data.items;
 		})
 	}
 
@@ -84,7 +84,7 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 		metApi.get_agrotrini(function(data) {
 			sc.atrin = data.items[0];
 			//console.log("Agro Trini");
-			console.log(sc.atrin);			
+			console.log(sc.atrin);
 		})
 
 		metApi.get_agroData('area', function(area){
@@ -109,14 +109,14 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 			//console.log("Summary Info");
 			console.log(area);
 			sc.sum = area;
-		})		
+		})
 	}
 
 	sc.agrotbg = function() {
 		metApi.get_agrotbg(function(data) {
 			sc.atbg = data.items[0];
 			console.log("Agro TBG");
-			console.log(sc.atrin);			
+			console.log(sc.atrin);
 		})
 
 		metApi.get_agroDataTbg('area', function(area){
@@ -141,7 +141,7 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 			console.log("Summary Info");
 			console.log(area);
 			sc.sumtbg = area;
-		})		
+		})
 	}
 
 	$ionicModal.fromTemplateUrl('app/services/elrtinfo_item.html', {
@@ -513,78 +513,67 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 	}).controller('AWSCtrl', function(metApi, $scope, $timeout, $ionicModal, $ionicPlatform, $ionicPopup, $interval, $ionicBackdrop, $state) {
 		var _this = this;
 
-		var cities = [{
-	        city : 'Guyaguayare',
-	        desc : 'Guyaguayare AWS',
-	        lat : 10.84584 ,
-	        long : -60.594896
-	    },
-	    {
-	        city : 'El Reposo',
-	        desc : 'El Reposo AWS',
-	        lat : 10.35426,
-	        long : -61.71008
-	    },
-	    {
-	        city : 'Centeno',
-	        desc : 'Centeno AWS',
-	        lat : 10.352226,
-	        long : -61.192286
-	    },
-	    {
-	        city : 'Brasso Venado',
-	        desc : 'Brasso Venado AWS',
-	        lat : 10.252784,
-	        long : -61.17798
-	    },
-	    {
-	        city : 'Waterloo',
-	        desc : 'Waterloo AWS',
-	        lat : 10.28492,
-	        long : -61.28408
-	    },
-	    {
-			city: 'Penal',
-			desc: 'Penal AWS',
-			lat: 10.103324,
-			long: -61.27252
-		},
-		{
-			city: 'Chatham ',
-			desc: 'Chatham  AWS',
-			lat: 10.8702,
-			long: -61.431278
-		},
-		{
-			city: 'Piarco  (BASE)',
-			desc: 'Piarco  (BASE) AWS',
-			lat: 10.352436,
-			long: -61.204158
-		},
-		{
-			city: 'SYNOPAWS',
-			desc: 'SYNOPAWS AWS',
-			lat: 10.352000,
-			long: -61.20403
-		},
-		{
-			city: 'San Salvador',
-			desc: 'San Salvador AWS',
-			lat: 10.22588,
-			long: -61.223143
-		},
-		{
-			city: 'IMA Chaguaramas',
-			desc: 'IMA Chaguaramas AWS',
-			lat: 10.41121,
-			long: -61.3715
-		},
-		{
-			city: 'UTT (Camden)',
-			desc: 'UTT (Camden) AWS',
-			lat: 10.25384,
-			long: -61.26425
-		}];
+		var cities = [
+			{ city: 'Piarco', desc: 'Piarco  (BASE) AWS', lat: 10.352436, long: -61.204158 },
+			{ city: 'Brasso', desc : 'Brasso Venado AWS', lat : 10.252784, long : -61.17798 },
+		    { city: 'Caroni', desc : 'Caroni AWS',       lat : 10.28492, long : -61.28408 },
+			{ city: 'Chatham', desc: 'Chatham  AWS', lat: 10.8702, long: -61.431278 },
+			{ city: 'El Reposo', desc : 'El Reposo AWS', lat : 10.35426, long : -61.71008 },
+		    { city: 'Penal', desc: 'Penal AWS', lat: 10.103324, long: -61.27252 },
+			{ city: 'Centeno', desc : 'Centeno AWS', lat : 10.352226, long : -61.192286 },
+			{ city: 'Crown Point', desc: 'Crown Point AWS', lat: 10.352000, long: -61.20403 },
+			{ city: 'Guayaguayare', desc : 'Guayaguayare AWS', lat : 10.84584 , long : -60.594896 },
+			// { city: 'San Salvador', desc: 'San Salvador AWS', lat: 10.22588, long: -61.223143 },
+			// { city: 'IMA Chaguaramas', desc: 'IMA Chaguaramas AWS', lat: 10.41121, long: -61.3715 },
+			// { city: 'UTT (Camden)', desc: 'UTT (Camden) AWS', lat: 10.25384, long: -61.26425 }
+		];
+
+		_this.get_aws = function() {
+			var temp = []; var press = []; var gust = []; var precip = []; var humidity = []; var wind_d = []; var wind_s = [];
+			for(x = 0; x < cities.length; x++) {
+				metApi.get_aws(function(data) {
+	    			var length = data.items.length;
+	    			var d = data.items;
+	    			for(z = 0; z < length; z++) {
+	    				console.log(d[z].location);
+	    				if(d[z].item == 'Temperature') {
+	    					temp[(d[z].location.substr(0, 2))+'_temp'] = d[z];
+	    				}
+	    				if(d[z].item == 'Pressure') {
+	    					press[(d[z].location.substr(0, 2))+'_pressure'] = d[z];
+	    				}
+	    				if(d[z].item == 'Gust') {
+	    					gust[(d[z].location.substr(0, 2))+'_gust'] = d[z];
+	    				}
+	    				if(d[z].item == 'Precipitation') {
+	    					precip[(d[z].location.substr(0, 2))+'_precip'] = d[z];
+	    				}
+	    				if(d[z].item == 'Humidity') {
+	    					humidity[(d[z].location.substr(0, 2))+'_humidity'] = d[z];
+	    				}
+	    				if(d[z].item == 'PresWind Directionsure') {
+	    					wind_d[(d[z].location.substr(0, 2))+'_wind_d'] = d[z];
+	    				}
+	    				if(d[z].item == 'Wind Speed') {
+	    					wind_s[(d[z].location.substr(0, 2))+'_wind_s'] = d[z];
+	    				}
+	    			}
+	    		}, cities[x].city)
+			}
+			$timeout(function() {
+  				console.debug('whats in temp', temp);
+  				console.debug('whats in press', press);
+  				console.debug('whats in gust', gust);
+  				console.debug('whats in precip', precip);
+  				console.debug('whats in humidity', humidity);
+  				console.debug('whats in wind_d', wind_d);
+  				console.debug('whats in wind_s', wind_s);
+  			}, 1000);
+	    	// metApi.get_aws(function(data) {
+	    	// 	var length = data.items.length;
+	    	// 	// console.log(data.items)
+	    	// }, "Piarco")
+	    }
 
 
 	    $scope.initialise = function() {
@@ -631,6 +620,8 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 	    		createMarker(cities[i]);
 	    	}
 
+	    	_this.get_aws();
+
 	    }
 
 	    _this.aws_click = function(i) {
@@ -645,6 +636,9 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 
 	    google.maps.event.addDomListener(document.getElementById("map"), 'load', $scope.initialise());
 	    // console.log($scope.markers)
+
+	    // fetch api data
+
 	})
 .run(function($http, $cordovaPush, $ionicPlatform, $rootScope, $ionicLoading) {
 
