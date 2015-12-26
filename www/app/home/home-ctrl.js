@@ -278,15 +278,17 @@ angular.module('ionic.metApp')
 		];
 	})
 	.controller('TrinCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform,
-		$ionicPopup, $interval, $ionicBackdrop, $state, $ionicHistory) {
+		$ionicPopup, $interval, $ionicBackdrop, $state, $ionicHistory, $route) {
 		var _this = this;
 		$scope.fcasttrin = "sunny"; // default trin fcast
 		$scope.fcastbago = "sunny"; // default bago fcast
 		var interval = 10 * 60000;
 		$interval(function time() {
 			$ionicHistory.clearCache().then(function() {
+				// alert('cache cleared')
 				console.log('cache cleared')
-				$state.go('app.home');
+				_this.refreshData();
+				$route.reload();
 			});
 			$ionicHistory.clearHistory();
 		}, interval);
@@ -325,6 +327,7 @@ angular.module('ionic.metApp')
 
 			$ionicHistory.clearCache().then(function() {
 			    	// console.log('cache cleared')
+			    	$route.reload();
 			    });
 
 		};
@@ -432,7 +435,7 @@ angular.module('ionic.metApp')
 
 		//metars keys for trinidad
 		_this.metars_trin = function() {
-			$scope.current_temp_trin = "No data";
+			$scope.current_temp_trin = "Loading..";
 			metApi.get_metar(function(data) {
 				var m = data.items;
 				var ids = [
@@ -539,6 +542,7 @@ angular.module('ionic.metApp')
 				if(ci=='Clear' && parseInt(d.getHours()) >= 0 && parseInt(d.getHours()) <= 5) {
 				// if(ci=='Clear' && parseInt($scope.hourOfDay()) >= 0 && parseInt($scope.hourOfDay()) <= 5) {
 					$scope.fcasttrin = 'clear-night';
+					console.log('current hour', d.getHours())
 				}
 				console.debug('metars trin', mets, $scope.cc, ci, $scope.fcasttrin);
 				// deal with summary text based on metars
@@ -622,9 +626,18 @@ angular.module('ionic.metApp')
 		// do initial load
 		_this.refreshData();
 	})
-	.controller('BagoCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform, $ionicPopup, $interval, $ionicBackdrop, $state) {
+	.controller('BagoCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal,
+		$ionicPlatform, $ionicPopup, $interval, $ionicBackdrop, $state, $ionicHistory, $route) {
 		var _this = this;
 		$scope.fcastbago = "sunny"; // default bago fcast
+		var interval = 10 * 60000;
+		$interval(function time() {
+			$ionicHistory.clearCache().then(function() {
+				_this.refreshData();
+				$route.reload();
+			});
+			$ionicHistory.clearHistory();
+		}, interval);
 		// refresh when we flip screen
 		$rootScope.ref_bago = function() {
 			_this.refreshData();
@@ -723,6 +736,8 @@ angular.module('ionic.metApp')
 					{ 'id': 16, 'icon': 'icon ', 'el': null, 'show': false, 'txt': null, },
 					// clouds
 					{ 'id': 17, 'icon': 'icon ion-ios-cloudy-outline', 'el': 'clouds', 'show': true, 'txt': null, }
+					// weather
+					// { 'id': 17, 'icon': 'icon ion-ios-cloudy-outline', 'el': 'clouds', 'show': true, 'txt': null, }
 				];
 
 				_this.mdatab = null;
@@ -795,7 +810,7 @@ angular.module('ionic.metApp')
 				var d = new Date();
 
 				$scope.fcastbago = ci=='Clear'?'clear-'+$scope.timeOfDay():ci;
-				console.log(d.getHours())
+				// console.log(d.getHours())
 				if(ci=='Clear' && parseInt(d.getHours()) >= 0 && parseInt(d.getHours()) <= 5) {
 					$scope.fcastbago = 'clear-night';
 				}
@@ -873,14 +888,17 @@ angular.module('ionic.metApp')
 		return {
 	        restrict: 'E',
 	        link: function(scope, element, attrs) {
-	        	setTimeout(function() {
-	        		var j = scope.fcasttrin.replace(/\s/g, "-").toLowerCase();
-	        		console.debug('fcast trin', scope.fcasttrin)
+	        	scope.$watch('fcasttrin', function() {
+	        		setTimeout(function() {
+		        		var j = scope.fcasttrin.replace(/\s/g, "-").toLowerCase();
+		        		console.debug('fcast trin', scope.fcasttrin)
 
-	        		scope.getContentUrl  = function() {
-	        			return 'app/home/svg/'+j+'.html';
-	        		}
-	        	}, 2000)
+		        		scope.getContentUrl  = function() {
+		        			return 'app/home/svg/'+j+'.html';
+		        		}
+		        	}, 2000)
+	        	})
+
 	        },
 	        template: '<div ng-include="getContentUrl()" style="padding-top: 13px"></div>'
 	    };

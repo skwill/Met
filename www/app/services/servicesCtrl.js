@@ -514,15 +514,17 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 		var _this = this;
 
 		var cities = [
-			{ city: 'Piarco', desc: 'Piarco  (BASE) AWS', lat: 10.352436, long: -61.204158 },
-			{ city: 'Brasso', desc : 'Brasso Venado AWS', lat : 10.252784, long : -61.17798 },
-		    { city: 'Caroni', desc : 'Caroni AWS',       lat : 10.28492, long : -61.28408 },
-			{ city: 'Chatham', desc: 'Chatham  AWS', lat: 10.8702, long: -61.431278 },
-			{ city: 'El Reposo', desc : 'El Reposo AWS', lat : 10.35426, long : -61.71008 },
+			// { city: 'Piarco', desc: 'Piarco  (BASE) AWS', lat: 10.352436, long: -61.204158 },
+			// { city: 'Brasso', desc : 'Brasso Venado AWS', lat : 10.252784, long : -61.17798 },
+		 //    { city: 'Caroni', desc : 'Caroni AWS',       lat : 10.28492, long : -61.28408 },
+			// { city: 'Chatham', desc: 'Chatham  AWS', lat: 10.8702, long: -61.431278 },
+			// { city: 'El Reposo', desc : 'El Reposo AWS', lat : 10.35426, long : -61.71008 },
 		    { city: 'Penal', desc: 'Penal AWS', lat: 10.103324, long: -61.27252 },
-			{ city: 'Centeno', desc : 'Centeno AWS', lat : 10.352226, long : -61.192286 },
-			{ city: 'Crown Point', desc: 'Crown Point AWS', lat: 10.352000, long: -61.20403 },
-			{ city: 'Guayaguayare', desc : 'Guayaguayare AWS', lat : 10.84584 , long : -60.594896 },
+			// { city: 'Centeno', desc : 'Centeno AWS', lat : 10.352226, long : -61.192286 },
+			// { city: 'Crown Point', desc: 'Crown Point AWS', lat: 10.352000, long: -61.20403 },
+			// { city: 'Guayaguayare', desc : 'Guayaguayare AWS', lat : 10.84584 , long : -60.594896 },
+
+
 			// { city: 'San Salvador', desc: 'San Salvador AWS', lat: 10.22588, long: -61.223143 },
 			// { city: 'IMA Chaguaramas', desc: 'IMA Chaguaramas AWS', lat: 10.41121, long: -61.3715 },
 			// { city: 'UTT (Camden)', desc: 'UTT (Camden) AWS', lat: 10.25384, long: -61.26425 }
@@ -568,11 +570,36 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
   				console.debug('whats in humidity', humidity);
   				console.debug('whats in wind_d', wind_d);
   				console.debug('whats in wind_s', wind_s);
+
+  				$('.gm-style-iw').each(function(idx, val) {
+  					$(this).css({
+  						top: '4px',
+  						left: '9px'
+  					});
+		    		$(this).parent().find('img').remove();
+		    		var h = $(this).prev();
+		    		var d1 = h.find('div:eq(1)').remove();
+		    		var d2 = h.find('div:last');
+		    		d1.addClass('first');
+		    		d2.addClass('second');
+
+		    		// d1.width(d1.width() - 30)
+		    		// d1.height(d1.height() - 3)
+
+		    		d2.width(d2.width() - 20)
+		    		d2.height(d2.height() - 3)
+
+		    		// $(this).remove()
+		    		// console.log('h')
+		    	})
+
   			}, 1000);
 	    	// metApi.get_aws(function(data) {
 	    	// 	var length = data.items.length;
 	    	// 	// console.log(data.items)
 	    	// }, "Piarco")
+
+
 	    }
 
 
@@ -605,12 +632,13 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 	    			position: new google.maps.LatLng(info.lat, info.long),
 	    			map: $scope.map,
 	    			animation: google.maps.Animation.DROP,
-	    			title: info.city
+	    			title: info.city,
+	    			icon: ' '
 	    		})
 	    		marker.content = '<div class="infoWindowContent">'+info.desc+'</div>';
 	    		// marker.addListener('click', function() {
-	    			infoWindow.setContent('<h2>'+marker.title+'</h2>'+marker.content);
-	    			// infoWindow.open($scope.map, marker)
+	    			infoWindow.setContent(marker.content);
+	    			infoWindow.open($scope.map, marker)
 	    		// });
 	    		$scope.markers.push(marker);
 	    		// console.debug('marker', marker)
@@ -621,6 +649,8 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 	    	}
 
 	    	_this.get_aws();
+	    	// clean up view
+
 
 	    }
 
@@ -635,6 +665,8 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 
 
 	    google.maps.event.addDomListener(document.getElementById("map"), 'load', $scope.initialise());
+
+
 	    // console.log($scope.markers)
 
 	    // fetch api data
