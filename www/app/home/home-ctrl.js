@@ -9,18 +9,6 @@ angular.module('ionic.metApp')
 		// $scope.country = '';
 		$scope.isFlipped = false;
 		//  - - - - - - - - - - - - - - -  -
-		// interval block: how ofter the app will refresh it's data \\
-		var interval = 10 * 60000;
-		$interval(function time() {
-			// $scope.refreshData();
-			$rootScope.ref_trin();
-			$rootScope.ref_bago();
-			// console.log("fetch info and location", 'cache cleared');
-			// $ionicHistory.clearCache();
-   			// $ionicHistory.clearHistory();
-
-			// $state.go('app.home')
-		}, interval);
 
 		// flip tp tobago after making all calls if location is tobago
 		setTimeout(function() {
@@ -29,7 +17,6 @@ angular.module('ionic.metApp')
 			}
 		}, 1000);
 		// end if interval block
-
 		//  - - - - - - - - - - - - - - - - - - -
 		// MET API functions: all function look to met factory for consuming data
 		$scope.set_due_point = function(idx, arr) {
@@ -125,7 +112,7 @@ angular.module('ionic.metApp')
 		// helper functins - - - - - - - - - - - - - - - - - - - - - - - - - \\
 		// they help format dates and stuff - - - - - - - - - - - - - - - - - \\
 
-		// get us the time of day as a string eg  morning
+		// get us the time of day as a string eg:  morning
 		$scope.timeOfDay = function() {
 			var date = new Date();
 			var time = date.getHours();
@@ -138,7 +125,7 @@ angular.module('ionic.metApp')
 			return s;
 		}
 
-		// get us the hour of day: primarily for displaying the uv index hour: eg 11am
+		// get us the hour of day=> primarily for displaying the uv index hour: eg 11am
 		$scope.hourOfDay = function() {
 			var d = new Date();
 			var t = d.getHours();
@@ -231,18 +218,18 @@ angular.module('ionic.metApp')
 			$('.item-complex').css('border-bottom', '1px solid rgba(' + [rgb.r, rgb.g, rgb.b, 0.4].join(', ') + ')');
 		}
 
-		// capitalize first one letter of the word
+		// capitalize only the first letter of the string
 		$scope.capFLetter = function(str) {
 			return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 		}
 
-		// checks if a word is in a string
+		// checks if a specific word is in a string
 		$scope.is_word_in_string = function(string, word) {
 			return new RegExp('\\b' + word + '\\b', 'i').test(string);
 		}
 
 		// checks if a value is in an array
-		// @ returns the position index value was found if found
+		// @ returns the position index if it was found
 		$scope.inArray = function(needle, haystack) {
 			for (i = 0; i < haystack.length; i ++) {
 				if(haystack[i] == needle) {
@@ -335,6 +322,7 @@ angular.module('ionic.metApp')
 		_this.getCurrent = function(lat, lng) {
 			Weather.getAtLocation(lat, lng).then(function(resp) {
 				$scope.current = resp.data;
+				// console.log('scope current', $scope.current)
 				$rootScope.$broadcast('scroll.refreshComplete');
 				$scope.today = $scope.my_date(); // today is
 				// fetch a background image from flickr based on out location, time and current weather conditinos
@@ -714,6 +702,7 @@ angular.module('ionic.metApp')
 		}
 
 		_this.metars_bago = function() {
+			$scope.current_temp = "Loading..";
 			metApi.get_metar(function(data) {
 				var m = data.items;
 				// ids of metars for tobago
@@ -907,13 +896,15 @@ angular.module('ionic.metApp')
 		return {
 			restrict: 'E',
 			link: function(scope, element, attrs) {
-	        	setTimeout(function() {
-	        		var j = scope.fcastbago.replace(/\s/g, "-").toLowerCase();
-	        		console.debug('fcast bago', scope.fcastbago)
-	        		scope.getContentUrl  = function() {
-	        			return 'app/home/svg/'+j+'.html';
-	        		}
-	        	}, 2000)
+				scope.$watch('fcastbago', function() {
+					setTimeout(function() {
+		        		var j = scope.fcastbago.replace(/\s/g, "-").toLowerCase();
+		        		console.debug('fcast bago', scope.fcastbago)
+		        		scope.getContentUrl  = function() {
+		        			return 'app/home/svg/'+j+'.html';
+		        		}
+		        	}, 2000)
+				})
 	        },
 	        template: '<div ng-include="getContentUrl()"></div>'
 		}
