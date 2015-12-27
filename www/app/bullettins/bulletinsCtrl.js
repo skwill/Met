@@ -106,27 +106,14 @@ angular.module('ionic.metApp')
 		$ionicPlatform.ready(function() {
 			if (window.cordova) {
 				var device = $cordovaDevice.getDevice();
-				// alert(device.model);
-				// alert(device.cordova);
-				// alert(device.platform);
-				// alert(device.uuid);
-				// alert(device.version);
 			}
 
 		})
 
-		// slide had changed listener event
+	
 		$scope.slideHasChanged = function(index) {
-			// vm.update_slide(index);
+			
 		}
-
-		// update slide with index
-		// vm.update_slide = function(index) {
-		// 	titles = ['General Information', 'Severe Weather', 'Floods', 'Rough Seas'];
-		// 	$scope.sub_title = titles[index];
-		// 	// m = index;
-		// 	// console.log($scope.m)
-		// }
 
 		vm.refresh_all_b = function() {
 			vm.getGIBulletins();

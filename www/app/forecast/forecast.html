@@ -20,5 +20,20 @@
         <div ng-if="vm.forecast.forecastTime == '05:30PM'">
             <five-thirtyp></five-thirtyp>
         </div>
+
+        <div ng-if="!vm.forecast.forecastTime">
+            <div class="card wide">
+                <div class="item item-text-wrap" ion-affix data-affix-within-parent-with-class="card">
+                    <div class="info-container">
+                        <div class="row date">
+                            <div class="col text-left">
+                                <p>There is currently no forecast data at this time.</p>
+                            </div>
+                        </div>                       
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </ion-content>
 </ion-view>

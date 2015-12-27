@@ -40,7 +40,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
 
     .state('app.home', {
         url: '/home',
-        // cache: false,
+        /*cache: true,*/
         views: {
             //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
             'mainContent': {
