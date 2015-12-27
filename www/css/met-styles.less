@@ -130,9 +130,15 @@ h1,h2,h3,h4,h5 {
 
     h1 {
     	font-size: 30px!important;
+    	margin-top: -21px!important;
     }
     .block-support-text, #deg {
     	display: none;
+    }
+    #pw {
+    	position: fixed;
+    	margin-top: 50px;
+    	margin-left: 1px;
     }
 }
 
@@ -912,16 +918,38 @@ h1,h2,h3,h4,h5 {
 #map-bar {
     position: fixed;
     right: 0px;
-    top: 10%;
+    top: 4%;
+    width: 60px;
+
     ul {
     	height: 100%;
+    	position: fixed;
+    	right: 0px;
     	li {
     		button {
-    			border-top-left-radius: 5px;
-		    	margin-bottom: 16px;
-		    	border-bottom-left-radius: 5px;
+    			border-radius: 0px!important;
+    			&.f1 {
+    				border-top-left-radius: 5px!important;
+    			 // -webkit-transition: all .5s ease-in-out;
+    			}
+    			&.fl {
+    				border-bottom-left-radius: 5px!important;
+    			}
+		      //      -moz-transition: all .5s ease-in-out;
+		      //        -o-transition: all .5s ease-in-out;
+		      //       -ms-transition: all .5s ease-in-out;
+		      //           transition: all .5s ease-in-out;
+    			border-bottom: 2px solid transparent;
+    			&:first-of-type {
+    				border-top-left-radius: 5px;
+    			}
+    			&:last-of-type {
+		    		border-bottom-left-radius: 5px;
+    			}
+		    	// margin-bottom: 16px;
         		border: none;
         		&.active {
+        			border-bottom: 2px solid red;
         			// padding-right: 40px;
         		}
     		}
@@ -937,6 +965,7 @@ h1,h2,h3,h4,h5 {
 }
 
 .gm-style-iw {
+	// padding: 10px;
 	// text-align: center;
 	h2 {
 		font-size: 14px;
@@ -945,6 +974,9 @@ h1,h2,h3,h4,h5 {
 	.infoWindowContent {
 		font-size: 10px;
 		margin-bottom: -6px;
+	}
+	div > img {
+		display: none!important;
 	}
 }
 

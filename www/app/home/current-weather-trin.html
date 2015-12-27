@@ -18,6 +18,7 @@
 	<div class="row">
 		<!-- <div class="col col-50 uvc trinuv uvi" id="uv-index" ng-click="uv_modalOpen()"> -->
 		<div class="col col-50 uvc trinuv uvi" id="uv-index" ui-sref="app.uv_index">
+		<!-- <div class="col col-50 uvc trinuv uvi" id="uv-index" ui-sref="app.home"> -->
 			<div class="col">
 				<span>{{hour_of_day}}</span>
 				<span id="uv-value" class="">{{uv_index.uv_value}}</span><br>
@@ -42,7 +43,8 @@
 		<div class="col" id="present-cond" ng-click="showMetarsTrin()">
 			<div>
 				<span class="block-support-text" id="day">PRESENT</span>
-				<div ng-class="{'current_no_data': current_temp_trin == 'No data'}">
+				<div ng-class="{'current_no_data': current_temp_trin == 'Loading..'}">
+					<span ng-if="current_temp_trin == 'Loading..'" id="pw">Please wait</span>
 					<h1 class="current-temp" >
 					<span id="today-temp">{{current_temp_trin}}</span><span id="deg">&deg;<span>c</span></span>
 				  		<span class="block-support-text">/ <span>{{dew_point_trin}}</span></span>
