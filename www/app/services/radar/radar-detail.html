@@ -13,18 +13,13 @@
             <h5><strong>{{rdc.radar.title}}</strong></h5>
             <div ng-if="rdc.radar.title == 'Radar Loop'">
                 <h5>Radar Loop may take a while to load</h5>
-                <!-- <button> -->
                     <button ng-click="reload_page()" class="button button-icon button-block button-outline button-light">Reload Radar</button>
-                <!-- </button> -->
             </div>
             <p>{{rdc.radar.sub}}</p>
             <h6 ng-if="rdc.radar.cat">Scan: {{rdc.radar.cat}}km</h6>
         </div>
         <div class="container">
-            <!-- <p>Some title for the image</p> -->
             <div class="img_holder"></div>
         </div>
-        <!-- <p>{{rdc.radar.image_src}}</p> -->
-        <!-- <img ng-src="{{rdc.radar.image_src}}"> -->
     </ion-content>
 </ion-view>

@@ -7,7 +7,6 @@
         </div>
     </div>
     <ion-content has-header="false" scroll="true" class="ms_m" ng-controller="TrinCtrl as tc">
-        <!-- <div class="contdnt metfars"> -->
             <div class="row " ng-repeat="item in tc.mdata">
                 <div class="card wide" ng-if="item.show">
                     <div class="item item-divider" ion-affix data-affix-within-parent-with-class="card">
@@ -16,11 +15,9 @@
                     <div class="item item-text-wrap">
                         <i class="{{item.icon}}"></i>
                         <div ng-if="item.txt" class="txt-other"><p>{{item.txt}}</p></div><br ng-if="item.txt">
-                        <!-- <div ng-if="!item.txt"></div> -->
                         <span class="txt" id="{{item.el}}">{{item.value}}</span>
                     </div>
                 </div>
             </div>
-        <!-- </div> -->
     </ion-content>
 </div>

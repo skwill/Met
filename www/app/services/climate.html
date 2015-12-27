@@ -5,22 +5,14 @@
         </ion-nav-back-button>
         <ion-nav-buttons side="left">
             <button menu-toggle="left" class="button button-icon icon ion-navicon" ></button>
-        </ion-nav-buttons>
-        <ion-nav-buttons side="right">
-            <button ng-click="vm.refresh_all_a()" class="button button-icon"><i class="settings-icon ion-ios-reload"></i></button>
-        </ion-nav-buttons>
+        </ion-nav-buttons>        
     </ion-nav-bar>
-
-    <!-- <div class="bar bar-subheader">
-        <p class="title">{{sub_title}}</p>
-    </div> -->
 
     <ion-content scroll="true" class="has-header climate-container text-left">
         <ion-slide-box on-slide-changed="slideHasChanged_c($index)" ng-init="disableSwipe()">
             <ion-slide ng-init="sc.get_elninos()">
                 <div class="card wide" ng-repeat="item in sc.el_infos">
                     <div class="item item-divider" >
-                        <!-- <i class="ion-ios-location"></i> -->
                         <p class="darkk">{{item.heading}}</p>
                     </div>
                     <div class="item item-text-wrap">
@@ -34,7 +26,6 @@
             <ion-slide ng-init="sc.get_rainandtemp()">
                 <div class="card wide" ng-repeat="item in sc.rt">
                     <div class="item item-divider">
-                        <!-- <i class="ion-ios-location"></i> -->
                         <p class="darkk">{{item.heading}}</p>
                     </div>
                     <div class="item item-text-wrap" style="margin-bottom: 40px;">
@@ -44,21 +35,10 @@
                         <span class="em-txt"><p>{{item.para4}}</p></span>
                     </div>
                 </div>
-               <!--  <div class="box">
-                    <ion-list>
-                        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in sc.rt">
-
-                            <h2>{{item.heading}}</h2>
-                            <p>{{item.month}}, {{item.year}}</p>
-                            <i class="icon ion-chevron-right icon-accessory"></i>
-                        </ion-item>
-                    </ion-list>
-                </div> -->
             </ion-slide>
             <ion-slide ng-init="sc.get_drywet()">
                 <div class="card wide" ng-repeat="item in sc.dw">
                     <div class="item item-divider">
-                        <!-- <i class="ion-ios-location"></i> -->
                         <p class="darkk">{{item.heading}}</p>
                     </div>
                     <div class="item item-text-wrap">
@@ -68,16 +48,6 @@
                         <span class="em-txt"><p>{{item.para4}}</p></span>
                     </div>
                 </div>
-                <!-- <div class="box">
-                    <ion-list>
-                        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in sc.dw" type="item-text-wrap" ng-click="cinfo_open({{item.dryandwetspellID}}, 'dw')"  data-id="item.dryandwetspellID">
-                            <img ng-src="{{chat.face}}">
-                            <h2>{{item.head1}}</h2>
-                            <p>{{item.month}}, {{item.year}}</p>
-                            <i class="icon ion-chevron-right icon-accessory"></i>
-                        </ion-item>
-                    </ion-list>
-                </div> -->
             </ion-slide>
         </ion-slide-box>
     </ion-content>

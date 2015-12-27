@@ -6,24 +6,10 @@
         <ion-nav-buttons side="left">
             <button menu-toggle="left" class="button button-icon icon ion-navicon" ></button>
         </ion-nav-buttons>
-        <!-- <ion-nav-buttons side="right">
-            <button ng-click="vm.refresh_all_a()" class="button button-icon"><i class="settings-icon ion-ios-reload"></i></button>
-        </ion-nav-buttons> -->
     </ion-nav-bar>
-
-   <!--  <div class="bar bar-subheader blue no-border">
-        <p class="title">{{sub_title}}</p>
-    </div> -->
 
     <ion-content class="has-header">
         <ion-slide-box on-slide-changed="slideHasChanged_a($index)" ng-init="sc.update_slide_a(0); disableSwipe()">
-
-          <!--   <ion-slide>
-                <div class="box container">
-                    <p>No Satellite data</p>
-                </div>
-            </ion-slide> -->
-
             <ion-slide ng-init="sc.get_o_aviation()">
                 <div class="box">
                     <div class="list">
@@ -44,67 +30,8 @@
                             <h2>400 KM</h2>
                         </a>
                     </div>
-                    <!-- <div class="item item-icon-right" ui-sref="app.services.aws">
-                        <h2>Automatic Weather Stations</h2>
-                        <i class="icon ion-chevron-right icon-accessory"></i>
-                    </div> -->
                 </div>
             </ion-slide >
-
-            <!-- <ion-slide ng-init="sc.get_metars()">
-                <div class="box">
-                    <div class="group">
-                        <div class="group-list">
-                            <div class="item item-divider" ion-affix data-affix-within-parent-with-class="group-list">
-                                Metars Trinidad
-                            </div>
-                            <div class="row " ng-repeat="item in sc.mdata">
-                                <div class="card wide" ng-if="item.show">
-                                    <div class="item item-divider" ion-affix data-affix-within-parent-with-class="card">
-                                        {{item.label}}
-                                    </div>
-                                    <div class="item item-text-wrap">
-                                        <i class="{{item.icon}}"></i>
-                                        <span class="txt" id="{{item.el}}">{{item.value}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="group-list">
-                            <div class="item item-divider" ion-affix data-affix-within-parent-with-class="group-list">
-                                Sigmet
-                            </div>
-                            <div class="row " ng-repeat="item in sc.sig">
-                                <div class="card wide">
-                                    <div class="item item-divider" ion-affix data-affix-within-parent-with-class="card">
-                                        {{item.forecaster}}
-                                    </div>
-                                    <div class="item item-text-wrap">
-                                        <p>{{item.currdate}}</p>
-                                        <p>{{item.issuedAt}}</p>
-                                        <p>{{item.textArea1}}</p>
-                                        <p>{{item.textArea2}}</p>
-                                        <p>{{item.textArea3}}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </ion-slide> -->
-
-          <!--   <ion-slide style="height: 400px;">
-                <div class="box">
-                    <h1 class="text-center">Forecast</h1>
-                </div>
-            </ion-slide> -->
-
         </ion-slide-box>
     </ion-content>
-    <!-- <ion-tabs class="tabs-icon-top tabs-color-active-positive"> -->
-        <!-- <ion-tab title="Satellite" icon-off="ion-earth" icon-on="ion-ios-arrow-up" on-select="slide(0)"></ion-tab> -->
-        <!-- <ion-tab title="Radar" icon-off="ion-radio-waves" icon-on="ion-ios-arrow-up" on-select="slide(0)"></ion-tab> -->
-        <!-- <ion-tab title="Weather Reports" icon-off="ion-easel" icon-on="ion-ios-arrow-up" on-select="slide(2)"></ion-tab> -->
-        <!-- <ion-tab title="Forecast" icon-off="ion-ios-calendar-outline" icon-on="ion-ios-arrow-up" on-select="slide(3)"></ion-tab> -->
-    <!-- </ion-tabs> -->
 </ion-view>

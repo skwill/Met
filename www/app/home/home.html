@@ -14,23 +14,15 @@
                 </h1>
                 <button ng-click="flip('Tobago')" class="button button-icon">
                     <img src="app/home/tt4.svg" alt="Tobago">
-                    <!-- <i class="settings-icon ion-ios-location-outline"></i> -->
                 </button>
             </ion-header-bar>
-            <!-- <div id="" class="rbg top"></div> -->
-
-
 
             <ion-content scroll-event-interval="20" scroll-effects scrollbar-y="false" class="no-header">
 
                 <div class="main-content">
-
-
                     <current-weather-trin></current-weather-trin>
                     <current-time></current-time>
-                    <!-- <forecast></forecast> -->
                 </div>
-                <!-- <div class="clearfix"></div><br><br><br><br> -->
                 <ion-refresher pulling-text="Pull to refresh..." on-refresh="tc.refreshData()" style="margin-top: -20px;"></ion-refresher>
 
             </ion-content>
@@ -106,12 +98,9 @@
                     <current-time localtz="current.local_tz_short"></current-time>
                 </h1>
                 <button ng-click="flip('Trinidad')" class="button button-icon">
-                    <!-- <img src="app/home/trinidad.png" alt="Trinidad"> -->
                     <img src="app/home/tt3.svg" alt="Tobago">
-                    <!-- <i class="settings-icon ion-ios-location-outline"></i> -->
                 </button>
             </ion-header-bar>
-            <!-- <div id="" class="rbg top"></div> -->
 
             <ion-content scroll-event-interval="20" scroll-effects scrollbar-y="false" class="no-header">
                 <ion-refresher pulling-text="Pull to refresh..." on-refresh="bc.refreshData()" style="margin-top: -20px;">
@@ -122,7 +111,6 @@
                     </current-weather-bago>
                     <current-time>
                     </current-time>
-                    <!-- <forecast></forecast> -->
                 </div>
                 <div class="clearfix"></div><br><br><br><br>
             </ion-content>
@@ -175,8 +163,6 @@
 
             <div class="ms">
                 <div class="row text-center of1-main of1 bago" id="" ng-click="showMetarsBago()">
-                    <!-- <div id="of1-blurf" class="rbg home-rbg"></div> -->
-                    <div class="col">
                         <div class="met-icon"></div>
                         <span>Current Conditions For Tobago</span>
                     </div>
