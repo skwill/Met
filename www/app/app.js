@@ -239,7 +239,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
     // preload images from flickr api
     $ImageCacheFactory.Cache([
         'http://farm1.static.flickr.com/644/23688702732_26414ac119_z.jpg',
-        'http://farm6.static.flickr.com/5780/23714706741_972799109b_z.jpg'
+        'http://farm6.static.flickr.com/5780/23714706741_972799109b_z.jpg',
     ]).then(function() {
         console.log('all images loaded')
     }, function(failed) {

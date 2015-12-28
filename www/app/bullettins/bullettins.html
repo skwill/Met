@@ -6,9 +6,6 @@
         <ion-nav-buttons side="left">
             <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
         </ion-nav-buttons>
-        <ion-nav-buttons side="right">
-            <button ng-click="vm.refresh_all_b()" class="button button-icon"><i class="settings-icon ion-ios-reload"></i></button>
-        </ion-nav-buttons>
     </ion-nav-bar>
 
     <ion-content scroll="true" class="has-header">
@@ -17,7 +14,6 @@
                 <div class="card wide b-info" >
                     <div class="item item-divider text-center">
                         <i class="icon ion-flag pull-left"></i>
-                        <!-- <p class="darkk">{{vm.b_info.bulletinpage}} Bulletin</p> -->
                         <p>Information</p>
                         <p ng-if="vm.b_info.issuedAt">Issued at: {{vm.b_info.issuedAt}}</p>
                     </div>
@@ -36,7 +32,6 @@
                 <div class="card wide b-info" >
                     <div class="item item-divider text-center">
                         <i class="icon ion-flag pull-left"></i>
-                        <!-- <p class="darkk">{{vm.s_items.bulletinpage}} Bulletin</p> -->
                         <p>Severe Weather</p>
                         <p ng-if="vm.s_items.issuedAt">Issued at: {{vm.s_items.issuedAt}}</p>
                     </div>
@@ -53,7 +48,6 @@
                 <div class="card wide b-info">
                     <div class="item item-divider text-center">
                         <i class="icon ion-flag pull-left"></i>
-                        <!-- <p class="darkk">{{vm.f_items.bulletinpage}} Bulletin</p> -->
                         <p>Floods</p>
                         <p ng-if="vm.f_items.issuedAt">Issued at: {{vm.f_items.issuedAt}}</p>
                     </div>
@@ -71,7 +65,6 @@
                 <div class="card wide b-info">
                     <div class="item item-divider text-center">
                         <i class="icon ion-flag pull-left"></i>
-                        <!-- <p class="darkk">{{vm.r_items.bulletinpage}} Bulletin</p> -->
                         <p>Rough Seas</p>
                         <p ng-if="vm.r_items.issuedAt">Issued at: {{vm.r_items.issuedAt}}</p>
                     </div>

@@ -3,9 +3,9 @@
         <ion-nav-back-button class="button-clear">
             <i class="ion-arrow-left-c"></i>
         </ion-nav-back-button>
-        <ion-nav-buttons side="left">
+        <!-- <ion-nav-buttons side="left">
             <button menu-toggle="left" class="button button-icon icon ion-navicon" ></button>
-        </ion-nav-buttons>
+        </ion-nav-buttons> -->
     </ion-nav-bar>
 
     <ion-content scroll="true" class="has-header climate-container text-left">
@@ -14,8 +14,6 @@
                 <div class="container">
                     <div class="text-center">
                     <h4 class="darkk"><strong>Trinidad Agromet <br>{{ac.atrin.Month}} {{ac.atrin.Day}}</strong></h4>
-                        <!-- <p class="darkk small">{{ac.atrin.Month}} {{ac.atrin.Day}}</p> -->
-
                         <p class="darkk">Rainfall Forecast</p>
                         <svg version="1.1" id="cloudRain" class="climacon climacon_cloudRain" viewBox="15 15 70 70">
                             <clipPath id="cloudFillClip">
@@ -34,18 +32,10 @@
                                 <path class="climacon_component climacon_component-stroke black climacon_component-stroke_cloud" d="M63.943,64.941v-4.381c2.389-1.384,4-3.961,4-6.92c0-4.417-3.582-8-8-8c-1.601,0-3.082,0.48-4.334,1.291c-1.23-5.317-5.973-9.29-11.665-9.29c-6.626,0-11.998,5.372-11.998,11.998c0,3.549,1.551,6.728,4,8.924v4.916c-4.777-2.768-8-7.922-8-13.84c0-8.835,7.163-15.997,15.998-15.997c6.004,0,11.229,3.311,13.965,8.203c0.664-0.113,1.338-0.205,2.033-0.205c6.627,0,11.998,5.372,11.998,12C71.941,58.863,68.602,63.293,63.943,64.941z"></path>
                               </g>
                             </g>
-                          </svg>
-                        <!-- <i class="ion-ios-rainy-outline darkk"></i> -->
-
+                        </svg>
                     </div>
                 </div>
 
-
-                <!-- <div class="card wide ">
-                    <div class="item item-divider text-center headings">
-
-                    </div>
-                </div> -->
                 <div class="card wide" ng-repeat="item in ac.area">
                     <div class="item item-divider simple">
                         <p class="darkk">{{item}}</p>
@@ -54,13 +44,6 @@
                         <span class="em-txt"><p>{{ac.rain[$index]}}</p></span>
                     </div>
                 </div>
-
-               <!--  <div class="card wide ">
-                    <div class="item item-divider text-center headings">
-                        <i class="ion-thermometer darkk"></i>
-                        <p class="darkk">Temperature Forecast</p>
-                    </div>
-                </div> -->
 
                 <div class="container">
                     <div class="text-center">
@@ -119,27 +102,36 @@
                         <span class="em-txt"><p>{{ac.sum.prt}}</p></span>
                     </div>
                 </div>
-
-
-
             </ion-slide >
 
 
             <ion-slide ng-init="ac.agrotbg()">
                 <div class="card wide">
-                    <div class="item item-divider text-center">
-                        <p class="darkk">Tobago Agromet for</p>
-                        <p class="darkk">{{ac.atbg.Month}} {{ac.atbg.Day}}</p>
-                    </div>
-                </div>
+                    <div class="text-center">
+                        <h4 class="darkk"><strong>Tobago Agromet <br>{{ac.atbg.Month}} {{ac.atbg.Day}}</strong></h4>
 
-
-                <div class="card wide ">
-                    <div class="item item-divider text-center headings">
-                        <i class="ion-ios-rainy-outline darkk"></i>
                         <p class="darkk">Rainfall Forecast</p>
+                        <svg version="1.1" id="cloudRain" class="climacon climacon_cloudRain" viewBox="15 15 70 70">
+                            <clipPath id="cloudFillClip">
+                              <path d="M15,15v70h70V15H15z M59.943,61.639c-3.02,0-12.381,0-15.999,0c-6.626,0-11.998-5.371-11.998-11.998c0-6.627,5.372-11.999,11.998-11.999c5.691,0,10.434,3.974,11.665,9.29c1.252-0.81,2.733-1.291,4.334-1.291c4.418,0,8,3.582,8,8C67.943,58.057,64.361,61.639,59.943,61.639z"></path>
+                            </clipPath>
+                            <g class="climacon_iconWrap climacon_iconWrap-cloudRain">
+                              <g class="climacon_wrapperComponent climacon_wrapperComponent-rain">
+                                <path class="climacon_component climacon_component-stroke black climacon_component-stroke_rain climacon_component-stroke_rain- left" d="M41.946,53.641c1.104,0,1.999,0.896,1.999,2v15.998c0,1.105-0.895,2-1.999,2s-2-0.895-2-2V55.641C39.946,54.537,40.842,53.641,41.946,53.641z"></path>
+                                <path class="climacon_component climacon_component-stroke black climacon_component-stroke_rain climacon_component-stroke_rain- middle" d="M49.945,57.641c1.104,0,2,0.896,2,2v15.998c0,1.104-0.896,2-2,2s-2-0.896-2-2V59.641C47.945,58.535,48.841,57.641,49.945,57.641z"></path>
+                                <path class="climacon_component climacon_component-stroke black climacon_component-stroke_rain climacon_component-stroke_rain- right" d="M57.943,53.641c1.104,0,2,0.896,2,2v15.998c0,1.105-0.896,2-2,2c-1.104,0-2-0.895-2-2V55.641C55.943,54.537,56.84,53.641,57.943,53.641z"></path>
+                                <path class="climacon_component climacon_component-stroke black climacon_component-stroke_rain climacon_component-stroke_rain- left" d="M41.946,53.641c1.104,0,1.999,0.896,1.999,2v15.998c0,1.105-0.895,2-1.999,2s-2-0.895-2-2V55.641C39.946,54.537,40.842,53.641,41.946,53.641z"></path>
+                                <path class="climacon_component climacon_component-stroke black climacon_component-stroke_rain climacon_component-stroke_rain- middle" d="M49.945,57.641c1.104,0,2,0.896,2,2v15.998c0,1.104-0.896,2-2,2s-2-0.896-2-2V59.641C47.945,58.535,48.841,57.641,49.945,57.641z"></path>
+                                <path class="climacon_component climacon_component-stroke black climacon_component-stroke_rain climacon_component-stroke_rain- right" d="M57.943,53.641c1.104,0,2,0.896,2,2v15.998c0,1.105-0.896,2-2,2c-1.104,0-2-0.895-2-2V55.641C55.943,54.537,56.84,53.641,57.943,53.641z"></path>
+                              </g>
+                              <g class="climacon_wrapperComponent climacon_wrapperComponent_cloud" clip-path="url(#cloudFillClip)">
+                                <path class="climacon_component climacon_component-stroke black climacon_component-stroke_cloud" d="M63.943,64.941v-4.381c2.389-1.384,4-3.961,4-6.92c0-4.417-3.582-8-8-8c-1.601,0-3.082,0.48-4.334,1.291c-1.23-5.317-5.973-9.29-11.665-9.29c-6.626,0-11.998,5.372-11.998,11.998c0,3.549,1.551,6.728,4,8.924v4.916c-4.777-2.768-8-7.922-8-13.84c0-8.835,7.163-15.997,15.998-15.997c6.004,0,11.229,3.311,13.965,8.203c0.664-0.113,1.338-0.205,2.033-0.205c6.627,0,11.998,5.372,11.998,12C71.941,58.863,68.602,63.293,63.943,64.941z"></path>
+                              </g>
+                            </g>
+                          </svg>
                     </div>
                 </div>
+
                 <div class="card wide" ng-repeat="item in ac.areatbg">
                     <div class="item item-divider">
                         <p class="darkk">{{item}}</p>
@@ -150,9 +142,30 @@
                 </div>
 
                 <div class="card wide ">
-                    <div class="item item-divider text-center headings">
-                      <i class="ion-thermometer darkk"></i>
+                    <div class="text-center">
                       <p class="darkk">Temperature Forecast</p>
+                        <svg version="1.1" id="sun" class="climacon climacon_sun" viewBox="15 15 70 70">
+                            <clipPath id="sunFillClip">
+                              <path d="M0,0v100h100V0H0z M50.001,57.999c-4.417,0-8-3.582-8-7.999c0-4.418,3.582-7.999,8-7.999s7.998,3.581,7.998,7.999C57.999,54.417,54.418,57.999,50.001,57.999z"></path>
+                            </clipPath>
+                            <g class="climacon_iconWrap climacon_iconWrap-sun">
+                              <g class="climacon_componentWrap climacon_componentWrap-sun">
+                                <g class="climacon_componentWrap climacon_componentWrap-sunSpoke">
+                                  <path class="climacon_component climacon_component-stroke black climacon_component-stroke_sunSpoke climacon_component-stroke_sunSpoke-east" d="M72.03,51.999h-3.998c-1.105,0-2-0.896-2-1.999s0.895-2,2-2h3.998c1.104,0,2,0.896,2,2S73.136,51.999,72.03,51.999z"></path>
+                                  <path class="climacon_component climacon_component-stroke black climacon_component-stroke_sunSpoke climacon_component-stroke_sunSpoke-northEast" d="M64.175,38.688c-0.781,0.781-2.049,0.781-2.828,0c-0.781-0.781-0.781-2.047,0-2.828l2.828-2.828c0.779-0.781,2.047-0.781,2.828,0c0.779,0.781,0.779,2.047,0,2.828L64.175,38.688z"></path>
+                                  <path class="climacon_component climacon_component-stroke black climacon_component-stroke_sunSpoke climacon_component-stroke_sunSpoke-north" d="M50.034,34.002c-1.105,0-2-0.896-2-2v-3.999c0-1.104,0.895-2,2-2c1.104,0,2,0.896,2,2v3.999C52.034,33.106,51.136,34.002,50.034,34.002z"></path>
+                                  <path class="climacon_component climacon_component-stroke black climacon_component-stroke_sunSpoke climacon_component-stroke_sunSpoke-northWest" d="M35.893,38.688l-2.827-2.828c-0.781-0.781-0.781-2.047,0-2.828c0.78-0.781,2.047-0.781,2.827,0l2.827,2.828c0.781,0.781,0.781,2.047,0,2.828C37.94,39.469,36.674,39.469,35.893,38.688z"></path>
+                                  <path class="climacon_component climacon_component-stroke black climacon_component-stroke_sunSpoke climacon_component-stroke_sunSpoke-west" d="M34.034,50c0,1.104-0.896,1.999-2,1.999h-4c-1.104,0-1.998-0.896-1.998-1.999s0.896-2,1.998-2h4C33.14,48,34.034,48.896,34.034,50z"></path>
+                                  <path class="climacon_component climacon_component-stroke black climacon_component-stroke_sunSpoke climacon_component-stroke_sunSpoke-southWest" d="M35.893,61.312c0.781-0.78,2.048-0.78,2.827,0c0.781,0.78,0.781,2.047,0,2.828l-2.827,2.827c-0.78,0.781-2.047,0.781-2.827,0c-0.781-0.78-0.781-2.047,0-2.827L35.893,61.312z"></path>
+                                  <path class="climacon_component climacon_component-stroke black climacon_component-stroke_sunSpoke climacon_component-stroke_sunSpoke-south" d="M50.034,65.998c1.104,0,2,0.895,2,1.999v4c0,1.104-0.896,2-2,2c-1.105,0-2-0.896-2-2v-4C48.034,66.893,48.929,65.998,50.034,65.998z"></path>
+                                  <path class="climacon_component climacon_component-stroke black climacon_component-stroke_sunSpoke climacon_component-stroke_sunSpoke-southEast" d="M64.175,61.312l2.828,2.828c0.779,0.78,0.779,2.047,0,2.827c-0.781,0.781-2.049,0.781-2.828,0l-2.828-2.827c-0.781-0.781-0.781-2.048,0-2.828C62.126,60.531,63.392,60.531,64.175,61.312z"></path>
+                                </g>
+                                <g class="climacon_componentWrap climacon_componentWrap_sunBody" clip-path="url(#sunFillClip)">
+                                  <circle class="climacon_component climacon_component-stroke black climacon_component-stroke_sunBody" cx="50.034" cy="50" r="11.999"></circle>
+                                </g>
+                              </g>
+                            </g>
+                          </svg>
                     </div>
                 </div>
 
@@ -161,34 +174,27 @@
                         <span class="em-txt"><p>{{ac.temptbg}}</p></span>
                     </div>
                 </div>
-
                 <div class="card wide ">
                     <div class="item item-divider text-center headings">
                         <p class="darkk">Summary</p>
                     </div>
                 </div>
-
                 <div class="card wide">
                     <div class="item item-text-wrap">
                         <span class="em-txt"><p>{{ac.sumtbg.sum}}</p></span>
                     </div>
                 </div>
-
                 <div class="card wide ">
                     <div class="item item-divider text-center headings wrap
                     ">
                         <p class="darkk wrap">Preliminary Rainfall and Temperature Outlook</p>
                     </div>
                 </div>
-
                 <div class="card wide" style="margin-bottom: 40px;">
                     <div class="item item-text-wrap">
                         <span class="em-txt"><p>{{ac.sumtbg.prt}}</p></span>
                     </div>
                 </div>
-
-
-
             </ion-slide>
         </ion-slide-box>
     </ion-content>
@@ -196,5 +202,4 @@
         <ion-tab title="Trinidad Agro" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="slide(0)"></ion-tab>
         <ion-tab title="Tobago Agro" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" on-select="slide(1)"></ion-tab>
     </ion-tabs>
-
 </ion-view>

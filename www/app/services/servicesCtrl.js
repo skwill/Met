@@ -256,56 +256,28 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 			// gets the current temp, we only care about the exact number so pull that out from the string
 
 			// these are the ids of the metas we want for trinidad
-			var ids = [{
-				'id': 1, // metar fir
-				'icon': 'icon ion-ios-location-outline',
-				'el': 'met-loc',
-				'show': true
-			}, {
-				'id': 2, // text
-				'icon': 'icon ion-thermometer',
-				'el': null,
-				'show': false
-			}, {
-				'id': 3, // temp
-				'icon': 'icon ion-thermometer',
-				'el': 'temp',
-				'show': true
-			}, {
-				'id': 4, // dewpoint
-				'icon': 'icon ion-waterdrop',
-				'el': 'dew',
-				'show': true
-			}, {
-				'id': 5, // pressure
-				'icon': 'icon ion-ios-speedometer-outline',
-				'el': 'pressure',
-				'show': true
-			}, {
-				'id': 6, // winds
-				'icon': 'icon ion-ios-analytics-outline',
-				'el': 'winds',
-				'show': true
-			}, {
-				'id': 7, // visibility
-				'icon': 'icon',
-				'el': 'weather',
-				'show': false
-			}, {
-				'id': 8, // ceiling
-				'el': 'weather',
-				'show': false
-			}, {
-				'id': 9, // clouds
-				'icon': 'icon ion-ios-cloudy-outline',
-				'el': 'clouds',
-				'show': true
-			}, {
-				'id': 10, // weather
-				'icon': 'icon ion-umbrella',
-				'el': 'weather',
-				'show': false
-			}];
+			var ids = [
+				// metar fir
+				{ 'id': 1, 'icon': 'icon ion-ios-location-outline', 'el': 'met-loc', 'show': true },
+				// text
+				{ 'id': 2, 'icon': 'icon ion-thermometer', 'el': null, 'show': false },
+				// temp
+				{ 'id': 3, 'icon': 'icon ion-thermometer', 'el': 'temp', 'show': true },
+				// dewpoint
+				{ 'id': 4, 'icon': 'icon ion-waterdrop', 'el': 'dew', 'show': true },
+				// pressure
+				{ 'id': 5, 'icon': 'icon ion-ios-speedometer-outline', 'el': 'pressure', 'show': true },
+				// winds
+				{ 'id': 6, 'icon': 'icon ion-ios-analytics-outline', 'el': 'winds', 'show': true },
+				// visibility
+				{ 'id': 7, 'icon': 'icon', 'el': 'weather', 'show': false },
+				// ceiling
+				{ 'id': 8, 'el': 'weather', 'show': false },
+				// clouds
+				{ 'id': 9, 'icon': 'icon ion-ios-cloudy-outline', 'el': 'clouds', 'show': true },
+				// weather
+				{ 'id': 10, 'icon': 'icon ion-umbrella', 'el': 'weather', 'show': false }
+			];
 
 			sc.mdata = [];
 			for (i = 0; i < m.length; i++) {
@@ -334,7 +306,6 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 
 })
 	.controller('RadarDetailCtrl', function($scope, $stateParams, metApi, Radars, $http, $cordovaPush, $ionicPlatform, $rootScope, $ionicLoading, $state) {
-		// $scope.radar = radar_list.get($stateParams.chatId);
 		var rdc = this;
 		$scope.close_loading = function() {
 			$ionicLoading.hide();
@@ -343,21 +314,13 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 			console.log("here")
 			rdc.radar = Radars.get($stateParams.id);
 			metApi.get_radar(function(data) {
-
-				//sc.aviation_items = data.items;
-
-				// rdc.radar = data;
 				var image = new Image();
 				image.src = data.image_src;
 				image.style.maxWidth = "100%";
-
 				var img_div = $('.img_holder');
 				img_div.html(image);
 				img_div.find('img').wrap('<a href="' + data.image_src + '" class="swipebox" title="' + rdc.radar.title + '"></a>')
-
-				// $('.scroll-content.ionic-scroll.has-header, .bar.no-border.blue').addClass('blur_small')
 				console.log('radar image', data)
-				// console.log(i);
 			}, $stateParams.id);
 			rdc.radar = Radars.get($stateParams.id)
 
@@ -365,25 +328,17 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 			console.debug('radar item detail', Radars.get($stateParams.id))
 		}
 		$scope.reload_page = function() {
-			// alert();
-			// $state.go($state.current, {}, {
-			// 	reload: true
-			// });
 			$scope.get_radar_detail($stateParams.id);
 			console.log($stateParams.id)
 		}
-		// $scope.get_radar_detail();
-		// console.log($stateParams.id)
 		$scope.$on('loading:show', function() {
             $ionicLoading.show({
             	template: ' <ion-spinner></ion-spinner><br><button class="button button-light button-block" ng-click="close_loading()">Cancel</button>',
             	scope: $scope
             });
         })
-        // $scope.$on('loading:hide', function() {
-        //     $ionicLoading.hide();
-        // })
 	})
+
 	.factory('Radars', function() {
 		var radar_list = [{
 				'id': 0,
@@ -393,13 +348,15 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 				'cat': null
 			}, {
 				'id': 1,
-				'img': 'http://190.58.130.190/web/aviation/RadarPages2014/150km/eht7.png',
+				// 'img': 'http://190.58.130.190/web/aviation/RadarPages2014/150km/eht7.png',
+				'img': 'app/services/radar/eht7.png',
 				'title': 'EHT (Echo Height Top)',
 				'sub': 'Gives a representation of the height to which the top of the clouds extend.',
 				'cat': 150
 			}, {
 				'id': 2,
-				'img': 'http://190.58.130.190/web/aviation/RadarPages2014/150km/hwind7.png',
+				// 'img': 'http://190.58.130.190/web/aviation/RadarPages2014/150km/hwind7.png',
+				'img': 'app/services/radar/hwind7.png',
 				'title': 'HWIND (Horizontal Wind)',
 				'sub': 'Shows wind flow at a specific altitude.',
 				'cat': 150
@@ -417,19 +374,22 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 				'cat': 150
 			}, {
 				'id': 5,
-				'img': 'http://190.58.130.190/web/aviation/RadarPages2014/150km/ppi7.png',
+				// 'img': 'http://190.58.130.190/web/aviation/RadarPages2014/150km/ppi7.png',
+				'img': 'app/services/radar/ppi7.png',
 				'title': 'PPI (Plan Position Indicator)',
 				'sub': 'A representation of the cloud echoes in a horizontal plane.',
 				'cat': 150
 			}, {
 				'id': 6,
-				'img': 'http://190.58.130.190/web/aviation/RadarPages2014/150km/sri7.png',
+				// 'img': 'http://190.58.130.190/web/aviation/RadarPages2014/150km/sri7.png',
+				'img': 'app/services/radar/sri7.png',
 				'title': 'SRI (Surface Rainfall Intensity)',
 				'sub': 'An estimate of rainfall intensity associated with different echoes.',
 				'cat': 150
 			}, {
 				'id': 7,
-				'img': 'http://190.58.130.190/web/aviation/RadarPages2014/150km/vvp7.png',
+				// 'img': 'http://190.58.130.190/web/aviation/RadarPages2014/150km/vvp7.png',
+				'img': 'app/services/radar/vvp7.png',
 				'title': 'VVP (Velocity Volume Processing)',
 				'sub': 'Provides an estimate of the wind profile up to a certain height.',
 				'cat': 150
@@ -510,28 +470,31 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 				return null;
 			}
 		};
-	}).controller('AWSCtrl', function(metApi, $scope, $timeout, $ionicModal, $ionicPlatform, $ionicPopup, $interval, $ionicBackdrop, $state) {
+	}).controller('AWSCtrl', function(metApi, $scope, $timeout, $ionicModal, $ionicPlatform, $ionicPopup, $interval, $ionicBackdrop, $state, $route) {
 		var _this = this;
+		$scope.activeButton = 'a'; // temp will be default active on map
+		var temp = []; var press = []; var gust = []; var precip = []; var humidity = []; var wind_d = []; var wind_s = [];
+		var te = ['Pi_temp', 'Br_temp', 'Ca_temp', 'Ch_temp', 'El_temp', 'Pe_temp'];
+		var pr = ['Pi_pressure', 'Br_pressure', 'Ca_pressure', 'Ch_pressure', 'El_pressure', 'Pe_pressure'];
+		var gu = ['Pi_gust', 'Br_gust', 'Ca_gust', 'Ch_gust', 'El_gust', 'Pe_gust'];
+		var pre = ['Pi_precip', 'Br_precip', 'Ca_precip', 'Ch_precip', 'El_precip', 'Pe_precip'];
+		var hu = ['Pi_humidity', 'Br_humidity', 'Ca_humidity', 'Ch_humidity', 'El_humidity', 'Pe_humidity'];
+		var wd = ['Pi_wind_d', 'Br_wind_d', 'Ca_wind_d', 'Ch_wind_d', 'El_wind_d', 'Pe_wind_d'];
+		var ws = ['Pi_wind_s', 'Br_wind_s', 'Ca_wind_s', 'Ch_wind_s', 'El_wind_s', 'Pe_wind_s'];
+		_this.active_item = 'Temperature';
 
+		// positions of aws stations on the map
 		var cities = [
-			// { city: 'Piarco', desc: 'Piarco  (BASE) AWS', lat: 10.352436, long: -61.204158 },
-			// { city: 'Brasso', desc : 'Brasso Venado AWS', lat : 10.252784, long : -61.17798 },
-		 //    { city: 'Caroni', desc : 'Caroni AWS',       lat : 10.28492, long : -61.28408 },
-			// { city: 'Chatham', desc: 'Chatham  AWS', lat: 10.8702, long: -61.431278 },
-			// { city: 'El Reposo', desc : 'El Reposo AWS', lat : 10.35426, long : -61.71008 },
-		    { city: 'Penal', desc: 'Penal AWS', lat: 10.103324, long: -61.27252 },
-			// { city: 'Centeno', desc : 'Centeno AWS', lat : 10.352226, long : -61.192286 },
-			// { city: 'Crown Point', desc: 'Crown Point AWS', lat: 10.352000, long: -61.20403 },
-			// { city: 'Guayaguayare', desc : 'Guayaguayare AWS', lat : 10.84584 , long : -60.594896 },
-
-
-			// { city: 'San Salvador', desc: 'San Salvador AWS', lat: 10.22588, long: -61.223143 },
-			// { city: 'IMA Chaguaramas', desc: 'IMA Chaguaramas AWS', lat: 10.41121, long: -61.3715 },
-			// { city: 'UTT (Camden)', desc: 'UTT (Camden) AWS', lat: 10.25384, long: -61.26425 }
+			{ city: 'Piarco', desc: 'Piarco  (BASE) AWS', lat: 10.602912, long: -61.335640 },
+			{ city: 'Brasso', desc : 'Brasso Venado AWS', lat : 10.399413, long : -61.317268 },
+		    { city: 'Caroni', desc : 'Caroni AWS', lat : 10.606881, long : -61.383883 },
+			{ city: 'Chatham', desc: 'Chatham  AWS', lat: 10.115793, long: -61.741620 },
+			{ city: 'El Reposo', desc : 'El Reposo AWS', lat : 10.589908, long : -61.114339 },
+		    { city: 'Penal', desc: 'Penal AWS', lat: 10.168662, long: -61.437830 },
+			{ city: 'Centeno', desc : 'Centeno AWS', lat : 10.352226, long : -61.192286 },
 		];
 
-		_this.get_aws = function() {
-			var temp = []; var press = []; var gust = []; var precip = []; var humidity = []; var wind_d = []; var wind_s = [];
+		_this.get_aws = function(auto_fill) {
 			for(x = 0; x < cities.length; x++) {
 				metApi.get_aws(function(data) {
 	    			var length = data.items.length;
@@ -540,9 +503,11 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 	    				console.log(d[z].location);
 	    				if(d[z].item == 'Temperature') {
 	    					temp[(d[z].location.substr(0, 2))+'_temp'] = d[z];
+	    					temp[(d[z].location.substr(0, 2))+'_temp'].value = parseInt(temp[(d[z].location.substr(0, 2))+'_temp'].value)
 	    				}
 	    				if(d[z].item == 'Pressure') {
 	    					press[(d[z].location.substr(0, 2))+'_pressure'] = d[z];
+	    					press[(d[z].location.substr(0, 2))+'_pressure'].value = parseInt(press[(d[z].location.substr(0, 2))+'_pressure'].value);
 	    				}
 	    				if(d[z].item == 'Gust') {
 	    					gust[(d[z].location.substr(0, 2))+'_gust'] = d[z];
@@ -553,7 +518,7 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 	    				if(d[z].item == 'Humidity') {
 	    					humidity[(d[z].location.substr(0, 2))+'_humidity'] = d[z];
 	    				}
-	    				if(d[z].item == 'PresWind Directionsure') {
+	    				if(d[z].item == 'Wind Direction') {
 	    					wind_d[(d[z].location.substr(0, 2))+'_wind_d'] = d[z];
 	    				}
 	    				if(d[z].item == 'Wind Speed') {
@@ -563,43 +528,48 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 	    		}, cities[x].city)
 			}
 			$timeout(function() {
-  				console.debug('whats in temp', temp);
-  				console.debug('whats in press', press);
-  				console.debug('whats in gust', gust);
-  				console.debug('whats in precip', precip);
-  				console.debug('whats in humidity', humidity);
-  				console.debug('whats in wind_d', wind_d);
-  				console.debug('whats in wind_s', wind_s);
+  				// console.debug('whats in temp', temp);
+  				// console.debug('whats in press', press);
+  				// console.debug('whats in gust', gust);
+  				// console.debug('whats in precip', precip);
+  				// console.debug('whats in humidity', humidity);
+  				// console.debug('whats in wind_d', wind_d);
+  				// console.debug('whats in wind_s', wind_s);
 
-  				$('.gm-style-iw').each(function(idx, val) {
-  					$(this).css({
-  						top: '4px',
-  						left: '9px'
-  					});
-		    		$(this).parent().find('img').remove();
-		    		var h = $(this).prev();
-		    		var d1 = h.find('div:eq(1)').remove();
-		    		var d2 = h.find('div:last');
-		    		d1.addClass('first');
-		    		d2.addClass('second');
+  				if(auto_fill) {
+	  				$('.gm-style-iw').each(function(idx, val) {
+	  					var me = $(this)
+	  					$(this).css({
+	  						top: '32px',
+	  						left: '15px',
+	  					});
+	  					// me.hide();
+	  					me.next().remove();
+	  					me.parent().css({
+	  						'margin-top': '44px',
+	  						'height': '0px',
+	  						'width': '0px'
+	  					}).addClass('no-wh')
+			    		$(this).parent().find('img').remove();
+			    		var h = $(this).prev();
+			    		var d1 = h.find('div:eq(1)').remove();
+			    		var d2 = h.find('div:last');
+			    		d2.hide().addClass('second');
+			    		d2.prev().find('div:eq(1), div:eq(2)').remove();
+			    		d2.prev('div').prev('div').remove();
 
-		    		// d1.width(d1.width() - 30)
-		    		// d1.height(d1.height() - 3)
-
-		    		d2.width(d2.width() - 20)
-		    		d2.height(d2.height() - 3)
-
-		    		// $(this).remove()
-		    		// console.log('h')
-		    	})
-
-  			}, 1000);
-	    	// metApi.get_aws(function(data) {
-	    	// 	var length = data.items.length;
-	    	// 	// console.log(data.items)
-	    	// }, "Piarco")
-
-
+			    		// initial data load
+			    		console.debug(temp[te[idx]], idx);
+			    		if(temp[te[idx]] != undefined) {
+			    			if(temp[te[idx]].value) {
+			    				$(this).find('.infoWindowContent').html(temp[te[idx]].value)
+			    			}
+			    			else { me.parent().hide(); }
+			    		}
+			    		else { me.parent().hide(); }
+			    	})
+				}
+  			}, 2000);
 	    }
 
 
@@ -616,14 +586,7 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 	    	// geo location may come here
 	    	navigator.geolocation.getCurrentPosition(function(pos) {
 	            map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-	            // var myLocation = new google.maps.Marker({
-	            //     position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
-	            //     map: $scope.map,
-	            //     animation: google.maps.Animation.DROP,
-	            //     title: "My Location"
-	            // });
 	        });
-
 
 	    	$scope.markers = [];
 	    	var createMarker = function(info) {
@@ -635,43 +598,92 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 	    			title: info.city,
 	    			icon: ' '
 	    		})
-	    		marker.content = '<div class="infoWindowContent">'+info.desc+'</div>';
-	    		// marker.addListener('click', function() {
-	    			infoWindow.setContent(marker.content);
-	    			infoWindow.open($scope.map, marker)
-	    		// });
+	    		marker.content = '<div class="infoWindowContent" data-location="'+info.city+'">'+info.desc+'</div>';
+	    		infoWindow.setContent(marker.content);
+	    		infoWindow.open($scope.map, marker);
 	    		$scope.markers.push(marker);
-	    		// console.debug('marker', marker)
 	    	}
 
 	    	for(i = 0; i< cities.length; i++) {
 	    		createMarker(cities[i]);
 	    	}
 
-	    	_this.get_aws();
-	    	// clean up view
-
-
+	    	_this.get_aws(true);
+	    	// $('.gmnoprint').remove();
 	    }
 
 	    _this.aws_click = function(i) {
+	    	var a = "";
+	    	$scope.activeButton = i;
+	    	switch(i) {
+	    		case 'temp':
+	    			a = temp;
+	    			b = te;
+	    			_this.active_item = 'Temperature';
+	    			break;
+	    		case 'press':
+	    			a = press;
+	    			b = pr;
+	    			_this.active_item = 'Pressure';
+	    			break;
+	    		case 'gust':
+	    			a = gust;
+	    			b = gu;
+	    			_this.active_item = 'Gust';
+	    			break;
+	    		case 'precip':
+	    			a = precip;
+	    			b = pre;
+	    			_this.active_item = 'Precipitation';
+	    			break;
+	    		case 'humidity':
+	    			a = humidity;
+	    			b = hu;
+	    			_this.active_item = 'Humidity';
+	    		 	break;
+	    		case 'wind_d':
+	    			a = wind_d;
+	    			b = wd;
+	    			_this.active_item = 'Wind Direction';
+	    			break;
+	    		case 'wind_s':
+	    			a = wind_s;
+	    			b = ws;
+	    			_this.active_item = 'Wind Speed';
+	    			break;
+	    		default:
+	    			a = temp;
+	    			b = te;
+	    			_this.active_item = 'Temperature';
+	    			break;
+	    	}
 	    	$('.gm-style-iw').each(function(idx, val) {
-	    		$(this).find('.infoWindowContent').html(i)
+	    		var me = $(this);
+	    		if(a[b[idx]] != undefined) {
+	    			if(a[b[idx]].value) {
+	    				me.parent().show();
+	    				$(this).find('.infoWindowContent').html(a[b[idx]].value)
+	    			}
+	    			else {
+	    				me.parent().hide();
+	    			}
+	    		}
+	    		else {
+	    			me.parent().hide();
+	    		}
 	    	})
 	    }
-	    // gm-style-iw
-	    // infoWindowContent
-
-
 
 	    google.maps.event.addDomListener(document.getElementById("map"), 'load', $scope.initialise());
 
-
-	    // console.log($scope.markers)
-
-	    // fetch api data
+		_this.refreshData = function(input) {
+			console.log(input)
+			$route.reload();
+			_this.get_aws(false);
+			_this.aws_click(input)
+		}
 
 	})
-.run(function($http, $cordovaPush, $ionicPlatform, $rootScope, $ionicLoading) {
+	.run(function($http, $cordovaPush, $ionicPlatform, $rootScope, $ionicLoading) {
 
-});
+	});

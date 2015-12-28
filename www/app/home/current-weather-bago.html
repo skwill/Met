@@ -16,7 +16,6 @@
 		<div class="icon">
 			<weather-icon-bago></weather-icon-bago>
 		</div>
-		<!-- <current-icon icon="current.currently.icon">Loading...</current-icon> -->
 		<div class="col" id="present-cond" ng-click="showMetarsBago()">
 			<div>
 				<span class="block-support-text" id="day">PRESENT</span>
@@ -25,18 +24,11 @@
 					<h1 class="current-temp">
 				  		<span id="today-temp">{{current_temp}}</span><span id="deg">&deg;<span>c</span></span>
 				  		<span class="block-support-text">/ <span>{{dew_point}}</span></span>
-				    	<!-- <current-icon icon="current.currently.icon">Loading...</current-icon> -->
 				  	</h1>
 				</div>
 			</div>
 		</div>
 	</div>
   <h5 id="cw-summary"><weather-icon icon="current.icon" id="current-icon"></weather-icon> {{summary_text}}</h5>
-  <h5 id="cw-range">
-    <!-- <span id="temp-hi"><i class="icon ion-arrow-up-c"></i> <span ng-bind="highTemp"></span>&deg;</span> -->
-    <!-- <span id="temp-lo"><i class="icon ion-arrow-down-c"></i> <span ng-bind="lowTemp"></span>&deg;</span> -->
-  </h5>
-  <!-- <p id="temptemp">{{currentTemp}}</p> -->
-  <!-- <p>{{currentLocationString}}</p> -->
-
+  <h5 id="cw-range"></h5>
 </div>

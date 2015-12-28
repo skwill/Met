@@ -267,7 +267,7 @@ angular.module('ionic.metApp')
 	.controller('TrinCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform,
 		$ionicPopup, $interval, $ionicBackdrop, $state, $ionicHistory, $route) {
 		var _this = this;
-		$scope.fcasttrin = "sunny"; // default trin fcast
+		$scope.fcasttrin = $scope.timeOfDay() == 'night'?'fair-night':'fair'; // default trin fcast
 		$scope.fcastbago = "sunny"; // default bago fcast
 		var interval = 10 * 60000;
 		$interval(function time() {
@@ -600,8 +600,8 @@ angular.module('ionic.metApp')
 				if(_this.ftime_trin == "05:30PM") {
 					$scope.t = 'Tonight';
 				}
-				_this.th = f.PiarcoFcstMnTemp;
-				_this.tl = f.PiarcoFcstMxTemp;
+				_this.th = f.PiarcoFcstMxTemp;
+				_this.tl = f.PiarcoFcstMnTemp;
 				// temp icons
 				_this.wicons[0] = 'ion-ios-partlysunny-outline';
 				_this.wicons[1] = 'ion-ios-partlysunny-outline';
@@ -906,6 +906,6 @@ angular.module('ionic.metApp')
 		        	}, 2000)
 				})
 	        },
-	        template: '<div ng-include="getContentUrl()"></div>'
+	        template: '<div ng-include="getContentUrl()" style="padding-top: 13px"></div>'
 		}
 	})
