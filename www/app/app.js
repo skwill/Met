@@ -240,6 +240,8 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
     $ImageCacheFactory.Cache([
         'http://farm1.static.flickr.com/644/23688702732_26414ac119_z.jpg',
         'http://farm6.static.flickr.com/5780/23714706741_972799109b_z.jpg',
+        'http://farm6.static.flickr.com/5770/23408797994_05f0932a8d_z.jpg',
+        'http://farm6.static.flickr.com/5827/23410243873_3e22a903d1_z.jpg',
     ]).then(function() {
         console.log('all images loaded')
     }, function(failed) {

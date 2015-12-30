@@ -265,13 +265,13 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
                 var url = "img/home-images/"+$scope.default_trin+".jpg";
                 var item = v;
                 url = "http://farm" + item.farm + ".static.flickr.com/" + item.server + "/" + item.id + "_" + item.secret + "_z.jpg";
-                // console.log(url);
+                console.log(url);
                 // place scope fcast here to get image for the current weather contition
                 // var url = "app/home/IMG_3133.jpg"
                 // console.warn($scope)
                 // var url = '';
                 $el2 = document.getElementById('menu-bg');
-                $el2.style.backgroundImage = 'url(' + url + ')'
+                $el2.style.background = 'url(' + url + ')'
                 // $el2.setAttribute("cache-src", url);
                 // $el2.setAttribute("src-is", "background");
 
@@ -315,7 +315,7 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
                     var item = v;
                     var url = "http://farm" + item.farm + ".static.flickr.com/" + item.server + "/" + item.id + "_" + item.secret + "_z.jpg";
                     $el2 = document.getElementById('menu-bg');
-                    $el2.style.backgroundImage = 'url(' + url + ')'
+                    $el2.style.background = 'url(' + url + ')'
 
                     $el3 = document.getElementById('i-bago');
                     $el3.src = url;
@@ -338,7 +338,16 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
             if ($scope.url) {
                 // $element[0].setAttribute("cache-src", $scope.url);
                 // $element[0].setAttribute("src-is", "background");
-                $element[0].style.backgroundImage = 'url(' + $scope.url + ')';
+                $element[0].style.background = 'url(' + $scope.url + ') no-repeat center center fixed';
+                setTimeout(function() {
+                    $('.bg-image').css({
+                        // 'background': 'url(' + $scope.url + ') no-repeat center center fixed',
+                        '-webkit-background-size': 'cover',
+                        '-moz-background-size': 'cover',
+                        '-o-background-size': 'cover',
+                        'background-size': 'cover'
+                    });
+                }, 100)
             }
         }
     }

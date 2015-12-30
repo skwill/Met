@@ -100,7 +100,7 @@ angular.module('ionic.metApp.services', ['ngResource'])
   return {
     search: function(tags, lat, lng) {
       var q = $q.defer();
-      // console.log('Searching flickr for tags', tags);
+      console.log('Searching flickr for tags', tags);
       flickrSearch.get({
         tags: tags,
         lat: lat,

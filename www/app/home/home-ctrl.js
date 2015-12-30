@@ -555,10 +555,14 @@ angular.module('ionic.metApp')
 				}
 
 				// correct cloudy icon for day or night
-				if($scope.fcasttrin.indexOf('Cloudy') > -1) {
+				if($scope.fcasttrin.indexOf('Cloudy') > -1 || $scope.fcasttrin.indexOf('cloudy') > -1) {
 					var tod = $scope.timeOfDay()=='night'?'-night':'';
 					$scope.fcasttrin = $scope.fcasttrin+tod;
+					if(parseInt(d.getHours()) >= 0 && parseInt(d.getHours()) <= 5) {
+						$scope.fcasttrin = $scope.fcasttrin+'-night';
+					}
 				}
+
 			})
 		}
 
