@@ -2,7 +2,7 @@
 // https://github.com/driftyco/ionic-weather
 angular.module('ionic.metApp')
 	.controller('HomeCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform,
-		$ionicPopup, $interval, $ionicBackdrop, $state, $ionicHistory) {
+		$ionicPopup, $interval, $ionicBackdrop, $state, $ionicHistory, $route) {
 		var _this = this;
 		// console.warn('home');
 		$scope.activeBgImageIndex = 0;
@@ -135,6 +135,17 @@ angular.module('ionic.metApp')
 			return t;
 		}
 
+		$scope.searchTag = function() {
+			var tag = $scope.timeOfDay();
+			var d = new Date();
+			var t = d.getHours();
+			if(tag == 'morning' && t > 5 && t < 7) { tag = 'sunrise'; }
+			if(t >= 0 && t <= 5) { tag = 'night'; }
+			if(tag == 'morning') { tag = 'mid day'; }
+
+			return tag;
+		}
+
 		// a full date in array, like what is found above present conditions on the home screen
 		$scope.my_date = function() {
 			var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -261,21 +272,36 @@ angular.module('ionic.metApp')
 			{ 'code': 'FG', 'desc': 'Fog' },
 			{ 'code': 'FU', 'desc': 'Smoke' },
 			{ 'code': 'HZ', 'desc': 'Haze' },
-			{ 'code': 'SQ', 'desc': 'Squall' }
+			{ 'code': 'SQ', 'desc': 'Squall' },
+			{ 'code': 'VCSH', 'desc': 'showers in vicinity'}
 		];
 	})
 	.controller('TrinCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform,
-		$ionicPopup, $interval, $ionicBackdrop, $state, $ionicHistory, $route) {
+		$ionicPopup, $interval, $ionicBackdrop, $state, $ionicHistory, $route, $window) {
 		var _this = this;
+		$interval(function() {
+			$scope.token = $rootScope.token;
+			console.log('rootscope', $rootScope.token);
+		}, 5000)
 		$scope.fcasttrin = $scope.timeOfDay() == 'night'?'fair-night':'fair'; // default trin fcast
 		$scope.fcastbago = "sunny"; // default bago fcast
 		var interval = 10 * 60000;
 		$interval(function time() {
 			$ionicHistory.clearCache().then(function() {
 				// alert('cache cleared')
+				console.log('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
 				console.log('cache cleared')
-				_this.refreshData();
+
+				// $window.location.reload(true);
+
 				$route.reload();
+				$state.reload();
+
+				$route.reload();
+				$state.reload();
+				_this.refreshData();
+				// $state.go ('app.home' , {}, {cache: false});
+				// $state.go ('app.home' , {}, {cache: true});
 			});
 			$ionicHistory.clearHistory();
 		}, interval);
@@ -285,37 +311,39 @@ angular.module('ionic.metApp')
 		}
 
 		_this.refreshData = function() {
-			Geo.getLocation().then(function(position) {
-				var lc = "";
-				var lat = position.coords.latitude;
-				var lng = position.coords.longitude;
-				// google map service will give us a location string based on our current location (or nearest detected location)
-				Geo.reverseGeocode(lat, lng).then(function(locString) {
-					$scope.currentLocationString = locString;
-					$scope.country = $scope.currentLocationString.indexOf('Tobago') > -1 ? 'Tobago' : 'Trinidad';
-					$scope.$watch('country', function() {
-						$rootScope.c = $scope.country;
-					})
-					_this.getCurrent(lat, lng);
-					_this.get_uv_index();
-					_this.metars_trin();
-					_this.trin_3day();
+			$timeout(function() {
+				Geo.getLocation().then(function(position) {
+					var lc = "";
+					var lat = position.coords.latitude;
+					var lng = position.coords.longitude;
+					// google map service will give us a location string based on our current location (or nearest detected location)
+					Geo.reverseGeocode(lat, lng).then(function(locString) {
+						$scope.currentLocationString = locString;
+						$scope.country = $scope.currentLocationString.indexOf('Tobago') > -1 ? 'Tobago' : 'Trinidad';
+						$scope.$watch('country', function() {
+							$rootScope.c = $scope.country;
+						})
+						_this.getCurrent(lat, lng);
+						_this.get_uv_index();
+						_this.metars_trin();
+						_this.trin_3day();
+					});
+				}, function(error) {
+					// in some cases something may go wrong
+					// most times location service for android may be turned off
+					if (error.message == 'The last location provider was disabled') {
+						error.message = error.message + "<br> Try enabling Location services in Settings";
+					}
+					$scope.showAlert('Unable to get current location', 'Try enabling Location services in Settings');
+					$scope.currentLocationString = "Unable to get current location:" + error;
+					$rootScope.$broadcast('scroll.refreshComplete');
 				});
-			}, function(error) {
-				// in some cases something may go wrong
-				// most times location service for android may be turned off
-				if (error.message == 'The last location provider was disabled') {
-					error.message = error.message + "<br> Try enabling Location services in Settings";
-				}
-				$scope.showAlert('Unable to get current location', 'Try enabling Location services in Settings');
-				$scope.currentLocationString = "Unable to get current location:" + error;
-				$rootScope.$broadcast('scroll.refreshComplete');
-			});
+			}, 1000)
 
 			$ionicHistory.clearCache().then(function() {
-			    	// console.log('cache cleared')
-			    	$route.reload();
-			    });
+		    	// console.log('cache cleared')
+		    	$route.reload();
+		    });
 
 		};
 
@@ -327,7 +355,7 @@ angular.module('ionic.metApp')
 				$scope.today = $scope.my_date(); // today is
 				// fetch a background image from flickr based on out location, time and current weather conditinos
 				// console.log('currently', $scope.current)
-				_this.getBackgroundImage("Trinidad");
+				_this.getBackgroundImage("Trinidad, "+$scope.searchTag());
 			}, function(error) {
 				var errorTxt = "";
 				switch (error.status) {
@@ -370,7 +398,7 @@ angular.module('ionic.metApp')
 			var today_index = [];
 			var today = new Date();
 			var el = document.getElementById('uv-index');
-			var d = today.getDate() + '.' + (today.getMonth() + 1) + '.' + today.getFullYear();
+			var d = today.getDate() + '.' + ((today.getMonth() + 1) < 9 ? '0' + (today.getMonth() + 1):(today.getMonth() + 1)) + '.' + today.getFullYear();
 			$scope.hour_of_day = $scope.hourOfDay();
 			// these indexes represent uv values. but instead of using the value directly we use a color in place of the index to represent the value
 			// the index will match to a color class to represent the uv_index value on the summary page
@@ -379,17 +407,20 @@ angular.module('ionic.metApp')
 				// drop all uv_info not for today
 				for (var i = 0; i < data.items.length; i++) {
 					var uv_date_clean = data.items[i].uv_date.trim();
+					// uv_date_clean = uv_date_clean.replace(/\s+/, "")
+					// console.log(d, uv_date_clean)
 					if (d == uv_date_clean) {
 						today_index.push(data.items[i]);
 					}
 				}
+				// console.debug(today_index);
 				if (today_index.length) {
 					$scope.uv_index = today_index[today_index.length - 1];
 					var ii = Number($scope.uv_index.uv_value);
 					var i = ii.toFixed(0);
 					$scope.uv_index.uv_value = i; // our scope uv variable
 
-					console.log($scope.uv_index);
+					console.log('scope uv', $scope.uv_index);
 
 					// ensure the uv value matches the correct color class
 					var ci = i == 0 || i == 1 ? 0 : i == 11 || i > 11 ? (11 - 1) : i - 1;
@@ -426,6 +457,7 @@ angular.module('ionic.metApp')
 			$scope.current_temp_trin = "Loading..";
 			metApi.get_metar(function(data) {
 				var m = data.items;
+				// console.log('metars trin', m)
 				var ids = [
 					// metar for
 					{ 'id': 1, 'icon': 'icon ion-ios-location-outline', 'el': 'met-loc', 'show': false, 'txt': null, },
@@ -442,7 +474,7 @@ angular.module('ionic.metApp')
 					// visibility
 					{ 'id': 7, 'icon': 'icon', 'el': 'weather', 'show': false, 'txt': null, },
 					// ceiling
-					{ 'id': 8, 'el': 'weather', 'show': false, 'txt': null, },
+					{ 'id': 8, 'icon':'icon', 'el': 'weather', 'show': false, 'txt': null, },
 					// clouds
 					{ 'id': 9, 'icon': 'icon ion-ios-cloudy-outline', 'el': 'clouds', 'show': true, 'txt': null, },
 					// weather
@@ -666,7 +698,7 @@ angular.module('ionic.metApp')
 				$scope.current = resp.data;
 				$rootScope.$broadcast('scroll.refreshComplete');
 				$scope.today = $scope.my_date();
-				_this.getBackgroundImage($scope.current.currently.summary + ", Tobago");
+				_this.getBackgroundImage("Tobago, " + $scope.searchTag());
 			}, function(error) {
 				var errorTxt = "";
 				switch (error.status) {

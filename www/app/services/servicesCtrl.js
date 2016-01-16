@@ -1,4 +1,4 @@
-angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metApi, $scope, $ionicLoading, $timeout, $ionicModal, $cordovaDevice, $ionicPlatform, $cordovaPush, $ionicSlideBoxDelegate) {
+angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metApi, $scope, $ionicLoading, $timeout, $ionicModal, $cordovaDevice, $ionicPlatform, $cordovaPush, $ionicSlideBoxDelegate, $ionicScrollDelegate) {
 
 	var sc = this;
 
@@ -234,6 +234,7 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 
 	$scope.slide = function(to) {
 		// $scope.current = to;
+		$ionicScrollDelegate.scrollTop();
 		$ionicSlideBoxDelegate.slide(to);
 		// sc.refresh_all_b();
 	}
@@ -305,27 +306,35 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 	}
 
 })
-	.controller('RadarDetailCtrl', function($scope, $stateParams, metApi, Radars, $http, $cordovaPush, $ionicPlatform, $rootScope, $ionicLoading, $state) {
+	.controller('RadarDetailCtrl', function($scope, $stateParams, metApi, Radars, $http, $cordovaPush, $ionicPlatform, $rootScope, $ionicLoading, $state, $ionicBackdrop, $ionicModal, $ionicScrollDelegate, $ionicSlideBoxDelegate ) {
 		var rdc = this;
 		$scope.close_loading = function() {
 			$ionicLoading.hide();
 		}
 		$scope.get_radar_detail = function() {
-			console.log("here")
+			$scope.zoomMin = 1;
 			rdc.radar = Radars.get($stateParams.id);
 			metApi.get_radar(function(data) {
 				var image = new Image();
 				image.src = data.image_src;
-				image.style.maxWidth = "100%";
-				var img_div = $('.img_holder');
-				img_div.html(image);
-				img_div.find('img').wrap('<a href="' + data.image_src + '" class="swipebox" title="' + rdc.radar.title + '"></a>')
-				console.log('radar image', data)
+				$scope.image = data.image_src;
+				// image.style.maxWidth = "100%";
+				// var img_div = $('.img_holder');
+				// img_div.html(image);
+				// img_div.find('img').wrap('<a href="' + data.image_src + '" class="swipebox" title="' + rdc.radar.title + '"></a>')
+				// console.log('radar image', data)
 			}, $stateParams.id);
 			rdc.radar = Radars.get($stateParams.id)
 
 			// get text based details of radar
-			console.debug('radar item detail', Radars.get($stateParams.id))
+			// console.debug('radar item detail', Radars.get($stateParams.id));
+
+			$('body').on('click', '.swipebox', function(e) {
+				e.preventDefault();
+				var photo = $(this).attr('href');
+				$scope.image = photo;
+				$scope.showImages(photo);
+			})
 		}
 		$scope.reload_page = function() {
 			$scope.get_radar_detail($stateParams.id);
@@ -337,6 +346,36 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
             	scope: $scope
             });
         })
+
+		// handle image scrolling and zooming of radar
+		$scope.showImages = function(index) {
+			$scope.showModal('app/services/radar/radar_image_modal.html');
+		}
+
+		$scope.showModal = function(templateUrl) {
+			$ionicModal.fromTemplateUrl(templateUrl, {
+				scope: $scope,
+				animation: 'slide-in-up'
+			}).then(function(modal) {
+				$scope.modal = modal;
+				$scope.modal.show();
+			})
+		}
+
+		$scope.closeModal = function() {
+			$scope.modal.hide();
+			$scope.modal.remove();
+		}
+
+		$scope.updateSlideStatus = function(slide) {
+			var zoomFactor = $ionicScrollDelegate.$getByHandle('scrollHandle' + slide).getScrollPosition.zoom;
+			if(zoomFactor == $scope.zoomMin) {
+				$ionicSlideBoxDelegate.enableSlide(true);
+			}
+			else {
+				$ionicSlideBoxDelegate.enableSlide(false);
+			}
+		}
 	})
 
 	.factory('Radars', function() {
@@ -470,220 +509,174 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 				return null;
 			}
 		};
-	}).controller('AWSCtrl', function(metApi, $scope, $timeout, $ionicModal, $ionicPlatform, $ionicPopup, $interval, $ionicBackdrop, $state, $route) {
+	}).controller('AWSCtrl', function(metApi, $scope, $timeout, $ionicModal, $ionicPlatform, $ionicPopup, $interval, $ionicBackdrop, $state, $route, $rootScope, $ionicLoading ) {
 		var _this = this;
-		$scope.activeButton = 'a'; // temp will be default active on map
-		var temp = []; var press = []; var gust = []; var precip = []; var humidity = []; var wind_d = []; var wind_s = [];
-		var te = ['Pi_temp', 'Br_temp', 'Ca_temp', 'Ch_temp', 'El_temp', 'Pe_temp'];
-		var pr = ['Pi_pressure', 'Br_pressure', 'Ca_pressure', 'Ch_pressure', 'El_pressure', 'Pe_pressure'];
-		var gu = ['Pi_gust', 'Br_gust', 'Ca_gust', 'Ch_gust', 'El_gust', 'Pe_gust'];
-		var pre = ['Pi_precip', 'Br_precip', 'Ca_precip', 'Ch_precip', 'El_precip', 'Pe_precip'];
-		var hu = ['Pi_humidity', 'Br_humidity', 'Ca_humidity', 'Ch_humidity', 'El_humidity', 'Pe_humidity'];
-		var wd = ['Pi_wind_d', 'Br_wind_d', 'Ca_wind_d', 'Ch_wind_d', 'El_wind_d', 'Pe_wind_d'];
-		var ws = ['Pi_wind_s', 'Br_wind_s', 'Ca_wind_s', 'Ch_wind_s', 'El_wind_s', 'Pe_wind_s'];
-		_this.active_item = 'Temperature';
+		// var temp = []; var press = []; var gust = []; var precip = []; var humidity = []; var wind_d = []; var wind_s = [];
+		$scope.ai = [];
 
-		// positions of aws stations on the map
-		var cities = [
-			{ city: 'Piarco', desc: 'Piarco  (BASE) AWS', lat: 10.602912, long: -61.335640 },
-			{ city: 'Brasso', desc : 'Brasso Venado AWS', lat : 10.399413, long : -61.317268 },
-		    { city: 'Caroni', desc : 'Caroni AWS', lat : 10.606881, long : -61.383883 },
-			{ city: 'Chatham', desc: 'Chatham  AWS', lat: 10.115793, long: -61.741620 },
-			{ city: 'El Reposo', desc : 'El Reposo AWS', lat : 10.589908, long : -61.114339 },
-		    { city: 'Penal', desc: 'Penal AWS', lat: 10.168662, long: -61.437830 },
-			{ city: 'Centeno', desc : 'Centeno AWS', lat : 10.352226, long : -61.192286 },
-		];
+		$scope.mapCreated = function(map) {
+    		$scope.map = map;
+  		};
 
-		_this.get_aws = function(auto_fill) {
-			for(x = 0; x < cities.length; x++) {
-				metApi.get_aws(function(data) {
-	    			var length = data.items.length;
-	    			var d = data.items;
-	    			for(z = 0; z < length; z++) {
-	    				console.log(d[z].location);
-	    				if(d[z].item == 'Temperature') {
-	    					temp[(d[z].location.substr(0, 2))+'_temp'] = d[z];
-	    					temp[(d[z].location.substr(0, 2))+'_temp'].value = parseInt(temp[(d[z].location.substr(0, 2))+'_temp'].value)
-	    				}
-	    				if(d[z].item == 'Pressure') {
-	    					press[(d[z].location.substr(0, 2))+'_pressure'] = d[z];
-	    					press[(d[z].location.substr(0, 2))+'_pressure'].value = parseInt(press[(d[z].location.substr(0, 2))+'_pressure'].value);
-	    				}
-	    				if(d[z].item == 'Gust') {
-	    					gust[(d[z].location.substr(0, 2))+'_gust'] = d[z];
-	    				}
-	    				if(d[z].item == 'Precipitation') {
-	    					precip[(d[z].location.substr(0, 2))+'_precip'] = d[z];
-	    				}
-	    				if(d[z].item == 'Humidity') {
-	    					humidity[(d[z].location.substr(0, 2))+'_humidity'] = d[z];
-	    				}
-	    				if(d[z].item == 'Wind Direction') {
-	    					wind_d[(d[z].location.substr(0, 2))+'_wind_d'] = d[z];
-	    				}
-	    				if(d[z].item == 'Wind Speed') {
-	    					wind_s[(d[z].location.substr(0, 2))+'_wind_s'] = d[z];
-	    				}
-	    			}
-	    		}, cities[x].city)
-			}
-			$timeout(function() {
-  				// console.debug('whats in temp', temp);
-  				// console.debug('whats in press', press);
-  				// console.debug('whats in gust', gust);
-  				// console.debug('whats in precip', precip);
-  				// console.debug('whats in humidity', humidity);
-  				// console.debug('whats in wind_d', wind_d);
-  				// console.debug('whats in wind_s', wind_s);
+		$scope.centerOnMe = function () {
+		    if (!$scope.map) { return; }
 
-  				if(auto_fill) {
-	  				$('.gm-style-iw').each(function(idx, val) {
-	  					var me = $(this)
-	  					$(this).css({
-	  						top: '32px',
-	  						left: '15px',
-	  					});
-	  					// me.hide();
-	  					me.next().remove();
-	  					me.parent().css({
-	  						'margin-top': '44px',
-	  						'height': '0px',
-	  						'width': '0px'
-	  					}).addClass('no-wh')
-			    		$(this).parent().find('img').remove();
-			    		var h = $(this).prev();
-			    		var d1 = h.find('div:eq(1)').remove();
-			    		var d2 = h.find('div:last');
-			    		d2.hide().addClass('second');
-			    		d2.prev().find('div:eq(1), div:eq(2)').remove();
-			    		d2.prev('div').prev('div').remove();
+		    $ionicLoading.show({
+		      	content: 'Getting current location...',
+		      	showBackdrop: false
+		    });
 
-			    		// initial data load
-			    		console.debug(temp[te[idx]], idx);
-			    		if(temp[te[idx]] != undefined) {
-			    			if(temp[te[idx]].value) {
-			    				$(this).find('.infoWindowContent').html(temp[te[idx]].value)
-			    			}
-			    			else { me.parent().hide(); }
-			    		}
-			    		else { me.parent().hide(); }
-			    	})
-				}
-  			}, 2000);
-	    }
+		    navigator.geolocation.getCurrentPosition(function (pos) {
+		      	$scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+		      	$ionicLoading.hide();
+		    }, function (error) {
+		    	var alertPopup = $ionicPopup.alert({
+					title: 'Unable to get location',
+					template: error.message
+				});
+		      	// alert('Unable to get location: ' + error.message);
+		    });
+		  };
 
-
-	    $scope.initialise = function() {
-	    	var myLatlng = new google.maps.LatLng(10.84584, -60.594896);
-	    	var mapOptions = {
-	    		center: myLatlng,
-	    		zoom: 8,
-	    		mapTypeId: google.maps.MapTypeId.ROADMAP
-	    	};
-	    	var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-	    	$scope.map = map;
-
-	    	// geo location may come here
-	    	navigator.geolocation.getCurrentPosition(function(pos) {
-	            map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-	        });
-
-	    	$scope.markers = [];
-	    	var createMarker = function(info) {
-	    	var infoWindow = new google.maps.InfoWindow();
-	    		var marker = new google.maps.Marker({
-	    			position: new google.maps.LatLng(info.lat, info.long),
-	    			map: $scope.map,
-	    			animation: google.maps.Animation.DROP,
-	    			title: info.city,
-	    			icon: ' '
-	    		})
-	    		marker.content = '<div class="infoWindowContent" data-location="'+info.city+'">'+info.desc+'</div>';
-	    		infoWindow.setContent(marker.content);
-	    		infoWindow.open($scope.map, marker);
-	    		$scope.markers.push(marker);
-	    	}
-
-	    	for(i = 0; i< cities.length; i++) {
-	    		createMarker(cities[i]);
-	    	}
-
-	    	_this.get_aws(true);
-	    	// $('.gmnoprint').remove();
-	    }
-
-	    _this.aws_click = function(i) {
-	    	var a = "";
-	    	$scope.activeButton = i;
-	    	switch(i) {
-	    		case 'temp':
-	    			a = temp;
-	    			b = te;
-	    			_this.active_item = 'Temperature';
-	    			break;
-	    		case 'press':
-	    			a = press;
-	    			b = pr;
-	    			_this.active_item = 'Pressure';
-	    			break;
-	    		case 'gust':
-	    			a = gust;
-	    			b = gu;
-	    			_this.active_item = 'Gust';
-	    			break;
-	    		case 'precip':
-	    			a = precip;
-	    			b = pre;
-	    			_this.active_item = 'Precipitation';
-	    			break;
-	    		case 'humidity':
-	    			a = humidity;
-	    			b = hu;
-	    			_this.active_item = 'Humidity';
-	    		 	break;
-	    		case 'wind_d':
-	    			a = wind_d;
-	    			b = wd;
-	    			_this.active_item = 'Wind Direction';
-	    			break;
-	    		case 'wind_s':
-	    			a = wind_s;
-	    			b = ws;
-	    			_this.active_item = 'Wind Speed';
-	    			break;
-	    		default:
-	    			a = temp;
-	    			b = te;
-	    			_this.active_item = 'Temperature';
-	    			break;
-	    	}
-	    	$('.gm-style-iw').each(function(idx, val) {
-	    		var me = $(this);
-	    		if(a[b[idx]] != undefined) {
-	    			if(a[b[idx]].value) {
-	    				me.parent().show();
-	    				$(this).find('.infoWindowContent').html(a[b[idx]].value)
-	    			}
-	    			else {
-	    				me.parent().hide();
-	    			}
-	    		}
-	    		else {
-	    			me.parent().hide();
-	    		}
-	    	})
-	    }
-
-	    google.maps.event.addDomListener(document.getElementById("map"), 'load', $scope.initialise());
-
-		_this.refreshData = function(input) {
-			console.log(input)
-			$route.reload();
-			_this.get_aws(false);
-			_this.aws_click(input)
+		$scope.closeModal = function(a) {
+			$ionicPlatform.ready(function() {
+				if (window.StatusBar) {
+            		StatusBar.styleLightContent();
+        		}
+			})
+			$scope.modal.hide();
 		}
+		// when any modal is closed, hide the back drop
+		$scope.$on('modal.hidden', function() {
+			$ionicBackdrop.release();
+		})
 
+		$rootScope.ace = function(city) {
+			$ionicPlatform.ready(function() {
+				if (window.StatusBar) {
+					StatusBar.styleBlackTranslucent();
+        		}
+			})
+			// $ionicBackdrop.retain();
+			// $ionicModal.fromTemplateUrl('app/services/aws_details.html', {
+			// 	scope: $scope,
+			// 	animation: 'scale-in',
+			// 	// animation: 'slide-in-up',
+			// }).then(function(modal) {
+			// 	$scope.modal = modal;
+			// 	$scope.modal.show();
+			// })
+
+			$scope.title = city;
+
+
+			// get aws data
+			metApi.get_aws(function(data) {
+    			var length = data.items.length;
+    			var d = data.items;
+    			for(z = 0; z < length; z++) {
+    				if(d[z].item == 'Temperature') { $scope.ai[0] = d[z]; }
+    				if(d[z].item == 'Pressure') { $scope.ai[1] = d[z]; }
+    				if(d[z].item == 'Gust') { $scope.ai[2] = d[z]; }
+    				if(d[z].item == 'Precipitation') { $scope.ai[3] = d[z]; }
+    				if(d[z].item == 'Humidity') { $scope.ai[4] = d[z]; }
+    				if(d[z].item == 'Wind Direction') { $scope.ai[5] = d[z]; }
+    				if(d[z].item == 'Wind Speed') { $scope.ai[6] = d[z]; }
+    			}
+    			console.log('aws result', $scope.ai);
+    			// create a popup with all information
+				var content = '';
+				for(c = 0; c < $scope.ai.length; c++) {
+					if($scope.ai[c] != undefined) {
+						content +=
+						'<div class="row">' +
+							'<div class="card wide">'+
+				                '<div class="item item-divider">'+
+				                    $scope.ai[c].item +
+				                '</div>'+
+				                '<div class="item item-text-wrap">'+
+				                    '<p>' + $scope.ai[c].value + '</p>'+
+				                '</div>'+
+				            '</div>' +
+						'</div>';
+					}
+				}
+
+				// $timeout(function() {
+					var alertPopup = $ionicPopup.alert({
+						title: $scope.title,
+						template: content,
+						cssClass: 'aws_popup'
+					});
+				// }, 1000)
+    		}, city)
+
+
+		}
 	})
-	.run(function($http, $cordovaPush, $ionicPlatform, $rootScope, $ionicLoading) {
+	.directive('map', function($timeout, $compile, $ionicPopup, $ionicBackdrop, $ionicModal, $rootScope) {
+		return {
+		    restrict: 'E',
+		    scope: {
+		      onCreate: '&'
+		    },
+		    link: function ($scope, $element, $attr) {
+		    	function initialize() {
+			      	var cities = [
+						{ city: 'Piarco', desc: 'Piarco  (BASE) AWS', lat: 10.602912, long: -61.335640 },
+						{ city: 'Brasso', desc : 'Brasso Venado AWS', lat : 10.399413, long : -61.317268 },
+					    { city: 'Caroni', desc : 'Caroni AWS', lat : 10.606881, long : -61.383883 },
+						{ city: 'Chatham', desc: 'Chatham  AWS', lat: 10.115793, long: -61.741620 },
+						{ city: 'El Reposo', desc : 'El Reposo AWS', lat : 10.589908, long : -61.114339 },
+					    { city: 'Penal', desc: 'Penal AWS', lat: 10.168662, long: -61.437830 },
+						{ city: 'Centeno', desc : 'Centeno AWS', lat : 10.352226, long : -61.192286 },
+					];
 
+			        var mapOptions = {
+			          center: new google.maps.LatLng(10.84584, -60.594896),
+			          zoom: 9,
+			          mapTypeId: google.maps.MapTypeId.ROADMAP
+			        };
+			        var map = new google.maps.Map($element[0], mapOptions);
+
+			        $scope.onCreate({map: map});
+
+			        navigator.geolocation.getCurrentPosition(function(pos) {
+			            map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+			        });
+
+			        // Stop the side bar from dragging when mousedown/tapdown on the map
+			        google.maps.event.addDomListener($element[0], 'mousedown', function (e) {
+			          e.preventDefault();
+			          return false;
+			        });
+
+			        $scope.markers = [];
+			    	var createMarker = function(info) {
+			    		var marker = new google.maps.Marker({
+			    			position: new google.maps.LatLng(info.lat, info.long),
+			    			map: map,
+			    			animation: google.maps.Animation.DROP,
+			    			title: info.city,
+			    			// icon: ' '
+			    		});
+			    		$scope.markers.push(marker);
+			    		marker.addListener('click', function() {
+			    			$rootScope.ace(this.title);
+						});
+				    }
+
+			    	for(i = 0; i< cities.length; i++) {
+			    		createMarker(cities[i]);
+			    	}
+
+		    	}// end of init
+
+			    if (document.readyState === "complete") {
+			    	initialize();
+			    } else {
+			    	google.maps.event.addDomListener(window, 'load', initialize);
+			    }
+			}
+	  	}
 	});

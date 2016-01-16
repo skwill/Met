@@ -103,7 +103,7 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
                     var thisHeight = $element[0].offsetHeight;
                     var headerHeight = document.querySelector('.header.trin').offsetHeight;
                     // $element[0].style.paddingTop = (windowHeight - (thisHeight) + 10) + 'px';
-                    $element[0].style.paddingTop = (windowHeight - thisHeight) / 4 + 'px';
+                    $element[0].style.paddingTop = (windowHeight - thisHeight) / 5 + 'px';
                     // console.log((windowHeight - thisHeight) / 2)
                     angular.element(document.querySelector('.content')).css('-webkit-overflow-scrolling', 'auto');
                     $timeout(function() {
@@ -128,7 +128,7 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
                         var windowHeight = window.innerHeight;
                         var thisHeight = $element[0].offsetHeight;
                         var headerHeight = document.querySelector('.header.bago').offsetHeight;
-                        $element[0].style.paddingTop = (windowHeight - thisHeight) / 4 + 'px';
+                        $element[0].style.paddingTop = (windowHeight - thisHeight) / 5 + 'px';
                         angular.element(document.querySelector('.content')).css('-webkit-overflow-scrolling', 'auto');
                         $timeout(function() {
                             angular.element(document.querySelector('.content')).css('-webkit-overflow-scrolling', 'touch');

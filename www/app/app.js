@@ -1,7 +1,7 @@
 // weather app based on driftyco ionic-weather
 // https://github.com/driftyco/ionic-weather
 angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.services', 'ionic.metApp.directives',
-    'ngCordova', 'ngResource', 'ion-affix', 'ngIOS9UIWebViewPatch', 'ionic.ion.imageCacheFactory', 'ngRoute'/*, 'angular-svg-round-progress', 'ionic-cache-src'*/])
+    'ngCordova', 'ngResource', 'ngIOS9UIWebViewPatch', 'ionic.ion.imageCacheFactory', 'ngRoute'/*, 'angular-svg-round-progress', 'ionic-cache-src'*/])
 
 // .constant('WUNDERGROUND_API_KEY', '1cc2d3de40fa5af0')
     .constant('FORECASTIO_KEY', '4cd3c5673825a361eb5ce108103ee84a')
@@ -22,6 +22,11 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
         });
         // ionic configs
         $ionicConfigProvider.tabs.position('bottom');
+        // Enable native scrolls for Android platform only,
+        // as you see, we're disabling jsScrolling to achieve this.
+        if (ionic.Platform.isAndroid()) {
+            $ionicConfigProvider.scrolling.jsScrolling(false);
+        }
         // $ionicConfigProvider.scrolling.jsScrolling(false);
 
         //app routes
@@ -34,6 +39,8 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
 
             .state('app.home', {
                 url: '/home',
+                // cache: false,
+                // reload: true,
                 views: {
                     //this is a nested view. It is shown in the Ion-Nav-View in the menu-layout.html
                     'mainContent': {
@@ -43,7 +50,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
             })
 
             .state('app.bullettins', {
-                url: '/bullettins',
+                url: '/bullettins/:id',
                 cache: false,
                 views: {
                     'mainContent': {
@@ -89,8 +96,8 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
                 }
             })
 
-            .state('app.services.aviation', {
-                url: "/aviation",
+            .state('app.services.radars', {
+                url: "/radars",
                 views: {
                     'servicesContent': {
                         templateUrl: "app/services/aviation.html"
@@ -159,6 +166,16 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
 
                     'mainContent': {
                         templateUrl: "app/forecast/forecast.html"
+                    }
+                }
+            })
+
+            .state('app.forecast_home', {
+                url: '/forecast_home',
+                views: {
+
+                    'mainContent': {
+                        templateUrl: "app/forecast/forecast-home.html"
                     }
                 }
             })
@@ -235,7 +252,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/app/home');
 })
-.run(function($http, $cordovaPush, $ionicPlatform, $rootScope, $ionicLoading, $ImageCacheFactory) {
+.run(function($http, $cordovaPush, $ionicPlatform, $rootScope, $ionicLoading, $ImageCacheFactory, $cordovaDialogs, $state) {
     // preload images from flickr api
     $ImageCacheFactory.Cache([
         'http://farm1.static.flickr.com/644/23688702732_26414ac119_z.jpg',
@@ -277,18 +294,92 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
 
     // ionic push notification set up
     $ionicPlatform.ready(function() {
+        // var io =
+        Ionic.io();
         var push = new Ionic.Push({
-            "debug": true
+            canShowAlert: false, //Can pushes show an alert on your screen?
+            canSetBadge: true, //Can pushes update app icon badges?
+            canPlaySound: true, //Can notifications play a sound?
+            canRunActionsOnWake: true, //Can run actions outside the app,
+            'onNotification': function(notification) {
+                console.log('notification', notification)
+                if(ionic.Platform.isAndroid()) {
+                    handleAndroid(notification);
+                }
+                console.debug('platform', ionic.Platform.device());
+                // alert('Recieved push notification')
+            },
+            'pluginConfig': {
+                'android': {
+                    'iconColor': '#0000FF'
+                }
+            }
         });
 
-        push.register(function(token) {
-            console.log("Device token: ", token.token)
-        })
+        var user = Ionic.User.current();
+
+        // user.fresh = true;
+
+        if(!user.id) {
+            user.id = Ionic.User.anonymousId();
+        }
+
+        user.set('name', ionic.Platform.device().model);
+        console.log('device name', ionic.Platform.device())
+        user.set('bio', ionic.Platform.device().manufacturer + ', ' + ionic.Platform.device().platform + ', ' + ionic.Platform.device().uuid + ', ' + ionic.Platform.device().version);
+        user.save();
+
+        console.log('user', user);
+
+        var callback = function(data) {
+            push.addTokenToUser(user);
+            console.log('token', data);
+            $rootScope.token = data.token;
+            user.save();
+        };
+
+        push.register(callback)
     })
+
+    function handleAndroid(notification) {
+        console.log('android');
+        $cordovaDialogs.confirm(notification.text, notification.title)
+            .then(function(buttonIndex) {
+                var btn = buttonIndex;
+
+                console.log('button', btn)
+                if(btn == 1) {
+                    var p = {
+                        id: 2
+                    }
+                    $state.go('app.' + notification.payload.state, p)
+                    console.debug('state', p)
+                }
+                // alert('noti closed')
+        });
+        // $cordovaDialogs.confirm
+      //   if(notification["$state"]) {
+      //   //prompt the user to switch
+      //   navigator.notification.confirm("You have a new chat - go to it?", function(btn) {
+      //     if(btn === 1) {
+      //       $state.go(notification["$state"]);
+      //     }
+      //   },"New Chat!")
+      // }
+      // return true;
+        // $state.go('/bullettins')
+        // $rootScope.$apply(function () {
+        //     $rootScope.notifications.push(JSON.stringify(notification.message));
+        // })
+    }
+
+    function handleiOS(notification) {
+        console.log('iOS');
+    }
 
     $(document).ready(function() {
         /* Basic Gallery */
-        $('.swipebox').swipebox();
+        // $('.swipebox').swipebox();
     })
     // document.addEventListener('deviceready', function() {
     //     // Enable to debug issues.

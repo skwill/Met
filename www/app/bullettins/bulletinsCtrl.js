@@ -94,14 +94,27 @@ angular.module('ionic.metApp')
 
 	// }, false);
 	})
-	.controller('BulletinsCtrl', function(metApi, $scope, $ionicLoading, $timeout, $ionicModal, $cordovaDevice, $ionicPlatform, $cordovaPush, $ionicSlideBoxDelegate) {
+	.controller('BulletinsCtrl', function(metApi, $scope, $ionicLoading, $timeout, $ionicModal, $cordovaDevice, $ionicPlatform, $cordovaPush, $ionicSlideBoxDelegate, $state, $stateParams, $route, $ionicScrollDelegate, $interval) {
+		var vm = this;
+		var interval = 10 * 60000;
+		$interval(function time() {
+			$ionicHistory.clearCache().then(function() {
+				// alert('cache cleared')
+				console.log('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
+				console.log('cache cleared');
+				$route.reload();
+				vm.refresh_all_b();
+				$route.reload();
+				// $state.go ('app.home' , {}, {cache: false});
+				// $state.go ('app.home' , {}, {cache: true});
+			});
+			$ionicHistory.clearHistory();
+		}, interval);
 
 		$scope.disableSwipe = function() {
 		   $ionicSlideBoxDelegate.enableSlide(false);
+			// vm.igo = 2;//$stateParams.id;
 		};
-
-
-		var vm = this;
 
 		$ionicPlatform.ready(function() {
 			if (window.cordova) {
@@ -110,9 +123,17 @@ angular.module('ionic.metApp')
 
 		})
 
-	
+		$scope.get_initial = function() {
+			// $scope.igo = 2;
+			$timeout(function() {
+				$scope.slide($stateParams.id);
+			}, 1000)
+			console.log('get initial slide', $stateParams.id)
+		}
+
+
 		$scope.slideHasChanged = function(index) {
-			
+
 		}
 
 		vm.refresh_all_b = function() {
@@ -197,7 +218,18 @@ angular.module('ionic.metApp')
 		};
 
 		$scope.slide = function(to) {
+			// $route.reload();
+			$ionicScrollDelegate.scrollTop();
 			$ionicSlideBoxDelegate.slide(to);
+			console.debug('slide to', to)
 		}
+		// if(1) {
+		// 	$route.reload();
+		// 	$scope.igo = 2;//$stateParams.id;
+		// 	// if($stateParams != undefined) {
+		// 		// $scope.slide($stateParams.id)
+		// 	// }
+		// 	console.debug('here', $stateParams.id)
+		// }
 
 	})

@@ -2,25 +2,26 @@
     <div class="card wide">
         <div class="item item-text-wrap">
             <div class="info-container">
-                <div class="row date">
-                    <div class="col text-center">
-                        <p>{{vm.forecast.timePeriod}}</p>
-                    </div>
-                </div>
-                <div class="row issued-at">
-                    <div class="col text-center">
-                        <p>Issued at {{vm.forecast.IssuedAt}}</p>
-                    </div>
-                </div>
-                <div class="row meteoroligist">
-                    <div class="col text-center">
-                        <p>By {{vm.forecast.forecaster}}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center">
-                <i class="ion-ios-time-outline"></i><br>
-                <span class="em-txt">For The Period {{vm.forecast.forecastPeriod}}</span>
+                <!-- <div class="row date"> -->
+                    <!-- <div class="col text-left"> -->
+                        <h2>{{vm.forecast.timePeriod}}</h2>
+                    <!-- </div> -->
+                <!-- </div> -->
+                <!-- <div class="row issued-at"> -->
+                    <!-- <div class="col text-left"> -->
+                        <p>Issued at {{vm.forecast.IssuedAt}}</p><br>
+                    <!-- </div> -->
+                <!-- </div> -->
+                <!-- <div class="row meteoroligist"> -->
+                    <!-- <div class="col text-left"> -->
+                        <p>By {{vm.forecast.forecaster}}</p><br>
+                    <!-- </div> -->
+                <!-- </div> -->
+                <!-- <div class="row text-left"> -->
+                    <!-- <div class="col"> -->
+                        <p class="em-txt">For The Period {{vm.forecast.forecastPeriod}}</p>
+                    <!-- </div> -->
+                <!-- </div> -->
             </div>
         </div>
     </div>

@@ -1,10 +1,25 @@
-angular.module('ionic.metApp').controller('warningsCtrl', function(metApi, $rootScope, $scope, $ionicLoading, $timeout, $ionicModal, $cordovaDevice, $ionicPlatform, $cordovaPush, $ionicSlideBoxDelegate) {
+angular.module('ionic.metApp')
+.controller('warningsCtrl', function(metApi, $rootScope, $scope, $ionicLoading, $timeout, $ionicModal, $cordovaDevice, $ionicPlatform, $cordovaPush, $ionicSlideBoxDelegate, $ionicScrollDelegate, $interval) {
+	var vm = this;
+	var interval = 10 * 60000;
+		$interval(function time() {
+			$ionicHistory.clearCache().then(function() {
+				// alert('cache cleared')
+				console.log('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
+				console.log('cache cleared');
+				$route.reload();
+				vm.refresh_all_w();
+				$route.reload();
+				// $state.go ('app.home' , {}, {cache: false});
+				// $state.go ('app.home' , {}, {cache: true});
+			});
+			$ionicHistory.clearHistory();
+		}, interval);
 
 	$scope.disableSwipe = function() {
 	   $ionicSlideBoxDelegate.enableSlide(false);
 	};
-	
-	var vm = this;
+
 	$scope.slideHasChanged = function(index) {
 		vm.update_slide(index);
 	}
@@ -15,6 +30,7 @@ angular.module('ionic.metApp').controller('warningsCtrl', function(metApi, $root
 	}
 
 	$scope.slide = function(to) {
+		$ionicScrollDelegate.scrollTop();
 		$ionicSlideBoxDelegate.slide(to);
 	}
 

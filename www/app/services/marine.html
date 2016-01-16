@@ -11,8 +11,8 @@
     <ion-content scroll="true" ng-init="mc.getForecast()">
         <div class="marine-info">
             <div class="card wide">
-                <div class="item item-divider" ion-affix data-affix-within-parent-with-class="card">
-                    <i class="ion-android-boat dark"></i>
+                <div class="item item-divider">
+                    <i class="ion-android-boat "></i>
                     <p class="">Seas</p>
                 </div>
                 <div class="item item-text-wrap">
@@ -23,8 +23,8 @@
             </div>
 
             <div class="card wide">
-                <div class="item item-divider" ion-affix data-affix-within-parent-with-class="card">
-                    <i class="ion-help-buoy dark"></i>
+                <div class="item item-divider">
+                    <i class="ion-help-buoy "></i>
                     <p class="">Waves</p>
                 </div>
                 <div class="item item-text-wrap ">
@@ -37,8 +37,8 @@
             <div ng-if="mc.forecast.addMarine">
                 <div class="row no-padding">
                     <div class="card wide">
-                        <div class="item item-divider" ion-affix data-affix-within-parent-with-class="card">
-                            <i class="ion-android-boat dark"></i>
+                        <div class="item item-divider">
+                            <i class="ion-android-boat "></i>
                             <p class="">Additional Marine Info</p>
                         </div>
                         <div class="item item-text-wrap">
@@ -53,32 +53,31 @@
             <div ng-if="mc.forecast.tideDate">
                 <div class="card wide">
                     <div class="item item-divider">
-                        <i class="ion-ios-moon-outline dark"></i>
+                        <i class="ion-ios-moon-outline "></i>
                         <p class="">Tides</p>
                     </div>
-                    <div class="item item-text-wrap text-center">
+                    <div class="item item-text-wrap text-left">
                         <h1 class="temp-md">Port of Spain</h1>
-                        <div class="row">
-                            <div class="col">High:</div>
-                            <div class="col">{{vm.forecast.trinAmHigh}}</div>
-                            <div class="col">{{vm.forecast.trinPmHigh}}</div>
+                        <div class="row no-padding">
+                            <div class="col no-padding"><p>High:</p></div>
+                            <div class="col no-padding"><p>{{vm.forecast.trinAmHigh}}</p></div>
+                            <div class="col no-padding"><p>{{vm.forecast.trinPmHigh}}</p></div>
                         </div>
-                        <div class="row">
-                            <div class="col">Low:</div>
-                            <div class="col">{{vm.forecast.trinAmLow}}</div>
-                            <div class="col">{{vm.forecast.trinPmLow}}</div>
+                        <div class="row no-padding">
+                            <div class="col no-padding"><p>Low:</p></div>
+                            <div class="col no-padding"><p>{{vm.forecast.trinAmLow}}</p></div>
+                            <div class="col no-padding"><p>{{vm.forecast.trinPmLow}}</p></div>
                         </div>
-
                         <h1 class="temp-md">Crown Point</h1>
-                        <div class="row">
-                            <div class="col">High:</div>
-                            <div class="col">{{vm.forecast.tobAmHigh}}</div>
-                            <div class="col">{{vm.forecast.tobPmHigh}}</div>
+                        <div class="row no-padding">
+                            <div class="col no-padding"><p>High:</p></div>
+                            <div class="col no-padding"><p>{{vm.forecast.tobAmHigh}}</p></div>
+                            <div class="col no-padding"><p>{{vm.forecast.tobPmHigh}}</p></div>
                         </div>
-                        <div class="row">
-                            <div class="col">Low:</div>
-                            <div class="col">{{vm.forecast.tobAmLow}}</div>
-                            <div class="col">{{vm.forecast.tobPmLow}}</div>
+                        <div class="row no-padding">
+                            <div class="col no-padding"><p>Low:</p></div>
+                            <div class="col no-padding"><p>{{vm.forecast.tobAmLow}}</p></div>
+                            <div class="col no-padding"><p>{{vm.forecast.tobPmLow}}</p></div>
                         </div>
                     </div>
                 </div>

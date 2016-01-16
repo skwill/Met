@@ -1,0 +1,22 @@
+<div id="home_menu-modal" class="modal" >
+    <ion-header-bar class="bar bar-header has-border" ng-click="closeModal()">
+        <h1 class="title no-left">{{title}} Station</h1>
+        <div class="buttons">
+            <button class="button button-clear" >
+                <span class="ion-ios-close-outline" style="font-size: 30px; margin-top: -2px;"></span>
+            </button>
+        </div>
+    </ion-header-bar>
+    <ion-content has-header="false" scroll="true" class="containerr" style="background: #fff">
+        <div class="row no-padding" ng-repeat="item in ai" ng-if="item.item">
+            <div class="card wide">
+                <div class="item item-divider">
+                    {{item.item}}
+                </div>
+                <div class="item item-text-wrap">
+                    <p>{{item.value}}</p>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</div>
