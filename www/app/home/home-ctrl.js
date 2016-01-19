@@ -259,9 +259,8 @@ angular.module('ionic.metApp')
 			rgb.g = ~~ (rgb.g / count);
 			rgb.b = ~~ (rgb.b / count);
 			$(el2 + '.bar, ' + el2 + '.d3').css('background-color', 'rgba(' + [rgb.r, rgb.g, rgb.b, 0.6].join(', ') + ')');
-			$('#cw-summary').css('color', textColor);
+			// $('#cw-summary').css('color', textColor);
 			$(el2 + '.of1').css('background-color', 'rgba(' + [rgb.r, rgb.g, rgb.b, 0.9].join(', ') + ')');
-			$('.item-complex').css('border-bottom', '1px solid rgba(' + [rgb.r, rgb.g, rgb.b, 0.4].join(', ') + ')');
 		}
 
 		// capitalize only the first letter of the string
@@ -398,7 +397,7 @@ angular.module('ionic.metApp')
 					// google map service will give us a location string based on our current location (or nearest detected location)
 					Geo.reverseGeocode(lat, lng).then(function(locString) {
 						$scope.currentLocationString = locString;
-						$scope.trin_error = $scope.currentLocationString;
+						// $scope.trin_error = $scope.currentLocationString;
 						$scope.country = $scope.currentLocationString.indexOf('Tobago') > -1 ? 'Tobago' : 'Trinidad';
 						$scope.$watch('country', function() {
 							$rootScope.c = $scope.country;
@@ -418,7 +417,7 @@ angular.module('ionic.metApp')
 					$scope.currentLocationString = "Unable to get current location:" + error;
 					$rootScope.$broadcast('scroll.refreshComplete');
 
-					$scope.trin_error = $scope.currentLocationString;
+					// $scope.trin_error = $scope.currentLocationString;
 				});
 			}, 1000)
 
