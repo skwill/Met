@@ -1,27 +1,15 @@
 <div id="five-thirtyp">
+<!--
+530 pm forecast
+=======================================
+-->
     <div class="card wide">
         <div class="item item-text-wrap">
             <div class="info-container">
-                <!-- <div class="row date"> -->
-                    <!-- <div class="col text-left"> -->
-                        <h2>{{vm.forecast.timePeriod}}</h2>
-                    <!-- </div> -->
-                <!-- </div> -->
-                <!-- <div class="row issued-at"> -->
-                    <!-- <div class="col text-left"> -->
-                        <p>Issued at {{vm.forecast.IssuedAt}}</p><br>
-                    <!-- </div> -->
-                <!-- </div> -->
-                <!-- <div class="row meteoroligist"> -->
-                    <!-- <div class="col text-left"> -->
-                        <p>By {{vm.forecast.forecaster}}</p><br>
-                    <!-- </div> -->
-                <!-- </div> -->
-                <!-- <div class="row text-left"> -->
-                    <!-- <div class="col"> -->
-                        <p class="em-txt">For The Period {{vm.forecast.forecastPeriod}}</p>
-                    <!-- </div> -->
-                <!-- </div> -->
+                <h2>{{vm.forecast.timePeriod}}</h2>
+                <p>Issued at {{vm.forecast.IssuedAt}}</p><br>
+                <p>By {{vm.forecast.forecaster}}</p><br>
+                <p class="em-txt">For The Period {{vm.forecast.forecastPeriod}}</p>
             </div>
         </div>
     </div>
@@ -72,29 +60,29 @@
                     <div class="col text-left no-padding">
                         <h1 class="temp-lg">Piarco</h1>
                         <span ng-if="vm.forecast.PiarcoFcstMxTemp"><p class="temp-sm">Max Temp</p></span><br/>
-                        <span ng-if="vm.forecast.PiarcoFcstMxTemp"><p class="temp-lg">{{vm.forecast.PiarcoFcstMxTemp}}&deg;</p></span>
+                        <span ng-if="vm.forecast.PiarcoFcstMxTemp"><p class="temp-lg">{{vm.forecast.PiarcoFcstMxTemp}}&deg;c</p></span>
                         <br/><br/>
                         <span ng-if="vm.forecast.PiarcoFcstMnTemp"><p class="temp-sm">Min Temp</p></span><br/>
-                        <span ng-if="vm.forecast.PiarcoFcstMnTemp"><p class="temp-lg">{{vm.forecast.PiarcoFcstMnTemp}}&deg;</p></span>
+                        <span ng-if="vm.forecast.PiarcoFcstMnTemp"><p class="temp-lg">{{vm.forecast.PiarcoFcstMnTemp}}&deg;c</p></span>
                     </div>
                     <div class="col text-left no-padding">
-                        <h1 class="temp-lg">Crown Pt</h1>
+                        <h1 class="temp-lg">Crown Pt.</h1>
                         <span ng-if="vm.forecast.CrownFcstMxTemp"><p class="temp-sm">Max Temp</p></span><br/>
-                        <span ng-if="vm.forecast.CrownFcstMxTemp"><p class="temp-lg">{{vm.forecast.CrownFcstMxTemp}}&deg;</p></span>
+                        <span ng-if="vm.forecast.CrownFcstMxTemp"><p class="temp-lg">{{vm.forecast.CrownFcstMxTemp}}&deg;c</p></span>
                         <br/><br/>
                         <span ng-if="vm.forecast.CrownFcstMnTemp"><p class="temp-sm">Min Temp</p></span><br/>
-                        <span ng-if="vm.forecast.CrownFcstMnTemp"><p class="temp-lg">{{vm.forecast.CrownFcstMnTemp}}&deg;</p></span>
+                        <span ng-if="vm.forecast.CrownFcstMnTemp"><p class="temp-lg">{{vm.forecast.CrownFcstMnTemp}}&deg;c</p></span>
                     </div>
                 </div>
                 <br>
                 <div class="row no-padding">
                     <div class="col text-left no-padding">
                         <span ng-if="vm.forecast.PiarcoFcstMxTemp"><p class="temp-sm">Heat Index</p></span><br/>
-                        <span ng-if="vm.forecast.PiarcoFcstMxTemp"><p class="temp-lg">{{vm.forecast.PiarcoheatIndex}}&deg;</p></span>
+                        <span ng-if="vm.forecast.PiarcoFcstMxTemp"><p class="temp-lg">{{vm.forecast.PiarcoheatIndex}}&deg;c</p></span>
                     </div>
                     <div class="col text-left no-padding">
                         <span ng-if="vm.forecast.CrownFcstMxTemp"><p class="temp-sm">Heat Index</p></span><br/>
-                        <span ng-if="vm.forecast.CrownFcstMxTemp"><p class="temp-lg">{{vm.forecast.CPointheatIndex}}&deg;</p></span>
+                        <span ng-if="vm.forecast.CrownFcstMxTemp"><p class="temp-lg">{{vm.forecast.CPointheatIndex}}&deg;c</p></span>
                     </div>
                 </div>
             </div>
@@ -215,7 +203,7 @@
             <div class="item item-text-wrap text-left">
                 <!-- <div class="row no-padding"> -->
                     <!-- <div class="col no-padding"> -->
-                <h1 class="temp-md">Port of Spain</h1>
+                <h1 class="temp-lg">Port of Spain</h1>
                     <!-- </div> -->
                 <!-- </div> -->
                 <div class="row no-padding">
@@ -231,7 +219,7 @@
                 <!-- <br> -->
                 <!-- <div class="row no-padding"> -->
                     <!-- <div class="col no-padding"> -->
-                <h1 class="temp-md">Crown Point</h1>
+                <h1 class="temp-lg">Crown Pt.</h1>
                     <!-- </div> -->
                 <!-- </div> -->
                 <div class="row no-padding">

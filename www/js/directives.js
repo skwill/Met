@@ -262,7 +262,7 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
                 }
                 // console.log('Active bg image changed', v);
                 // we need a default background untill the one from flickr is loaded
-                var url = "img/home-images/"+$scope.default_trin+".jpg";
+                var url = "img/home-images/" + $scope.default_trin + ".jpg";
                 var item = v;
                 url = "http://farm" + item.farm + ".static.flickr.com/" + item.server + "/" + item.id + "_" + item.secret + "_z.jpg";
                 console.log(url);
@@ -388,5 +388,3 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
         link: function($scope, $element, $attr) {}
     }
 })
-
-

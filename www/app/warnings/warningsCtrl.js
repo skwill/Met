@@ -63,6 +63,10 @@ angular.module('ionic.metApp')
 			vm.o_items = data.items[0];
 			console.log("Air");
 			console.log(vm.o_items);
+			vm.o_items.insertionDateFormatted = timePeriod(data.items[0].insertionDate);
+			if(vm.o_items.flag == '1') {
+				vm.o_items = null;
+			}
 		})
 		// $rootScope.$broadcast('scroll.refreshComplete');
 	}
@@ -71,6 +75,10 @@ angular.module('ionic.metApp')
 			vm.s_items = data.items[0];
 			console.log("SIg");
 			console.log(vm.s_items);
+			vm.s_items.insertionDateFormatted = timePeriod(data.items[0].insertionDate);
+			if(vm.s_items.flag == '1') {
+				vm.s_items = null;
+			}
 		})
 		// $rootScope.$broadcast('scroll.refreshComplete');
 	}
@@ -79,6 +87,10 @@ angular.module('ionic.metApp')
 			vm.w_items = data.items[0];
 			console.log("Warning");
 			console.log(vm.w_items);
+			vm.w_items.insertionDateFormatted = timePeriod(data.items[0].insertionDate);
+			if(vm.w_items.flag == '1') {
+				vm.w_items = null;
+			}
 
 		})
 		// $rootScope.$broadcast('scroll.refreshComplete');
@@ -88,6 +100,10 @@ angular.module('ionic.metApp')
 			vm.wt_items = data.items[0];
 			console.log("Watch");
 			console.log(vm.wt_items);
+			vm.wt_items.insertionDateFormatted = timePeriod(data.items[0].insertionDate);
+			if(vm.wt_items.flag == '1') {
+				vm.wt_items = null;
+			}
 		})
 		// $rootScope.$broadcast('scroll.refreshComplete');
 	}
@@ -164,5 +180,11 @@ angular.module('ionic.metApp')
 		var m = document.querySelector('.modal');
 		var trans = "; transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 400ms;"
 		m.setAttribute("style", "margin-top:" + 0 + "px" + trans);
+	}
+	function timePeriod(d) {
+		var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Aug', 'September', 'October', 'November', 'December'];
+		var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+		var today = new Date(d);
+		return days[today.getDay()+1] + ' ' + (today.getDate()+1) + 'th of ' + months[today.getMonth()] + ' ' + today.getFullYear()
 	}
 })

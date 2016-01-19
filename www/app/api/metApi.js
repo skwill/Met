@@ -8,7 +8,7 @@
 	function metApi($http) {
 		/*
 		function get_forecast(callback, id) {
-			var link = (id = !'undefined') ? '/' + id : '';
+			var link = (id != undefined) ? '/' + id : '';
 			$http.get(url + '/forecast' + link).success(function(resp) {
 				callback(resp);
 			}).finally(function() {
@@ -24,6 +24,26 @@
 			api_key: url of segment to fetch (if there is an id it will be appended to api_key string):string
 		*/
 
+		function subscribe_token(callback, token) {
+			// http://190.58.130.230/api/subscribe?device_token=[TOKEN].
+			$http.post(url + '/subscribe?device_token=' + token).success(function(data) {
+				callback(data)
+			})
+		}
+
+		function get_tokens(callback) {
+			$http.get(url + '/subscribe/list').success(function(data) {
+				callback(data)
+			})
+		}
+
+		function unsubscribe(callback, token) {
+			var link = (token != undefined) ? '?device_token=' + token : '';
+			$http.post(url + '/unsubscribe' + link).success(function(data) {
+				callback(data)
+			})
+		}
+
 		function get_forecast(callback) {
 			$http.get(url + '/forecast').success(function(data) {
 				callback(data)
@@ -32,7 +52,7 @@
 
 
 		function get_b_info(callback, id) {
-			var link = (id = !'undefined') ? '/' + id : '';
+			var link = (id != undefined) ? '/' + id : '';
 			// $ionicLoading.show({
 			// 	template: ' <ion-spinner></ion-spinner>'
 			// });
@@ -43,7 +63,7 @@
 		}
 
 		function get_b_serv(callback, id) {
-			var link = (id = !'undefined') ? '/' + id : '';
+			var link = (id != undefined) ? '/' + id : '';
 			$http.get(url + "/bulletinsev" + link)
 				.success(function(data) {
 					callback(data);
@@ -51,14 +71,14 @@
 		}
 
 		function get_b_flood(callback, id) {
-			var link = (id = !'undefined') ? '/' + id : '';
+			var link = (id != undefined) ? '/' + id : '';
 			$http.get(url + '/bulletinflood' + link).success(function(data) {
 				callback(data)
 			})
 		}
 
 		function get_b_sea(callback, id) {
-			var link = (id = !'undefined') ? '/' + id : '';
+			var link = (id != undefined) ? '/' + id : '';
 			$http.get(url + '/bulletinsea' + link).success(function(data) {
 				callback(data)
 			})
@@ -66,7 +86,7 @@
 
 		// check for winds
 		function get_o_air(callback, id) {
-			var link = (id = !'undefined') ? '/' + id : '';
+			var link = (id != undefined) ? '/' + id : '';
 
 			$http.get(url + '/outlookair' + link)
 				.success(function(data) {
@@ -75,7 +95,7 @@
 		}
 
 		function get_o_aviation(callback, id) {
-			var link = (id = !'undefined') ? '/' + id : '';
+			var link = (id != undefined) ? '/' + id : '';
 
 			$http.get(url + '/outlookaviation' + link)
 				.success(function(data) {
@@ -84,7 +104,7 @@
 		}
 
 		function get_o_period(callback, id) {
-			var link = (id = !'undefined') ? '/' + id : '';
+			var link = (id != undefined) ? '/' + id : '';
 
 			$http.get(url + '/outlookperiod' + link)
 				.success(function(data) {
@@ -93,7 +113,7 @@
 		}
 
 		function get_o_tv(callback, id) {
-			var link = (id = !'undefined') ? '/' + id : '';
+			var link = (id != undefined) ? '/' + id : '';
 
 			$http.get(url + '/outlooktv' + link)
 				.success(function(data) {
@@ -102,16 +122,16 @@
 		}
 
 		function get_sigmet(callback, id) {
-			var link = (id = !'undefined') ? '/' + id : '';
+			var link = (id != undefined) ? '/' + id : '';
 
 			$http.get(url + '/sigmet' + link)
 				.success(function(data) {
 					callback(data)
-			})
+				})
 		}
 
 		function get_ttcp(callback, id) {
-			var link = (id = !'undefined') ? '/' + id : '';
+			var link = (id != undefined) ? '/' + id : '';
 
 			$http.get(url + '/ttcp' + link)
 				.success(function(data) {
@@ -120,7 +140,7 @@
 		}
 
 		function get_ttpp(callback, id) {
-			var link = (id = !'undefined') ? '/' + id : '';
+			var link = (id != undefined) ? '/' + id : '';
 
 			$http.get(url + '/ttpp' + link)
 				.success(function(data) {
@@ -129,7 +149,7 @@
 		}
 
 		function get_warn(callback, id) {
-			var link = (id = !'undefined') ? '/' + id : '';
+			var link = (id != undefined) ? '/' + id : '';
 
 			$http.get(url + '/warn' + link)
 				.success(function(data) {
@@ -139,7 +159,7 @@
 
 
 		function get_watch(callback, id) {
-			var link = (id = !'undefined') ? '/' + id : '';
+			var link = (id != undefined) ? '/' + id : '';
 
 			$http.get(url + '/watch' + link)
 				.success(function(data) {
@@ -165,7 +185,7 @@
 			if (id && id != 0) {
 				link = '/' + id;
 			}
-			// var link = (id = !'undefined') ? '/' + id : '';
+			// var link = (id != undefined) ? '/' + id : '';
 
 			// console.log('link', link)
 			$http.get(url + '/radars' + link).success(function(data) {
@@ -203,7 +223,7 @@
 			})
 		}
 
-		function get_agroData(type, callback){
+		function get_agroData(type, callback) {
 			var agrourl = 'http://190.58.130.230/api/argotrini/search?item=';
 
 			$http.get(agrourl + type).success(function(data) {
@@ -217,7 +237,7 @@
 			})
 		}
 
-		function get_agroDataTbg(type, callback){
+		function get_agroDataTbg(type, callback) {
 			var agrourl = 'http://190.58.130.230/api/argotbg/search?item=';
 
 			$http.get(agrourl + type).success(function(data) {
@@ -244,7 +264,7 @@
 				var count = data._meta.totalCount;
 				var info = new Array(count);
 
-				for (var i=0; i<count; i++) {
+				for (var i = 0; i < count; i++) {
 					info[i] = data.items[i];
 				};
 
@@ -312,6 +332,9 @@
 			get_project: get_project,
 			get_metar: get_metar,
 			get_aws: get_aws,
+			subscribe_token: subscribe_token,
+			get_tokens: get_tokens,
+			unsubscribe: unsubscribe,
 		};
 	}
 })();

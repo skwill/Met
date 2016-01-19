@@ -4,97 +4,8 @@ angular.module('ionic.metApp')
 	})
 	.run(function($http, $cordovaPush, $ionicPlatform, $rootScope, $ionicLoading) {
 
-
-	// $ionicPlatform.ready(function() { // works on web browser
-	// 	// Ionic.io();
-
-	// 	// var user = Ionic.User.current();
-	// 	// if (!user.id) {
-	// 	// 	user.id = Ionic.User.anonymousId();
-	// 	// 	user.name = "Test User",
-	// 	// 	user.message = "Emulator"
-	// 	// }
-	// 	// user.save();
-	// 	// var push = new Ionic.Push({
-	// 	// 	"debug": true
-	// 	// });
-	// })
-
-
-
-
-	// var androidConfig = {
-	// 	"senderID": "158386410361",
-	// 	// "ecb": "window.onNotification"
-	// };
-
-	// // window.onNotification = function(e) {
-	// // 	alert("nitification")
-	// // }
-
-	// document.addEventListener("deviceready", function() {
-	// 	// Ionic.io();
-
-	// 	// var user = Ionic.User.current();
-	// 	// if (!user.id) {
-	// 	// user.id = Ionic.User.anonymousId();
-	// 	// user.name = "Test User",
-	// 	// user.message = "Emulator"
-	// 	// }
-	// 	// user.save();
-	// 	var push = new Ionic.Push({
-	// 		"debug": true
-	// 	});
-
-	// 	push.register(function(token) {
-	// 		console.log('Device token:', token.token);
-	// 		// alert(token.token);
-	// 	})
-
-	// 	$cordovaPush.register(androidConfig).then(function(result) {
-	// 		// Success
-	// 		// alert("start of push");
-	// 		// console.log(result)
-	// 	}, function(err) {
-	// 		// Error
-	// 	})
-
-	// 	$rootScope.$on('$cordovaPush:notificationReceived', function(event, notification) {
-	// 		// $scope.$on('pushNotificationReceived', function(event, notification) {
-	// 		// alert("end");
-	// 		switch (notification.event) {
-	// 			case 'registered':
-	// 				if (notification.regid.length > 0) {
-	// 					// alert('registration ID = ' + notification.regid);
-	// 				}
-	// 				break;
-
-	// 			case 'message':
-	// 				// this is the actual push notification. its format depends on the data model from the push server
-	// 				// alert('message = ' + notification.message + ' msgCount = ' + notification.msgcnt);
-	// 				break;
-
-	// 			case 'error':
-	// 				// alert('GCM error = ' + notification.msg);
-	// 				break;
-
-	// 			default:
-	// 				// alert('An unknown GCM event has occurred');
-	// 				break;
-	// 		}
-	// 	});
-
-
-	// 	// WARNING: dangerous to unregister(results in loss of tokenID)
-	// 	// $cordovaPush.unregister(options).then(function(result) {
-	// 	// 	// Success!
-	// 	// }, function(err) {
-	// 	// 	// Error
-	// 	// })
-
-	// }, false);
 	})
-	.controller('BulletinsCtrl', function(metApi, $scope, $ionicLoading, $timeout, $ionicModal, $cordovaDevice, $ionicPlatform, $cordovaPush, $ionicSlideBoxDelegate, $state, $stateParams, $route, $ionicScrollDelegate, $interval) {
+	.controller('BulletinsCtrl', function(metApi, $scope, $ionicLoading, $timeout, $ionicModal, $cordovaDevice, $ionicPlatform, $cordovaPush, $ionicSlideBoxDelegate, $state, $stateParams, $route, $ionicScrollDelegate, $interval, $ionicHistory) {
 		var vm = this;
 		var interval = 10 * 60000;
 		$interval(function time() {
@@ -112,7 +23,7 @@ angular.module('ionic.metApp')
 		}, interval);
 
 		$scope.disableSwipe = function() {
-		   $ionicSlideBoxDelegate.enableSlide(false);
+			$ionicSlideBoxDelegate.enableSlide(false);
 			// vm.igo = 2;//$stateParams.id;
 		};
 
@@ -147,21 +58,33 @@ angular.module('ionic.metApp')
 		vm.getGIBulletins = function() {
 			metApi.get_b_info(function(data) {
 				vm.b_info = data.items[0];
+				vm.b_info.insertionDateFormatted = timePeriod(data.items[0].insertionDate);
+				if (vm.b_info.flag == '1') {
+					vm.b_info = null;
+				}
 			});
 		}
+
+
 
 		// get severe weather bulletins
 		vm.get_serv_b = function() {
 			metApi.get_b_serv(function(data) {
 				vm.s_items = data.items[0];
-
+				vm.s_items.insertionDateFormatted = timePeriod(data.items[0].insertionDate);
+				if (vm.s_items.flag == '1') {
+					vm.s_items = null;
+				}
 			})
 		}
 		// get blood bulletins
 		vm.get_flood_b = function() {
 			metApi.get_b_flood(function(data) {
 				vm.f_items = data.items[0];
-
+				vm.f_items.insertionDateFormatted = timePeriod(data.items[0].insertionDate);
+				if (vm.f_items.flag == '1') {
+					vm.f_items = null;
+				}
 			})
 		}
 
@@ -169,6 +92,10 @@ angular.module('ionic.metApp')
 		vm.get_sea_b = function() {
 			metApi.get_b_sea(function(data) {
 				vm.r_items = data.items[0];
+				vm.r_items.insertionDateFormatted = timePeriod(data.items[0].insertionDate);
+				if (vm.r_items.flag == '1') {
+					vm.r_items = null;
+				}
 			})
 		}
 
@@ -231,5 +158,12 @@ angular.module('ionic.metApp')
 		// 	// }
 		// 	console.debug('here', $stateParams.id)
 		// }
+
+		function timePeriod(d) {
+			var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Aug', 'September', 'October', 'November', 'December'];
+			var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+			var today = new Date(d);
+			return days[today.getDay() + 1] + ' ' + (today.getDate() + 1) + 'th of ' + months[today.getMonth()] + ' ' + today.getFullYear()
+		}
 
 	})

@@ -4,6 +4,9 @@
 
         <div class="homecc" ng-class="{'flipped':isFlipped}">
             <div class="face front" ng-controller="TrinCtrl as tc">
+                <div class="some_error" ng-if="trin_error">
+                    {{trin_error}}
+                </div>
             <background-cycler-trin class="bg-fade" id="trin-img"></background-cycler-trin>
             <img crossorigin="Anonymous" style="display: none" id="i-trin" src="" />
             <ion-header-bar frosted-bar type="bar-frosted" id="headerr" class="header trin bar bar-header bar-cdlear no-border">
@@ -25,7 +28,7 @@
                     <!-- <forecast></forecast> -->
 
                 </div>
-                <ion-refresher pulling-text="Pull to refresh..." on-refresh="tc.refreshData()" style="margin-top: -20px;"></ion-refresher>
+                <ion-refresher pulling-text="Pull to refresh..." on-refresh="tc.refreshData()" style="/*margin-top: -20px;*/"></ion-refresher>
 
             </ion-content>
 
@@ -38,13 +41,16 @@
                         <p class="lead" >{{t}}</p>
                     </div>
                     <div class="col">
-                        <p class="text-right icon-size"><i class="{{tc.wicons[0]}}"></i></p>
+                        <p class="text-right icon-size">
+                            <trin-today-icon></trin-today-icon>
+                            <!-- <i class="{{tc.wicons[0]}}"></i> -->
+                        </p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-high"><i class="ion-android-arrow-up"></i>{{tc.th}}<sup>&deg;</sup><span>c</span></p>
+                    <p class="text-right fc-high"><span class="small">Hi</span> {{tc.th}}<sup>&deg;</sup><span>c</span></p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{tc.tl}}<sup>&deg;</sup><span>c</span></p>
+                        <p class="text-right fc-low">Lo {{tc.tl}}<sup>&deg;</sup><span>c</span></p>
                     </div>
                 </div>
                 <div class="row" >
@@ -52,13 +58,16 @@
                         <p class="lead" >{{tm}}</p>
                     </div>
                     <div class="col">
-                        <p class="text-right icon-size"><i class="{{tc.wicons[1]}}"></i></p>
+                        <p class="text-right icon-size">
+                            <!-- <i class="{{tc.wicons[1]}}"></i> -->
+                            <trin-tom-icon></trin-tom-icon>
+                        </p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-high"><i class="ion-android-arrow-up"></i>{{tc.max24}}<sup>&deg;</sup><span>c</span></p>
+                        <p class="text-right fc-high"><span class="small">Hi</span> {{tc.max24}}<sup>&deg;</sup><span>c</span></p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{tc.min24}}<sup>&deg;</sup><span>c</span></p>
+                        <p class="text-right fc-low">Lo {{tc.min24}}<sup>&deg;</sup><span>c</span></p>
                     </div>
                 </div>
                 <div class="row" >
@@ -66,13 +75,16 @@
                         <p class="lead" >{{nd}}</p>
                     </div>
                     <div class="col">
-                        <p class="text-right icon-size"><i class="{{tc.wicons[2]}}"></i></p>
+                        <p class="text-right icon-size">
+                            <!-- <i class="{{tc.wicons[2]}}"></i> -->
+                            <trin-ndi-icon></trin-ndi-icon>
+                        </p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-high"><i class="ion-android-arrow-up"></i>{{tc.max48}}<sup>&deg;</sup><span>c</span></p>
+                        <p class="text-right fc-high"><span class="small">Hi</span> {{tc.max48}}<sup>&deg;</sup><span>c</span></p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{tc.min48}}<sup>&deg;</sup><span>c</span></p>
+                        <p class="text-right fc-low">Lo {{tc.min48}}<sup>&deg;</sup><span>c</span></p>
                     </div>
                 </div>
             </div>
@@ -105,7 +117,7 @@
             </ion-header-bar>
 
             <ion-content scroll-event-interval="20" scroll-effects scrollbar-y="false" class="no-header">
-                <ion-refresher pulling-text="Pull to refresh..." on-refresh="bc.refreshData()" style="margin-top: -20px;">
+                <ion-refresher pulling-text="Pull to refresh..." on-refresh="bc.refreshData()" style="/*margin-top: -20px;*/">
                   {{last_refresh}}
                 </ion-refresher>
                 <div class="main-content">
@@ -124,13 +136,16 @@
                         <p class="lead" >{{t}}</p>
                     </div>
                     <div class="col">
-                        <p class="text-right icon-size"><i class="{{hc.wicons[0]}}"></i></p>
+                        <p class="text-right icon-size">
+                            <!-- <i class="{{hc.wicons[0]}}"></i> -->
+                            <bago-today-icon></bago-today-icon>
+                        </p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-high"><i class="ion-android-arrow-up"></i>{{bc.th}}<sup>&deg;</sup><span>c</span></p>
+                        <p class="text-right fc-high"><span class="small">Hi</span> {{bc.th}}<sup>&deg;</sup><span>c</span></p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{bc.tl}}<sup>&deg;</sup><span>c</span></p>
+                        <p class="text-right fc-low">Lo {{bc.tl}}<sup>&deg;</sup><span>c</span></p>
                     </div>
                 </div>
                 <div class="row" >
@@ -138,13 +153,16 @@
                         <p class="lead" >{{tm}}</p>
                     </div>
                     <div class="col">
-                        <p class="text-right icon-size"><i class="{{hc.wicons[1]}}"></i></p>
+                        <p class="text-right icon-size">
+                            <!-- <i class="{{hc.wicons[1]}}"></i> -->
+                            <bago-tom-icon></bago-tom-icon>
+                        </p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-high"><i class="ion-android-arrow-up"></i>{{bc.max24}}<sup>&deg;</sup><span>c</span></p>
+                        <p class="text-right fc-high"><span class="small">Hi</span> {{bc.max24}}<sup>&deg;</sup><span>c</span></p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{bc.min24}}<sup>&deg;</sup><span>c</span></p>
+                        <p class="text-right fc-low">Lo {{bc.min24}}<sup>&deg;</sup><span>c</span></p>
                     </div>
                 </div>
                 <div class="row" >
@@ -155,10 +173,10 @@
                         <p class="text-right icon-size"><i class="{{hc.wicons[2]}}"></i></p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-high"><i class="ion-android-arrow-up"></i>{{bc.max48}}<sup>&deg;</sup><span>c</span></p>
+                        <p class="text-right fc-high"><span class="small">Hi</span> {{bc.max48}}<sup>&deg;</sup><span>c</span></p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-low"><i class="ion-ios-arrow-thin-down"></i>{{bc.min48}}<sup>&deg;</sup><span>c</span></p>
+                        <p class="text-right fc-low">Lo {{bc.min48}}<sup>&deg;</sup><span>c</span></p>
                     </div>
                 </div>
             </div>
