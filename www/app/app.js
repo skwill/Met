@@ -181,6 +181,24 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
         }
     })
 
+    .state('app.metars_trin', {
+        url: '/metars',
+        views: {
+            'mainContent': {
+                templateUrl: 'app/home/metars-trin.html'
+            }
+        }
+    })
+
+    .state('app.metars_bago', {
+        url: '/metars',
+        views: {
+            'mainContent': {
+                templateUrl: 'app/home/metars-bago.html'
+            }
+        }
+    })
+
 
     .state('app.uv_index', {
         url: '/home/uv_index',

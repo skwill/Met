@@ -11,42 +11,100 @@
     <ion-content scroll="true" class="has-header climate-container text-left">
         <ion-slide-box on-slide-changed="slideHasChanged_c($index)" ng-init="disableSwipe()">
             <ion-slide ng-init="sc.get_elninos()">
-                <div class="card wide" ng-repeat="item in sc.el_infos">
+                <div class="container">
+                    <h4>El Nino Update {{sc.el_infos.month}} {{sc.el_infos.year}}</h4>
+                    <p>Issued: {{sc.el_infos.issuedAt}}</p>
+                </div>
+                <div class="card wide">
                     <div class="item item-divider" >
-                        <p class="darkk">{{item.heading}}</p>
+                        <p class="darkk">{{sc.el_infos.head1}}</p>
                     </div>
                     <div class="item item-text-wrap">
-                        <span class="em-txt"><p>{{item.para1}}</p></span>
-                        <span class="em-txt"><p>{{item.para2}}</p></span>
-                        <span class="em-txt"><p>{{item.para3}}</p></span>
-                        <span class="em-txt"><p>{{item.para4}}</p></span>
+                        <span class="em-txt"><p>{{sc.el_infos.para1}}</p></span>
+                        <span class="em-txt"><p>{{sc.el_infos.para2}}</p></span>
+                        <span class="em-txt"><p>{{sc.el_infos.para3}}</p></span>
+                        <span class="em-txt"><p>{{sc.el_infos.para4}}</p></span>
                     </div>
+                    <!-- <br><br><br> -->
                 </div>
-            </ion-slide >
-            <ion-slide ng-init="sc.get_rainandtemp()">
-                <div class="card wide" ng-repeat="item in sc.rt">
-                    <div class="item item-divider">
-                        <p class="darkk">{{item.heading}}</p>
+                <div class="card wide">
+                    <div class="item item-divider" >
+                        <p class="darkk">{{sc.el_infos.head2}}</p>
                     </div>
-                    <div class="item item-text-wrap" style="margin-bottom: 40px;">
-                        <span class="em-txt"><p>{{item.para1}}</p></span>
-                        <span class="em-txt"><p>{{item.para2}}</p></span>
-                        <span class="em-txt"><p>{{item.para3}}</p></span>
-                        <span class="em-txt"><p>{{item.para4}}</p></span>
+                    <div class="item item-text-wrap">
+                        <span class="em-txt"><p>{{sc.el_infos.para12}}</p></span>
+                        <span class="em-txt"><p>{{sc.el_infos.para22}}</p></span>
+                        <span class="em-txt"><p>{{sc.el_infos.para32}}</p></span>
+                        <span class="em-txt"><p>{{sc.el_infos.para44}}</p></span>
                     </div>
+                    <!-- <br><br><br> -->
+                </div>
+                <div class="card wide" ng-if="sc.el_infos.head3">
+                    <div class="item item-divider" >
+                        <p class="darkk">{{sc.el_infos.head3}}</p>
+                    </div>
+                    <div class="item item-text-wrap">
+                        <span class="em-txt"><p>{{sc.el_infos.para13}}</p></span>
+                        <span class="em-txt"><p>{{sc.el_infos.para23}}</p></span>
+                        <span class="em-txt"><p>{{sc.el_infos.para33}}</p></span>
+                        <span class="em-txt"><p>{{sc.el_infos.para43}}</p></span>
+                    </div>
+                    <!-- <br><br><br> -->
                 </div>
             </ion-slide>
-            <ion-slide ng-init="sc.get_drywet()">
-                <div class="card wide" ng-repeat="item in sc.dw">
+
+            <ion-slide ng-init="sc.get_rainandtemp()">
+                <div class="container">
+                    <h4>{{sc.rt.textArea10}}</h4>
+                </div>
+                <div class="card wide">
                     <div class="item item-divider">
-                        <p class="darkk">{{item.heading}}</p>
+                        <p class="darkk">{{sc.rt.head1}}</p>
+                    </div>
+                    <div class="item item-text-wrap" style="margin-bottom: 40px;">
+                        <p ng-repeat="item in sc.key_list">{{item}}<br><br></p>
+                    </div>
+                </div>
+                <div class="card wide">
+                    <div class="item item-divider">
+                        <p class="darkk">{{sc.rt.head2}}</p>
+                    </div>
+                    <div class="item item-text-wrap" style="margin-bottom: 40px;">
+                        <p ng-repeat="item in sc.ir_list">{{item}}<br><br></p>
+                    </div>
+                    <!-- <br><br><br> -->
+                </div>
+            </ion-slide>
+
+            <ion-slide ng-init="sc.get_drywet()">
+                <div class="container">
+                    <h4>Trinidad and Tobago Dry Spell Outlook by End of {{sc.dw.month}}{{sc.dw.year}}</h4>
+                    <p>{{sc.dw.textArea10}}</p>
+                </div>
+                <div class="card wide">
+                    <div class="item item-divider">
+                        <p class="darkk wrap">{{sc.dw.head1}}</p>
                     </div>
                     <div class="item item-text-wrap">
-                        <span class="em-txt"><p>{{item.para1}}</p></span>
-                        <span class="em-txt"><p>{{item.para2}}</p></span>
-                        <span class="em-txt"><p>{{item.para3}}</p></span>
-                        <span class="em-txt"><p>{{item.para4}}</p></span>
+                        <span class="em-txt"><p>{{sc.dw.para1}}</p></span>
                     </div>
+                </div>
+                <div class="card wide">
+                    <div class="item item-divider">
+                        <p class="darkk wrap">{{sc.dw.head2}}</p>
+                    </div>
+                    <div class="item item-text-wrap">
+                        <span class="em-txt"><p>{{sc.dw.para2}}</p></span>
+                    </div>
+                </div>
+                <div class="card wide">
+                    <div class="item item-divider">
+                        <p class="darkk wrap">{{sc.dw.head3}}</p>
+                    </div>
+                    <div class="item item-text-wrap">
+                        <span class="em-txt"><p>{{sc.dw.para3}}</p></span>
+                    </div>
+                    <br><br><br>
                 </div>
             </ion-slide>
         </ion-slide-box>

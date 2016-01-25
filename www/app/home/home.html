@@ -64,10 +64,10 @@
                         </p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-high"><span class="small">Hi</span> {{tc.max24}}<sup>&deg;</sup><span>c</span></p>
+                        <p class="text-right fc-high"><span class="small">Hi</span> {{tc.maxtm}}<sup>&deg;</sup><span>c</span></p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-low">Lo {{tc.min24}}<sup>&deg;</sup><span>c</span></p>
+                        <p class="text-right fc-low">Lo {{tc.mintm}}<sup>&deg;</sup><span>c</span></p>
                     </div>
                 </div>
                 <div class="row" >
@@ -81,15 +81,16 @@
                         </p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-high"><span class="small">Hi</span> {{tc.max48}}<sup>&deg;</sup><span>c</span></p>
+                        <p class="text-right fc-high"><span class="small">Hi</span> {{tc.max24}}<sup>&deg;</sup><span>c</span></p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-low">Lo {{tc.min48}}<sup>&deg;</sup><span>c</span></p>
+                        <p class="text-right fc-low">Lo {{tc.min24}}<sup>&deg;</sup><span>c</span></p>
                     </div>
                 </div>
             </div>
               <div class="ms">
-                <div class="row text-center of1-main of1 trin" id="" ng-click="showMetarsTrin()">
+                <!-- <div class="row text-center of1-main of1 trin" id="" ng-click="showMetarsTrin()"> -->
+                <div class="row text-center of1-main of1 trin" id="" ui-sref="app.metars_trin">
                     <div class="col">
                         <div class="met-icon"></div>
                         <span>Current Conditions For Trinidad</span>
@@ -159,10 +160,10 @@
                         </p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-high"><span class="small">Hi</span> {{bc.max24}}<sup>&deg;</sup><span>c</span></p>
+                        <p class="text-right fc-high"><span class="small">Hi</span> {{bc.maxtm}}<sup>&deg;</sup><span>c</span></p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-low">Lo {{bc.min24}}<sup>&deg;</sup><span>c</span></p>
+                        <p class="text-right fc-low">Lo {{bc.mintm}}<sup>&deg;</sup><span>c</span></p>
                     </div>
                 </div>
                 <div class="row" >
@@ -170,19 +171,22 @@
                         <p class="lead" >{{nd}}</p>
                     </div>
                     <div class="col">
-                        <p class="text-right icon-size"><i class="{{hc.wicons[2]}}"></i></p>
+                        <p class="text-right icon-size">
+                            <bago-ndi-icon></bago-ndi-icon>
+                        <!-- <i class="{{hc.wicons[2]}}"></i> -->
+                        </p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-high"><span class="small">Hi</span> {{bc.max48}}<sup>&deg;</sup><span>c</span></p>
+                        <p class="text-right fc-high"><span class="small">Hi</span> {{bc.max24}}<sup>&deg;</sup><span>c</span></p>
                     </div>
                     <div class="col">
-                        <p class="text-right fc-low">Lo {{bc.min48}}<sup>&deg;</sup><span>c</span></p>
+                        <p class="text-right fc-low">Lo {{bc.min24}}<sup>&deg;</sup><span>c</span></p>
                     </div>
                 </div>
             </div>
 
             <div class="ms">
-                <div class="row text-center of1-main of1 bago" id="" ng-click="showMetarsBago()">
+                <div class="row text-center of1-main of1 bago" id="" ui-sref="app.metars_bago">
                         <div class="col">
                             <div class="met-icon"></div>
                             <span>Current Conditions For Tobago</span>
