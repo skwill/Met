@@ -51,8 +51,14 @@
                     </div>
                     <!-- <br><br><br> -->
                 </div>
+                <div class="container">
+                    <div class="image" style="background-image: url(' {{image1}} '); height: 200px; margin-top: 0px; "></div>
+                    <div class="image" style="background-image: url(' {{image2}} '); height: 200px; margin-top: 0px; "></div>
+                    <div class="image" style="background-image: url(' {{image3}} '); height: 200px; margin-top: 0px; "></div>
+                </div>
             </ion-slide>
 
+            <!-- Rainfall and Temp -->
             <ion-slide ng-init="sc.get_rainandtemp()">
                 <div class="container">
                     <h4>{{sc.rt.textArea10}}</h4>
@@ -73,6 +79,10 @@
                         <p ng-repeat="item in sc.ir_list">{{item}}<br><br></p>
                     </div>
                     <!-- <br><br><br> -->
+                </div>
+                <div class="container">
+                    <div class="image" style="background-image: url(' {{image4}} '); height: 200px; margin-top: 0px; "></div>
+                    <div class="image" style="background-image: url(' {{image5}} '); height: 200px; margin-top: 0px; "></div>
                 </div>
             </ion-slide>
 
@@ -103,6 +113,9 @@
                     </div>
                     <div class="item item-text-wrap">
                         <span class="em-txt"><p>{{sc.dw.para3}}</p></span>
+                    </div>
+                    <div class="container">
+                        <div class="image" style="background-image: url(' {{image6}} '); height: 200px; margin-top: 0px; "></div>
                     </div>
                     <br><br><br>
                 </div>

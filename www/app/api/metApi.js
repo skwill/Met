@@ -183,12 +183,12 @@
 		function get_radar(callback, id) {
 			var link = "";
 			if (id && id != 0) {
-				link = '/' + id;
+				link = id;
 			}
 			// var link = (id != undefined) ? '/' + id : '';
 
 			// console.log('link', link)
-			$http.get(url + '/radars' + link).success(function(data) {
+			$http.get(url + '/radar/search?item=' + link).success(function(data) {
 				callback(data)
 			})
 		}
@@ -275,6 +275,12 @@
 			})
 		}
 
+		function get_option_files(callback, s) {
+			$http.get(url + s).success(function(data) {
+				callback(data);
+			})
+		}
+
 
 		function get_rainandtemp(callback) {
 			$http.get(url + '/rainandtemp').success(function(data) {
@@ -335,6 +341,7 @@
 			subscribe_token: subscribe_token,
 			get_tokens: get_tokens,
 			unsubscribe: unsubscribe,
+			get_option_files: get_option_files,
 		};
 	}
 })();

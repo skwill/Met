@@ -10,20 +10,16 @@
         <div ng-if="!tc.mdata" style="height: 100%">
             <ion-spinner style="display: block; margin: 0 auto; padding-top: 70%" class="dark" icon="lines"></ion-spinner>
         </div>
-        <div class="row" ng-if="token">
+        <!-- <div class="row" ng-if="token">
             <div class="card wide">
                 <div class="item item-divider">
                     Device Token
                 </div>
                 <div class="item item-text-wrap">
-                   <!--  <textarea name="">
-                        {{token}}
-                    </textarea> -->
-                    <!-- <input value="{{token}}" style="width: 300px; height: 400px; "> -->
                     {{token}}
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- <div class="row " ng-repeat="item in tc.mdata" ng-if="item.value"> -->
         <div class="row " ng-repeat="item in tc.mdata">
             <div class="card wide" ng-if="item.show">

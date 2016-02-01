@@ -4,7 +4,7 @@ angular.module('ionic.metApp')
 	.controller('HomeCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform,
 		$ionicPopup, $interval, $ionicBackdrop, $state, $ionicHistory, $route) {
 		var _this = this;
-		// console.warn('home');
+	// console.warn('home');
 		$scope.activeBgImageIndex = 0;
 		// $scope.country = '';
 		$scope.isFlipped = false;
@@ -104,17 +104,8 @@ angular.module('ionic.metApp')
 		}
 
 		// clear home screen cache when entering the view
-		$scope.$on('$ionicView.beforeEnter', function() {
-			// $ionicHistory.clearCache();
-			// $ionicHistory.clearHistory();
-			// $state.go('app.home')
-		})
-		$scope.$on('$ionicView.enter', function() {
-			// $timeout(function() {
-			// $ionicHistory.clearCache()
-			// }, 100);
-			// $state.go('app.home')
-		});
+		$scope.$on('$ionicView.beforeEnter', function() {})
+		$scope.$on('$ionicView.enter', function() {});
 
 		// close any modal found in the scope
 		// also special case: if modal is a child of met services menu then open parent
@@ -125,9 +116,6 @@ angular.module('ionic.metApp')
 		$scope.myGoBack = function() {
 			$ionicHistory.goBack();
 		};
-		// $scope.closeModalPage = function() {
-		// 	$ionicHistory.goBack();
-		// }
 
 		// when any modal is closed, hide the back drop
 		$scope.$on('modal.hidden', function() {
@@ -359,34 +347,28 @@ angular.module('ionic.metApp')
 		}];
 	})
 	.controller('TrinCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform,
-		$ionicPopup, $interval, $ionicBackdrop, $state, $ionicHistory, $route, $window, $ionicLoading, $localstorage) {
+		$ionicPopup, $interval, $ionicBackdrop, $state, $ionicHistory, $route, $window, $ionicLoading, $localstorage, $cordovaDialogs) {
 		var _this = this;
 
 		$interval(function() {
 			$scope.token = $rootScope.token;
 			if ($rootScope.token != undefined) {
-				console.log('rootscope', $rootScope.token);
+				// console.log('rootscope', $rootScope.token);
 			}
 		}, 5000)
+
 		$scope.fcasttrin = $scope.timeOfDay() == 'night' ? 'fair-night' : 'fair'; // default trin fcast
 		$scope.fcastbago = "sunny"; // default bago fcast
 		var interval = 10 * 60000;
 		$interval(function time() {
 			$ionicHistory.clearCache().then(function() {
 				// alert('cache cleared')
-				console.log('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
-				console.log('cache cleared')
-
+				// console.log('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
+				// console.log('cache cleared')
 				// $window.location.reload(true);
-
 				$route.reload();
-				$state.reload();
-
-				// $route.reload();
 				// $state.reload();
 				_this.refreshData();
-				// $state.go ('app.home' , {}, {cache: false});
-				// $state.go ('app.home' , {}, {cache: true});
 			});
 			$ionicHistory.clearHistory();
 		}, interval);
@@ -509,7 +491,7 @@ angular.module('ionic.metApp')
 					var i = ii.toFixed(0);
 					$scope.uv_index.uv_value = i; // our scope uv variable
 
-					console.log('scope uv', $scope.uv_index);
+					// console.log('scope uv', $scope.uv_index);
 
 					// ensure the uv value matches the correct color class
 					var ci = i == 0 || i == 1 ? 0 : i == 11 || i > 11 ? (11 - 1) : i - 1;
@@ -654,7 +636,7 @@ angular.module('ionic.metApp')
 				$scope.current_temp_trin = _this.mdata[2].value.substring(0, 3);
 				_this.mdata[2].txt = 'Looks like a ' + $scope.cTemp(Number($scope.current_temp_trin));
 				_this.mdata[5].value = $scope.cWind(_this.mdata[5].value);
-				console.debug('winds', _this.mdata[5].value);
+				// console.debug('winds', _this.mdata[5].value);
 				$scope.dew_point_trin = $scope.set_due_point(3, _this.mdata);
 
 				// metars we compare against for building home screen up-to-date summary
@@ -662,7 +644,7 @@ angular.module('ionic.metApp')
 				// use the parent scope metars_cloud array and compayr trinidad metars to it to buuld conditions
 				for (i = 0; i < $scope.metars_cloud.length; i++) {
 					if (_this.mdata[1].value.indexOf($scope.metars_cloud[i].code) > -1) {
-						console.log($scope.metars_cloud[i].code);
+						// console.log($scope.metars_cloud[i].code);
 						mets.push($scope.metars_cloud[i].code);
 					}
 				}
@@ -714,25 +696,22 @@ angular.module('ionic.metApp')
 					$scope.summary_text_trin = ci;
 				}
 
-
-
 				// ci = 'Clear';
 				var d = new Date();
 				$scope.fcasttrin = (ci == 'Clear' ? 'clear-' + $scope.timeOfDay() : ci);
 				// if we are between midnight and general sunrise time with clear conditions show us a moon
-				console.warn('the ci', ci)
+				// console.warn('the ci', ci)
 				if (ci == 'Clear' && parseInt(d.getHours()) >= 0 && parseInt(d.getHours()) <= 5) {
 					// if(ci=='Clear' && parseInt($scope.hourOfDay()) >= 0 && parseInt($scope.hourOfDay()) <= 5) {
 					$scope.fcasttrin = 'clear-night';
 					console.log('current hour', d.getHours());
 				}
-				console.debug('metars trin', mets, $scope.cc, ci, $scope.fcasttrin);
+				// console.debug('metars trin', mets, $scope.cc, ci, $scope.fcasttrin);
 				// deal with summary text based on metars
 				if (_this.mdata[1].value.indexOf('NOSIG') > -1) {
 					// metars says no sig
 					// when metars says no sig then we need an icon to say clear conditions for the current time of day
-					var v = $scope.summary_text_trin; //!= undefined ? $scope.summary_text_trin : $scope.fcasttrin.replace('-', ' '); // + " " + $scope.timeOfDay();;
-
+					var v = $scope.summary_text_trin; //!= undefined ? $scope.summary_text_trin : $scope.fcasttrin.replace('-', ' '); // + " " + $scope.timeOfDay();
 					$scope.summary_text_trin = $scope.capFLetter(v);
 				} else {
 					// "value": "TTPP 181400Z 11007KT 3000 -SHRA VCSH FEW010CB SCT012 24/23 Q1015 TEMPO SHRA RMK CB-E/S SHWRS-ALL QUADS",
@@ -793,7 +772,7 @@ angular.module('ionic.metApp')
 
 				if (_this.ftime_trin == "05:30PM") {
 					$localstorage.setObject('530pm_fcast', f);
-					console.debug('530pm forecast from local storage', $localstorage.getObject('530pm_fcast'));
+					// console.debug('530pm forecast from local storage', $localstorage.getObject('530pm_fcast'));
 					$scope.t = 'Tonight';
 					// today
 					_this.th = f.PiarcoFcstMxTemp;
@@ -815,6 +794,7 @@ angular.module('ionic.metApp')
 					// today
 					_this.th = f.PiarcoFcstMxTemp;
 					ff = $localstorage.getObject('530pm_fcast');
+					// console.log('530pm stored data', ff);
 					_this.tl = ff.TmPiarcoMnTemp;
 					//tomorrow
 					_this.maxtm = ff.maxTrin24look;
@@ -825,16 +805,7 @@ angular.module('ionic.metApp')
 					_this.min24 = ff.minTrin48look;
 					$scope.trin_24_icon = ff.wx48;
 				}
-				// // 530 am
-				// if (_this.ftime_trin == '10:00AM') {
-				// 	// $scope.t = 'Today';
-				// 	// _this.th = f.PiarcoFcstMxTemp;
-				// 	// _this.tl = _this.min24; // this 530pm max temp: it will come from local storage
-				// }
-				// if (_this.ftime_trin == '03:00PM') {
-				// 	// $scope.t = 'Today';
 
-				// }
 				$scope.trin_icon_today = f.imageTrin; // this will always be the latest from the api
 				_this.sunup = f.sunrise;
 				_this.sundown = f.sunset;
@@ -1040,7 +1011,7 @@ angular.module('ionic.metApp')
 				var mets = [];
 				for (i = 0; i < $scope.metars_cloud.length; i++) {
 					if (_this.mdatab[1].value.indexOf($scope.metars_cloud[i].code) > -1) {
-						console.log($scope.metars_cloud[i].code);
+						// console.log($scope.metars_cloud[i].code);
 						mets.push($scope.metars_cloud[i].code);
 					}
 				}
@@ -1089,7 +1060,7 @@ angular.module('ionic.metApp')
 				if (ci == 'Clear' && parseInt(d.getHours()) >= 0 && parseInt(d.getHours()) <= 5) {
 					$scope.fcastbago = 'clear-night';
 				}
-				console.debug('metars bago', mets, $scope.cd, ci, $scope.fcastbago);
+				// console.debug('metars bago', mets, $scope.cd, ci, $scope.fcastbago);
 				// deal with summary text based on metars
 				if (_this.mdatab[1].value.indexOf('NOSIG') > -1) {
 					var v = $scope.summary_text; // + " " + $scope.timeOfDay();;
@@ -1140,43 +1111,6 @@ angular.module('ionic.metApp')
 			$scope.tm = $scope.day_string(1);
 			$scope.nd = $scope.day_string(2);
 
-			// get forecast for bago
-			// metApi.get_o_tv(function(data) {
-			// 	var i = data.items[0];
-			// 	// 3- day forecast
-			// 	// days as text
-			// 	// need to find a bettwe way to do this as it will fail at the end of the week
-			// 	// $scope.tb = $scope.day_string(0);
-
-			// 	$scope.tm = $scope.day_string(1);
-			// 	$scope.nd = $scope.day_string(2);
-			// 	_this.max24 = i.maxTbo24look;
-			// 	_this.min24 = i.minTbo24look;
-			// 	_this.max48 = i.maxTob48look;
-			// 	_this.min48 = i.minTob48look;
-
-			// 	// icons for forecast: 24 and 48
-			// 	// _this.wicons[1] =
-			// 	// _this.wicons[2] = i.wx48;
-			// 	$scope.bago_24_icon = i.wx24;
-			// 	$scope.bago_48_icon = i.wx48;
-
-			// })
-
-			// get forecast
-			// metApi.get_forecast(function(data) {
-			// 	var f = data.items[0];
-			// 	_this.ftime_bago = f.forecastTime;
-			// 	if (_this.ftime_bago == "05:30PM") {
-			// 		$scope.t = 'Tonight';
-			// 	}
-
-			// 	$scope.bago_icon_today = f.imagebago;
-
-			// 	_this.th = f.CrownFcstMnTemp;
-			// 	_this.tl = f.CrownFcstMxTemp;
-			// })
-
 			metApi.get_forecast(function(data) {
 				var f = data.items[0];
 
@@ -1184,7 +1118,7 @@ angular.module('ionic.metApp')
 
 				if (_this.ftime_bago == "05:30PM") {
 					$localstorage.setObject('530pm_fcast', f);
-					console.debug('530pm forecast from local storage', $localstorage.getObject('530pm_fcast'));
+					// console.debug('530pm forecast from local storage', $localstorage.getObject('530pm_fcast'));
 					$scope.t = 'Tonight';
 					// today
 					_this.th = f.CrownFcstMxTemp;
@@ -1217,8 +1151,6 @@ angular.module('ionic.metApp')
 					$scope.bago_24_icon = ff.wx48cp;
 				}
 				$scope.bago_icon_today = f.imagebago; // this will always be the latest from the api
-				// _this.sunup = f.sunrise;
-				// _this.sundown = f.sunset;
 			})
 		}
 
@@ -1232,7 +1164,7 @@ angular.module('ionic.metApp')
 				scope.$watch('fcasttrin', function() {
 					setTimeout(function() {
 						var j = scope.fcasttrin.replace(/\s/g, "-").toLowerCase();
-						console.debug('fcast trin', scope.fcasttrin)
+						// console.debug('fcast trin', scope.fcasttrin)
 
 						scope.getContentUrl = function() {
 							return 'app/home/svg/' + j + '.html';
@@ -1268,7 +1200,7 @@ angular.module('ionic.metApp')
 				setTimeout(function() {
 					scope.$watch('trin_icon_today', function() {
 						var j = scope.trin_icon_today.replace(/\s/g, "-").toLowerCase();
-						console.debug('icon for today', j);
+						// console.debug('icon for today', j);
 						scope.ti1 = function() {
 							// console.log('app/home/forecast_icons/' + j + '.html', 'today')
 							return 'app/home/forecast_icons/' + j + '.html';
@@ -1322,7 +1254,7 @@ angular.module('ionic.metApp')
 				scope.$watch('bago_icon_today', function() {
 					setTimeout(function() {
 						var j = scope.bago_icon_today.replace(/\s/g, "-").toLowerCase();
-						console.debug('icon for today', j);
+						// console.debug('icon for today', j);
 						scope.bi1 = function() {
 							// console.log('app/home/forecast_icons/' + j + '.html', 'today')
 							return 'app/home/forecast_icons/' + j + '.html';
@@ -1340,7 +1272,7 @@ angular.module('ionic.metApp')
 				scope.$watch('bago_tm_icon', function() {
 					setTimeout(function() {
 						var jj = scope.bago_tm_icon.replace(/\s/g, "-").toLowerCase();
-						console.debug('icon for 24', jj);
+						// console.debug('icon for 24', jj);
 						scope.bi2 = function() {
 							// console.log('app/home/forecast_icons/' + jj + '.html', '24')
 							return 'app/home/forecast_icons/' + jj + '.html';
@@ -1359,7 +1291,7 @@ angular.module('ionic.metApp')
 					scope.$watch('bago_24_icon', function() {
 						var jj = scope.bago_24_icon.replace(/\s/g, "-").toLowerCase();
 						// console.debug('icon for 24', jj);
-						scope.ti3 = function() {
+						scope.bi3 = function() {
 							// console.log('app/home/forecast_icons/' + jj + '.html', '24')
 							return 'app/home/forecast_icons/' + jj + '.html';
 						}
