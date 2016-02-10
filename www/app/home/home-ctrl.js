@@ -4,7 +4,7 @@ angular.module('ionic.metApp')
 	.controller('HomeCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform,
 		$ionicPopup, $interval, $ionicBackdrop, $state, $ionicHistory, $route) {
 		var _this = this;
-		// console.warn('home');
+	// console.warn('home');
 		$scope.activeBgImageIndex = 0;
 		// $scope.country = '';
 		$scope.isFlipped = false;
