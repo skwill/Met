@@ -21,56 +21,33 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 	}
 
 	sc.get_aviation_radar = function() {
-		// metApi.get_radar(function(data) {
-		// 	console.log("here")
 
-		// 	//sc.aviation_items = data.items;
-
-		// 	sc.radar = data;
-		// 	var image = new Image();
-		// 	image.src = data.image_src;
-
-		// 	var img_div = $('#img_holder');
-		// 	img_div.html(image);
-		// 	// console.log(i);
-		// });
 	}
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	// calls for climate data
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	/*sc.get_elnino = function() {
-		metApi.get_elnino(function(data) {
-			sc.el_infos = data.items;
-			console.log("el nino");
-			console.log(data.items[0]);
 
-
-			sc.headings = [];
-			var num = 1;
-			for (var i = 0; i < 10; i++) {
-				if (data.items[0].head+"1"){
-					sc.headings[0] = data.items[0].head+"1";
-					console.log(sc.headings[0]);
-				};
-
-				num++;
-			};
-
-
-		})
-	}
-*/
 	sc.get_elninos = function() {
 		metApi.get_elninos(function(data) {
 			sc.el_infos = data[0];
-			console.log("el nino");
-			console.log(data);
+			// console.log("el nino");
+			// console.log(data);
 		})
+		// get option files
+		metApi.get_option_files(function(data) {
+			// console.log('elnino image data', data);
+			// var image = new Image();
+			// image.src = 'data: ;base64,' + data['elnino0'].data;
+			$scope.image1 = 'data: ;base64,' + data['elnino0'].data;
+			$scope.image2 = 'data: ;base64,' + data['elnino1'].data;
+			$scope.image3 = 'data: ;base64,' + data['elnino2'].data;
+
+		}, '/file/search?category=elnino')
 	}
 
 	sc.get_rainandtemp = function() {
 		metApi.get_rainandtemp(function(data) {
-			console.log("Rain and Temp " + data.items[0].year);
+			// console.debug("Rain and Temp " + data.items[0].year);
 			sc.key_list = data.items[0].para1.split('\r\n');
 			sc.ir_list = data.items[0].para12.split('\r\n');
 			// sc.list.trim();
@@ -80,45 +57,45 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 			for (x = 0; x < sc.ir_list.length; x++) {
 				sc.ir_list[x].trim();
 			}
-			console.debug('split list', sc.key_list);
+			// console.debug('split list', sc.key_list);
 
 			sc.rt = data.items[0];
 		})
+		// get option files
+		metApi.get_option_files(function(data) {
+			// console.debug('rainandtemp image data', data);
+			$scope.image4 = 'data: ;base64,' + data['rainandtemp0'].data;
+			$scope.image5 = 'data: ;base64,' + data['rainandtemp1'].data;
+
+		}, '/file/search?category=rainandtemp')
 	}
 	sc.get_drywet = function() {
 		metApi.get_drywet(function(data) {
 			sc.dw = data.items[0];
 		})
+		// get option files
+		metApi.get_option_files(function(data) {
+			// console.log('dryandwetspell image data', data);
+			$scope.image6 = 'data: ;base64,' + data['dryandwetspell0'].data;
+		}, '/file/search?category=dryandwetspell')
 	}
 
 	sc.agrotrini = function() {
 		metApi.get_agrotrini(function(data) {
 			sc.atrin = data.items[0];
 			//console.log("Agro Trini");
-			console.log(sc.atrin);
+			// console.log(sc.atrin);
 		})
 
-		// metApi.get_agroData('area', function(area) {
-		// 	//console.log("Agro Info");
-		// 	console.log(area);
-		// 	sc.area = area;
-		// })
-
-		// metApi.get_agroData('rainfall', function(area) {
-		// 	//console.log("Rain Info");
-		// 	console.log(area);
-		// 	sc.rain = area;
-		// })
-
-		// metApi.get_agroData('temperature', function(area) {
-		// 	//console.log("Temp Info");
-		// 	console.log(area);
-		// 	sc.temp = area;
-		// })
+		// get option files
+		metApi.get_option_files(function(data) {
+			// console.debug('image agro trin data', data);
+			$scope.image_agro_trin = 'data: ;base64,' + data['agrotrini0'].data;
+		}, '/file/search?category=agrotrini')
 
 		metApi.get_agroData('summary', function(area) {
 			//console.log("Summary Info");
-			console.log(area);
+			// console.log(area);
 			sc.sum = area;
 		})
 	}
@@ -126,31 +103,19 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 	sc.agrotbg = function() {
 		metApi.get_agrotbg(function(data) {
 			sc.atbg = data.items[0];
-			console.log("Agro TBG");
-			console.log(sc.atrin);
+			// console.log("Agro TBG");
+			// console.log(sc.atrin);
 		})
+		metApi.get_option_files(function(data) {
+			// console.debug('image agro bago data', data);
 
-		// metApi.get_agroDataTbg('area', function(area) {
-		// 	console.log("Agro Info tbg");
-		// 	console.log(area);
-		// 	sc.areatbg = area;
-		// })
+			$scope.image_agro_bago = 'data: ;base64,' + data['agrotobago0'].data;
 
-		// metApi.get_agroDataTbg('rainfall', function(area) {
-		// 	console.log("Rain Info");
-		// 	console.log(area);
-		// 	sc.raintbg = area;
-		// })
-
-		// metApi.get_agroDataTbg('temperature', function(area) {
-		// 	console.log("Temp Info");
-		// 	console.log(area);
-		// 	sc.temptbg = area;
-		// })
+		}, '/file/search?category=agrotobago')
 
 		metApi.get_agroDataTbg('summary', function(area) {
-			console.log("Summary Info");
-			console.log(area);
+			// console.log("Summary Info");
+			// console.log(area);
 			sc.sumtbg = area;
 		})
 	}
@@ -170,23 +135,23 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 		switch (m) {
 			case 'el':
 				metApi.get_elnino(function(data) {
-					console.log("el nino")
+					// console.log("el nino")
 					sc.d_item = data.items[0]
-					console.log(sc.d_item)
+					// console.log(sc.d_item)
 				}, id)
 				break;
 			case 'rt':
 				metApi.get_rainandtemp(function(data) {
-					console.log("rain and temp")
+					// console.log("rain and temp")
 					sc.d_item = data.items[0]
-					console.log(sc.d_item)
+					// console.log(sc.d_item)
 				}, id)
 				break;
 			case 'dw':
 				metApi.get_drywet(function(data) {
-					console.log("dry wetp")
+					// console.log("dry wetp")
 					sc.d_item = data.items[0]
-					console.log(sc.d_item)
+					// console.log(sc.d_item)
 				}, id)
 				break;
 
@@ -252,11 +217,11 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 
 	sc.radars_150 = function() {
 		sc.radars_150_list = Radars.all_of_cat(150);
-		console.log('radars 150', sc.radars_150_list)
+		// console.log('radars 150', sc.radars_150_list)
 	}
 	sc.radars_250 = function() {
 		sc.radars_250_list = Radars.all_of_cat(250);
-		console.log('radars 250', sc.radars_250_list)
+		// console.log('radars 250', sc.radars_250_list)
 	}
 	sc.get_radar_400 = function() {
 		alert();
@@ -361,7 +326,7 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 	sc.sigmet = function() {
 		metApi.get_sigmet(function(data) {
 			sc.sig = data.items;
-			console.debug('sigmet', sc.sig)
+			// console.debug('sigmet', sc.sig)
 		})
 	}
 
@@ -383,22 +348,22 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 				// img_div.html(image);
 				// img_div.find('img').wrap('<a href="' + data.image_src + '" class="swipebox" title="' + rdc.radar.title + '"></a>')
 				// console.log('radar image', data)
-			}, $stateParams.id);
+			}, rdc.radar.code);
 			rdc.radar = Radars.get($stateParams.id)
 
 			// get text based details of radar
 			// console.debug('radar item detail', Radars.get($stateParams.id));
 
-			$('body').on('click', '.swipebox', function(e) {
-				e.preventDefault();
-				var photo = $(this).attr('href');
-				$scope.image = photo;
-				$scope.showImages(photo);
-			})
+			// $('body').on('click', '.swipebox', function(e) {
+			// 	e.preventDefault();
+			// 	var photo = $(this).attr('href');
+			// 	$scope.image = photo;
+			// 	$scope.showImages(photo);
+			// })
 		}
 		$scope.reload_page = function() {
 			$scope.get_radar_detail($stateParams.id);
-			console.log($stateParams.id)
+			// console.log($stateParams.id)
 		}
 		$scope.$on('loading:show', function() {
 			$ionicLoading.show({
@@ -450,47 +415,54 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 			'img': 'app/services/radar/eht7.png',
 			'title': 'EHT (Echo Height Top)',
 			'sub': 'Gives a representation of the height to which the top of the clouds extend.',
-			'cat': 150
+			'cat': 150,
+			'code': '150eht'
 		}, {
 			'id': 2,
 			// 'img': 'http://190.58.130.190/web/aviation/RadarPages2014/150km/hwind7.png',
 			'img': 'app/services/radar/hwind7.png',
 			'title': 'HWIND (Horizontal Wind)',
 			'sub': 'Shows wind flow at a specific altitude.',
-			'cat': 150
+			'cat': 150,
+			'code': '150hwind'
 		}, {
 			'id': 3,
 			'img': 'http://190.58.130.190/web/aviation/RadarPages2014/150km/max7.png',
 			'title': 'MAX (Maximum)',
 			'sub': 'Shows a 2 Dimensional (2D) flow for the horizontal and vertical profile of the clouds.',
-			'cat': 150
+			'cat': 150,
+			'code': '150max'
 		}, {
 			'id': 4,
 			'img': ' ',
 			'title': 'PAC',
 			'sub': 'No Subtitle',
-			'cat': 150
+			'cat': 150,
+			'code': '150pac'
 		}, {
 			'id': 5,
 			// 'img': 'http://190.58.130.190/web/aviation/RadarPages2014/150km/ppi7.png',
 			'img': 'app/services/radar/ppi7.png',
 			'title': 'PPI (Plan Position Indicator)',
 			'sub': 'A representation of the cloud echoes in a horizontal plane.',
-			'cat': 150
+			'cat': 150,
+			'code': '150ppi'
 		}, {
 			'id': 6,
 			// 'img': 'http://190.58.130.190/web/aviation/RadarPages2014/150km/sri7.png',
 			'img': 'app/services/radar/sri7.png',
 			'title': 'SRI (Surface Rainfall Intensity)',
 			'sub': 'An estimate of rainfall intensity associated with different echoes.',
-			'cat': 150
+			'cat': 150,
+			'code': '150sri'
 		}, {
 			'id': 7,
 			// 'img': 'http://190.58.130.190/web/aviation/RadarPages2014/150km/vvp7.png',
 			'img': 'app/services/radar/vvp7.png',
 			'title': 'VVP (Velocity Volume Processing)',
 			'sub': 'Provides an estimate of the wind profile up to a certain height.',
-			'cat': 150
+			'cat': 150,
+			'code': '150vvp'
 		},
 		// - - - - - - - - - - - - - -
 		// radars 250
@@ -499,7 +471,8 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 			'img': 'http://190.58.130.190/web/aviation/RadarPages2014/200km/eht1.png',
 			'title': 'ETH(Height)',
 			'sub': 'Gives a representation of the height to which the top of the clouds extend.',
-			'cat': 250
+			'cat': 250,
+			'code': '250eth'
 		}, {
 			'id': 9,
 			'img': '',
@@ -511,31 +484,36 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 			'img': 'http://190.58.130.190/web/aviation/RadarPages2014/200km/hwind7.png',
 			'title': 'HWIND (Horizontal Wind)',
 			'sub': 'Shows wind flow at a specific altitude.',
-			'cat': 250
+			'cat': 250,
+			'code': '250hwind'
 		}, {
 			'id': 11,
 			'img': 'http://190.58.130.190/web/aviation/RadarPages2014/200km/max7.png',
 			'title': 'MAX (Maximum)',
 			'sub': 'Shows a 2 Dimensional (2D) flow for the horizontal and vertical profile of the clouds.',
-			'cat': 250
+			'cat': 250,
+			'code': '250max'
 		}, {
 			'id': 12,
 			'img': 'http://190.58.130.190/web/aviation/RadarPages2014/200km/ppi7.png',
 			'title': 'PPI (Plan Position Indicator)',
 			'sub': 'A representation of the cloud echoes in a horizontal plane.',
-			'cat': 250
+			'cat': 250,
+			'code': '250ppi'
 		}, {
 			'id': 13,
 			'img': 'http://190.58.130.190/web/aviation/RadarPages2014/200km/sri7.png',
 			'title': 'SRI (Surface Rainfall Intensity)',
 			'sub': 'An estimate of rainfall intensity associated with different echoes.',
-			'cat': 250
+			'cat': 250,
+			'code': '250sri'
 		}, {
 			'id': 14,
 			'img': 'http://190.58.130.190/web/aviation/RadarPages2014/200km/vvp7.png',
 			'title': 'VVP (Velocity Volume Processing)',
 			'sub': 'Provides an estimate of the wind profile up to a certain height.',
-			'cat': 250
+			'cat': 250,
+			'code': '250vvp'
 		},
 		// - - - - - - - - - - - - - -
 		// radars 400
@@ -544,7 +522,8 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 			'img': 'http://190.58.130.190/web/aviation/RadarPages2014/400km/400ppi7.png',
 			'title': 'PPI (Plan Position Indicator)',
 			'sub': 'A representation of the cloud echoes in a horizontal plane.',
-			'cat': 400
+			'cat': 400,
+			'code': '400ppi'
 		},
 		// - - - - - - - - - - - - - -
 		// radars 400
@@ -667,7 +646,7 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 					$scope.ai[6] = d[z];
 				}
 			}
-			console.log('aws result', $scope.ai);
+			// console.log('aws result', $scope.ai);
 			// create a popup with all information
 			var content = '<p class="text-center">No data</p>';
 			for (c = 0; c < $scope.ai.length; c++) {
