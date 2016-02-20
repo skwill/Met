@@ -16,13 +16,16 @@
             <h6 ng-if="rdc.radar.cat">Scan: {{rdc.radar.cat}}km</h6>
         </div>
         <div class="containerr" style="height: 100%; ">
-            <ion-scroll class="shandler" direction="xy" scrollbar-x="false" scrollbar-y="false" zooming="true" min-zoom="{{zoomMin}}" style="width: 100%; height: 100%; "
+            <!-- <ion-scroll class="shandler" direction="xy" scrollbar-x="false" scrollbar-y="false" zooming="true" min-zoom="{{zoomMin}}" style="width: 100%; height: 100%; "
               delegate-handle="scrollHandle{{$index}}" on-scroll="updateSlideStatus(activeSlide)" on-release="updateSlideStatus(activeSlide)">
 
                 <div class="image" style="background-image: url(' {{image}} '); height: 100%; "></div>
-            </ion-scroll>
+            </ion-scroll> -->
 
-            <!-- <div class="img_holder"></div> -->
+            <div ng-if="!image" style="height: 100%">
+                <ion-spinner style="display: block; margin: 0 auto; padding-top: 20%" class="dark" icon="lines"></ion-spinner>
+            </div>
+            <div class="img_holder"></div>
 
         </div>
         <div ion-slider></div>

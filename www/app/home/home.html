@@ -25,9 +25,10 @@
                     <ion-refresher pulling-text="Pull to refresh..." on-refresh="tc.refreshData()" style="/*margin-top: -20px;*/"></ion-refresher>
                 </ion-content>
 
-                <div class="bar-footer fixed">
-                    <div class="d3 threeDay trin">
-                        <div class="row" ui-sref="app.forecast_home">
+                <!-- <div class="bar-footer fixed" ng-click="go_toForecastHome()"> -->
+                <ion-footer-bar class="bar-d3">
+                    <div class="d3 threeDay trin" ui-sref="app.forecast_home">
+                        <div class="row" >
                             <div class="col"><p class="lead" >{{t}}</p></div>
                             <div class="col">
                                 <p class="text-right icon-size">
@@ -71,17 +72,16 @@
                         </div>
                     </div>
 
-                    <div class="ms">
+                    <!-- <div class="ms">
                         <div class="row text-center of1-main of1 trin" id="" ui-sref="app.metars_trin">
                             <div class="col">
-                                <div class="met-icon">
-                                    <!-- <img src="../img/met-office-logo-outline.svg"> -->
-                                </div>
+                                <div class="met-icon"></div>
                                 <span>Current Conditions For Trinidad</span>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </div> -->
+                <!-- </div> -->
+                </ion-footer-bar>
             </div>
             <!-- end of trinidad face -->
 
@@ -112,8 +112,8 @@
                 </ion-content>
 
 
-                <div class="d3 threeDay bago">
-                    <div class="row" ui-sref="app.forecast_home">
+                <div class="d3 threeDay bago" ui-sref="app.forecast_home">
+                    <div class="row">
                         <div class="col">
                             <p class="lead" >{{t}}</p>
                         </div>
@@ -163,14 +163,14 @@
                     </div>
                 </div>
 
-                <div class="ms">
+                <!-- <div class="ms">
                     <div class="row text-center of1-main of1 bago" id="" ui-sref="app.metars_bago">
                         <div class="col">
                             <div class="met-icon"></div>
                             <span>Current Conditions For Tobago</span>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <!-- </div> -->

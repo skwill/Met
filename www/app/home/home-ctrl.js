@@ -4,7 +4,7 @@ angular.module('ionic.metApp')
 	.controller('HomeCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform,
 		$ionicPopup, $interval, $ionicBackdrop, $state, $ionicHistory, $route) {
 		var _this = this;
-	// console.warn('home');
+		// console.warn('home');
 		$scope.activeBgImageIndex = 0;
 		// $scope.country = '';
 		$scope.isFlipped = false;
@@ -345,6 +345,11 @@ angular.module('ionic.metApp')
 			'code': 'VCSH',
 			'desc': 'showers in vicinity'
 		}];
+
+		$rootScope.go_toForecastHome = function() {
+			$state.go('app.forecast_home', {});
+		}
+
 	})
 	.controller('TrinCtrl', function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform,
 		$ionicPopup, $interval, $ionicBackdrop, $state, $ionicHistory, $route, $window, $ionicLoading, $localstorage, $cordovaDialogs) {
@@ -352,9 +357,7 @@ angular.module('ionic.metApp')
 
 		$interval(function() {
 			$scope.token = $rootScope.token;
-			if ($rootScope.token != undefined) {
-				// console.log('rootscope', $rootScope.token);
-			}
+			if ($rootScope.token != undefined) {}
 		}, 5000)
 
 		$scope.fcasttrin = $scope.timeOfDay() == 'night' ? 'fair-night' : 'fair'; // default trin fcast
@@ -780,11 +783,11 @@ angular.module('ionic.metApp')
 					// tomorrow
 					_this.maxtm = f.TmPiarcoMxTemp;
 					_this.mintm = f.TmPiarcoMnTemp;
-					$scope.trin_tm_icon = f.TmWeatherPiarcoMx;
+					$scope.trin_tm_icon = f.TmWeatherPiarcoMx ? f.TmWeatherPiarcoMx : 'sunny';
 					// 24
 					_this.max24 = f.maxTrin24look;
 					_this.min24 = f.minTrin24look;
-					$scope.trin_24_icon = f.wx24;
+					$scope.trin_24_icon = f.wx24 ? f.wx24 : 'sunny';
 					// 48
 					// 48 is on standby, it will be used as the last day in the 530am forecast
 
@@ -792,21 +795,21 @@ angular.module('ionic.metApp')
 				// 530 am
 				if (_this.ftime_trin != '05:30PM') {
 					// today
-					_this.th = f.PiarcoFcstMxTemp;
+					_this.th = f.PiarcoFcstMxTemp ? f.PiarcoFcstMxTemp : ' - ';
 					ff = $localstorage.getObject('530pm_fcast');
 					// console.log('530pm stored data', ff);
-					_this.tl = ff.TmPiarcoMnTemp;
+					_this.tl = ff.TmPiarcoMnTemp ? ff.TmPiarcoMnTemp : ' - ';
 					//tomorrow
-					_this.maxtm = ff.maxTrin24look;
-					_this.mintm = ff.minTrin24look;
-					$scope.trin_tm_icon = ff.wx24;
+					_this.maxtm = ff.maxTrin24look ? ff.maxTrin24look : ' - ';
+					_this.mintm = ff.minTrin24look ? ff.minTrin24look : ' - ';
+					$scope.trin_tm_icon = ff.wx24 ? ff.wx24 : 'sunny';
 					// 24
-					_this.max24 = ff.maxTrin48look;
-					_this.min24 = ff.minTrin48look;
-					$scope.trin_24_icon = ff.wx48;
+					_this.max24 = ff.maxTrin48look ? ff.maxTrin48look : ' - ';
+					_this.min24 = ff.minTrin48look ? ff.minTrin48look : ' - ';
+					$scope.trin_24_icon = ff.wx48 ? ff.wx48 : 'sunny';
 				}
 
-				$scope.trin_icon_today = f.imageTrin; // this will always be the latest from the api
+				$scope.trin_icon_today = f.imageTrin ? f.imageTrin : 'sunny'; // this will always be the latest from the api
 				_this.sunup = f.sunrise;
 				_this.sundown = f.sunset;
 			})
@@ -1121,16 +1124,16 @@ angular.module('ionic.metApp')
 					// console.debug('530pm forecast from local storage', $localstorage.getObject('530pm_fcast'));
 					$scope.t = 'Tonight';
 					// today
-					_this.th = f.CrownFcstMxTemp;
-					_this.tl = f.CrownFcstMnTemp;
+					_this.th = f.CrownFcstMxTemp ? f.CrownFcstMxTemp : ' - ';
+					_this.tl = f.CrownFcstMnTemp ? f.CrownFcstMnTemp : ' - ';
 					// tomorrow
 					_this.maxtm = f.TmCrownMxTemp;
 					_this.mintm = f.TmCrownMnTemp;
-					$scope.bago_tm_icon = f.TmWeatherCpMx;
+					$scope.bago_tm_icon = f.TmWeatherCpMx ? f.TmWeatherCpMx : 'sunny';
 					// 24
 					_this.max24 = f.maxTob24look;
 					_this.min24 = f.minTob24look;
-					$scope.bago_24_icon = f.wx24cp;
+					$scope.bago_24_icon = f.wx24cp ? ff.wx48cp : 'sunny';
 					// 48
 					// 48 is on standby, it will be used as the last day in the 530am forecast
 
@@ -1138,17 +1141,18 @@ angular.module('ionic.metApp')
 				// 530 am
 				if (_this.ftime_bago != '05:30PM') {
 					// today
-					_this.th = f.CrownFcstMxTemp;
+					_this.th = f.CrownFcstMxTemp ? f.CrownFcstMxTemp : ' - ';
 					ff = $localstorage.getObject('530pm_fcast');
-					_this.tl = ff.TmCrownMnTemp;
+					_this.tl = ff.TmCrownMnTemp ? ff.TmCrownMnTemp : ' - ';
 					//tomorrow
 					_this.maxtm = ff.maxTob24look;
+					// alert(ff.maxTob24look);
 					_this.mintm = ff.minTob24look;
-					$scope.bago_tm_icon = ff.wx24cp;
+					$scope.bago_tm_icon = ff.wx24cp ? ff.wx24cp : 'sunny';
 					// 24
 					_this.max24 = ff.maxTob48look;
 					_this.min24 = ff.minTob48look;
-					$scope.bago_24_icon = ff.wx48cp;
+					$scope.bago_24_icon = ff.wx48cp ? ff.wx48cp : 'sunny';
 				}
 				$scope.bago_icon_today = f.imagebago; // this will always be the latest from the api
 			})
@@ -1160,12 +1164,12 @@ angular.module('ionic.metApp')
 	.directive('weatherIconTrin', function() {
 		return {
 			restrict: 'E',
+			replace: true,
 			link: function(scope, element, attrs) {
 				scope.$watch('fcasttrin', function() {
 					setTimeout(function() {
 						var j = scope.fcasttrin.replace(/\s/g, "-").toLowerCase();
-						// console.debug('fcast trin', scope.fcasttrin)
-
+						// console.debug('fcast trin', j)
 						scope.getContentUrl = function() {
 							return 'app/home/svg/' + j + '.html';
 						}
@@ -1173,7 +1177,7 @@ angular.module('ionic.metApp')
 				})
 
 			},
-			template: '<div ng-include="getContentUrl()" style="padding-top: 13px"></div>'
+			template: '<div ng-include="getContentUrl()" style="padding-top: 13px;"></div>'
 		};
 	})
 	.directive('weatherIconBago', function($timeout) {
@@ -1190,7 +1194,7 @@ angular.module('ionic.metApp')
 					}, 2000)
 				})
 			},
-			template: '<div ng-include="getContentUrl()" style="padding-top: 13px"></div>'
+			template: '<div ng-include="getContentUrl()" style="padding-top: 13px;"></div>'
 		}
 	})
 	.directive('trinTodayIcon', function() {
@@ -1199,8 +1203,8 @@ angular.module('ionic.metApp')
 			link: function(scope, element, attrs) {
 				setTimeout(function() {
 					scope.$watch('trin_icon_today', function() {
-						var j = scope.trin_icon_today.replace(/\s/g, "-").toLowerCase();
-						// console.debug('icon for today', j);
+						var j = (scope.trin_icon_today ? scope.trin_icon_today : 'sunny').replace(/\s/g, "-").toLowerCase();
+						console.debug('icon for today', j);
 						scope.ti1 = function() {
 							// console.log('app/home/forecast_icons/' + j + '.html', 'today')
 							return 'app/home/forecast_icons/' + j + '.html';
@@ -1217,7 +1221,8 @@ angular.module('ionic.metApp')
 			link: function(scope, element, attrs) {
 				setTimeout(function() {
 					scope.$watch('trin_tm_icon', function() {
-						var jj = scope.trin_tm_icon.replace(/\s/g, "-").toLowerCase();
+						// var jj = scope.trin_tm_icon.replace(/\s/g, "-").toLowerCase();
+						var jj = (scope.trin_tm_icon ? scope.trin_tm_icon : 'sunny').replace(/\s/g, "-").toLowerCase();
 						// console.debug('icon for 24', jj);
 						scope.ti2 = function() {
 							// console.log('app/home/forecast_icons/' + jj + '.html', '24')
@@ -1235,7 +1240,8 @@ angular.module('ionic.metApp')
 			link: function(scope, element, attrs) {
 				setTimeout(function() {
 					scope.$watch('trin_24_icon', function() {
-						var jj = scope.trin_24_icon.replace(/\s/g, "-").toLowerCase();
+						// var jj = scope.trin_24_icon.replace(/\s/g, "-").toLowerCase();
+						var jj = (scope.trin_24_icon ? scope.trin_24_icon : 'sunny').replace(/\s/g, "-").toLowerCase();
 						// console.debug('icon for 24', jj);
 						scope.ti3 = function() {
 							// console.log('app/home/forecast_icons/' + jj + '.html', '24')
@@ -1253,7 +1259,8 @@ angular.module('ionic.metApp')
 			link: function(scope, element, attrs) {
 				scope.$watch('bago_icon_today', function() {
 					setTimeout(function() {
-						var j = scope.bago_icon_today.replace(/\s/g, "-").toLowerCase();
+						// var j = scope.bago_icon_today.replace(/\s/g, "-").toLowerCase();
+						var j = (scope.bago_icon_today ? scope.bago_icon_today : 'sunny').replace(/\s/g, "-").toLowerCase();
 						// console.debug('icon for today', j);
 						scope.bi1 = function() {
 							// console.log('app/home/forecast_icons/' + j + '.html', 'today')
@@ -1271,7 +1278,8 @@ angular.module('ionic.metApp')
 			link: function(scope, element, attrs) {
 				scope.$watch('bago_tm_icon', function() {
 					setTimeout(function() {
-						var jj = scope.bago_tm_icon.replace(/\s/g, "-").toLowerCase();
+						// var jj = scope.bago_tm_icon.replace(/\s/g, "-").toLowerCase();
+						var jj = (scope.bago_tm_icon ? scope.bago_tm_icon : 'sunny').replace(/\s/g, "-").toLowerCase();
 						// console.debug('icon for 24', jj);
 						scope.bi2 = function() {
 							// console.log('app/home/forecast_icons/' + jj + '.html', '24')
@@ -1289,7 +1297,8 @@ angular.module('ionic.metApp')
 			link: function(scope, element, attrs) {
 				setTimeout(function() {
 					scope.$watch('bago_24_icon', function() {
-						var jj = scope.bago_24_icon.replace(/\s/g, "-").toLowerCase();
+						// var jj = scope.bago_24_icon.replace(/\s/g, "-").toLowerCase();
+						var jj = (scope.bago_24_icon ? scope.bago_24_icon : 'sunny').replace(/\s/g, "-").toLowerCase();
 						// console.debug('icon for 24', jj);
 						scope.bi3 = function() {
 							// console.log('app/home/forecast_icons/' + jj + '.html', '24')

@@ -35,38 +35,69 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 		})
 		// get option files
 		metApi.get_option_files(function(data) {
-			// console.log('elnino image data', data);
-			// var image = new Image();
-			// image.src = 'data: ;base64,' + data['elnino0'].data;
-			$scope.image1 = 'data: ;base64,' + data['elnino0'].data;
-			$scope.image2 = 'data: ;base64,' + data['elnino1'].data;
-			$scope.image3 = 'data: ;base64,' + data['elnino2'].data;
-
+			sc.ii = [$scope.image1 = 'data: ;base64,' + data['elnino0'].data, $scope.image2 = 'data: ;base64,' + data['elnino1'].data, $scope.image3 = 'data: ;base64,' + data['elnino2'].data];
+			img_builder(sc.ii, '.nino_i', 'El Nino');
 		}, '/file/search?category=elnino')
+	}
+
+	$('body').on('click', '.swipebox', function(e) {
+		e.preventDefault();
+		var img = $(this).attr('href')
+		$scope.showImages(img);
+	})
+
+	$scope.showImages = function(index) {
+		$scope.showModal('app/services/radar/radar_image_modal.html');
+		$timeout(function() {
+			var image = new Image();
+			image.src = index;
+			var img_div = $('.modal_img');
+			img_div.html(image);
+		}, 300)
+	}
+
+	$scope.showModal = function(templateUrl) {
+		$ionicModal.fromTemplateUrl(templateUrl, {
+			scope: $scope,
+			animation: 'slide-in-up'
+		}).then(function(modal) {
+			$scope.modal = modal;
+			$scope.modal.show();
+		})
+	}
+
+	$scope.closeModal = function() {
+		console.debug('modal', $scope.modal)
+		$scope.modal.hide();
+		// $scope.modal.remove();
+	}
+
+	$scope.updateSlideStatus = function(slide) {
+		var zoomFactor = $ionicScrollDelegate.$getByHandle('scrollHandle' + slide).getScrollPosition.zoom;
+		if (zoomFactor == $scope.zoomMin) {
+			$ionicSlideBoxDelegate.enableSlide(true);
+		} else {
+			$ionicSlideBoxDelegate.enableSlide(false);
+		}
 	}
 
 	sc.get_rainandtemp = function() {
 		metApi.get_rainandtemp(function(data) {
-			// console.debug("Rain and Temp " + data.items[0].year);
 			sc.key_list = data.items[0].para1.split('\r\n');
 			sc.ir_list = data.items[0].para12.split('\r\n');
-			// sc.list.trim();
 			for (x = 0; x < sc.key_list.length; x++) {
 				sc.key_list[x].trim();
 			}
 			for (x = 0; x < sc.ir_list.length; x++) {
 				sc.ir_list[x].trim();
 			}
-			// console.debug('split list', sc.key_list);
 
 			sc.rt = data.items[0];
 		})
 		// get option files
 		metApi.get_option_files(function(data) {
-			// console.debug('rainandtemp image data', data);
-			$scope.image4 = 'data: ;base64,' + data['rainandtemp0'].data;
-			$scope.image5 = 'data: ;base64,' + data['rainandtemp1'].data;
-
+			sc.rti = [$scope.image4 = 'data: ;base64,' + data['rainandtemp0'].data, $scope.image5 = 'data: ;base64,' + data['rainandtemp1'].data];
+			img_builder(sc.rti, '.rt_i', 'Rainfall - Temp');
 		}, '/file/search?category=rainandtemp')
 	}
 	sc.get_drywet = function() {
@@ -75,27 +106,36 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 		})
 		// get option files
 		metApi.get_option_files(function(data) {
-			// console.log('dryandwetspell image data', data);
-			$scope.image6 = 'data: ;base64,' + data['dryandwetspell0'].data;
+			sc.dwi = [$scope.image6 = 'data: ;base64,' + data['dryandwetspell0'].data];
+			img_builder(sc.dwi, '.dw_i', 'Dry/Wet Outlook');
 		}, '/file/search?category=dryandwetspell')
+	}
+
+	// build image elements for climate page
+	function img_builder(img_arr, elem, title) {
+		for (x = 0; x < img_arr.length; x++) {
+			var image = new Image();
+			image.src = img_arr[x];
+			image.style.maxWidth = "100%";
+			var img_div = $(elem + (x + 1));
+			img_div.html(image);
+			img_div.find('img').wrap('<a href="' + img_arr[x] + '" class="swipebox" title="' + title + '"></a>')
+
+		}
 	}
 
 	sc.agrotrini = function() {
 		metApi.get_agrotrini(function(data) {
 			sc.atrin = data.items[0];
-			//console.log("Agro Trini");
-			// console.log(sc.atrin);
 		})
 
 		// get option files
 		metApi.get_option_files(function(data) {
-			// console.debug('image agro trin data', data);
-			$scope.image_agro_trin = 'data: ;base64,' + data['agrotrini0'].data;
+			$scope.image_agro_trin = ['data: ;base64,' + data['agrotrini0'].data];
+			img_builder($scope.image_agro_trin, '.trin_i', 'Trinidad Agromet');
 		}, '/file/search?category=agrotrini')
 
 		metApi.get_agroData('summary', function(area) {
-			//console.log("Summary Info");
-			// console.log(area);
 			sc.sum = area;
 		})
 	}
@@ -103,19 +143,14 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 	sc.agrotbg = function() {
 		metApi.get_agrotbg(function(data) {
 			sc.atbg = data.items[0];
-			// console.log("Agro TBG");
-			// console.log(sc.atrin);
 		})
 		metApi.get_option_files(function(data) {
-			// console.debug('image agro bago data', data);
-
-			$scope.image_agro_bago = 'data: ;base64,' + data['agrotobago0'].data;
+			$scope.image_agro_bago = ['data: ;base64,' + data['agrotobago0'].data];
+			img_builder($scope.image_agro_bago, '.bago_i', 'Tobago Agromet');
 
 		}, '/file/search?category=agrotobago')
 
 		metApi.get_agroDataTbg('summary', function(area) {
-			// console.log("Summary Info");
-			// console.log(area);
 			sc.sumtbg = area;
 		})
 	}
@@ -126,32 +161,22 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 	}).then(function(elrtinfo_modal) {
 		$scope.elrtinfo_modal = elrtinfo_modal;
 	});
-	// close modal
-	$scope.closeModal = function() {
-		$scope.elrtinfo_modal.hide();
-	};
 
 	$scope.cinfo_open = function(id, m) {
 		switch (m) {
 			case 'el':
 				metApi.get_elnino(function(data) {
-					// console.log("el nino")
 					sc.d_item = data.items[0]
-					// console.log(sc.d_item)
 				}, id)
 				break;
 			case 'rt':
 				metApi.get_rainandtemp(function(data) {
-					// console.log("rain and temp")
 					sc.d_item = data.items[0]
-					// console.log(sc.d_item)
 				}, id)
 				break;
 			case 'dw':
 				metApi.get_drywet(function(data) {
-					// console.log("dry wetp")
 					sc.d_item = data.items[0]
-					// console.log(sc.d_item)
 				}, id)
 				break;
 
@@ -209,29 +234,24 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 	}
 
 	$scope.slide = function(to) {
-		// $scope.current = to;
 		$ionicScrollDelegate.scrollTop();
 		$ionicSlideBoxDelegate.slide(to);
-		// sc.refresh_all_b();
 	}
 
 	sc.radars_150 = function() {
 		sc.radars_150_list = Radars.all_of_cat(150);
-		// console.log('radars 150', sc.radars_150_list)
 	}
 	sc.radars_250 = function() {
 		sc.radars_250_list = Radars.all_of_cat(250);
-		// console.log('radars 250', sc.radars_250_list)
 	}
 	sc.get_radar_400 = function() {
-		alert();
+		// alert();
 	}
 
 	sc.get_metars = function() {
 		metApi.get_metar(function(data) {
 			var m = data.items;
 			// gets the current temp, we only care about the exact number so pull that out from the string
-
 			// these are the ids of the metas we want for trinidad
 			var ids = [
 				// metar fir
@@ -326,12 +346,11 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 	sc.sigmet = function() {
 		metApi.get_sigmet(function(data) {
 			sc.sig = data.items;
-			// console.debug('sigmet', sc.sig)
 		})
 	}
 
 })
-	.controller('RadarDetailCtrl', function($scope, $stateParams, metApi, Radars, $http, $cordovaPush, $ionicPlatform, $rootScope, $ionicLoading, $state, $ionicBackdrop, $ionicModal, $ionicScrollDelegate, $ionicSlideBoxDelegate) {
+	.controller('RadarDetailCtrl', function($scope, $stateParams, metApi, Radars, $http, $cordovaPush, $ionicPlatform, $rootScope, $ionicLoading, $state, $ionicBackdrop, $ionicModal, $ionicScrollDelegate, $ionicSlideBoxDelegate, $timeout) {
 		var rdc = this;
 		$scope.close_loading = function() {
 			$ionicLoading.hide();
@@ -341,30 +360,25 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 			rdc.radar = Radars.get($stateParams.id);
 			metApi.get_radar(function(data) {
 				var image = new Image();
-				image.src = data.image_src;
-				$scope.image = data.image_src;
-				// image.style.maxWidth = "100%";
-				// var img_div = $('.img_holder');
-				// img_div.html(image);
-				// img_div.find('img').wrap('<a href="' + data.image_src + '" class="swipebox" title="' + rdc.radar.title + '"></a>')
-				// console.log('radar image', data)
+				image.src = data.data;
+				$scope.image = data.data;
+				image.style.maxWidth = "100%";
+				var img_div = $('.img_holder');
+				img_div.html(image);
+				img_div.find('img').wrap('<a href="' + $scope.image + '" class="swipebox2" title="' + rdc.radar.title + '"></a>')
 			}, rdc.radar.code);
-			rdc.radar = Radars.get($stateParams.id)
+			rdc.radar = Radars.get($stateParams.id);
 
-			// get text based details of radar
-			// console.debug('radar item detail', Radars.get($stateParams.id));
-
-			// $('body').on('click', '.swipebox', function(e) {
-			// 	e.preventDefault();
-			// 	var photo = $(this).attr('href');
-			// 	$scope.image = photo;
-			// 	$scope.showImages(photo);
-			// })
+			$('body').on('click', '.swipebox2', function(e) {
+				e.preventDefault();
+				$scope.showImages();
+			})
 		}
+
 		$scope.reload_page = function() {
 			$scope.get_radar_detail($stateParams.id);
-			// console.log($stateParams.id)
 		}
+
 		$scope.$on('loading:show', function() {
 			$ionicLoading.show({
 				template: ' <ion-spinner class="light"></ion-spinner><br><button class="button button-light button-block" ng-click="close_loading()">Cancel</button>',
@@ -375,22 +389,59 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 		// handle image scrolling and zooming of radar
 		$scope.showImages = function(index) {
 			$scope.showModal('app/services/radar/radar_image_modal.html');
+			$timeout(function() {
+				var image = new Image();
+				image.src = $scope.image;
+				var img_div = $('.modal_img');
+				img_div.html(image);
+			}, 300)
 		}
 
 		$scope.showModal = function(templateUrl) {
-			$ionicModal.fromTemplateUrl(templateUrl, {
-				scope: $scope,
-				animation: 'slide-in-up'
-			}).then(function(modal) {
-				$scope.modal = modal;
+			// $ionicBackdrop.retain();
+			// console.debug('modals on page', $('.modal-backdrop').length);
+			if ($('.modal-backdrop').length > 0) {
+				$('.modal-backdrop:not(:last)').remove();
+			}
+
+			if (!$scope.modal) {
+				$ionicModal.fromTemplateUrl(templateUrl, function(modal) {
+					$scope.modal = modal;
+					$scope.modal.show();
+				}, {
+					scope: $scope,
+					animation: 'slide-in-up'
+				})
+			} else {
 				$scope.modal.show();
-			})
+			}
+			// console.debug('scope modal in show functino', $scope.modal);
+			// $ionicModal.fromTemplateUrl(templateUrl, {
+			// 	scope: $scope,
+			// 	animation: 'slide-in-up'
+			// }).then(function(modal) {
+			// 	$scope.modal = modal;
+			// 	$scope.modal.show();
+			// })
 		}
 
 		$scope.closeModal = function() {
-			$scope.modal.hide();
-			$scope.modal.remove();
+			$scope.modal.hide().then(function() {
+				$('.modal-backdrop').remove();
+				$scope.modal = null;
+			})
+			// $scope.modal.remove()
+			// 	.then(function() {
+			// 		$scope.modal = null;
+			// 	});
+			// $scope.modal.remove();
 		}
+		$scope.$on('$stateChangeStart', function() {
+			// if ($scope.modal) {
+			// console.debug('state change start');
+			$scope.modal.remove();
+			// }
+		});
 
 		$scope.updateSlideStatus = function(slide) {
 			var zoomFactor = $ionicScrollDelegate.$getByHandle('scrollHandle' + slide).getScrollPosition.zoom;
@@ -558,7 +609,6 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 	};
 }).controller('AWSCtrl', function(metApi, $scope, $timeout, $ionicModal, $ionicPlatform, $ionicPopup, $interval, $ionicBackdrop, $state, $route, $rootScope, $ionicLoading) {
 	var _this = this;
-	// var temp = []; var press = []; var gust = []; var precip = []; var humidity = []; var wind_d = []; var wind_s = [];
 	$scope.ai = [];
 
 	$scope.mapCreated = function(map) {
@@ -648,7 +698,7 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 			}
 			// console.log('aws result', $scope.ai);
 			// create a popup with all information
-			var content = '<p class="text-center">No data</p>';
+			var content = '';
 			for (c = 0; c < $scope.ai.length; c++) {
 				// content = 'No data';
 				if ($scope.ai[c] != undefined) {
@@ -669,8 +719,9 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 			// $timeout(function() {
 			var alertPopup = $ionicPopup.alert({
 				title: $scope.title,
-				template: content,
-				cssClass: 'aws_popup'
+				template: (content ? content : '<p class="text-center">No data</p>'),
+				cssClass: 'aws_popup',
+				okText: 'Close'
 			});
 			// }, 1000)
 		}, city)
