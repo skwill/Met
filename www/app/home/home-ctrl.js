@@ -381,37 +381,40 @@ angular.module('ionic.metApp')
 		}
 
 		_this.refreshData = function() {
-			$timeout(function() {
-				Geo.getLocation().then(function(position) {
-					var lc = "";
-					var lat = position.coords.latitude;
-					var lng = position.coords.longitude;
-					// google map service will give us a location string based on our current location (or nearest detected location)
-					Geo.reverseGeocode(lat, lng).then(function(locString) {
-						$scope.currentLocationString = locString;
-						// $scope.trin_error = $scope.currentLocationString;
-						$scope.country = $scope.currentLocationString.indexOf('Tobago') > -1 ? 'Tobago' : 'Trinidad';
-						$scope.$watch('country', function() {
-							$rootScope.c = $scope.country;
-						})
-						_this.getCurrent(lat, lng);
-						_this.get_uv_index();
-						_this.metars_trin();
-						_this.trin_3day();
-					});
-				}, function(error) {
-					// in some cases something may go wrong
-					// most times location service for android may be turned off
-					if (error.message == 'The last location provider was disabled') {
-						error.message = error.message + "<br> Try enabling Location services in Settings";
-					}
-					$scope.showAlert('Unable to get current location', 'Try enabling Location services in Settings');
-					$scope.currentLocationString = "Unable to get current location:" + error;
-					$rootScope.$broadcast('scroll.refreshComplete');
+			// $timeout(function() {
+			// document.addEventListener('deviceready', function() {
 
+			Geo.getLocation().then(function(position) {
+				var lc = "";
+				var lat = position.coords.latitude;
+				var lng = position.coords.longitude;
+				// google map service will give us a location string based on our current location (or nearest detected location)
+				Geo.reverseGeocode(lat, lng).then(function(locString) {
+					$scope.currentLocationString = locString;
 					// $scope.trin_error = $scope.currentLocationString;
+					$scope.country = $scope.currentLocationString.indexOf('Tobago') > -1 ? 'Tobago' : 'Trinidad';
+					$scope.$watch('country', function() {
+						$rootScope.c = $scope.country;
+					})
+					_this.getCurrent(lat, lng);
+					_this.get_uv_index();
+					_this.metars_trin();
+					_this.trin_3day();
 				});
-			}, 1000)
+			}, function(error) {
+				// in some cases something may go wrong
+				// most times location service for android may be turned off
+				if (error.message == 'The last location provider was disabled') {
+					error.message = error.message + "<br> Try enabling Location services in Settings";
+				}
+				$scope.showAlert('Unable to get current location', 'Try enabling Location services in Settings');
+				$scope.currentLocationString = "Unable to get current location:" + error;
+				$rootScope.$broadcast('scroll.refreshComplete');
+
+				// $scope.trin_error = $scope.currentLocationString;
+			});
+			// }, 1000)
+			// }, false);
 
 			$ionicHistory.clearCache().then(function() {
 				// console.log('cache cleared')
@@ -1055,6 +1058,11 @@ angular.module('ionic.metApp')
 						$scope.summary_text = ci;
 					}
 				}
+
+				if (!ci) {
+					ci = 'Clear';
+					$scope.summary_text = ci;
+				}
 				// temp variable
 				var d = new Date();
 
@@ -1177,7 +1185,7 @@ angular.module('ionic.metApp')
 				})
 
 			},
-			template: '<div ng-include="getContentUrl()" style="padding-top: 13px;"></div>'
+			template: '<div ng-include="getContentUrl()" style="padding-top: 13px; margin-right: -7px;"></div>'
 		};
 	})
 	.directive('weatherIconBago', function($timeout) {
@@ -1194,7 +1202,7 @@ angular.module('ionic.metApp')
 					}, 2000)
 				})
 			},
-			template: '<div ng-include="getContentUrl()" style="padding-top: 13px;"></div>'
+			template: '<div ng-include="getContentUrl()" style="padding-top: 13px; margin-right: -7px;"></div>'
 		}
 	})
 	.directive('trinTodayIcon', function() {
