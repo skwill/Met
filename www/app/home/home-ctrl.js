@@ -1141,7 +1141,7 @@ angular.module('ionic.metApp')
 					// 24
 					_this.max24 = f.maxTob24look;
 					_this.min24 = f.minTob24look;
-					$scope.bago_24_icon = f.wx24cp ? ff.wx48cp : 'sunny';
+					$scope.bago_24_icon = f.wx24cp ? f.wx48cp : 'sunny';
 					// 48
 					// 48 is on standby, it will be used as the last day in the 530am forecast
 
