@@ -11,10 +11,11 @@
                 <ion-header-bar frosted-bar type="bar-frosted" id="headerr" class="header trin bar bar-header bar-cdlear no-border">
                     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
                     <h1 class="title">
-                        <span class="city"><i class="city-nav-icon icon ion-navigate"></i>{{currentLocationString}}<br></span>
+                        <span class="city"><i class="city-nav-icon icon ion-navigate"></i>Trinidad<br></span>
+                        <!-- <span class="city"><i class="city-nav-icon icon ion-navigate"></i>{{currentLocationString}}<br></span> -->
                     </h1>
-                    <button ng-click="flip('Tobago')" class="button button-icon">
-                        <img src="app/home/tt4.svg" alt="Tobago">
+                    <button ng-click="flip('Tobago')" class="button button-icon ion-arrow-swap">
+                        <!-- <img src="app/home/tt4.svg" alt="Tobago"> -->
                     </button>
                 </ion-header-bar>
 
@@ -27,47 +28,77 @@
 
                 <!-- <div class="bar-footer fixed" ng-click="go_toForecastHome()"> -->
                 <ion-footer-bar class="bar-d3">
+                   <!--  <div class="row" style="position: absolute; bottom: 110px;">
+                        <div class="col">
+                            <span style="right: -10px; flaot: right">
+                                <trin-sun-up></trin-sun-up>
+                                <span style="position: absolute; bottom: 25px; left: 65px;">5:30am</span>
+                            </span>
+                        </div>
+                    </div> -->
                     <div class="d3 threeDay trin" ui-sref="app.forecast_home">
-                        <div class="row" >
+                        <div class="row"  style="height: 60px; ">
                             <div class="col"><p class="lead" >{{t}}</p></div>
                             <div class="col">
-                                <p class="text-right icon-size">
-                                    <trin-today-icon></trin-today-icon>
-                                </p>
+                                <!-- <p class="text-right icon-size"> -->
+                                    <span ng-if="!trin_icon_ready">
+                                        <ion-spinner style="" class="holder light" icon="dots"></ion-spinner>
+                                    </span>
+                                    <span class="text-right">
+                                        <trin-today-icon></trin-today-icon>
+                                    </span>
+                                <!-- </p> -->
                             </div>
-                            <div class="col">
-                                <p class="text-right fc-high"><span class="small">Hi</span> {{tc.th}}<sup>&deg;</sup><span>c</span></p>
-                            </div>
-                            <div class="col">
-                                <p class="text-right fc-low">Lo {{tc.tl}}<sup>&deg;</sup><span>c</span></p>
+                            <div class="col text-right">
+                                <!-- <p>Day</p> -->
+                                <p class="text-right fc-high" ng-class="{wider_p: t=='Today'}">
+
+                                    <span ng-if="t == 'Today'"><span class="small">Day</span> {{tc.th}}<sup>&deg;</sup><span>c<i class="icon ion-ios-arrow-thin-up"></i></span> •</span>
+                                <!-- </p> -->
+                                <!-- <p class="text-right fc-high"><span class="small">Hi</span> {{tc.th}}<sup>&deg;</sup><span>c</span></p> -->
+                            <!-- </div> -->
+                            <!-- <div class="col"> -->
+                                <!-- <p class="text-right fc-low"> -->
+                                    Night {{tc.tl}}<sup>&deg;</sup><span>c<i class="icon ion-ios-arrow-thin-down"></i></span></p>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" style="height : 60px; ">
                             <div class="col"><p class="lead" >{{tm}}</p></div>
                             <div class="col">
                                 <p class="text-right icon-size">
+                                    <span ng-if="!trin_icon_ready">
+                                        <ion-spinner style="" class="holder light" icon="dots"></ion-spinner>
+                                    </span>
                                     <trin-tom-icon></trin-tom-icon>
                                 </p>
                             </div>
                             <div class="col">
-                                <p class="text-right fc-high"><span class="small">Hi</span> {{tc.maxtm}}<sup>&deg;</sup><span>c</span></p>
-                            </div>
-                            <div class="col">
-                                <p class="text-right fc-low">Lo {{tc.mintm}}<sup>&deg;</sup><span>c</span></p>
+                                <p class="text-right fc-high wider_p">
+                                    <span class="small">Day</span> {{tc.maxtm}}<sup>&deg;</sup><span>c<i class="icon ion-ios-arrow-thin-up"></i></span> •</span>
+                            <!-- </div> -->
+                            <!-- <div class="col"> -->
+                                <!-- <p class="text-right fc-low"> -->
+                                    Night {{tc.mintm}}<sup>&deg;</sup><span>c<i class="icon ion-ios-arrow-thin-down"></i></span></p>
                             </div>
                         </div>
-                        <div class="row">
+
+                        <div class="row" style="height : 60px; ">
                             <div class="col"><p class="lead" >{{nd}}</p></div>
                             <div class="col">
                                 <p class="text-right icon-size">
+                                    <span ng-if="!trin_icon_ready">
+                                        <ion-spinner style="" class="holder light" icon="dots"></ion-spinner>
+                                    </span>
                                     <trin-ndi-icon></trin-ndi-icon>
                                 </p>
                             </div>
                             <div class="col">
-                                <p class="text-right fc-high"><span class="small">Hi</span> {{tc.max24}}<sup>&deg;</sup><span>c</span></p>
-                            </div>
-                            <div class="col">
-                                <p class="text-right fc-low">Lo {{tc.min24}}<sup>&deg;</sup><span>c</span></p>
+                                <p class="text-right fc-high wider_p">
+                                    <span class="small">Day</span> {{tc.max24}}<sup>&deg;</sup><span>c<i class="icon ion-ios-arrow-thin-up"></i></span> •</span>
+                            <!-- </div> -->
+                            <!-- <div class="col"> -->
+                                <!-- <p class="text-right fc-low"> -->
+                                    Night {{tc.min24}}<sup>&deg;</sup><span>c<i class="icon ion-ios-arrow-thin-down"></i></span></p>
                             </div>
                         </div>
                     </div>
@@ -92,11 +123,12 @@
                 <ion-header-bar frosted-bar type="bar-frosted" class="header bago bar bar-header bar-cdlear no-border">
                     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
                     <h1 class="title">
-                        <span class="city"><i id="" class="city-nav-icon icon ion-navigate"></i>{{currentLocationString}}<br></span>
+                        <span class="city"><i class="city-nav-icon icon ion-navigate"></i>Tobago<br></span>
+                        <!-- <span class="city"><i id="" class="city-nav-icon icon ion-navigate"></i>{{currentLocationString}}<br></span> -->
                         <current-time localtz="current.local_tz_short"></current-time>
                     </h1>
-                    <button ng-click="flip('Trinidad')" class="button button-icon">
-                        <img src="app/home/tt3.svg" alt="Tobago">
+                    <button ng-click="flip('Trinidad')" class="button button-icon ion-arrow-swap">
+                        <!-- <img src="app/home/tt3.svg" alt="Tobago"> -->
                     </button>
                 </ion-header-bar>
 

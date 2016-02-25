@@ -68,14 +68,15 @@ angular.module('ionic.metApp.services', ['ngResource'])
       return q.promise;
     },
     getLocation: function() {
-      var q = $q.defer();
-      navigator.geolocation.getCurrentPosition(function(position) {
-        q.resolve(position);
-      }, function(error) {
-        q.reject(error);
-      });
+      // return true;
+      // var q = $q.defer();
+      // navigator.geolocation.getCurrentPosition(function(position) {
+      //   q.resolve(position);
+      // }, function(error) {
+      //   q.reject(error);
+      // });
 
-      return q.promise;
+      // return q.promise;
     }
   };
 })

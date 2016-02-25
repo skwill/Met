@@ -483,14 +483,16 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 			'sub': 'Shows a 2 Dimensional (2D) flow for the horizontal and vertical profile of the clouds.',
 			'cat': 150,
 			'code': '150max'
-		}, {
+		},
+		/*{
 			'id': 4,
 			'img': ' ',
 			'title': 'PAC',
 			'sub': 'No Subtitle',
 			'cat': 150,
 			'code': '150pac'
-		}, {
+		},*/
+		{
 			'id': 5,
 			// 'img': 'http://190.58.130.190/web/aviation/RadarPages2014/150km/ppi7.png',
 			'img': 'app/services/radar/ppi7.png',
@@ -583,7 +585,8 @@ angular.module('ionic.metApp').controller('ServicesCtrl', function(Radars, metAp
 			'img': null,
 			'title': 'Satellite',
 			'sub': null,
-			'cat': null
+			'cat': null,
+			'code': 'geo'
 		},
 
 	]

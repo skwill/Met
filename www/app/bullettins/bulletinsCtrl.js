@@ -59,7 +59,7 @@ angular.module('ionic.metApp')
 			metApi.get_b_info(function(data) {
 				vm.b_info = data.items[0];
 				vm.b_info.insertionDateFormatted = timePeriod(data.items[0].insertionDate);
-				if (vm.b_info.flag == '1') {
+				if (vm.b_info.flag == '0') {
 					vm.b_info = null;
 				}
 			});
@@ -72,7 +72,7 @@ angular.module('ionic.metApp')
 			metApi.get_b_serv(function(data) {
 				vm.s_items = data.items[0];
 				vm.s_items.insertionDateFormatted = timePeriod(data.items[0].insertionDate);
-				if (vm.s_items.flag == '1') {
+				if (vm.s_items.flag == '0') {
 					vm.s_items = null;
 				}
 			})
@@ -82,7 +82,7 @@ angular.module('ionic.metApp')
 			metApi.get_b_flood(function(data) {
 				vm.f_items = data.items[0];
 				vm.f_items.insertionDateFormatted = timePeriod(data.items[0].insertionDate);
-				if (vm.f_items.flag == '1') {
+				if (vm.f_items.flag == '0') {
 					vm.f_items = null;
 				}
 			})
@@ -93,7 +93,7 @@ angular.module('ionic.metApp')
 			metApi.get_b_sea(function(data) {
 				vm.r_items = data.items[0];
 				vm.r_items.insertionDateFormatted = timePeriod(data.items[0].insertionDate);
-				if (vm.r_items.flag == '1') {
+				if (vm.r_items.flag == '0') {
 					vm.r_items = null;
 				}
 			})

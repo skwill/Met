@@ -42,7 +42,7 @@ angular.module('ionic.metApp')
 				s = 'very hot ' + ($scope.timeOfDay() != 'night' ? 'day' : 'night');
 			}
 
-			return s;
+			return s + ' at ';
 		}
 
 		// set a pretty string for winds in metars view
@@ -150,13 +150,18 @@ angular.module('ionic.metApp')
 			var d = new Date();
 			var t = d.getHours();
 			if (t >= 0 && t <= 12) {
-				t = (t == 0 ? '12' : t) + 'am';
+				t = (t == 0 ? '12' : t) + ':' + ($scope.minuteOfDay()) + ' am';
 			}
 			if (t > 12) {
-				t = (t - 12) + 'pm';
+				t = (t - 12) + ':' + ($scope.minuteOfDay()) + ' pm';
 			}
 
 			return t;
+		}
+
+		$scope.minuteOfDay = function() {
+			var d = new Date();
+			return d.getMinutes();
 		}
 
 		$scope.searchTag = function() {
@@ -343,7 +348,10 @@ angular.module('ionic.metApp')
 			'desc': 'Squall'
 		}, {
 			'code': 'VCSH',
-			'desc': 'showers in vicinity'
+			'desc': 'Rains in various areas'
+		}, {
+			'code': 'CAVOK',
+			'desc': 'Fair'
 		}];
 
 		$rootScope.go_toForecastHome = function() {
@@ -384,37 +392,37 @@ angular.module('ionic.metApp')
 			// $timeout(function() {
 			// document.addEventListener('deviceready', function() {
 
-			Geo.getLocation().then(function(position) {
-				var lc = "";
-				var lat = position.coords.latitude;
-				var lng = position.coords.longitude;
-				// google map service will give us a location string based on our current location (or nearest detected location)
-				Geo.reverseGeocode(lat, lng).then(function(locString) {
-					$scope.currentLocationString = locString;
-					// $scope.trin_error = $scope.currentLocationString;
-					$scope.country = $scope.currentLocationString.indexOf('Tobago') > -1 ? 'Tobago' : 'Trinidad';
-					$scope.$watch('country', function() {
-						$rootScope.c = $scope.country;
-					})
-					_this.getCurrent(lat, lng);
-					_this.get_uv_index();
-					_this.metars_trin();
-					_this.trin_3day();
-				});
-			}, function(error) {
-				// in some cases something may go wrong
-				// most times location service for android may be turned off
-				if (error.message == 'The last location provider was disabled') {
-					error.message = error.message + "<br> Try enabling Location services in Settings";
-				}
-				$scope.showAlert('Unable to get current location', 'Try enabling Location services in Settings');
-				$scope.currentLocationString = "Unable to get current location:" + error;
-				$rootScope.$broadcast('scroll.refreshComplete');
+			// Geo.getLocation().then(function(position) {
+			// var lc = "";
+			// var lat = position.coords.latitude;
+			// var lng = position.coords.longitude;
+			// google map service will give us a location string based on our current location (or nearest detected location)
+			// Geo.reverseGeocode(lat, lng).then(function(locString) {
+			// $scope.currentLocationString = locString;
+			// $scope.trin_error = $scope.currentLocationString;
+			// $scope.country = $scope.currentLocationString.indexOf('Tobago') > -1 ? 'Tobago' : 'Trinidad';
+			// $scope.$watch('country', function() {
+			// 	$rootScope.c = $scope.country;
+			// })
+			_this.getCurrent(null, null);
+			_this.metars_trin();
+			_this.trin_3day();
+			$timeout(function() {
+				_this.get_uv_index();
+			}, 100)
+			// });
+			// }, function(error) {
+			// in some cases something may go wrong
+			// most times location service for android may be turned off
+			// if (error.message == 'The last location provider was disabled') {
+			// 	error.message = error.message + "<br> Try enabling Location services in Settings";
+			// }
+			// $scope.showAlert('Unable to get current location', 'Try enabling Location services in Settings');
+			// $scope.currentLocationString = "Unable to get current location:" + error;
+			// $rootScope.$broadcast('scroll.refreshComplete');
 
-				// $scope.trin_error = $scope.currentLocationString;
-			});
-			// }, 1000)
-			// }, false);
+			// $scope.trin_error = $scope.currentLocationString;
+			// });
 
 			$ionicHistory.clearCache().then(function() {
 				// console.log('cache cleared')
@@ -424,27 +432,25 @@ angular.module('ionic.metApp')
 		};
 
 		_this.getCurrent = function(lat, lng) {
-			Weather.getAtLocation(lat, lng).then(function(resp) {
-				$scope.current = resp.data;
-				// console.log('scope current', $scope.current)
-				$rootScope.$broadcast('scroll.refreshComplete');
-				$scope.today = $scope.my_date(); // today is
-				// fetch a background image from flickr based on out location, time and current weather conditinos
-				// console.log('currently', $scope.current)
-				_this.getBackgroundImage("Trinidad, " + $scope.searchTag());
-			}, function(error) {
-				var errorTxt = "";
-				switch (error.status) {
-					case 404:
-						errorTxt = "No network connection";
-						break;
-					case 'The last location provider was disabled': // attempt to catch error of location services being disabled
-						errorTxt = error.status + "<br> Try enabling Location services in Settings";
-						break;
-				}
-				$scope.showAlert('Unable to get current conditions', errorTxt);
-				$rootScope.$broadcast('scroll.refreshComplete');
-			});
+			// Weather.getAtLocation(lat, lng).then(function(resp) {
+			// $scope.current = resp.data;
+			$rootScope.$broadcast('scroll.refreshComplete');
+			$scope.today = $scope.my_date(); // today is
+			// fetch a background image from flickr based on out location, time and current weather conditinos
+			_this.getBackgroundImage("Trinidad, " + $scope.searchTag());
+			// }, function(error) {
+			// var errorTxt = "";
+			// switch (error.status) {
+			// 	case 404:
+			// 		errorTxt = "No network connection";
+			// 		break;
+			// 	case 'The last location provider was disabled': // attempt to catch error of location services being disabled
+			// 		errorTxt = error.status + "<br> Try enabling Location services in Settings";
+			// 		break;
+			// }
+			// $scope.showAlert('Unable to get current conditions', errorTxt);
+			// $rootScope.$broadcast('scroll.refreshComplete');
+			// });
 		};
 
 		// gives us a random background after a refresh
@@ -476,7 +482,9 @@ angular.module('ionic.metApp')
 			$scope.has_index = true;
 			var el = document.getElementById('uv-index');
 			var d = today.getDate() + '.' + ((today.getMonth() + 1) < 9 ? '0' + (today.getMonth() + 1) : (today.getMonth() + 1)) + '.' + today.getFullYear();
-			$scope.hour_of_day = $scope.hourOfDay();
+			$interval(function() {
+				$scope.hour_of_day = $scope.hourOfDay();
+			}, 300)
 			// these indexes represent uv values. but instead of using the value directly we use a color in place of the index to represent the value
 			// the index will match to a color class to represent the uv_index value on the summary page
 			var uv_c = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9', 'c10', 'c11'];
@@ -840,50 +848,50 @@ angular.module('ionic.metApp')
 		}
 
 		_this.refreshData = function() {
-			Geo.getLocation().then(function(position) {
-				var lc = "";
-				var lat = position.coords.latitude;
-				var lng = position.coords.longitude;
-				// google map service will give us a location string based on our current location (or nearest detected location)
-				Geo.reverseGeocode(lat, lng).then(function(locString) {
-					$scope.currentLocationString = locString;
-					_this.getCurrent(lat, lng);
-					_this.metars_bago();
-					_this.bago_3day();
-					_this.set_time_bubble();
-				});
-			}, function(error) {
-				// in some cases something may go wrong
-				// most times locatio service for android may be turned off
-				if (error.message == 'The last location provider was disabled') {
-					error.message = error.message + "<br> Try enabling Location services in Settings";
-				}
-				$scope.showAlert('Unable to get current location', 'Try enabling Location services in Settings');
-				$scope.currentLocationString = "Unable to get current location:" + error;
-				$rootScope.$broadcast('scroll.refreshComplete');
-			});
+			// Geo.getLocation().then(function(position) {
+			// 	var lc = "";
+			// 	var lat = position.coords.latitude;
+			// 	var lng = position.coords.longitude;
+			// 	// google map service will give us a location string based on our current location (or nearest detected location)
+			// 	Geo.reverseGeocode(lat, lng).then(function(locString) {
+			// 		$scope.currentLocationString = locString;
+			_this.getCurrent(null, null);
+			_this.metars_bago();
+			_this.bago_3day();
+			_this.set_time_bubble();
+			// 	});
+			// }, function(error) {
+			// 	// in some cases something may go wrong
+			// 	// most times locatio service for android may be turned off
+			// 	if (error.message == 'The last location provider was disabled') {
+			// 		error.message = error.message + "<br> Try enabling Location services in Settings";
+			// 	}
+			// 	$scope.showAlert('Unable to get current location', 'Try enabling Location services in Settings');
+			// 	$scope.currentLocationString = "Unable to get current location:" + error;
+			// 	$rootScope.$broadcast('scroll.refreshComplete');
+			// });
 
 		};
 
 		_this.getCurrent = function(lat, lng) {
-			Weather.getAtLocation(lat, lng).then(function(resp) {
-				$scope.current = resp.data;
-				$rootScope.$broadcast('scroll.refreshComplete');
-				$scope.today = $scope.my_date();
-				_this.getBackgroundImage("Tobago, " + $scope.searchTag());
-			}, function(error) {
-				var errorTxt = "";
-				switch (error.status) {
-					case 404:
-						errorTxt = "No network connection";
-						break;
-					case 'The last location provider was disabled': // attempt to catch error of location services being disabled
-						errorTxt = error.status + "<br> Try enabling Location services in Settings";
-						break;
-				}
-				$scope.showAlert('Unable to get current conditions', errorTxt);
-				$rootScope.$broadcast('scroll.refreshComplete');
-			});
+			// Weather.getAtLocation(lat, lng).then(function(resp) {
+			// $scope.current = resp.data;
+			// $rootScope.$broadcast('scroll.refreshComplete');
+			$scope.today = $scope.my_date();
+			_this.getBackgroundImage("Tobago, " + $scope.searchTag());
+			// }, function(error) {
+			// 	var errorTxt = "";
+			// 	switch (error.status) {
+			// 		case 404:
+			// 			errorTxt = "No network connection";
+			// 			break;
+			// 		case 'The last location provider was disabled': // attempt to catch error of location services being disabled
+			// 			errorTxt = error.status + "<br> Try enabling Location services in Settings";
+			// 			break;
+			// 	}
+			// $scope.showAlert('Unable to get current conditions', errorTxt);
+			$rootScope.$broadcast('scroll.refreshComplete');
+			// });
 		};
 
 		// gives us a random background after a refresh
@@ -1205,7 +1213,7 @@ angular.module('ionic.metApp')
 			template: '<div ng-include="getContentUrl()" style="padding-top: 13px; margin-right: -7px;"></div>'
 		}
 	})
-	.directive('trinTodayIcon', function() {
+	.directive('trinTodayIcon', function($rootScope) {
 		return {
 			restrict: 'E',
 			link: function(scope, element, attrs) {
@@ -1215,12 +1223,13 @@ angular.module('ionic.metApp')
 						console.debug('icon for today', j);
 						scope.ti1 = function() {
 							// console.log('app/home/forecast_icons/' + j + '.html', 'today')
+							$rootScope.trin_icon_ready = true;
 							return 'app/home/forecast_icons/' + j + '.html';
 						}
 					})
 				}, 2000)
 			},
-			template: '<div ng-include="ti1()"></div>'
+			template: '<div ng-include="ti1()" class="tti"></div>'
 		}
 	})
 	.directive('trinTomIcon', function() {
