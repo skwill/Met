@@ -282,7 +282,7 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
                     var url = "img/home-images/" + $scope.default_trin + ".jpg";
                     var item = v;
                     url = "http://farm" + item.farm + ".static.flickr.com/" + item.server + "/" + item.id + "_" + item.secret + "_z.jpg";
-                    console.log(url);
+                    // console.log(url);
                     // place scope fcast here to get image for the current weather contition
                     // var url = "app/home/IMG_3133.jpg"
                     // console.warn($scope)
@@ -472,7 +472,7 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
                     setTimeout(function() {
                         scope.$watch('trin_icon_today', function() {
                             var j = (scope.trin_icon_today ? scope.trin_icon_today : 'sunny').replace(/\s/g, "-").toLowerCase();
-                            console.debug('icon for today', j);
+                            // console.debug('icon for today', j);
                             scope.ti1 = function() {
                                 // console.log('app/home/forecast_icons/' + j + '.html', 'today')
                                 $rootScope.trin_today_icon_ready = true;

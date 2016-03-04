@@ -8,6 +8,7 @@ angular.module('ionic.metApp')
 			var _this = this;
 			$scope.activeBgImageIndex = 0;
 			$scope.isFlipped = false;
+			$rootScope.t = 'Today';
 			//  - - - - - - - - - - - - - - -  -
 
 			// flip tp tobago after making all calls if location is tobago
@@ -334,6 +335,7 @@ angular.module('ionic.metApp')
 
 			$scope.fcasttrin = $scope.timeOfDay() == 'night' ? 'fair-night' : 'fair'; // default trin fcast
 			$scope.fcastbago = "sunny"; // default bago fcast
+
 			var interval = 10 * 60000;
 			$interval(function time() {
 				$ionicHistory.clearCache().then(function() {
@@ -346,6 +348,7 @@ angular.module('ionic.metApp')
 					_this.refreshData();
 					$rootScope.get_fcast();
 					$rootScope.get_metars();
+					_this.getBackgroundImage("Trinidad, " + $scope.searchTag());
 				});
 				$ionicHistory.clearHistory();
 			}, interval);
@@ -404,7 +407,7 @@ angular.module('ionic.metApp')
 				$rootScope.$broadcast('scroll.refreshComplete');
 				$scope.today = $scope.my_date(); // today is
 				// fetch a background image from flickr based on out location, time and current weather conditinos
-				_this.getBackgroundImage("Trinidad, " + $scope.searchTag());
+
 				// }, function(error) {
 				// var errorTxt = "";
 				// switch (error.status) {
@@ -424,7 +427,10 @@ angular.module('ionic.metApp')
 			_this.cycleBgImages = function() {
 				$timeout(function cycle() {
 					if ($scope.bgImages) {
-						$scope.activeBgImage = $scope.bgImages[$scope.activeBgImageIndex++ % $scope.bgImages.length + 3];
+						var image_index = Math.floor(Math.random() * $scope.bgImages.length) + 0;
+						// console.debug('image index', image_index);
+						$scope.activeBgImage = $scope.bgImages[image_index];
+						// $scope.activeBgImage = $scope.bgImages[$scope.activeBgImageIndex++ % $scope.bgImages.length];
 						$timeout(function() {
 							$scope.getAverageRGB(document.querySelector('#i-trin'), '.trin')
 						}, 2000)
@@ -437,6 +443,7 @@ angular.module('ionic.metApp')
 				Flickr.search(locString).then(function(resp) {
 					var photos = resp.photos;
 					$scope.bgImages = photos.photo;
+					console.debug('from flickr', $scope.bgImages)
 					_this.cycleBgImages();
 				}, function(error) {
 					console.log('Unable to get Flickr images', error);
@@ -498,7 +505,7 @@ angular.module('ionic.metApp')
 					}]
 					$scope.uv_index = ti[0];
 
-					console.debug('element in angular', el);
+					// console.debug('element in angular', el);
 					el.className = el.className + " c1";
 				}
 			}
@@ -609,7 +616,7 @@ angular.module('ionic.metApp')
 				if (ci == 'Clear' && parseInt(d.getHours()) >= 0 && parseInt(d.getHours()) <= 5) {
 					// if(ci=='Clear' && parseInt($scope.hourOfDay()) >= 0 && parseInt($scope.hourOfDay()) <= 5) {
 					$scope.fcasttrin = 'clear-night';
-					console.log('current hour', d.getHours());
+					// console.log('current hour', d.getHours());
 				}
 				// console.debug('metars trin', mets, $scope.cc, ci, $scope.fcasttrin);
 				// deal with summary text based on metars
@@ -667,7 +674,7 @@ angular.module('ionic.metApp')
 			// outlook tv for the 3-day forecast
 			_this.trin_3day = function(t) { // can be input of the country we load data for
 				// _this.wicons = [];
-				$scope.t = 'Today';
+
 				$scope.tm = $scope.day_string(1);
 				$scope.nd = $scope.day_string(2);
 				// $rootScope.get_forecast
@@ -680,11 +687,12 @@ angular.module('ionic.metApp')
 
 
 					_this.ftime_trin = f.forecastTime;
+					// alert(_this.ftime_trin);
 
 					if (_this.ftime_trin == "05:30PM") {
 						$localstorage.setObject('530pm_fcast', f);
 						// console.debug('530pm forecast from local storage', $localstorage.getObject('530pm_fcast'));
-						$scope.t = 'Tonight';
+						$rootScope.t = 'Tonight';
 						// today
 						_this.th = f.PiarcoFcstMxTemp;
 						_this.tl = f.PiarcoFcstMnTemp;
@@ -725,6 +733,7 @@ angular.module('ionic.metApp')
 
 			// do initial load
 			_this.refreshData();
+			_this.getBackgroundImage("Trinidad, " + $scope.searchTag());
 		}
 	])
 	.controller('BagoCtrl', ['metApi', '$scope', '$timeout', '$rootScope', 'Weather', 'Geo', 'Flickr', '$ionicModal',
@@ -739,6 +748,7 @@ angular.module('ionic.metApp')
 				$ionicHistory.clearCache().then(function() {
 					_this.refreshData();
 					$route.reload();
+					_this.getBackgroundImage("Tobago, " + $scope.searchTag());
 				});
 				$ionicHistory.clearHistory();
 			}, interval);
@@ -779,7 +789,7 @@ angular.module('ionic.metApp')
 				// $scope.current = resp.data;
 				// $rootScope.$broadcast('scroll.refreshComplete');
 				$scope.today = $scope.my_date();
-				_this.getBackgroundImage("Tobago, " + $scope.searchTag());
+
 				// }, function(error) {
 				// 	var errorTxt = "";
 				// 	switch (error.status) {
@@ -799,7 +809,10 @@ angular.module('ionic.metApp')
 			_this.cycleBgImages = function() {
 				$timeout(function cycle() {
 					if ($scope.bgImages) {
-						$scope.activeBgImage = $scope.bgImages[$scope.activeBgImageIndex++ % $scope.bgImages.length];
+						var image_index = Math.floor(Math.random() * $scope.bgImages.length) + 0;
+						// console.debug('image index', image_index);
+						$scope.activeBgImage = $scope.bgImages[image_index];
+						// $scope.activeBgImage = $scope.bgImages[$scope.activeBgImageIndex++ % $scope.bgImages.length];
 						setTimeout(function() {
 							$scope.getAverageRGB(document.querySelector('#i-bago'), '.bago')
 						}, 2000)
@@ -953,7 +966,7 @@ angular.module('ionic.metApp')
 			}
 
 			_this.bago_3day = function(t) { // can be input of the country we load data for
-				$scope.t = 'Today';
+				// $scope.t = 'Today';
 				$scope.tm = $scope.day_string(1);
 				$scope.nd = $scope.day_string(2);
 
@@ -962,7 +975,7 @@ angular.module('ionic.metApp')
 				// wait for update
 				$rootScope.$on('f_cast_ready', function(event, data) {
 					// $timeout(function() {
-					console.debug('bago fcast', $rootScope.fcast_result);
+					// console.debug('bago fcast', $rootScope.fcast_result);
 					f = data; //$rootScope.fcast_result; //data.items[0];
 					// $rootScope.$apply();
 					_this.ftime_bago = f.forecastTime;
@@ -970,7 +983,8 @@ angular.module('ionic.metApp')
 					if (_this.ftime_bago == "05:30PM") {
 						$localstorage.setObject('530pm_fcast', f);
 						// console.debug('530pm forecast from local storage', $localstorage.getObject('530pm_fcast'));
-						$scope.t = 'Tonight';
+						// $scope.t = 'Tonight';
+						// alert($scope.t)
 						// today
 						_this.th = f.CrownFcstMxTemp ? f.CrownFcstMxTemp : ' - ';
 						_this.tl = f.CrownFcstMnTemp ? f.CrownFcstMnTemp : ' - ';
@@ -1012,6 +1026,7 @@ angular.module('ionic.metApp')
 			}
 
 			_this.refreshData();
+			_this.getBackgroundImage("Tobago, " + $scope.searchTag());
 
 		}
 	])

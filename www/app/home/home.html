@@ -62,12 +62,10 @@
                                     <!-- <div class="clear"></div> -->
                                     <p class="text-right fc-high" ng-class="{wider_p: t=='Today'}" ng-if="trin_today_icon_ready">
                                         <span ng-if="t == 'Today'">
-                                            <span class="small">Day</span>
-                                            {{tc.th}}<sup>&deg;</sup>
+                                            <span class="small">Day</span>{{tc.th}}<sup>&deg;</sup>
                                             <span>c<i class="icon ion-ios-arrow-thin-up"></i></span> •
                                         </span>
-                                        Night {{tc.tl}}<sup>&deg;</sup>
-                                        <span>c<i class="icon ion-ios-arrow-thin-down"></i></span>
+                                        Night {{tc.tl}}<sup>&deg;</sup><span>c<i class="icon ion-ios-arrow-thin-down"></i></span>
                                     </p>
                                 </div>
                                 <div class="col">
@@ -76,8 +74,7 @@
                                     </p>
                                     <!-- <div class="clear"></div> -->
                                     <p class="text-right fc-high wider_p" ng-if="trin_tm_icon_ready && tc.maxtm && tc.mintm">
-                                        <span class="small">Day</span>
-                                        {{tc.maxtm}}<sup>&deg;</sup>
+                                        <span class="small">Day</span>{{tc.maxtm}}<sup>&deg;</sup>
                                         <span>c<i class="icon ion-ios-arrow-thin-up"></i></span> •
                                         <!-- </span> -->
                                         Night {{tc.mintm}}<sup>&deg;</sup><span>c<i class="icon ion-ios-arrow-thin-down"></i></span>
@@ -168,11 +165,9 @@
                                     <p class="text-right fc-high" ng-class="{wider_p: t=='Today'}" ng-if="trin_today_icon_ready">
                                         <span ng-if="t == 'Today'">
                                             <span class="small">Day</span>
-                                            {{bc.th}}<sup>&deg;</sup>
-                                            <span>c<i class="icon ion-ios-arrow-thin-up"></i></span> •
+                                            {{bc.th}}<sup>&deg;</sup><span>c<i class="icon ion-ios-arrow-thin-up"></i></span> •
                                         </span>
-                                        Night {{bc.tl}}<sup>&deg;</sup>
-                                        <span>c<i class="icon ion-ios-arrow-thin-down"></i></span>
+                                        Night {{bc.tl}}<sup>&deg;</sup><span>c<i class="icon ion-ios-arrow-thin-down"></i></span>
                                     </p>
                                 </div>
                                 <div class="col">
@@ -182,8 +177,7 @@
                                     <!-- <div class="clear"></div> -->
                                     <p class="text-right fc-high wider_p" ng-if="trin_tm_icon_ready && bc.maxtm && bc.mintm">
                                         <span class="small">Day</span>
-                                        {{bc.maxtm}}<sup>&deg;</sup>
-                                        <span>c<i class="icon ion-ios-arrow-thin-up"></i></span> •
+                                        {{bc.maxtm}}<sup>&deg;</sup><span>c<i class="icon ion-ios-arrow-thin-up"></i></span> •
                                         <!-- </span> -->
                                         Night {{bc.mintm}}<sup>&deg;</sup><span>c<i class="icon ion-ios-arrow-thin-down"></i></span>
                                     </p>
@@ -195,8 +189,7 @@
                                     <!-- <div class="clear"></div> -->
                                     <p class="text-right fc-high wider_p" ng-if="trin_nd_icon_ready && bc.max24 && bc.min24">
                                         <span class="small">Day</span>
-                                        {{bc.max24}}<sup>&deg;</sup>
-                                        <span>c<i class="icon ion-ios-arrow-thin-up"></i></span> •
+                                        {{bc.max24}}<sup>&deg;</sup><span>c<i class="icon ion-ios-arrow-thin-up"></i></span> •
                                         <!-- </span> -->
                                         Night {{bc.min24}}<sup>&deg;</sup><span>c<i class="icon ion-ios-arrow-thin-down"></i></span>
                                     </p>
