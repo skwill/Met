@@ -22,7 +22,7 @@ angular.module('ionic.metApp')
 			// MET API functions: all function look to met factory for consuming data
 			$scope.set_due_point = function(idx, arr) {
 				var p = arr[idx].value;
-				// console.log('dew point', p);
+		// console.log('dew point', p);
 				var pat = /([0-9\.]+)%/g;
 				return (r = pat.exec(p))[0];
 			}
@@ -323,9 +323,9 @@ angular.module('ionic.metApp')
 
 	])
 	.controller('TrinCtrl', ['metApi', '$scope', '$timeout', '$rootScope', 'Weather', 'Geo', 'Flickr', '$ionicModal', '$ionicPlatform',
-		'$ionicPopup', '$interval', '$ionicBackdrop', '$state', '$ionicHistory', '$route', '$window', '$ionicLoading', '$localstorage', '$cordovaDialogs', 'metTT',
+		'$ionicPopup', '$interval', '$ionicBackdrop', '$state', '$ionicHistory', '$route', '$window', '$ionicLoading', '$localstorage', '$cordovaDialogs', 'metTT', '$ionicPopover',
 		function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform,
-			$ionicPopup, $interval, $ionicBackdrop, $state, $ionicHistory, $route, $window, $ionicLoading, $localstorage, $cordovaDialogs, metTT) {
+			$ionicPopup, $interval, $ionicBackdrop, $state, $ionicHistory, $route, $window, $ionicLoading, $localstorage, $cordovaDialogs, metTT, $ionicPopover) {
 			var _this = this;
 
 			$interval(function() {
@@ -355,6 +355,14 @@ angular.module('ionic.metApp')
 
 			$rootScope.ref_trin = function() {
 				_this.refreshData();
+			}
+			$scope.refreshImgTrin = function() {
+				_this.getBackgroundImage("Trinidad, " + $scope.searchTag());
+				$scope.popover.hide();
+			}
+
+			$scope.closePopover = function() {
+				$scope.popover.hide();
 			}
 
 			_this.refreshData = function() {
@@ -443,7 +451,7 @@ angular.module('ionic.metApp')
 				Flickr.search(locString).then(function(resp) {
 					var photos = resp.photos;
 					$scope.bgImages = photos.photo;
-					console.debug('from flickr', $scope.bgImages)
+					// console.debug('from flickr', $scope.bgImages)
 					_this.cycleBgImages();
 				}, function(error) {
 					console.log('Unable to get Flickr images', error);
@@ -671,6 +679,17 @@ angular.module('ionic.metApp')
 					$scope.mettrin_modal.show();
 				}
 			}
+
+			$scope.open_trin_popover = function($event) {
+				// console.debug(e);
+				$ionicPopover.fromTemplateUrl('app/home/trin_popover.html', {
+					scope: $scope
+				}).then(function(popover) {
+					$scope.popover = popover;
+					$scope.popover.show($event);
+					// console.debug('popover', $scope.popover)
+				})
+			}
 			// outlook tv for the 3-day forecast
 			_this.trin_3day = function(t) { // can be input of the country we load data for
 				// _this.wicons = [];
@@ -737,9 +756,9 @@ angular.module('ionic.metApp')
 		}
 	])
 	.controller('BagoCtrl', ['metApi', '$scope', '$timeout', '$rootScope', 'Weather', 'Geo', 'Flickr', '$ionicModal',
-		'$ionicPlatform', '$ionicPopup', '$interval', '$ionicBackdrop', '$state', '$ionicHistory', '$route', '$ionicLoading', '$localstorage', 'metTB',
+		'$ionicPlatform', '$ionicPopup', '$interval', '$ionicBackdrop', '$state', '$ionicHistory', '$route', '$ionicLoading', '$localstorage', 'metTB', '$ionicPopover',
 		function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal,
-			$ionicPlatform, $ionicPopup, $interval, $ionicBackdrop, $state, $ionicHistory, $route, $ionicLoading, $localstorage, metTB) {
+			$ionicPlatform, $ionicPopup, $interval, $ionicBackdrop, $state, $ionicHistory, $route, $ionicLoading, $localstorage, metTB, $ionicPopover) {
 			var _this = this;
 
 			$scope.fcastbago = "sunny"; // default bago fcast
@@ -755,6 +774,26 @@ angular.module('ionic.metApp')
 			// refresh when we flip screen
 			$rootScope.ref_bago = function() {
 				_this.refreshData();
+			}
+
+			$scope.open_bago_popover = function($event) {
+				// console.debug(e);
+				$ionicPopover.fromTemplateUrl('app/home/bago_popover.html', {
+					scope: $scope
+				}).then(function(popover) {
+					$scope.popover = popover;
+					$scope.popover.show($event);
+					// console.debug('popover', $scope.popover)
+				})
+			}
+
+			$scope.refreshImgBago = function() {
+				_this.getBackgroundImage("Tobago, " + $scope.searchTag());
+				$scope.popover.hide();
+			}
+
+			$scope.closePopover = function() {
+				$scope.popover.hide();
 			}
 
 			_this.refreshData = function() {

@@ -220,7 +220,7 @@ h1,h2,h3,h4,h5 {
 #temp-hi, #temp-lo { display: inline-block; }
 #temp-lo { margin-left: 10px; }
 
-#uv-index {
+#uv-index, .mock_uv_bago {
 	&.uvc {
 		&.bago, &.small {
 			height: 40px;
@@ -661,8 +661,8 @@ h1,h2,h3,h4,h5 {
 }
 
 #menu-bg {
-	height: 100%;
-	width: 100%;
+	// height: 100%;
+	// width: 100%;
 	-webkit-background-size: cover;
        -moz-background-size: cover;
          -o-background-size: cover;
@@ -681,7 +681,7 @@ h1,h2,h3,h4,h5 {
 	    -ms-filter: blur(20px);
 	filter: url("data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='20'%20/></filter></svg>#blur");
 	filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='20');
-	clip: rect(520px 573px 516px 351px);
+	// clip: rect(520px 573px 516px 351px);
 	transition: all 0.5s ease-in-out;
 }
 
@@ -1307,5 +1307,27 @@ map {
 .w_i {
 	svg {
 		width: 73px!important;
+	}
+}
+
+.popover {
+	&.active {
+		opacity: 1;
+		min-height: 88px;
+		height: auto;
+	}
+}
+
+.platform-android {
+	.popover {
+		&.active {
+			min-height: 77px;
+		}
+	}
+}
+
+.pane {
+	&.black {
+		background-color: #000!important;
 	}
 }

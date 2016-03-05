@@ -51,6 +51,15 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
             }
         })
 
+        .state('app.bago', {
+            url: '/home/bago',
+            views: {
+                'mainContent': {
+                    templateUrl: 'app/home/bago.html'
+                }
+            }
+        })
+
         .state('app.bullettins', {
             url: '/bullettins/:id',
             cache: false,
