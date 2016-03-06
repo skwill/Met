@@ -311,11 +311,17 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
                 $ionicLoading.hide();
             })
             $ionicPlatform.ready(function() {
+
+                $timeout(function() {
+                    navigator.splashscreen.hide();
+                }, 100); 
+
+
                 // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
                 // for form inputs)
-                if (window.cordova && window.cordova.plugins.Keyboard) {
-                    cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-                }
+                // if (window.cordova && window.cordova.plugins.Keyboard) {
+                //     cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+                // }
 
                 // ionicPlatform.fullscreen();
                 if (window.StatusBar) {
