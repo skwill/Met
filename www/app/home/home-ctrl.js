@@ -22,7 +22,7 @@ angular.module('ionic.metApp')
 			// MET API functions: all function look to met factory for consuming data
 			$scope.set_due_point = function(idx, arr) {
 				var p = arr[idx].value;
-		// console.log('dew point', p);
+				// console.log('dew point', p);
 				var pat = /([0-9\.]+)%/g;
 				return (r = pat.exec(p))[0];
 			}

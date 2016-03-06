@@ -3,31 +3,31 @@
         <ion-nav-back-button class="button-clear">
             <i class="ion-arrow-left-c"></i>
         </ion-nav-back-button>
-        <!-- <ion-nav-buttons side="left">
+<!--         <ion-nav-buttons side="left">
             <button menu-toggle="left" class="button button-icon icon ion-navicon" ></button>
         </ion-nav-buttons> -->
     </ion-nav-bar>
     <ion-content scroll="true" class="" ng-init="vm.getForecast()">
 
-        <div ng-if="vm.forecast.forecastTime == '05:30AM'">
+        <!-- <div ng-if="vm.forecast.forecastTime == '05:30AM'">
             <five-thirty></five-thirty>
         </div>
 
         <div ng-if="vm.forecast.forecastTime == '10:00AM' || vm.forecast.forecastTime == '03:00PM'">
             <ten-three></ten-three>
-        </div>
+        </div> -->
 
-        <div ng-if="vm.forecast.forecastTime == '05:30PM'">
+        <div>
             <five-thirtyp></five-thirtyp>
         </div>
 
-        <div ng-if="!vm.forecast.forecastTime">
+        <div ng-if="!vm.forecast.forecastTime" ng-cloak>
             <div class="card wide">
                 <div class="item item-text-wrap">
                     <div class="info-container">
                         <div class="row date">
-                            <div class="col text-left">
-                                <p>There is currently no forecast data at this time.</p>
+                            <div class="col text-center">
+                            <h2><strong>There is no forecast data at this time.</strong></h2>
                             </div>
                         </div>
                     </div>
