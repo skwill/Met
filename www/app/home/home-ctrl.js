@@ -523,10 +523,10 @@ angular.module('ionic.metApp')
 				return (' ' + el.className + ' ').indexOf(' ' + cls + ' ') > -1;
 			}
 
+			$scope.current_temp_trin = "Loading..";
 			$rootScope.$on('forecast_loaded', function(event, data) {
 				//metars keys for trinidad
 				// _this.metars_trin = function() {
-				$scope.current_temp_trin = "Loading..";
 				// metApi.get_metar(function(data) {
 				var m = data;
 				// console.log('metars trin', m)
@@ -870,9 +870,9 @@ angular.module('ionic.metApp')
 				})
 			}
 
+			$scope.current_temp = "Loading..";
 			$rootScope.$on('forecast_loaded', function(event, data) {
 				// _this.metars_bago = function() {
-				$scope.current_temp = "Loading..";
 				// metApi.get_metar(function(data) {
 				var m = data;
 				// ids of metars for tobago
