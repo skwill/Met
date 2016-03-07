@@ -463,10 +463,10 @@ angular.module('ionic.metApp.services', ['ngResource'])
       {
         'id': 8,
         'img': 'http://190.58.130.190/web/aviation/RadarPages2014/200km/eht1.png',
-        'title': 'ETH(Height)',
+        'title': 'EHT(Echo Height Top)',
         'sub': 'Gives a representation of the height to which the top of the clouds extend.',
         'cat': 250,
-        'code': '250eth'
+        'code': '250eht'
       }, {
         'id': 9,
         'img': '',

@@ -462,6 +462,8 @@ angular.module('ionic.metApp')
 	function(metApi, $scope, $timeout, $ionicModal, $ionicPlatform, $ionicPopup, $interval, $ionicBackdrop, $state, $route, $rootScope, $ionicLoading) {
 		var _this = this;
 		$scope.ai = [];
+		$scope.lat = 10.511439;
+		$scope.lng = -61.267560;
 
 		$scope.mapCreated = function(map) {
 			$scope.map = map;
@@ -477,16 +479,16 @@ angular.module('ionic.metApp')
 				showBackdrop: false
 			});
 
-			navigator.geolocation.getCurrentPosition(function(pos) {
-				$scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-				$ionicLoading.hide();
-			}, function(error) {
-				var alertPopup = $ionicPopup.alert({
-					title: 'Unable to get location',
-					template: error.message
-				});
-				// alert('Unable to get location: ' + error.message);
-			});
+			// navigator.geolocation.getCurrentPosition(function(pos) {
+			$scope.map.setCenter(new google.maps.LatLng($scope.lat, $scope.lng));
+			$ionicLoading.hide();
+			// }, function(error) {
+			// var alertPopup = $ionicPopup.alert({
+			// 	title: 'Unable to get location',
+			// 	template: error.message
+			// });
+			// alert('Unable to get location: ' + error.message);
+			// });
 		};
 
 		$scope.closeModal = function(a) {
@@ -591,6 +593,8 @@ angular.module('ionic.metApp')
 				},
 				link: function($scope, $element, $attr) {
 					function initialize() {
+						$scope.lat = 10.511439;
+						$scope.lng = -61.267560;
 						var cities = [{
 							city: 'Piarco',
 							desc: 'Piarco  (BASE) AWS',
@@ -639,9 +643,12 @@ angular.module('ionic.metApp')
 							map: map
 						});
 
-						navigator.geolocation.getCurrentPosition(function(pos) {
-							map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-						});
+						// navigator.geolocation.getCurrentPosition(function(pos) {
+						$timeout(function() {
+							map.setCenter(new google.maps.LatLng($scope.lat, $scope.lng));
+						}, 300)
+
+						// });
 
 						// Stop the side bar from dragging when mousedown/tapdown on the map
 						google.maps.event.addDomListener($element[0], 'mousedown', function(e) {
