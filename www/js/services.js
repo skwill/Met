@@ -381,7 +381,7 @@ angular.module('ionic.metApp.services', ['ngResource'])
       'desc': 'Squall'
     }, {
       'code': 'VCSH',
-      'desc': 'Rains in various areas'
+      'desc': 'Rain in various areas'
     }, {
       'code': 'CAVOK',
       'desc': 'Fair'
