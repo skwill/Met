@@ -525,7 +525,7 @@ angular.module('ionic.metApp.services', ['ngResource'])
         'id': 16,
         'img': null,
         'title': 'Satellite',
-        'sub': null,
+        'sub': 'whose orbit is circular and lies above the Equator of the Earth.',
         'cat': null,
         'code': 'geo'
       },

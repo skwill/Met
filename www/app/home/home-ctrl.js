@@ -603,6 +603,7 @@ angular.module('ionic.metApp')
 					// end of weather conditions
 				}
 
+
 				var ci = "";
 				for (x = 0; x < $scope.metars_cloud.length; x++) {
 					if ($scope.cc == $scope.metars_cloud[x].code) {
@@ -626,6 +627,7 @@ angular.module('ionic.metApp')
 					$scope.fcasttrin = 'clear-night';
 					// console.log('current hour', d.getHours());
 				}
+				// alert($scope.summary_text_trin);
 				// console.debug('metars trin', mets, $scope.cc, ci, $scope.fcasttrin);
 				// deal with summary text based on metars
 				if (_this.mdata[1].value.indexOf('NOSIG') > -1) {
@@ -658,6 +660,8 @@ angular.module('ionic.metApp')
 
 				// })
 				// } // end of get metars trin
+
+				console.debug('trin summary', $scope.summary_text_trin);
 			})
 
 
