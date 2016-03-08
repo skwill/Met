@@ -107,6 +107,11 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
                         var headerHeight = document.querySelector('.header.trin').offsetHeight;
                         // $element[0].style.paddingTop = (windowHeight - (thisHeight) + 10) + 'px';
                         $element[0].style.paddingTop = (windowHeight - thisHeight) / 5 + 'px';
+
+                        if (((windowHeight - thisHeight) / 5) < 0) {
+                            $element[0].style.paddingTop = '80px';
+                        }
+
                         // console.log((windowHeight - thisHeight) / 2)
                         angular.element(document.querySelector('.content')).css('-webkit-overflow-scrolling', 'auto');
                         $timeout(function() {
@@ -529,60 +534,69 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
             }
         }
     ])
-    .directive('bagoTodayIcon', function() {
-        return {
-            restrict: 'E',
-            link: function(scope, element, attrs) {
-                scope.$watch('bago_icon_today', function() {
-                    setTimeout(function() {
-                        // var j = scope.bago_icon_today.replace(/\s/g, "-").toLowerCase();
-                        var j = (scope.bago_icon_today ? scope.bago_icon_today : 'sunny').replace(/\s/g, "-").toLowerCase();
-                        // console.debug('icon for today', j);
-                        scope.bi1 = function() {
-                            // console.log('app/home/forecast_icons/' + j + '.html', 'today')
-                            return 'app/home/forecast_icons/' + j + '.html';
-                        }
-                    }, 2000)
-                })
-            },
-            template: '<div ng-include="bi1()"></div>'
-        }
-    })
-    .directive('bagoTomIcon', function() {
-        return {
-            restrict: 'E',
-            link: function(scope, element, attrs) {
-                scope.$watch('bago_tm_icon', function() {
-                    setTimeout(function() {
-                        // var jj = scope.bago_tm_icon.replace(/\s/g, "-").toLowerCase();
-                        var jj = (scope.bago_tm_icon ? scope.bago_tm_icon : 'sunny').replace(/\s/g, "-").toLowerCase();
-                        // console.debug('icon for 24', jj);
-                        scope.bi2 = function() {
-                            // console.log('app/home/forecast_icons/' + jj + '.html', '24')
-                            return 'app/home/forecast_icons/' + jj + '.html';
-                        }
-                    }, 2000)
-                })
-            },
-            template: '<div ng-include="bi2()"></div>'
-        }
-    })
-    .directive('bagoNdiIcon', function() {
-        return {
-            restrict: 'E',
-            link: function(scope, element, attrs) {
-                setTimeout(function() {
-                    scope.$watch('bago_24_icon', function() {
-                        // var jj = scope.bago_24_icon.replace(/\s/g, "-").toLowerCase();
-                        var jj = (scope.bago_24_icon ? scope.bago_24_icon : 'sunny').replace(/\s/g, "-").toLowerCase();
-                        // console.debug('icon for 24', jj);
-                        scope.bi3 = function() {
-                            // console.log('app/home/forecast_icons/' + jj + '.html', '24')
-                            return 'app/home/forecast_icons/' + jj + '.html';
-                        }
+    .directive('bagoTodayIcon', ['$rootScope',
+        function($rootScope) {
+            return {
+                restrict: 'E',
+                link: function(scope, element, attrs) {
+                    scope.$watch('bago_icon_today', function() {
+                        setTimeout(function() {
+                            // var j = scope.bago_icon_today.replace(/\s/g, "-").toLowerCase();
+                            var j = (scope.bago_icon_today ? scope.bago_icon_today : 'sunny').replace(/\s/g, "-").toLowerCase();
+                            // console.debug('icon for today', j);
+                            scope.bi1 = function() {
+                                // console.log('app/home/forecast_icons/' + j + '.html', 'today')
+                                $rootScope.bago_today_icon_ready = true;
+                                return 'app/home/forecast_icons/' + j + '.html';
+                            }
+                        }, 2000)
                     })
-                }, 2000)
-            },
-            template: '<div ng-include="bi3()"></div>'
+                },
+                template: '<div ng-include="bi1()"></div>'
+            }
         }
-    });
+    ])
+    .directive('bagoTomIcon', ['$rootScope',
+        function($rootScope) {
+            return {
+                restrict: 'E',
+                link: function(scope, element, attrs) {
+                    scope.$watch('bago_tm_icon', function() {
+                        setTimeout(function() {
+                            // var jj = scope.bago_tm_icon.replace(/\s/g, "-").toLowerCase();
+                            var jj = (scope.bago_tm_icon ? scope.bago_tm_icon : 'sunny').replace(/\s/g, "-").toLowerCase();
+                            // console.debug('icon for 24', jj);
+                            scope.bi2 = function() {
+                                // console.log('app/home/forecast_icons/' + jj + '.html', '24')
+                                $rootScope.bago_tm_icon_ready = true;
+                                return 'app/home/forecast_icons/' + jj + '.html';
+                            }
+                        }, 2000)
+                    })
+                },
+                template: '<div ng-include="bi2()"></div>'
+            }
+        }
+    ])
+    .directive('bagoNdiIcon', ['$rootScope',
+        function($rootScope) {
+            return {
+                restrict: 'E',
+                link: function(scope, element, attrs) {
+                    setTimeout(function() {
+                        scope.$watch('bago_24_icon', function() {
+                            // var jj = scope.bago_24_icon.replace(/\s/g, "-").toLowerCase();
+                            var jj = (scope.bago_24_icon ? scope.bago_24_icon : 'sunny').replace(/\s/g, "-").toLowerCase();
+                            // console.debug('icon for 24', jj);
+                            scope.bi3 = function() {
+                                // console.log('app/home/forecast_icons/' + jj + '.html', '24')
+                                $rootScope.bago_nd_icon_ready = true;
+                                return 'app/home/forecast_icons/' + jj + '.html';
+                            }
+                        })
+                    }, 2000)
+                },
+                template: '<div ng-include="bi3()"></div>'
+            }
+        }
+    ]);

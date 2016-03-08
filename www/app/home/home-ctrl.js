@@ -706,6 +706,7 @@ angular.module('ionic.metApp')
 				// metApi.get_forecast(function(data) {
 				// console.debug('trin fcast', $rootScope.fcast_result);
 				$rootScope.$on('f_cast_ready', function(event, data) {
+					// alert();
 					var f = data; //$rootScope.fcast_result;
 
 
@@ -749,6 +750,7 @@ angular.module('ionic.metApp')
 					}
 
 					$scope.trin_icon_today = f.imageTrin ? f.imageTrin : 'sunny'; // this will always be the latest from the api
+					// alert($scope.trin_icon_today)
 					_this.sunup = f.sunrise;
 					_this.sundown = f.sunset;
 				})
@@ -1060,6 +1062,7 @@ angular.module('ionic.metApp')
 						$scope.bago_24_icon = f.wx48cp ? f.wx48cp : 'sunny';
 					}
 					$scope.bago_icon_today = f.imagebago; // this will always be the latest from the api
+					// alert($scope.bago_icon_today)
 
 				})
 
