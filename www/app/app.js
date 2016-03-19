@@ -109,6 +109,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
 
         .state('app.services.radars', {
             url: "/radars",
+            // abstract: true,
             views: {
                 'servicesContent': {
                     templateUrl: "app/services/aviation.html"
@@ -327,6 +328,10 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
                     // StatusBar.styleBlackTranslucent();
                 }
 
+                // $timeout(function() {
+                navigator.splashscreen.hide();
+                // }, 100)
+
             });
 
             // ionic push notification set up
@@ -339,6 +344,35 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
                     canPlaySound: true, //Can notifications play a sound?
                     canRunActionsOnWake: true, //Can run actions outside the app,
                     'onNotification': function(notification) {
+                        var msg_after = ' in effect';
+                        switch (notification.payload.slide) {
+                            case 'Information':
+                                notification.text = 'Information Bulletin' + msg_after;
+                                break;
+                            case 'Severe Weather':
+                                notification.text = 'Severe Bulletin' + msg_after;
+                                break;
+                            case 'Rough Sea':
+                                notification.text = 'Rough Seas Bulletin' + msg_after;
+                                break;
+                            case 'Flood':
+                                notification.text = 'Flood Bulletin' + msg_after;
+                                break;
+                            case 'Storm':
+                                notification.text = 'Storm Bulletin' + msg_after;
+                                break;
+                            case 'WARNING':
+                                notification.text = 'Watch' + msg_after;
+                                break;
+                            case 'WATCH':
+                                notification.text = 'Warning' + msg_after;
+                                break;
+
+                            default:
+                                notification.text = 'Bulletin' + msg_after;
+                                break;
+                        }
+
                         console.log('notification', notification)
                         if (ionic.Platform.isAndroid()) {
                             handleAndroid(notification);
@@ -397,19 +431,19 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
             })
 
             function handleAndroid(notification) {
-                console.log('android');
+                // console.log('android');
 
                 $cordovaDialogs.confirm(notification.text, notification.title)
                     .then(function(buttonIndex) {
                         var btn = buttonIndex;
 
-                        console.log('button', btn)
+                        // console.log('button', btn)
                         if (btn == 1) {
                             var p = 0;
                             // var p = {
                             // id: 2
                             // }
-                            console.debug('NOTIFICATION!!!', notification);
+                            // console.debug('NOTIFICATION!!!', notification);
                             if (notification.payload.slide == "Information" || notification.payload.slide == "WATCH") {
                                 p = 0;
                             }

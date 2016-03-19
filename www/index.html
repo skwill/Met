@@ -40,7 +40,7 @@
     <script src="js/jquery.1.11.min.js"></script>
     <script src="app/app.js"></script>
     <!-- // <script src="js/controllers.js"></script> -->
-    <script src="app/home/home-ctrl.min.js"></script>
+    <script src="app/home/home-ctrl.js"></script>
     <script src="app/bullettins/bulletinsCtrl.min.js"></script>
     <script src="app/services/servicesCtrl.min.js"></script>
     <script src="app/forecast/forecastCtrl.min.js"></script>
@@ -52,8 +52,8 @@
 
 
   </head>
-  <body>
-    <ion-nav-view></ion-nav-view>
+  <body ng-controller="HomeCtrl as hc" >
+    <ion-nav-view ></ion-nav-view>
   </body>
 
 </html>

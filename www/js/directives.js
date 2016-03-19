@@ -477,7 +477,7 @@ angular.module('ionic.metApp.directives', ['ngAnimate'])
                     setTimeout(function() {
                         scope.$watch('trin_icon_today', function() {
                             var j = (scope.trin_icon_today ? scope.trin_icon_today : 'sunny').replace(/\s/g, "-").toLowerCase();
-                            // console.debug('icon for today', j);
+                            console.debug('icon for today', scope.trin_icon_today);
                             scope.ti1 = function() {
                                 // console.log('app/home/forecast_icons/' + j + '.html', 'today')
                                 $rootScope.trin_today_icon_ready = true;

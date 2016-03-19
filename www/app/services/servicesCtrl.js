@@ -246,104 +246,106 @@ angular.module('ionic.metApp')
 			sc.radars_250 = function() {
 				sc.radars_250_list = Radars.all_of_cat(250);
 			}
+
 			sc.get_radar_400 = function() {
+				sc.radars_400_list = Radars.all_of_cat(400);
 				// alert();
 			}
 
-			sc.get_metars = function() {
-				metApi.get_metar(function(data) {
-					var m = data.items;
-					// gets the current temp, we only care about the exact number so pull that out from the string
-					// these are the ids of the metas we want for trinidad
-					var ids = [
-						// metar fir
-						{
-							'id': 1,
-							'icon': 'icon ion-ios-location-outline',
-							'el': 'met-loc',
-							'show': true
-						},
-						// text
-						{
-							'id': 2,
-							'icon': 'icon ion-thermometer',
-							'el': null,
-							'show': false
-						},
-						// temp
-						{
-							'id': 3,
-							'icon': 'icon ion-thermometer',
-							'el': 'temp',
-							'show': true
-						},
-						// dewpoint
-						{
-							'id': 4,
-							'icon': 'icon ion-waterdrop',
-							'el': 'dew',
-							'show': true
-						},
-						// pressure
-						{
-							'id': 5,
-							'icon': 'icon ion-ios-speedometer-outline',
-							'el': 'pressure',
-							'show': true
-						},
-						// winds
-						{
-							'id': 6,
-							'icon': 'icon ion-ios-analytics-outline',
-							'el': 'winds',
-							'show': true
-						},
-						// visibility
-						{
-							'id': 7,
-							'icon': 'icon',
-							'el': 'weather',
-							'show': false
-						},
-						// ceiling
-						{
-							'id': 8,
-							'el': 'weather',
-							'show': false
-						},
-						// clouds
-						{
-							'id': 9,
-							'icon': 'icon ion-ios-cloudy-outline',
-							'el': 'clouds',
-							'show': true
-						},
-						// weather
-						{
-							'id': 10,
-							'icon': 'icon ion-umbrella',
-							'el': 'weather',
-							'show': false
-						}
-					];
+			// sc.get_metars = function() {
+			// 	metApi.get_metar(function(data) {
+			// 		var m = data.items;
+			// 		// gets the current temp, we only care about the exact number so pull that out from the string
+			// 		// these are the ids of the metas we want for trinidad
+			// 		var ids = [
+			// 			// metar fir
+			// 			{
+			// 				'id': 1,
+			// 				'icon': 'icon ion-ios-location-outline',
+			// 				'el': 'met-loc',
+			// 				'show': true
+			// 			},
+			// 			// text
+			// 			{
+			// 				'id': 2,
+			// 				'icon': 'icon ion-thermometer',
+			// 				'el': null,
+			// 				'show': false
+			// 			},
+			// 			// temp
+			// 			{
+			// 				'id': 3,
+			// 				'icon': 'icon ion-thermometer',
+			// 				'el': 'temp',
+			// 				'show': true
+			// 			},
+			// 			// dewpoint
+			// 			{
+			// 				'id': 4,
+			// 				'icon': 'icon ion-waterdrop',
+			// 				'el': 'dew',
+			// 				'show': true
+			// 			},
+			// 			// pressure
+			// 			{
+			// 				'id': 5,
+			// 				'icon': 'icon ion-ios-speedometer-outline',
+			// 				'el': 'pressure',
+			// 				'show': true
+			// 			},
+			// 			// winds
+			// 			{
+			// 				'id': 6,
+			// 				'icon': 'icon ion-ios-analytics-outline',
+			// 				'el': 'winds',
+			// 				'show': true
+			// 			},
+			// 			// visibility
+			// 			{
+			// 				'id': 7,
+			// 				'icon': 'icon',
+			// 				'el': 'weather',
+			// 				'show': false
+			// 			},
+			// 			// ceiling
+			// 			{
+			// 				'id': 8,
+			// 				'el': 'weather',
+			// 				'show': false
+			// 			},
+			// 			// clouds
+			// 			{
+			// 				'id': 9,
+			// 				'icon': 'icon ion-ios-cloudy-outline',
+			// 				'el': 'clouds',
+			// 				'show': true
+			// 			},
+			// 			// weather
+			// 			{
+			// 				'id': 10,
+			// 				'icon': 'icon ion-umbrella',
+			// 				'el': 'weather',
+			// 				'show': false
+			// 			}
+			// 		];
 
-					sc.mdata = [];
-					for (i = 0; i < m.length; i++) {
-						if (m[i].station == "TTPP") {
-							sc.mdata.push({
-								'id': m[i].id,
-								'label': m[i].label,
-								'station': m[i].station,
-								'value': m[i].value,
-								'icon': ids[i].icon,
-								'el': ids[i].el,
-								'show': ids[i].show
-							});
-						}
-					}
-				})
-				sc.sigmet();
-			}
+			// 		sc.mdata = [];
+			// 		for (i = 0; i < m.length; i++) {
+			// 			if (m[i].station == "TTPP") {
+			// 				sc.mdata.push({
+			// 					'id': m[i].id,
+			// 					'label': m[i].label,
+			// 					'station': m[i].station,
+			// 					'value': m[i].value,
+			// 					'icon': ids[i].icon,
+			// 					'el': ids[i].el,
+			// 					'show': ids[i].show
+			// 				});
+			// 			}
+			// 		}
+			// 	})
+			// 	sc.sigmet();
+			// }
 
 			sc.sigmet = function() {
 				metApi.get_sigmet(function(data) {
