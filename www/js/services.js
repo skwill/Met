@@ -106,7 +106,7 @@ angular.module('ionic.metApp.services', ['ngResource'])
     return {
       search: function(tags, lat, lng) {
         var q = $q.defer();
-        console.log('Searching flickr for tags', tags);
+        // console.log('Searching flickr for tags', tags);
         flickrSearch.get({
           tags: tags,
           lat: lat,
@@ -372,7 +372,7 @@ angular.module('ionic.metApp.services', ['ngResource'])
       'desc': 'Fog'
     }, {
       'code': 'FU',
-      'desc': 'Smoke'
+      'desc': 'Partly Cloudy' /* was previously smoke */
     }, {
       'code': 'HZ',
       'desc': 'Haze'

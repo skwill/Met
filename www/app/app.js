@@ -298,9 +298,9 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
                 'http://farm6.static.flickr.com/5770/23408797994_05f0932a8d_z.jpg',
                 'http://farm6.static.flickr.com/5827/23410243873_3e22a903d1_z.jpg',
             ]).then(function() {
-                console.log('all images loaded')
+        // console.log('all images loaded')
             }, function(failed) {
-                console.log('error loading images')
+                // console.log('error loading images')
             });
 
             $rootScope.$on('loading:show', function() {
@@ -373,11 +373,11 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
                                 break;
                         }
 
-                        console.log('notification', notification)
+                        // console.log('notification', notification)
                         if (ionic.Platform.isAndroid()) {
                             handleAndroid(notification);
                         }
-                        console.debug('platform', ionic.Platform.device());
+                        // console.debug('platform', ionic.Platform.device());
                         // alert('Recieved push notification')
                     },
                     'pluginConfig': {
@@ -396,15 +396,15 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
                 }
 
                 user.set('name', ionic.Platform.device().model);
-                console.log('device name', ionic.Platform.device())
+                // console.log('device name', ionic.Platform.device())
                 user.set('bio', ionic.Platform.device().manufacturer + ', ' + ionic.Platform.device().platform + ', ' + ionic.Platform.device().uuid + ', ' + ionic.Platform.device().version);
                 user.save();
 
-                console.log('user', user);
+                // console.log('user', user);
 
                 var callback = function(data) {
                     push.addTokenToUser(user);
-                    console.log('token', data);
+                    // console.log('token', data);
                     // save user token to database
                     if (data.token != undefined) {
                         metApi.subscribe_token(function(data) {
@@ -420,7 +420,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
 
 
                 metApi.get_tokens(function(data) {
-                    console.debug('all device tokens', data)
+                    // console.debug('all device tokens', data)
                     // console.debug('met subscribe response', data);
                     // metApi.unsubscribe(function(data) {
                     //     console.log('all tokens cleared');
@@ -459,7 +459,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
                             $state.go('app.' + notification.payload.state, {
                                 id: p
                             })
-                            console.debug('state', notification.payload.state, p)
+                            // console.debug('state', notification.payload.state, p)
                         }
                         // alert('noti closed')
                     });

@@ -69,7 +69,7 @@ angular.module('ionic.metApp')
 			}
 
 			$scope.closeModal = function() {
-				console.debug('modal', $scope.modal)
+				// console.debug('modal', $scope.modal)
 				$scope.modal.hide();
 				// $scope.modal.remove();
 			}
