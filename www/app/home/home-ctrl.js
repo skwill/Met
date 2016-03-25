@@ -2,9 +2,15 @@
 // https://github.com/driftyco/ionic-weather
 angular.module('ionic.metApp')
 	.controller('HomeCtrl', ['metApi', '$scope', '$timeout', '$rootScope', 'Weather', 'Geo', 'Flickr', '$ionicModal', '$ionicPlatform',
-		'$ionicPopup', '$interval', '$ionicBackdrop', '$state', '$ionicHistory', '$route', 'metCodes',
+		'$ionicPopup', '$interval', '$ionicBackdrop', '$state', '$ionicHistory', '$route', 'metCodes', '$localstorage',
 		function(metApi, $scope, $timeout, $rootScope, Weather, Geo, Flickr, $ionicModal, $ionicPlatform,
-			$ionicPopup, $interval, $ionicBackdrop, $state, $ionicHistory, $route, metCodes) {
+			$ionicPopup, $interval, $ionicBackdrop, $state, $ionicHistory, $route, metCodes, $localstorage) {
+			// $ionicPlatform.ready(function() {
+			// 	$timeout(function() {
+			// 		navigator.splashscreen.hide();
+			// 	}, 3000)
+
+			// });
 			var _this = this;
 			$scope.activeBgImageIndex = 0;
 			$scope.isFlipped = false;
@@ -300,14 +306,19 @@ angular.module('ionic.metApp')
 			$rootScope.get_fcast = function() {
 				metApi.get_forecast(function(data) {
 					$rootScope.fcast_result = data.items[0];
-					$rootScope.$emit('f_cast_ready', $rootScope.fcast_result);
+					// alert('fcast started');
+					$localstorage.setObject('fcast', $rootScope.fcast_result);
+
+					// console.debug('fcast ready', $rootScope.fcast_result)
+					$rootScope.$broadcast('f_cast_ready', $rootScope.fcast_result);
 				})
 			}
 
 			$rootScope.get_metars = function() {
 				metApi.get_metar(function(data) {
 					$rootScope.metars_result = data.items;
-					$rootScope.$emit('forecast_loaded', $rootScope.metars_result);
+					$localstorage.setObject('metars', $rootScope.metars_result);
+					$rootScope.$broadcast('metars_loaded', $rootScope.metars_result);
 				});
 			}
 
@@ -365,6 +376,15 @@ angular.module('ionic.metApp')
 				$scope.popover.hide();
 			}
 
+
+			$rootScope.$on('metars_loaded', function(event, data) {
+				// alert()
+				_this.metars_trin();
+			});
+
+			$rootScope.$on('f_cast_ready', function(event, data) {
+				_this.trin_3day();
+			});
 			_this.refreshData = function() {
 				// $timeout(function() {
 				// document.addEventListener('deviceready', function() {
@@ -386,8 +406,12 @@ angular.module('ionic.metApp')
 				}, 1000)
 				_this.getCurrent(null, null);
 				// $rootScope.get_metars();
+				$rootScope.get_fcast();
+				$rootScope.get_metars();
 				// _this.metars_trin();
-				_this.trin_3day();
+				// _this.trin_3day();
+
+
 				// });
 				// }, function(error) {
 				// in some cases something may go wrong
@@ -523,12 +547,12 @@ angular.module('ionic.metApp')
 				return (' ' + el.className + ' ').indexOf(' ' + cls + ' ') > -1;
 			}
 
-			$rootScope.$on('forecast_loaded', function(event, data) {
-				//metars keys for trinidad
-				// _this.metars_trin = function() {
-				$scope.current_temp_trin = "Loading..";
+			$scope.current_temp_trin = "Loading..";
+			// $rootScope.$on('forecast_loaded', function(event, data) {
+			//metars keys for trinidad
+			_this.metars_trin = function() {
 				// metApi.get_metar(function(data) {
-				var m = data;
+				var m = $localstorage.getObject('metars'); //data;
 				// console.log('metars trin', m)
 				var ids = metTT.all();
 
@@ -603,6 +627,7 @@ angular.module('ionic.metApp')
 					// end of weather conditions
 				}
 
+
 				var ci = "";
 				for (x = 0; x < $scope.metars_cloud.length; x++) {
 					if ($scope.cc == $scope.metars_cloud[x].code) {
@@ -626,6 +651,7 @@ angular.module('ionic.metApp')
 					$scope.fcasttrin = 'clear-night';
 					// console.log('current hour', d.getHours());
 				}
+				// alert($scope.summary_text_trin);
 				// console.debug('metars trin', mets, $scope.cc, ci, $scope.fcasttrin);
 				// deal with summary text based on metars
 				if (_this.mdata[1].value.indexOf('NOSIG') > -1) {
@@ -657,8 +683,10 @@ angular.module('ionic.metApp')
 				}
 
 				// })
-				// } // end of get metars trin
-			})
+			} // end of get metars trin
+
+			// console.debug('trin summary', $scope.summary_text_trin);
+			// })
 
 
 			// shows the modal for trin metars: slide up from bottom
@@ -701,53 +729,58 @@ angular.module('ionic.metApp')
 				// get forecast for first day of 3-day forecast
 				// metApi.get_forecast(function(data) {
 				// console.debug('trin fcast', $rootScope.fcast_result);
-				$rootScope.$on('f_cast_ready', function(event, data) {
-					var f = data; //$rootScope.fcast_result;
+				// $rootScope.$on('f_cast_ready', function(event, data) {
+
+				// alert('fcast ready');
+
+				var f = $localstorage.getObject('fcast'); //$rootScope.fcast_result;
+				// console.debug('f', f)
 
 
-					_this.ftime_trin = f.forecastTime;
-					// alert(_this.ftime_trin);
+				_this.ftime_trin = f.forecastTime;
+				// alert(_this.ftime_trin);
 
-					if (_this.ftime_trin == "05:30PM") {
-						$localstorage.setObject('530pm_fcast', f);
-						// console.debug('530pm forecast from local storage', $localstorage.getObject('530pm_fcast'));
-						$rootScope.t = 'Tonight';
-						// today
-						_this.th = f.PiarcoFcstMxTemp;
-						_this.tl = f.PiarcoFcstMnTemp;
-						// tomorrow
-						_this.maxtm = f.TmPiarcoMxTemp;
-						_this.mintm = f.TmPiarcoMnTemp;
-						$scope.trin_tm_icon = f.TmWeatherPiarcoMx ? f.TmWeatherPiarcoMx : 'sunny';
-						// 24
-						_this.max24 = f.maxTrin24look;
-						_this.min24 = f.minTrin24look;
-						$scope.trin_24_icon = f.wx24 ? f.wx24 : 'sunny';
-						// 48
-						// 48 is on standby, it will be used as the last day in the 530am forecast
+				if (_this.ftime_trin == "05:30PM") {
+					$localstorage.setObject('530pm_fcast', f);
+					// console.debug('530pm forecast from local storage', $localstorage.getObject('530pm_fcast'));
+					$rootScope.t = 'Tonight';
+					// today
+					_this.th = f.PiarcoFcstMxTemp;
+					_this.tl = f.PiarcoFcstMnTemp;
+					// tomorrow
+					_this.maxtm = f.TmPiarcoMxTemp;
+					_this.mintm = f.TmPiarcoMnTemp;
+					$scope.trin_tm_icon = f.TmWeatherPiarcoMx ? f.TmWeatherPiarcoMx : 'sunny';
+					// 24
+					_this.max24 = f.maxTrin24look;
+					_this.min24 = f.minTrin24look;
+					$scope.trin_24_icon = f.wx24 ? f.wx24 : 'sunny';
+					// 48
+					// 48 is on standby, it will be used as the last day in the 530am forecast
 
-					}
-					// 530 am
-					if (_this.ftime_trin != '05:30PM') {
-						// today
-						_this.th = f.PiarcoFcstMxTemp;
-						// ff = $localstorage.getObject('530pm_fcast');
-						// console.log('530pm stored data', ff);
-						_this.tl = f.TmPiarcoMnTemp;
-						//tomorrow
-						_this.maxtm = f.maxTrin24look;
-						_this.mintm = f.minTrin24look;
-						$scope.trin_tm_icon = f.wx24 ? f.wx24 : 'sunny';
-						// 24
-						_this.max24 = f.maxTrin48look;
-						_this.min24 = f.minTrin48look;
-						$scope.trin_24_icon = f.wx48 ? f.wx48 : 'sunny';
-					}
+				}
+				// 530 am
+				if (_this.ftime_trin != '05:30PM') {
+					// today
+					_this.th = f.PiarcoFcstMxTemp;
+					// ff = $localstorage.getObject('530pm_fcast');
+					// console.log('530pm stored data', ff);
+					_this.tl = f.TmPiarcoMnTemp;
+					//tomorrow
+					_this.maxtm = f.maxTrin24look;
+					_this.mintm = f.minTrin24look;
+					$scope.trin_tm_icon = f.wx24 ? f.wx24 : 'sunny';
+					// 24
+					_this.max24 = f.maxTrin48look;
+					_this.min24 = f.minTrin48look;
+					$scope.trin_24_icon = f.wx48 ? f.wx48 : 'sunny';
+				}
 
-					$scope.trin_icon_today = f.imageTrin ? f.imageTrin : 'sunny'; // this will always be the latest from the api
-					_this.sunup = f.sunrise;
-					_this.sundown = f.sunset;
-				})
+				$scope.trin_icon_today = f.imageTrin ? f.imageTrin : 'sunny'; // this will always be the latest from the api
+				// alert($scope.trin_icon_today)
+				_this.sunup = f.sunrise;
+				_this.sundown = f.sunset;
+				// })
 			}
 
 			// do initial load
@@ -765,7 +798,9 @@ angular.module('ionic.metApp')
 			var interval = 10 * 60000;
 			$interval(function time() {
 				$ionicHistory.clearCache().then(function() {
-					_this.refreshData();
+					$rootScope.get_fcast();
+					$rootScope.get_metars();
+					// _this.refreshData();
 					$route.reload();
 					_this.getBackgroundImage("Tobago, " + $scope.searchTag());
 				});
@@ -796,6 +831,14 @@ angular.module('ionic.metApp')
 				$scope.popover.hide();
 			}
 
+			$rootScope.$on('metars_loaded', function(event, data) {
+				_this.metars_bago();
+			});
+
+			$rootScope.$on('f_cast_ready', function(event, data) {
+				_this.bago_3day();
+			});
+
 			_this.refreshData = function() {
 				// Geo.getLocation().then(function(position) {
 				// 	var lc = "";
@@ -805,10 +848,12 @@ angular.module('ionic.metApp')
 				// 	Geo.reverseGeocode(lat, lng).then(function(locString) {
 				// 		$scope.currentLocationString = locString;
 				_this.getCurrent(null, null);
+				$rootScope.get_fcast();
+				$rootScope.get_metars();
 				// $rootScope.get_metars();
-				// _this.metars_bago();
-				_this.bago_3day();
+				// _this.bago_3day();
 				_this.set_time_bubble();
+				// _this.metars_bago();
 				// 	});
 				// }, function(error) {
 				// 	// in some cases something may go wrong
@@ -870,11 +915,12 @@ angular.module('ionic.metApp')
 				})
 			}
 
-			$rootScope.$on('forecast_loaded', function(event, data) {
-				// _this.metars_bago = function() {
-				$scope.current_temp = "Loading..";
+			$scope.current_temp = "Loading..";
+			// $rootScope.$on('forecast_loaded', function(event, data) {
+			_this.metars_bago = function() {
 				// metApi.get_metar(function(data) {
-				var m = data;
+				// var m = data;
+				var m = $localstorage.getObject('metars');
 				// ids of metars for tobago
 				var ids = metTB.all();
 
@@ -979,7 +1025,8 @@ angular.module('ionic.metApp')
 					}
 				}
 				// })
-			})
+				// })
+			}
 
 			_this.set_time_bubble = function() {
 				// these indexes represent uv values. but instead of using the value directly we use a color in place of the index to represent the value
@@ -1012,59 +1059,65 @@ angular.module('ionic.metApp')
 				// metApi.get_forecast(function(data) {
 				var f = [];
 				// wait for update
-				$rootScope.$on('f_cast_ready', function(event, data) {
-					// $timeout(function() {
-					// console.debug('bago fcast', $rootScope.fcast_result);
-					f = data; //$rootScope.fcast_result; //data.items[0];
-					// $rootScope.$apply();
-					_this.ftime_bago = f.forecastTime;
+				// $rootScope.$on('f_cast_ready', function(event, data) {
+				// $timeout(function() {
+				// console.debug('bago fcast', $rootScope.fcast_result);
+				// f = $rootScope.fcast_result; //data.items[0];
+				var f = $localstorage.getObject('fcast'); //$rootScope.fcast_result;
+				// $rootScope.$apply();
+				_this.ftime_bago = f.forecastTime;
 
-					if (_this.ftime_bago == "05:30PM") {
-						$localstorage.setObject('530pm_fcast', f);
-						// console.debug('530pm forecast from local storage', $localstorage.getObject('530pm_fcast'));
-						// $scope.t = 'Tonight';
-						// alert($scope.t)
-						// today
-						_this.th = f.CrownFcstMxTemp ? f.CrownFcstMxTemp : ' - ';
-						_this.tl = f.CrownFcstMnTemp ? f.CrownFcstMnTemp : ' - ';
-						// tomorrow
-						_this.maxtm = f.TmCrownMxTemp;
-						_this.mintm = f.TmCrownMnTemp;
-						$scope.bago_tm_icon = f.TmWeatherCpMx ? f.TmWeatherCpMx : 'sunny';
-						// 24
-						_this.max24 = f.maxTob24look;
-						_this.min24 = f.minTob24look;
-						$scope.bago_24_icon = f.wx24cp ? f.wx48cp : 'sunny';
-						// 48
-						// 48 is on standby, it will be used as the last day in the 530am forecast
+				if (_this.ftime_bago == "05:30PM") {
+					$localstorage.setObject('530pm_fcast', f);
+					// console.debug('530pm forecast from local storage', $localstorage.getObject('530pm_fcast'));
+					// $scope.t = 'Tonight';
+					$rootScope.t = 'Tonight';
+					// alert($scope.t)
+					// today
+					_this.th = f.CrownFcstMxTemp ? f.CrownFcstMxTemp : ' - ';
+					_this.tl = f.CrownFcstMnTemp ? f.CrownFcstMnTemp : ' - ';
+					// tomorrow
+					_this.maxtm = f.TmCrownMxTemp;
+					_this.mintm = f.TmCrownMnTemp;
+					$scope.bago_tm_icon = f.TmWeatherCpMx ? f.TmWeatherCpMx : 'sunny';
+					// 24
+					_this.max24 = f.maxTob24look;
+					_this.min24 = f.minTob24look;
+					$scope.bago_24_icon = f.wx24cp ? f.wx48cp : 'sunny';
+					// 48
+					// 48 is on standby, it will be used as the last day in the 530am forecast
 
-					}
-					// 530 am
-					if (_this.ftime_bago != '05:30PM') {
-						// today
-						_this.th = f.CrownFcstMxTemp ? f.CrownFcstMxTemp : ' - ';
-						ff = $localstorage.getObject('530pm_fcast');
-						_this.tl = f.TmCrownMnTemp ? f.TmCrownMnTemp : ' - ';
-						//tomorrow
-						_this.maxtm = f.maxTob24look;
-						// alert(f.maxTob24look);
-						_this.mintm = f.minTob24look;
-						$scope.bago_tm_icon = f.wx24cp ? f.wx24cp : 'sunny';
-						// 24
-						_this.max24 = f.maxTob48look;
-						_this.min24 = f.minTob48look;
-						$scope.bago_24_icon = f.wx48cp ? f.wx48cp : 'sunny';
-					}
-					$scope.bago_icon_today = f.imagebago; // this will always be the latest from the api
+				}
+				// 530 am
+				if (_this.ftime_bago != '05:30PM') {
+					// today
+					_this.th = f.CrownFcstMxTemp ? f.CrownFcstMxTemp : ' - ';
+					ff = $localstorage.getObject('530pm_fcast');
+					_this.tl = f.TmCrownMnTemp ? f.TmCrownMnTemp : ' - ';
+					//tomorrow
+					_this.maxtm = f.maxTob24look;
+					// alert(f.maxTob24look);
+					_this.mintm = f.minTob24look;
+					$scope.bago_tm_icon = f.wx24cp ? f.wx24cp : 'sunny';
+					// 24
+					_this.max24 = f.maxTob48look;
+					_this.min24 = f.minTob48look;
+					$scope.bago_24_icon = f.wx48cp ? f.wx48cp : 'sunny';
+				}
+				$scope.bago_icon_today = f.imagebago; // this will always be the latest from the api
+				// alert($scope.bago_icon_today)
 
-				})
+				// })
 
 
 
 				// })
 			}
 
-			_this.refreshData();
+			// _this.refreshData();
+			_this.metars_bago();
+			_this.bago_3day();
+			_this.set_time_bubble();
 			_this.getBackgroundImage("Tobago, " + $scope.searchTag());
 
 		}

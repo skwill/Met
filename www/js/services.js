@@ -106,7 +106,7 @@ angular.module('ionic.metApp.services', ['ngResource'])
     return {
       search: function(tags, lat, lng) {
         var q = $q.defer();
-        console.log('Searching flickr for tags', tags);
+        // console.log('Searching flickr for tags', tags);
         flickrSearch.get({
           tags: tags,
           lat: lat,
@@ -372,7 +372,7 @@ angular.module('ionic.metApp.services', ['ngResource'])
       'desc': 'Fog'
     }, {
       'code': 'FU',
-      'desc': 'Smoke'
+      'desc': 'Partly Cloudy' /* was previously smoke */
     }, {
       'code': 'HZ',
       'desc': 'Haze'
@@ -381,7 +381,7 @@ angular.module('ionic.metApp.services', ['ngResource'])
       'desc': 'Squall'
     }, {
       'code': 'VCSH',
-      'desc': 'Rains in various areas'
+      'desc': 'Rain in various areas'
     }, {
       'code': 'CAVOK',
       'desc': 'Fair'
@@ -463,10 +463,10 @@ angular.module('ionic.metApp.services', ['ngResource'])
       {
         'id': 8,
         'img': 'http://190.58.130.190/web/aviation/RadarPages2014/200km/eht1.png',
-        'title': 'ETH(Height)',
+        'title': 'EHT(Echo Height Top)',
         'sub': 'Gives a representation of the height to which the top of the clouds extend.',
         'cat': 250,
-        'code': '250eth'
+        'code': '250eht'
       }, {
         'id': 9,
         'img': '',
@@ -525,7 +525,7 @@ angular.module('ionic.metApp.services', ['ngResource'])
         'id': 16,
         'img': null,
         'title': 'Satellite',
-        'sub': null,
+        'sub': 'whose orbit is circular and lies above the Equator of the Earth.',
         'cat': null,
         'code': 'geo'
       },

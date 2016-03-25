@@ -116,6 +116,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
 
         .state('app.services.radars', {
             url: "/radars",
+            // abstract: true,
             views: {
                 'servicesContent': {
                     templateUrl: "app/services/aviation.html"
@@ -312,9 +313,9 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
                 'http://farm6.static.flickr.com/5770/23408797994_05f0932a8d_z.jpg',
                 'http://farm6.static.flickr.com/5827/23410243873_3e22a903d1_z.jpg',
             ]).then(function() {
-                console.log('all images loaded')
+        // console.log('all images loaded')
             }, function(failed) {
-                console.log('error loading images')
+                // console.log('error loading images')
             });
 
             $rootScope.$on('loading:show', function() {
@@ -348,6 +349,10 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
                     // StatusBar.styleBlackTranslucent();
                 }
 
+                // $timeout(function() {
+                navigator.splashscreen.hide();
+                // }, 100)
+
             });
 
             // ionic push notification set up
@@ -360,14 +365,49 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
                     canPlaySound: true, //Can notifications play a sound?
                     canRunActionsOnWake: true, //Can run actions outside the app,
                     'onNotification': function(notification) {
-                        console.log('notification', notification)
+
+                        // console.log('notification', notification)
                         // if (ionic.Platform.isAndroid()) {
-                            handleAndroid(notification);
+                            // handleAndroid(notification);
                         // }
                         // if(ionic.Platform.isIOS()) {
                         //     handleiOS(notification);
                         // }
-                        console.debug('platform', ionic.Platform.device());
+                        // console.debug('platform', ionic.Platform.device());
+
+                        var msg_after = ' in effect';
+                        switch (notification.payload.slide) {
+                            case 'Information':
+                                notification.text = 'Information Bulletin' + msg_after;
+                                break;
+                            case 'Severe Weather':
+                                notification.text = 'Severe Bulletin' + msg_after;
+                                break;
+                            case 'Rough Sea':
+                                notification.text = 'Rough Seas Bulletin' + msg_after;
+                                break;
+                            case 'Flood':
+                                notification.text = 'Flood Bulletin' + msg_after;
+                                break;
+                            case 'Storm':
+                                notification.text = 'Storm Bulletin' + msg_after;
+                                break;
+                            case 'WARNING':
+                                notification.text = 'Watch' + msg_after;
+                                break;
+                            case 'WATCH':
+                                notification.text = 'Warning' + msg_after;
+                                break;
+
+                            default:
+                                notification.text = 'Bulletin' + msg_after;
+                                break;
+                        }
+
+                        // console.log('notification', notification)
+                        // if (ionic.Platform.isAndroid()) {
+                            handleAndroid(notification);
+                        // }
                         // alert('Recieved push notification')
                     },
                     'pluginConfig': {
@@ -388,15 +428,15 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
                 }
 
                 user.set('name', ionic.Platform.device().model);
-                console.log('device name', ionic.Platform.device())
+                // console.log('device name', ionic.Platform.device())
                 user.set('bio', ionic.Platform.device().manufacturer + ', ' + ionic.Platform.device().platform + ', ' + ionic.Platform.device().uuid + ', ' + ionic.Platform.device().version);
                 user.save();
 
-                console.log('user', user);
+                // console.log('user', user);
 
                 var callback = function(data) {
                     push.addTokenToUser(user);
-                    console.log('token', data);
+                    // console.log('token', data);
                     // save user token to database
                     if (data.token != undefined) {
                         metApi.subscribe_token(function(data) {
@@ -409,27 +449,22 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
 
                 push.register(callback)
 
-
-
-              
-
-
             })
 
             function handleAndroid(notification) {
-                console.log('android');
+                // console.log('android');
 
                 $cordovaDialogs.confirm(notification.text, notification.title)
                     .then(function(buttonIndex) {
                         var btn = buttonIndex;
 
-                        console.log('button', btn)
+                        // console.log('button', btn)
                         if (btn == 1) {
                             var p = 0;
                             // var p = {
                             // id: 2
                             // }
-                            console.debug('NOTIFICATION!!!', notification);
+                            // console.debug('NOTIFICATION!!!', notification);
                             if (notification.payload.slide == "Information" || notification.payload.slide == "WATCH") {
                                 p = 0;
                             }
@@ -445,7 +480,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
                             $state.go('app.' + notification.payload.state, {
                                 id: p
                             })
-                            console.debug('state', notification.payload.state, p)
+                            // console.debug('state', notification.payload.state, p)
                         }
                         // alert('noti closed')
                     });

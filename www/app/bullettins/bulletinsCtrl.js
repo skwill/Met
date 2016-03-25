@@ -6,8 +6,8 @@ angular.module('ionic.metApp')
 			$interval(function time() {
 				$ionicHistory.clearCache().then(function() {
 					// alert('cache cleared')
-					console.log('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
-					console.log('cache cleared');
+			// console.log('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
+					// console.log('cache cleared');
 					$route.reload();
 					vm.refresh_all_b();
 					$route.reload();
@@ -34,7 +34,7 @@ angular.module('ionic.metApp')
 				$timeout(function() {
 					$scope.slide($stateParams.id);
 				}, 1000)
-				console.log('get initial slide', $stateParams.id)
+				// console.log('get initial slide', $stateParams.id)
 			}
 
 
@@ -115,25 +115,25 @@ angular.module('ionic.metApp')
 					case 'b': // bulletin
 						metApi.get_b_info(function(data) {
 							vm.bulletin = data.items[0];
-							console.log(vm.bulletin)
+							// console.log(vm.bulletin)
 						}, id);
 						break;
 					case 's':
 						metApi.get_b_serv(function(data) {
 							vm.bulletin = data.items[0];
-							console.log(vm.bulletin)
+							// console.log(vm.bulletin)
 						}, id);
 						break;
 					case 'f':
 						metApi.get_b_flood(function(data) {
 							vm.bulletin = data.items[0];
-							console.log(vm.bulletin)
+							// console.log(vm.bulletin)
 						}, id)
 						break;
 					case 'r':
 						metApi.get_b_sea(function(data) {
 							vm.bulletin = data.items[0];
-							console.log(vm.bulletin)
+							// console.log(vm.bulletin)
 						}, id)
 						break;
 				}
@@ -143,7 +143,7 @@ angular.module('ionic.metApp')
 				// $route.reload();
 				$ionicScrollDelegate.scrollTop();
 				$ionicSlideBoxDelegate.slide(to);
-				console.debug('slide to', to)
+				// console.debug('slide to', to)
 			}
 			// if(1) {
 			// 	$route.reload();

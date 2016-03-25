@@ -8,10 +8,10 @@
     <ion-content class="has-header blur-it" scroll="false" style="height: 100%;">
         <div class="container" >
             <h5><strong>{{rdc.radar.title}}</strong></h5>
-            <div ng-if="rdc.radar.title == 'Radar Loop' || rdc.radar.title == 'Satellite'">
+            <!-- <div ng-if="rdc.radar.title == 'Radar Loop' || rdc.radar.title == 'Satellite'">
                 <h5>{{rdc.radar.title}} may take a while to load</h5>
                     <button ng-click="reload_page()" class="button button-block button-outline button-light">Reload</button>
-            </div>
+            </div> -->
             <p>{{rdc.radar.sub}}</p>
             <h6 ng-if="rdc.radar.cat">Scan: {{rdc.radar.cat}}km</h6>
         </div>

@@ -14,5 +14,12 @@
       "path": "/bulletinsev",
       "proxyUrl": "http://190.58.130.230/api/bulletinsev"
     }
+  ],
+  "browsers": [
+    {
+      "platform": "android",
+      "browser": "crosswalk",
+      "version": "12.41.296.5"
+    }
   ]
 }

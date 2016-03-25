@@ -8,7 +8,19 @@
         </ion-nav-buttons>
     </ion-nav-bar>
     <ion-content scroll="true" class="" ng-init="vm.getForecast()">
-
+        <div ng-if="!vm.forecast.forecastTime" ng-cloak>
+            <div class="card wide">
+                <div class="item item-text-wrap">
+                    <div class="info-container">
+                        <div class="row date">
+                            <div class="col text-center">
+                            <h2><strong>Loading latest forecast...</strong></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- <div ng-if="vm.forecast.forecastTime == '05:30AM'">
             <five-thirty></five-thirty>
         </div>
@@ -21,19 +33,7 @@
             <five-thirtyp></five-thirtyp>
         </div>
 
-        <div ng-if="!vm.forecast.forecastTime" ng-cloak>
-            <div class="card wide">
-                <div class="item item-text-wrap">
-                    <div class="info-container">
-                        <div class="row date">
-                            <div class="col text-center">
-                            <h2><strong>There is no forecast data at this time.</strong></h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
 
     </ion-content>
 </ion-view>

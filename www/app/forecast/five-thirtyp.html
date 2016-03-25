@@ -159,10 +159,11 @@
         <div class="card wide">
             <div class="item item-divider wrap">
                 <i class="ion-ios-rainy"></i>
-                <p class="wrap">Recorded Rainfall </p>
+                <p class="wrap">Recorded Rainfall <span class="small_m">(mm)</span> </p>
             </div>
             <div class="item item-text-wrap">
-                <p>For period {{vm.forecast.tideTime}} and {{vm.forecast.tideTime2}}</p>
+                <!-- <p>For period {{vm.forecast.tideTime}} and {{vm.forecast.tideTime2}}</p> -->
+                <p>24-Hours Rainfall(mm) ending {{vm.forecast.tideTime}}</p>
             </div>
             <div class="item item-text-wrap">
                 <div class="row no-padding">
@@ -183,7 +184,7 @@
         <div class="card wide">
             <div class="item item-divider">
                 <i class="ion-ios-rainy "></i>
-                <p class="">Cumulative Rainfall</p>
+                <p class="">Cumulative Rainfall <span class="small_m">(mm)</span> </p>
             </div>
             <div class="item item-text-wrap">
                 <span class="em-txt">
@@ -230,6 +231,8 @@
                 <p class="">Tides</p>
             </div>
             <div class="item item-text-wrap text-left">
+                <p>Tides ISSUED at {{vm.forecast.tideTime}} and valid for {{vm.forecast.tideTime2}}</p>
+                <!-- <p>Tides ISSUED at {{vm.forecast.tideTime}}</p> -->
                 <!-- <div class="row no-padding"> -->
                     <!-- <div class="col no-padding"> -->
                 <h1 class="temp-lg">Port of Spain</h1>

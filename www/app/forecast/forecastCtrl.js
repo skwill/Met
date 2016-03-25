@@ -6,8 +6,8 @@ angular.module('ionic.metApp')
 			$interval(function time() {
 				$ionicHistory.clearCache().then(function() {
 					// alert('cache cleared')
-					console.log('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
-					console.log('cache cleared');
+					// console.log('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
+					// console.log('cache cleared');
 					$route.reload();
 					vm.getForecast();
 					$route.reload();

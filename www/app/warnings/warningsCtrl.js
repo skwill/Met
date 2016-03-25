@@ -6,8 +6,8 @@ angular.module('ionic.metApp')
 			$interval(function time() {
 				$ionicHistory.clearCache().then(function() {
 					// alert('cache cleared')
-					console.log('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
-					console.log('cache cleared');
+					// console.log('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
+					// console.log('cache cleared');
 					$route.reload();
 					vm.refresh_all_w();
 					$route.reload();
@@ -26,7 +26,7 @@ angular.module('ionic.metApp')
 				$timeout(function() {
 					$scope.slide($stateParams.id);
 				}, 1000)
-				console.log('get initial slide', $stateParams.id)
+				// console.log('get initial slide', $stateParams.id)
 			}
 
 			$scope.slideHasChanged = function(index) {
@@ -70,7 +70,7 @@ angular.module('ionic.metApp')
 			vm.get_o_air = function() {
 				metApi.get_o_air(function(data) {
 					vm.o_items = data.items[0];
-					console.log("Air");
+					// console.log("Air");
 					console.log(vm.o_items);
 					vm.o_items.insertionDateFormatted = timePeriod(data.items[0].insertionDate);
 					if (vm.o_items.flag == '0') {
@@ -82,8 +82,8 @@ angular.module('ionic.metApp')
 			vm.get_sigmet = function() {
 				metApi.get_sigmet(function(data) {
 					vm.s_items = data.items[0];
-					console.log("SIg");
-					console.log(vm.s_items);
+					// console.log("SIg");
+					// console.log(vm.s_items);
 					vm.s_items.insertionDateFormatted = timePeriod(data.items[0].insertionDate);
 					if (vm.s_items.flag == '0') {
 						vm.s_items = null;
@@ -94,8 +94,8 @@ angular.module('ionic.metApp')
 			vm.get_warn = function() {
 				metApi.get_warn(function(data) {
 					vm.w_items = data.items[0];
-					console.log("Warning");
-					console.log(vm.w_items);
+					// console.log("Warning");
+					// console.log(vm.w_items);
 					vm.w_items.insertionDateFormatted = timePeriod(data.items[0].insertionDate);
 					if (vm.w_items.flag == '0') {
 						vm.w_items = null;
@@ -107,8 +107,8 @@ angular.module('ionic.metApp')
 			vm.get_watch = function() {
 				metApi.get_watch(function(data) {
 					vm.wt_items = data.items[0];
-					console.log("Watch");
-					console.log(vm.wt_items);
+					// console.log("Watch");
+					// console.log(vm.wt_items);
 					vm.wt_items.insertionDateFormatted = timePeriod(data.items[0].insertionDate);
 					if (vm.wt_items.flag == '0') {
 						vm.wt_items = null;
@@ -141,7 +141,7 @@ angular.module('ionic.metApp')
 						metApi.get_o_air(function(data) {
 							vm.warning = data.items[0];
 							vm.warning.warnType = vm.warning.forecaster;
-							console.log(vm.warning)
+							// console.log(vm.warning)
 						}, id);
 						break;
 					case 's': // sig
@@ -159,7 +159,7 @@ angular.module('ionic.metApp')
 					case 'wt': // watch
 						metApi.get_watch(function(data) {
 							vm.warning = data.items[0];
-							console.log(vm.warning)
+							// console.log(vm.warning)
 						}, id)
 						break;
 				}
@@ -169,7 +169,7 @@ angular.module('ionic.metApp')
 				var windowHeight = window.innerHeight;
 				// var thisHeight = $element[0].offsetHeight;
 				var pos = event.gesture.center.pageY;
-				console.log(event)
+				// console.log(event)
 				var m = document.querySelector('.modal');
 				var trans = "; transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 400ms;"
 				m.setAttribute("style", "margin-top:" + pos + "px" + trans);
