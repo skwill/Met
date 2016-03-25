@@ -10,6 +10,13 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
 
 .config(['$stateProvider', '$urlRouterProvider', '$ionicConfigProvider', '$httpProvider',
     function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider) {
+
+        // $ionicAppProvider.identify({
+        //     app_id: '0f4830e8', 
+        //     api_key: 'ca96d1713e8ae116c0ad7871ae55575693681dd940ae19b0', 
+        //     // dev_push: true,
+        // })
+
         $httpProvider.interceptors.push(function($rootScope) {
             return {
                 request: function(config) {
@@ -285,6 +292,14 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
     .run(['$http', '$cordovaPush', '$ionicPlatform', '$rootScope', '$ionicLoading', '$ImageCacheFactory', '$cordovaDialogs', '$state', 'metApi', '$timeout',
         function($http, $cordovaPush, $ionicPlatform, $rootScope, $ionicLoading, $ImageCacheFactory, $cordovaDialogs, $state, metApi, $timeout) {
             // alert();
+              metApi.get_tokens(function(data) {
+                    console.debug('all device tokens', data)
+                    // console.debug('met subscribe response', data);
+                    // metApi.unsubscribe(function(data) {
+                    //     console.log('all tokens cleared');
+                    // })
+                });
+            console.log('hello world');
             // $timeout(function() {
             //     $state.go('app.bullettins', {
             //         id: 3
@@ -340,15 +355,18 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
                 // var io =
                 Ionic.io();
                 var push = new Ionic.Push({
-                    canShowAlert: false, //Can pushes show an alert on your screen?
+                    canShowAlert: true, //Can pushes show an alert on your screen?
                     canSetBadge: true, //Can pushes update app icon badges?
                     canPlaySound: true, //Can notifications play a sound?
                     canRunActionsOnWake: true, //Can run actions outside the app,
                     'onNotification': function(notification) {
                         console.log('notification', notification)
-                        if (ionic.Platform.isAndroid()) {
+                        // if (ionic.Platform.isAndroid()) {
                             handleAndroid(notification);
-                        }
+                        // }
+                        // if(ionic.Platform.isIOS()) {
+                        //     handleiOS(notification);
+                        // }
                         console.debug('platform', ionic.Platform.device());
                         // alert('Recieved push notification')
                     },
@@ -358,6 +376,8 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
                         }
                     }
                 });
+
+                // push.unregister();
 
                 var user = Ionic.User.current();
 
@@ -391,13 +411,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
 
 
 
-                metApi.get_tokens(function(data) {
-                    console.debug('all device tokens', data)
-                    // console.debug('met subscribe response', data);
-                    // metApi.unsubscribe(function(data) {
-                    //     console.log('all tokens cleared');
-                    // })
-                });
+              
 
 
             })
@@ -452,6 +466,7 @@ angular.module("ionic.metApp", ['ionic', 'ionic.service.core', 'ionic.metApp.ser
             }
 
             function handleiOS(notification) {
+                alert();
                 console.log('iOS');
             }
             // document.addEventListener('deviceready', function() {
