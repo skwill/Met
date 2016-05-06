@@ -33,7 +33,9 @@
                         <ion-spinner style="display: block; margin: 0 auto;" class="dark" icon="lines"></ion-spinner>
                     </div>
                     <div class="nino_i1"></div>
+                    <hr class="style-two" ng-if="sc.ii[0]">
                     <div class="nino_i2"></div>
+                    <hr class="style-two" ng-if="sc.ii[0]">
                     <div class="nino_i3"></div>
                 </div>
             </ion-slide>
@@ -45,7 +47,7 @@
                     <p>{{sc.rt.textArea10}}</p>
                 </div>
                 <div class="card wide">
-                    <div class="item item-divider">
+                    <div class="item item-divider" ng-if="sc.rt.head1">
                         <p class="darkk">{{sc.rt.head1}}</p>
                     </div>
                     <div class="item item-text-wrap" style="margin-bottom: 40px;">
@@ -57,7 +59,9 @@
                         <ion-spinner style="display: block; margin: 0 auto;" class="dark" icon="lines"></ion-spinner>
                     </div>
                     <div class="rt_i1"></div>
+                    <hr class="style-two" ng-if="sc.rti[0]">
                     <div class="rt_i2"></div>
+                    <br>
                     <!-- <div class="image" style="background-image: url(' {{image4}} '); height: 200px; margin-top: 0px; "></div> -->
                     <!-- <div class="image" style="background-image: url(' {{image5}} '); height: 200px; margin-top: 0px; "></div> -->
                 </div>

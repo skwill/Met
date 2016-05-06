@@ -4,7 +4,12 @@
                 <background-cycler-bago class="bg-fade" id="ff"></background-cycler-bago>
                 <img crossorigin="Anonymous" style="display: none" id="i-bago" src="" />
                 <ion-header-bar frosted-bar type="bar-frosted" class="header bago bar bar-header bar-cdlear no-border">
-                    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+                    <!-- <button menu-toggle="left" class="button button-icon icon ion-navicon"></button> -->
+                    <button  menu-toggle="left" class="hamburger hamburger--spring" type="button" ng-class="$root.$ionicSideMenuDelegate.isOpen() ? 'is-active' : ''">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </button>
                     <h1 class="title">
                         <span class="city"><i class="city-nav-icon icon ion-navigate"></i>Tobago<br></span>
                     </h1>

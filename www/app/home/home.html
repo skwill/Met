@@ -8,8 +8,13 @@
                 <div class="some_error" ng-if="trin_error">{{trin_error}}</div>
                 <background-cycler-trin class="bg-fade" id="trin-img"></background-cycler-trin>
                 <img crossorigin="Anonymous" style="display: none" id="i-trin" src="" />
-                <ion-header-bar frosted-bar type="bar-frosted" id="headerr" class="header trin bar bar-header bar-cdlear no-border">
-                    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+                <ion-header-bar frosted-bar type="bar-frosted" id="headerr" class="header trin bar bar-header bar-cdlear no-border fancy">
+                    <!-- <button menu-toggle="left" class="button button-icon icon ion-ios-list-outline"></button> -->
+                    <button  menu-toggle="left" class="hamburger hamburger--spring" type="button" ng-class="$root.$ionicSideMenuDelegate.isOpen() ? 'is-active' : ''">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </button>
                     <h1 class="title">
                         <span class="city"><i class="city-nav-icon icon ion-navigate"></i>Trinidad<br></span>
                     </h1>
@@ -57,8 +62,7 @@
                                     <p class="text-right fc-high" ng-class="{wider_p: t=='Today'}" ng-if="trin_today_icon_ready">
                                         <span ng-if="t == 'Today'">
                                             <span class="small">Day</span>
-                                            {{tc.th}}<sup>&deg;</sup>
-                                            <span>c<i class="icon ion-ios-arrow-thin-up"></i></span> •
+                                            {{tc.th}}<sup>&deg;</sup><span>c<i class="icon ion-ios-arrow-thin-up"></i></span> •
                                         </span>
                                         Night {{tc.tl}}<sup>&deg;</sup><span>c<i class="icon ion-ios-arrow-thin-down"></i></span>
                                     </p>
@@ -69,8 +73,7 @@
                                     </p>
                                     <p class="text-right fc-high wider_p" ng-if="trin_tm_icon_ready && tc.maxtm && tc.mintm">
                                         <span class="small">Day</span>
-                                        {{tc.maxtm}}<sup>&deg;</sup>
-                                        <span>c<i class="icon ion-ios-arrow-thin-up"></i></span> •
+                                        {{tc.maxtm}}<sup>&deg;</sup><span>c<i class="icon ion-ios-arrow-thin-up"></i></span> •
                                         Night {{tc.mintm}}<sup>&deg;</sup><span>c<i class="icon ion-ios-arrow-thin-down"></i></span>
                                     </p>
                                 </div>
@@ -80,8 +83,7 @@
                                     </p>
                                     <p class="text-right fc-high wider_p" ng-if="trin_nd_icon_ready && tc.max24 && tc.min24">
                                         <span class="small">Day</span>
-                                        {{tc.max24}}<sup>&deg;</sup>
-                                        <span>c<i class="icon ion-ios-arrow-thin-up"></i></span> •
+                                        {{tc.max24}}<sup>&deg;</sup><span>c<i class="icon ion-ios-arrow-thin-up"></i></span> •
                                         Night {{tc.min24}}<sup>&deg;</sup><span>c<i class="icon ion-ios-arrow-thin-down"></i></span>
                                     </p>
                                 </div>

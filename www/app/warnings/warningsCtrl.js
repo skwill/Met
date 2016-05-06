@@ -1,8 +1,12 @@
 angular.module('ionic.metApp')
-	.controller('warningsCtrl', ['metApi', '$scope', '$ionicModal', '$ionicSlideBoxDelegate', '$ionicScrollDelegate', '$interval', '$stateParams', '$timeout',
-		function(metApi, $scope, $ionicModal, $ionicSlideBoxDelegate, $ionicScrollDelegate, $interval, $stateParams, $timeout) {
+	.controller('warningsCtrl', ['$cordovaBadge', 'metApi', '$scope', '$ionicModal', '$ionicSlideBoxDelegate', '$ionicScrollDelegate', '$interval', '$stateParams', '$timeout',
+		function($cordovaBadge, metApi, $scope, $ionicModal, $ionicSlideBoxDelegate, $ionicScrollDelegate, $interval, $stateParams, $timeout) {
 			var vm = this;
 			var interval = 10 * 60000;
+			$cordovaBadge.hasPermission().then(function(yes) {
+                $cordovaBadge.clear();
+            }, function(no) {
+            });
 			$interval(function time() {
 				$ionicHistory.clearCache().then(function() {
 					// alert('cache cleared')

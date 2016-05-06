@@ -1,8 +1,12 @@
 angular.module('ionic.metApp')
-	.controller('BulletinsCtrl', ['metApi', '$scope', '$ionicLoading', '$timeout', '$ionicModal', '$cordovaDevice', '$ionicPlatform', '$cordovaPush', '$ionicSlideBoxDelegate', '$state', '$stateParams', '$route', '$ionicScrollDelegate', '$interval', '$ionicHistory',
-		function(metApi, $scope, $ionicLoading, $timeout, $ionicModal, $cordovaDevice, $ionicPlatform, $cordovaPush, $ionicSlideBoxDelegate, $state, $stateParams, $route, $ionicScrollDelegate, $interval, $ionicHistory) {
+	.controller('BulletinsCtrl', ['$cordovaBadge', 'metApi', '$scope', '$ionicLoading', '$timeout', '$ionicModal', '$cordovaDevice', '$ionicPlatform', '$cordovaPush', '$ionicSlideBoxDelegate', '$state', '$stateParams', '$route', '$ionicScrollDelegate', '$interval', '$ionicHistory',
+		function($cordovaBadge, metApi, $scope, $ionicLoading, $timeout, $ionicModal, $cordovaDevice, $ionicPlatform, $cordovaPush, $ionicSlideBoxDelegate, $state, $stateParams, $route, $ionicScrollDelegate, $interval, $ionicHistory) {
 			var vm = this;
-			var interval = 10 * 60000;
+			var interval = 10 * 60000;			
+			$cordovaBadge.hasPermission().then(function(yes) {
+                $cordovaBadge.clear();
+            }, function(no) {
+            });
 			$interval(function time() {
 				$ionicHistory.clearCache().then(function() {
 					// alert('cache cleared')

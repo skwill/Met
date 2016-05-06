@@ -266,7 +266,7 @@ function shallowClearAndCopy(src, dst) {
        // POST: /user/123/card/456 {id:456, number:'1234', name:'J. Smith'}
        // server returns: {id:456, number:'1234', name: 'J. Smith'};
 
-       // our custom method is mapped as well.
+    // our custom method is mapped as well.
        card.$charge({amount:9.99});
        // POST: /user/123/card/456?amount=9.99&charge=true {id:456, number:'1234', name:'J. Smith'}
      });
